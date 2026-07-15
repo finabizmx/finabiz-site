@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://finabiz.mx/sitemap.xml
