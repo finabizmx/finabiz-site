@@ -143,6 +143,7 @@
     --blue-100: #E4E8F5;
     --orange: #FF8C00;
     --orange-soft: #FFE8CC;
+    --orange-ink: #A85800; /* darker variant: passes WCAG AA on light backgrounds, --orange itself does not */
     --ink: #15182B;
     --muted: #5C627A;
     --line: #E6E5E0;
@@ -172,11 +173,37 @@
   a { color: inherit; text-decoration: none; }
   ::selection { background: var(--orange); color: #fff; }
 
+  .skip-link {
+    position: absolute;
+    top: -100px;
+    left: 12px;
+    z-index: 1000;
+    background: var(--orange);
+    color: var(--blue-ink);
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 12px 20px;
+    border-radius: 4px;
+    transition: top .2s;
+  }
+  .skip-link:focus {
+    top: 12px;
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  summary:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 2px solid var(--orange);
+    outline-offset: 3px;
+  }
+
   .eyebrow {
     font: 500 11px/1 "JetBrains Mono", monospace;
     letter-spacing: .22em;
     text-transform: uppercase;
-    color: var(--orange);
+    color: var(--orange-ink);
     display: inline-block;
   }
 
@@ -286,7 +313,7 @@
   .nav-cta:hover { background: var(--orange); color: var(--blue-ink); transform: translateY(-1px); }
   .nav-burger {
     display: none;
-    width: 40px; height: 40px;
+    width: 44px; height: 44px;
     background: transparent;
     border: 1px solid rgba(255,255,255,.4);
     cursor: pointer;
@@ -524,7 +551,7 @@
     letter-spacing: -.01em;
     max-width: 540px;
   }
-  .pull span { color: var(--orange); }
+  .pull span { color: var(--orange-ink); }
 
   .compare {
     margin: 32px 0 0;
@@ -595,7 +622,7 @@
   }
   .stat .num.text { font-size: clamp(36px, 3.4vw, 44px); padding-top: 8px; }
   .stat .num.orange { color: var(--orange); }
-  .stat .num sup { font-size: 0.5em; color: var(--orange); vertical-align: 1.4em; margin-left: 4px; }
+  .stat .num sup { font-size: 0.5em; color: var(--orange-ink); vertical-align: 1.4em; margin-left: 4px; }
   .stat .num .sm { font-size: .5em; }
   .stat strong {
     display: block;
@@ -676,7 +703,7 @@
     font-family: "JetBrains Mono", monospace;
     font-weight: 500;
     font-size: 14px;
-    color: var(--orange);
+    color: var(--orange-ink);
     letter-spacing: .1em;
   }
   .puv .t {
@@ -701,7 +728,7 @@
     color: var(--blue-ink);
     letter-spacing: -.01em;
   }
-  .puv-foot span { color: var(--orange); font-weight: 500; }
+  .puv-foot span { color: var(--orange-ink); font-weight: 500; }
 
   /* ─── SERVICIOS ─── */
   .services {
@@ -729,7 +756,7 @@
   .svc .n {
     font-family: "JetBrains Mono", monospace;
     font-size: 12px;
-    color: var(--orange);
+    color: var(--orange-ink);
     letter-spacing: .2em;
     margin-bottom: 24px;
   }
@@ -768,7 +795,7 @@
     font-family: "JetBrains Mono", monospace;
     font-size: 12px;
     letter-spacing: .2em;
-    color: var(--orange);
+    color: var(--orange-ink);
     text-transform: uppercase;
   }
   .route-t {
@@ -1035,7 +1062,7 @@
     font-family: "Space Grotesk", sans-serif;
     font-size: 20px;
     font-weight: 500;
-    color: var(--orange);
+    color: var(--orange-ink);
     border: 1px solid var(--line);
     border-radius: 50%;
     transition: transform .2s, background .15s;
@@ -1266,8 +1293,8 @@
     margin-top: 20px;
   }
   .footer .footer-social a {
-    width: 36px;
-    height: 36px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
     background: rgba(255,255,255,.08);
     display: grid;
@@ -1442,6 +1469,12 @@
     body.reveal-arm .reveal { opacity: 1; transform: none; transition: none; }
     .hero h1.display .word::after { animation: none; transform: scaleX(1); }
     .marquee-track { animation: none; }
+    #scroll-progress,
+    .hero-orb-1, .hero-orb-2, .hero-orb-3,
+    .btn-primary, .float-cta.show,
+    .word-shine, .cta-final, .insignia {
+      animation: none;
+    }
   }
 
   /* ─── ENHANCED CARDS ─── */
@@ -1688,7 +1721,7 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
-  .stat .num sup { -webkit-text-fill-color: var(--orange); }
+  .stat .num sup { -webkit-text-fill-color: var(--orange-ink); }
   .stat .num.text { -webkit-text-fill-color: transparent; }
 
   /* Badge gradient */
@@ -1805,6 +1838,8 @@
 </head>
 <body>
 
+<a href="#main-content" class="skip-link">Saltar al contenido</a>
+
 <!-- Scroll progress -->
 <div id="scroll-progress"></div>
 
@@ -1818,7 +1853,7 @@
         <div class="sub">Servicios contables y fiscales</div>
       </div>
     </a>
-    <nav class="nav-links" aria-label="Principal">
+    <nav class="nav-links" id="navLinks" aria-label="Principal">
       <a href="#servicios">Servicios</a>
       <a href="#propuesta">Cómo ayudamos</a>
       <a href="#sistema">El sistema</a>
@@ -1827,12 +1862,12 @@
       <a href="#contacto">Contacto</a>
     </nav>
     <a href="#" class="nav-cta js-tf-cta">Agenda diagnóstico</a>
-    <button class="nav-burger" aria-label="Abrir menú" id="burger"><span></span></button>
+    <button class="nav-burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks" id="burger"><span></span></button>
   </div>
 </header>
 
 <!-- ═══════════ HERO ═══════════ -->
-<section class="hero">
+<section class="hero" id="main-content">
   <canvas id="hero-3d-canvas" class="hero-3d-canvas" aria-hidden="true"></canvas>
   <div class="hero-bg"></div>
   <div class="hero-grain"></div>
@@ -2161,32 +2196,32 @@
 
     <div class="why-grid">
       <div class="why">
-        <div class="badge">E</div>
+        <div class="badge" aria-hidden="true">E</div>
         <div class="t">Estrategia, no solo cumplimiento</div>
         <p>Te ayudamos a pagar menos de forma 100% legal. Cuándo, cómo y qué decisiones tomar para proteger tu patrimonio.</p>
       </div>
       <div class="why alt">
-        <div class="badge">T</div>
+        <div class="badge" aria-hidden="true">T</div>
         <div class="t">Atención ágil con tecnología</div>
         <p>Tu información siempre al alcance, en tiempo real. Herramientas digitales, transparentes y sin trámites burocráticos.</p>
       </div>
       <div class="why">
-        <div class="badge">P</div>
+        <div class="badge" aria-hidden="true">P</div>
         <div class="t">Equipo pequeño, enfoque total</div>
         <p>No eres un número en una lista. Trabajas directamente con los fundadores en cada interacción y decisión.</p>
       </div>
       <div class="why">
-        <div class="badge">S</div>
+        <div class="badge" aria-hidden="true">S</div>
         <div class="t">Seguimiento mensual garantizado</div>
         <p>No desaparecemos después de la declaración. Cada mes revisamos juntos el estado fiscal y financiero.</p>
       </div>
       <div class="why">
-        <div class="badge">C</div>
+        <div class="badge" aria-hidden="true">C</div>
         <div class="t">Equipo en capacitación continua</div>
         <p>El mundo fiscal cambia constantemente. Nos actualizamos para mantenerte preparado ante cualquier cambio.</p>
       </div>
       <div class="why alt">
-        <div class="badge">A</div>
+        <div class="badge" aria-hidden="true">A</div>
         <div class="t">Aliado de largo plazo</div>
         <p>Buscamos socios, no clientes transaccionales. La relación crece con tu negocio, y la protección también.</p>
       </div>
@@ -2683,11 +2718,17 @@
   onScroll();
 
   // Mobile menu toggle
-  document.getElementById('burger').addEventListener('click', () => {
-    nav.classList.toggle('menu-open');
+  const burgerBtn = document.getElementById('burger');
+  function setMenuOpen(open) {
+    nav.classList.toggle('menu-open', open);
+    burgerBtn.setAttribute('aria-expanded', String(open));
+    burgerBtn.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+  }
+  burgerBtn.addEventListener('click', () => {
+    setMenuOpen(!nav.classList.contains('menu-open'));
   });
   document.querySelectorAll('.nav-links a').forEach(a => {
-    a.addEventListener('click', () => nav.classList.remove('menu-open'));
+    a.addEventListener('click', () => setMenuOpen(false));
   });
 
   // ── Reveal-on-scroll ──
