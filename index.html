@@ -1066,25 +1066,30 @@
     box-shadow: 0 40px 100px -20px rgba(0,0,0,.5);
   }
   .tf-overlay-widget { width: 100%; height: 100%; }
+  /* Fixed to the true viewport (not nested in the clipped panel) so it can
+     never end up hidden behind mobile browser chrome or the iframe's own
+     stacking context — this is the only way to close the overlay since the
+     widget embed (unlike a popup) has no built-in close button. */
   .tf-overlay-close {
-    position: absolute;
-    top: 14px;
-    right: 14px;
-    z-index: 2;
-    width: 40px;
-    height: 40px;
+    position: fixed;
+    top: calc(env(safe-area-inset-top, 0px) + 14px);
+    right: calc(env(safe-area-inset-right, 0px) + 14px);
+    z-index: 501;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
     border: none;
-    background: rgba(21,24,43,.08);
+    background: #fff;
     color: var(--blue-ink);
-    font-size: 20px;
+    font-size: 22px;
     line-height: 1;
     cursor: pointer;
     display: grid;
     place-items: center;
+    box-shadow: 0 6px 20px -4px rgba(0,0,0,.4);
     transition: background .15s, transform .15s;
   }
-  .tf-overlay-close:hover { background: rgba(21,24,43,.16); transform: scale(1.06); }
+  .tf-overlay-close:hover { background: var(--orange-soft); transform: scale(1.06); }
 
   /* ─── FLOATING CTA ─── */
   .float-cta {
@@ -1112,6 +1117,24 @@
     opacity: 1;
   }
   .float-cta:hover { background: #ffa133; }
+
+  /* ─── WHATSAPP CTA (siempre visible) ─── */
+  .whatsapp-cta {
+    position: fixed;
+    bottom: 80px;
+    right: 22px;
+    z-index: 40;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: #25D366;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 14px 30px -10px rgba(37,211,102,.65);
+    transition: transform .2s, box-shadow .2s;
+  }
+  .whatsapp-cta:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 18px 36px -8px rgba(37,211,102,.75); }
+  .whatsapp-cta svg { width: 26px; height: 26px; display: block; }
 
   /* ─── MARQUEE / TICKER ─── */
   .marquee {
@@ -1295,6 +1318,8 @@
     .footer-grid { grid-template-columns: 1fr; }
     .stat { grid-template-columns: 1fr; gap: 6px; }
     .float-cta { right: 12px; bottom: 12px; padding: 12px 16px; font-size: 13px; }
+    .whatsapp-cta { right: 12px; bottom: 66px; width: 46px; height: 46px; }
+    .whatsapp-cta svg { width: 23px; height: 23px; }
     .guarantee { grid-template-columns: 1fr; gap: 8px; }
   }
 
@@ -1976,6 +2001,11 @@
   </div>
 </footer>
 
+<!-- ═══════════ WHATSAPP CTA ═══════════ -->
+<a href="https://wa.me/5218998808616" target="_blank" rel="noopener" class="whatsapp-cta" aria-label="Chatea por WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#fff" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path fill="#fff" d="M12.004 2C6.486 2 2.004 6.482 2.004 12c0 1.85.505 3.58 1.38 5.065L2 22l5.078-1.36A9.94 9.94 0 0 0 12.004 22C17.522 22 22 17.518 22 12S17.522 2 12.004 2zm0 18.181a8.15 8.15 0 0 1-4.38-1.271l-.314-.187-3.11.833.836-3.036-.204-.313a8.15 8.15 0 0 1-1.257-4.407c0-4.508 3.68-8.187 8.43-8.187 4.75 0 8.43 3.679 8.43 8.187 0 4.508-3.68 8.381-8.43 8.381z"/></svg>
+</a>
+
 <!-- ═══════════ FLOATING CTA ═══════════ -->
 <a href="#" class="float-cta js-tf-cta" id="floatCta">
   Agenda sesión gratuita <span>→</span>
@@ -1983,8 +2013,8 @@
 
 <!-- ═══════════ TYPEFORM OVERLAY (precargado en segundo plano) ═══════════ -->
 <div class="tf-overlay" id="tfOverlay">
+  <button type="button" class="tf-overlay-close" id="tfOverlayClose" aria-label="Cerrar">&times;</button>
   <div class="tf-overlay-panel">
-    <button type="button" class="tf-overlay-close" id="tfOverlayClose" aria-label="Cerrar">&times;</button>
     <div class="tf-overlay-widget" id="tfOverlayWidget"></div>
   </div>
 </div>
