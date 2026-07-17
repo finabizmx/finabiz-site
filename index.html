@@ -39,7 +39,7 @@
   "image": "https://finabiz.mx/assets/og-image.png",
   "description": "Sistema estratégico de contabilidad y fiscalidad para dueños de negocio en México. Convertimos el caos financiero en estructura sólida.",
   "email": "finabiz.mx@gmail.com",
-  "telephone": "+528994989710",
+  "telephone": "+528998808616",
   "areaServed": {
     "@type": "Country",
     "name": "México"
@@ -1039,7 +1039,7 @@
     gap: 10px;
     margin-top: 20px;
   }
-  .footer-social a {
+  .footer .footer-social a {
     width: 36px;
     height: 36px;
     border-radius: 50%;
@@ -1048,7 +1048,7 @@
     place-items: center;
     transition: background .15s, transform .15s;
   }
-  .footer-social a:hover {
+  .footer .footer-social a:hover {
     background: var(--orange);
     transform: translateY(-2px);
   }
@@ -2025,7 +2025,7 @@
         <ul>
           <li><a href="#" class="js-tf-cta">Agenda una sesión</a></li>
           <li><a href="mailto:finabiz.mx@gmail.com">finabiz.mx@gmail.com</a></li>
-          <li><a href="tel:+528994989710">899-498-9710</a></li>
+          <li><a href="tel:+528998808616">+52 899-880-8616</a></li>
           <li>finabiz.mx</li>
         </ul>
       </div>
@@ -2082,11 +2082,18 @@
       preload();
       overlay.classList.add('show');
       document.body.style.overflow = 'hidden';
+      // Empuja una entrada al historial para que el botón "atrás" del navegador
+      // (o del celular) cierre el formulario en vez de salir de la página.
+      history.pushState({ tfOverlay: true }, '', location.href);
     }
 
     function close() {
+      if (!overlay.classList.contains('show')) return;
       overlay.classList.remove('show');
       document.body.style.overflow = '';
+      // Si la entrada de historial que abrimos sigue activa, la quitamos para
+      // que un segundo "atrás" no se quede en un estado vacío.
+      if (history.state && history.state.tfOverlay) history.back();
     }
 
     document.querySelectorAll('.js-tf-cta').forEach(function (btn) {
@@ -2098,6 +2105,15 @@
     closeBtn.addEventListener('click', close);
     overlay.addEventListener('click', function (e) { if (e.target === overlay) close(); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+    // El usuario presionó "atrás": si el formulario está abierto, solo lo
+    // cerramos (el historial ya retrocedió solo); no dejamos que la página
+    // completa navegue hacia atrás con el overlay abierto.
+    window.addEventListener('popstate', function () {
+      if (overlay.classList.contains('show')) {
+        overlay.classList.remove('show');
+        document.body.style.overflow = '';
+      }
+    });
 
     // Precarga en segundo plano cuando el navegador está libre, sin competir con el render inicial
     function schedulePreload() {
