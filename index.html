@@ -52,6 +52,79 @@
 }
 </script>
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Cuánto dura la sesión de diagnóstico y tiene costo?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Dura 30 minutos y es completamente gratuita. En la llamada revisamos tu situación fiscal y financiera actual, identificamos tus principales riesgos y te decimos con honestidad si Finabiz es adecuado para tu negocio, sin compromiso de contratar."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Con quién voy a hablar?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Directamente con Víctor, cofundador de Finabiz. No pasas por un equipo de ventas ni por un ejecutivo de cuenta."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Esta sesión es asesoría fiscal gratuita completa?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Es un diagnóstico para entender tu situación y definir si Finabiz es el sistema adecuado para ti. La asesoría e implementación a fondo forman parte de nuestros servicios contratados, no de la sesión inicial."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué información debo preparar antes de la sesión?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Idealmente tu RFC, tu régimen fiscal actual y una idea general de tus ingresos mensuales. Si ya facturas en plataformas de eCommerce o marketplaces, esa información también ayuda, pero no es obligatoria para agendar."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Atienden negocios fuera de la Ciudad de México?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí. Trabajamos de forma remota con negocios en todo México."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué incluye la garantía de 60 días?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Si al finalizar la implementación acordada no cuentas con tu mapa fiscal, proyección de impuestos, cálculo de utilidad y plan de acción, continuamos trabajando en esos entregables sin costo adicional, siempre que hayamos recibido a tiempo la información solicitada."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Para qué tamaño de negocio es adecuado Finabiz?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Trabajamos principalmente con negocios digitales y de eCommerce que ya generan ingresos constantes, pero cuya contabilidad y visibilidad financiera no ha crecido al mismo ritmo."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Manejan facturación de plataformas como Mercado Pago, Stripe o marketplaces?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí, es parte de nuestra especialización: conciliación de ventas por plataforma, comisiones, retenciones y la diferencia entre lo que depositan los bancos y lo que realmente vendiste."
+      }
+    }
+  ]
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -851,6 +924,62 @@
     color: var(--muted);
   }
 
+  /* ─── PREGUNTAS FRECUENTES ─── */
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--line);
+  }
+  .faq-item {
+    border-bottom: 1px solid var(--line);
+    padding: 4px 0;
+  }
+  .faq-item summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 22px 36px 22px 0;
+    position: relative;
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 500;
+    font-size: 17px;
+    color: var(--blue-ink);
+    letter-spacing: -.01em;
+    line-height: 1.35;
+    transition: color .15s;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary:hover { color: var(--blue); }
+  .faq-item summary:focus-visible { outline: 2px solid var(--orange); outline-offset: 4px; }
+  .faq-item summary::after {
+    content: "+";
+    position: absolute;
+    right: 0;
+    top: 20px;
+    width: 28px;
+    height: 28px;
+    display: grid;
+    place-items: center;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--orange);
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    transition: transform .2s, background .15s;
+    flex-shrink: 0;
+  }
+  .faq-item[open] summary::after {
+    content: "–";
+    transform: rotate(180deg);
+    background: var(--orange-soft);
+  }
+  .faq-item p {
+    margin: 0 48px 24px 0;
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+
   /* ─── EQUIPO ─── */
   .team {
     background: #fff;
@@ -1620,6 +1749,7 @@
       <a href="#propuesta">Cómo ayudamos</a>
       <a href="#sistema">El sistema</a>
       <a href="#equipo">Equipo</a>
+      <a href="#faq">Preguntas frecuentes</a>
       <a href="#contacto">Contacto</a>
     </nav>
     <a href="#" class="nav-cta js-tf-cta">Agenda diagnóstico</a>
@@ -1972,6 +2102,54 @@
         <div class="rule"></div>
         <p>Apoya la gestión administrativa y la comunicación estratégica de la marca hacia el exterior. Cuida que la experiencia del cliente comience con el pie derecho desde el primer punto de contacto.</p>
       </article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PREGUNTAS FRECUENTES ═══════════ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Preguntas frecuentes</span>
+        <h2 class="display">Antes de agendar,<br/>resolvamos tus dudas.</h2>
+      </div>
+      <p class="lede">Lo que más nos preguntan los dueños de negocio antes de dar el primer paso.</p>
+    </div>
+
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary>¿Cuánto dura la sesión de diagnóstico y tiene costo?</summary>
+        <p>Dura 30 minutos y es completamente gratuita. En la llamada revisamos tu situación fiscal y financiera actual, identificamos tus principales riesgos y te decimos con honestidad si Finabiz es adecuado para tu negocio — sin compromiso de contratar.</p>
+      </details>
+      <details class="faq-item">
+        <summary>¿Con quién voy a hablar?</summary>
+        <p>Directamente con Víctor, cofundador de Finabiz. No pasas por un equipo de ventas ni por un ejecutivo de cuenta — hablas con quien va a supervisar tu caso.</p>
+      </details>
+      <details class="faq-item">
+        <summary>¿Esta sesión es asesoría fiscal gratuita completa?</summary>
+        <p>No. Es un diagnóstico para entender tu situación y definir si Finabiz es el sistema adecuado para ti. La asesoría e implementación a fondo forman parte de nuestros servicios contratados, no de la sesión inicial.</p>
+      </details>
+      <details class="faq-item">
+        <summary>¿Qué información debo preparar antes de la sesión?</summary>
+        <p>Idealmente tu RFC, tu régimen fiscal actual y una idea general de tus ingresos mensuales. Si ya facturas en plataformas de eCommerce o marketplaces, esa información también ayuda — pero no es obligatoria para agendar.</p>
+      </details>
+      <details class="faq-item">
+        <summary>¿Atienden negocios fuera de la Ciudad de México?</summary>
+        <p>Sí. Trabajamos de forma remota con negocios en todo México — la ubicación no es una limitante.</p>
+      </details>
+      <details class="faq-item">
+        <summary>¿Qué incluye la garantía de 60 días?</summary>
+        <p>Si al finalizar la implementación acordada no cuentas con tu mapa fiscal, proyección de impuestos, cálculo de utilidad y plan de acción, continuamos trabajando en esos entregables sin costo adicional, siempre que hayamos recibido a tiempo la información solicitada.</p>
+      </details>
+      <details class="faq-item">
+        <summary>¿Para qué tamaño de negocio es adecuado Finabiz?</summary>
+        <p>Trabajamos principalmente con negocios digitales y de eCommerce que ya generan ingresos constantes, pero cuya contabilidad y visibilidad financiera no ha crecido al mismo ritmo. En la sesión de diagnóstico te decimos con honestidad si tu etapa actual es la adecuada.</p>
+      </details>
+      <details class="faq-item">
+        <summary>¿Manejan facturación de plataformas como Mercado Pago, Stripe o marketplaces?</summary>
+        <p>Sí, es parte de nuestra especialización: conciliación de ventas por plataforma, comisiones, retenciones y la diferencia entre lo que depositan los bancos y lo que realmente vendiste.</p>
+      </details>
     </div>
   </div>
 </section>
