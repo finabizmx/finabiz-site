@@ -70,7 +70,7 @@
       "name": "¿Con quién voy a hablar?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Directamente con Víctor, cofundador de Finabiz. No pasas por un equipo de ventas ni por un ejecutivo de cuenta."
+        "text": "Directamente con uno de los cofundadores de Finabiz — Víctor o Pedro. No pasas por un equipo de ventas ni por un ejecutivo de cuenta. Nuestro tiempo de respuesta promedio es menor a 1 hora."
       }
     },
     {
@@ -607,7 +607,7 @@
     padding: 28px 0;
     border-top: 1px solid var(--line);
     display: grid;
-    grid-template-columns: 180px 1fr;
+    grid-template-columns: minmax(140px, max-content) 1fr;
     gap: 24px;
     align-items: baseline;
   }
@@ -1151,6 +1151,23 @@
     font-weight: 500;
   }
   .member .role span { color: var(--muted); font-weight: 400; margin-left: 6px; }
+  .member .cred {
+    margin-top: 4px;
+    font: 500 11px/1.4 "JetBrains Mono", monospace;
+    letter-spacing: .04em;
+    color: var(--muted);
+  }
+  .member .linkedin {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--blue);
+  }
+  .member .linkedin svg { width: 15px; height: 15px; fill: currentColor; }
+  .member .linkedin:hover { color: var(--orange-ink); }
   .member .rule { height: 1px; background: var(--line); margin: 18px 0; }
   .member p {
     margin: 0;
@@ -1581,7 +1598,7 @@
     .section-head .lede { text-align: left; }
 
     .who-grid { grid-template-columns: 1fr; gap: 48px; }
-    .stat { grid-template-columns: 140px 1fr; }
+    .stat { grid-template-columns: minmax(140px, max-content) 1fr; }
 
     .puv-grid { grid-template-columns: 1fr; }
     .svc-grid { grid-template-columns: 1fr 1fr; }
@@ -1986,17 +2003,24 @@
           </div>
         </div>
         <div class="stat">
-          <div class="num text">Decenas</div>
+          <div class="num" data-count="20" data-suffix="+" id="stat-clients">20<sup>+</sup></div>
           <div>
-            <strong>Empresas atendidas</strong>
+            <strong>Negocios atendidos</strong>
             <span>Operaciones caóticas transformadas en sistemas claros.</span>
           </div>
         </div>
         <div class="stat">
-          <div class="num orange" data-count="100" data-suffix="%" id="stat-commit">100<span class="sm">%</span></div>
+          <div class="num text">$350,000</div>
           <div>
-            <strong>Compromiso total</strong>
-            <span>Trabajas directamente con los fundadores en cada decisión.</span>
+            <strong>Identificados en ahorros y errores</strong>
+            <span>Detectados y corregidos en revisiones fiscales y financieras. MXN.</span>
+          </div>
+        </div>
+        <div class="stat">
+          <div class="num orange" data-count="100" data-suffix="%" id="stat-ontime">100<span class="sm">%</span></div>
+          <div>
+            <strong>Declaraciones a tiempo</strong>
+            <span>Presentadas en tiempo durante todo el periodo que llevamos operando.</span>
           </div>
         </div>
       </div>
@@ -2050,16 +2074,16 @@
     <div class="section-head">
       <div>
         <span class="eyebrow">Cómo trabajamos contigo</span>
-        <h2 class="display">Tres rutas, según<br/>dónde estás hoy.</h2>
+        <h2 class="display">Tres frentes,<br/>un mismo equipo.</h2>
       </div>
-      <p class="lede">No compras servicios sueltos: eliges la ruta que corresponde a tu momento actual, y avanzamos desde ahí.</p>
+      <p class="lede">No son compartimentos separados: la mayoría de clientes combina más de un frente según lo que su negocio necesita en cada momento.</p>
     </div>
 
     <div class="routes">
       <div class="route">
         <div class="route-head">
-          <span class="route-n">Ruta 01</span>
-          <h3 class="route-t">Necesito ponerme al corriente</h3>
+          <span class="route-n">Frente 01</span>
+          <h3 class="route-t">Cumplimiento fiscal</h3>
           <p class="route-d">Regularización de obligaciones pendientes, declaraciones y trámites ante el SAT.</p>
         </div>
         <div class="svc-grid svc-grid--pair">
@@ -2078,8 +2102,8 @@
 
       <div class="route">
         <div class="route-head">
-          <span class="route-n">Ruta 02</span>
-          <h3 class="route-t">Necesito saber cuánto gano</h3>
+          <span class="route-n">Frente 02</span>
+          <h3 class="route-t">Visibilidad financiera</h3>
           <p class="route-d">Diagnóstico, utilidad real y visibilidad de tus ventas por plataforma.</p>
         </div>
         <div class="svc-grid svc-grid--pair">
@@ -2098,8 +2122,8 @@
 
       <div class="route">
         <div class="route-head">
-          <span class="route-n">Ruta 03</span>
-          <h3 class="route-t">Necesito una estructura permanente</h3>
+          <span class="route-n">Frente 03</span>
+          <h3 class="route-t">Estructura y crecimiento</h3>
           <p class="route-d">Arquitectura de Claridad Fiscal y acompañamiento mensual continuo.</p>
         </div>
         <div class="svc-grid svc-grid--pair">
@@ -2241,7 +2265,7 @@
     </div>
 
     <div class="team-quote">
-      "Invierta en su paz mental: déjenos manejar los números, mientras usted se concentra en hacer crecer su negocio."
+      "Invierte en tu paz mental: déjanos manejar los números, mientras tú te concentras en hacer crecer tu negocio."
     </div>
 
     <div class="team-grid">
@@ -2249,20 +2273,27 @@
         <div class="avatar"><image-slot id="team-web-vp" shape="circle" placeholder="VP"></image-slot></div>
         <div class="name">Víctor Pérez</div>
         <div class="role">Director General <span>· Co-fundador</span></div>
+        <div class="cred">Contador Público Auditor · Fiscal y financiera para eCommerce</div>
         <div class="rule"></div>
-        <p>Lidera la visión estratégica de Finabiz y el diseño de la <strong>Arquitectura de Claridad Fiscal</strong>. Especialista en estructura fiscal para negocios digitales con ingresos variables. Ha transformado decenas de operaciones caóticas en sistemas claros, rentables y sostenibles.</p>
+        <p>Lidera la visión estratégica de Finabiz y el diseño de la <strong>Arquitectura de Claridad Fiscal</strong>. Más de 4 años de experiencia en estructura fiscal para negocios digitales con ingresos variables. Ha ayudado a transformar más de 20 operaciones caóticas en sistemas claros y sostenibles.</p>
+        <a href="https://www.linkedin.com/in/victorperezcpa" target="_blank" rel="noopener" class="linkedin">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.446-2.136 2.94v5.666H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124zM7.114 20.452H3.56V9h3.554v11.452z"/></svg>
+          LinkedIn
+        </a>
       </article>
       <article class="member alt">
         <div class="avatar"><image-slot id="team-web-pt" shape="circle" placeholder="PT"></image-slot></div>
         <div class="name">Pedro Torres</div>
         <div class="role">Director de Operaciones <span>· Co-fundador</span></div>
+        <div class="cred">Contador Público Auditor</div>
         <div class="rule"></div>
-        <p>Responsable de la ejecución impecable, la calidad del servicio y el cumplimiento fiscal de cada cliente. Garantiza que cada declaración se presente a tiempo y el sistema funcione sin errores — el motor operativo detrás de cada entrega.</p>
+        <p>Responsable de la ejecución, la calidad del servicio y el cumplimiento fiscal de cada cliente. Garantiza que cada declaración se presente a tiempo — mantenemos un historial de 100% de declaraciones puntuales.</p>
       </article>
       <article class="member">
         <div class="avatar"><image-slot id="team-web-sp" shape="circle" placeholder="SP"></image-slot></div>
         <div class="name">Samuel Pintos</div>
         <div class="role">Marketing y Administración</div>
+        <div class="cred">Contador Público Auditor</div>
         <div class="rule"></div>
         <p>Apoya la gestión administrativa y la comunicación estratégica de la marca hacia el exterior. Cuida que la experiencia del cliente comience con el pie derecho desde el primer punto de contacto.</p>
       </article>
@@ -2288,7 +2319,7 @@
       </details>
       <details class="faq-item">
         <summary>¿Con quién voy a hablar?</summary>
-        <p>Directamente con Víctor, cofundador de Finabiz. No pasas por un equipo de ventas ni por un ejecutivo de cuenta — hablas con quien va a supervisar tu caso.</p>
+        <p>Directamente con uno de los cofundadores de Finabiz — Víctor o Pedro. No pasas por un equipo de ventas ni por un ejecutivo de cuenta — hablas con quien va a supervisar tu caso. Nuestro tiempo de respuesta promedio es menor a 1 hora.</p>
       </details>
       <details class="faq-item">
         <summary>¿Esta sesión es asesoría fiscal gratuita completa?</summary>
@@ -2336,7 +2367,7 @@
           Agenda tu diagnóstico inicial de 30 min
           <span class="arrow">→</span>
         </a>
-        <p class="cta-final-microcopy">Con Víctor, cofundador de Finabiz. Revisaremos tu situación, tus principales bloqueos y el siguiente paso recomendado.</p>
+        <p class="cta-final-microcopy">Con Víctor o Pedro, cofundadores de Finabiz. Revisaremos tu situación, tus principales bloqueos y el siguiente paso recomendado.</p>
       </div>
       <div class="promise">
         <div class="ptag">Nuestra promesa</div>
