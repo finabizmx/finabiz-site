@@ -298,24 +298,33 @@
     to   { transform: scaleX(1); }
   }
 
-  .hero-quote {
-    margin: 100px 0 0;
-    padding-left: 18px;
-    border-left: 2px solid rgba(255,255,255,.25);
-    max-width: 640px;
-    font-style: italic;
-    color: rgba(255,255,255,.78);
-    font-size: 17px;
-    line-height: 1.5;
+  .hero-subtitle {
+    margin: 28px 0 0;
+    max-width: 560px;
+    color: rgba(255,255,255,.82);
+    font-size: 18px;
+    line-height: 1.55;
   }
-  .hero-quote span { color: #fff; font-style: normal; font-weight: 600; }
-  .hero-quote em { color: rgba(255,255,255,.88); }
   .hero-cta-row {
     display: flex;
     gap: 14px;
     flex-wrap: wrap;
     margin-top: 36px;
     align-items: center;
+  }
+  .hero-microcopy {
+    margin: 16px 0 0;
+    font-size: 13.5px;
+    color: rgba(255,255,255,.6);
+    max-width: 480px;
+    line-height: 1.5;
+  }
+  .hero-trustline {
+    margin: 28px 0 0;
+    font: 500 11px/1 "JetBrains Mono", monospace;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--orange);
   }
   .btn {
     display: inline-flex;
@@ -962,6 +971,13 @@
     max-width: 520px;
   }
   .cta-final p.lede strong { color: #fff; font-weight: 600; }
+  .cta-final-microcopy {
+    margin: 14px 0 0;
+    font-size: 13.5px;
+    color: rgba(255,255,255,.6);
+    max-width: 460px;
+    line-height: 1.5;
+  }
 
   .promise {
     padding: 26px 28px;
@@ -1601,12 +1617,12 @@
     </a>
     <nav class="nav-links" aria-label="Principal">
       <a href="#servicios">Servicios</a>
-      <a href="#propuesta">Propuesta</a>
-      <a href="#sistema">Sistema</a>
+      <a href="#propuesta">Cómo ayudamos</a>
+      <a href="#sistema">El sistema</a>
       <a href="#equipo">Equipo</a>
       <a href="#contacto">Contacto</a>
     </nav>
-    <a href="#" class="nav-cta js-tf-cta">Agenda sesión</a>
+    <a href="#" class="nav-cta js-tf-cta">Agenda diagnóstico</a>
     <button class="nav-burger" aria-label="Abrir menú" id="burger"><span></span></button>
   </div>
 </header>
@@ -1622,21 +1638,23 @@
   <div class="wrap">
     <span class="eyebrow reveal">Contabilidad & fiscalidad · México</span>
     <h1 class="display reveal">
-      <span class="word">Claridad fiscal.</span><br/>
-      <span class="word">Certeza financiera.</span><br/>
-      <span class="word word-shine">Crecimiento real</span><span class="dot">.</span>
+      <span class="word">Estructura fiscal sólida</span><br/>
+      <span class="word">para decisiones con</span>
+      <span class="word word-shine">números claros</span><span class="dot">.</span>
     </h1>
-    <p class="hero-quote reveal">
-      <em>"No tienes un problema de impuestos —</em> <span>tienes un problema de visibilidad del dinero."</span>
-      <br/>Sistema estratégico para dueños de negocios digitales y de eCommerce.
+    <p class="hero-subtitle reveal">
+      Anticipamos tus impuestos, calculamos tu utilidad real y organizamos la
+      información financiera de tu negocio digital en un solo sistema.
     </p>
     <div class="hero-cta-row reveal">
       <a href="#" class="btn btn-primary js-tf-cta">
-        Agenda tu sesión estratégica
+        Agenda un diagnóstico gratuito de 30 min
         <span class="arrow">→</span>
       </a>
       <a href="#sistema" class="btn btn-secondary">Conoce el sistema</a>
     </div>
+    <p class="hero-microcopy reveal">Revisaremos tu situación actual, tus principales riesgos y si Finabiz es adecuado para tu negocio. Sin compromiso.</p>
+    <p class="hero-trustline reveal">Atención directa de los fundadores · Enfocados en negocios digitales y eCommerce en México</p>
 
     <div class="hero-pillars">
       <div class="hero-pillar">
@@ -1730,14 +1748,9 @@
     <div class="section-head">
       <div>
         <span class="eyebrow">Propuesta única de valor</span>
-        <h2 class="display">Cuatro decisiones,<br/>un solo sistema.</h2>
+        <h2 class="display">Cuatro pilares para<br/>tomar decisiones con certeza.</h2>
       </div>
       <p class="lede">Lo que recibes con Finabiz no se reemplaza sumando contadores, abogados y asesores financieros sueltos.</p>
-    </div>
-
-    <div class="puv-quote">
-      <span class="qmark">"</span>
-      <p>No tienes un problema de impuestos. Tienes un problema de <span>visibilidad del dinero.</span></p>
     </div>
 
     <div class="puv-grid">
@@ -1758,8 +1771,8 @@
       </article>
       <article class="puv">
         <div class="corner"></div>
-        <div class="head"><span class="n">04</span><span class="t">Tecnología e IA aplicada</span></div>
-        <p>Herramientas digitales e inteligencia artificial para reducir errores, agilizar procesos y mantenerte informado en tiempo real. Más precisos, más rápidos, más preventivos — siempre al día, siempre claro.</p>
+        <div class="head"><span class="n">04</span><span class="t">Automatización aplicada al control financiero</span></div>
+        <p>Reducimos tareas manuales, centralizamos tu información financiera y detectamos inconsistencias con mayor rapidez — para que dediques tu tiempo a decidir, no a organizar papeles.</p>
       </article>
     </div>
 
@@ -1861,7 +1874,7 @@
 
     <div class="guarantee">
       <span class="gtag">Garantía · 60 días</span>
-      <p>Seguimos trabajando sin costo adicional hasta lograr tu <strong>claridad total</strong>. Nos comprometemos con tu resultado, no solo con el proceso.</p>
+      <p>Si al finalizar los 60 días no cuentas con tu <strong>mapa fiscal, proyección de impuestos y cálculo de utilidad</strong>, seguimos trabajando en esos entregables sin costo adicional — siempre que hayamos recibido a tiempo la información solicitada.</p>
     </div>
 
     <div class="forwhom">
@@ -1975,16 +1988,17 @@
           en tu negocio?
         </h2>
         <p class="lede">
-          Da el primer paso: agenda una <strong>sesión estratégica gratuita</strong> y descubre exactamente cómo podemos ayudarte a transformar el caos financiero en estructura sólida.
+          Da el primer paso: agenda un <strong>diagnóstico gratuito de 30 minutos</strong> y descubre cómo podemos ayudarte a transformar el caos financiero en estructura sólida.
         </p>
         <a href="#" class="btn btn-primary js-tf-cta">
-          Agenda tu sesión estratégica
+          Agenda tu diagnóstico inicial de 30 min
           <span class="arrow">→</span>
         </a>
+        <p class="cta-final-microcopy">Con Víctor, cofundador de Finabiz. Revisaremos tu situación, tus principales bloqueos y el siguiente paso recomendado.</p>
       </div>
       <div class="promise">
         <div class="ptag">Nuestra promesa</div>
-        <p>Si en <strong>60 días</strong> no tienes claridad total sobre tu situación fiscal y financiera, seguimos trabajando contigo <strong>sin costo adicional</strong> hasta lograrlo. Esta es nuestra garantía y nuestro compromiso con cada cliente.</p>
+        <p>Si al finalizar la implementación acordada no cuentas con tu <strong>mapa fiscal, proyección de impuestos, cálculo de utilidad y plan de acción</strong>, continuamos trabajando en esos entregables <strong>sin honorarios adicionales</strong>, siempre que hayamos recibido la información solicitada a tiempo.</p>
       </div>
     </div>
   </div>
@@ -2032,7 +2046,7 @@
       <div>
         <h4>Contacto</h4>
         <ul>
-          <li><a href="#" class="js-tf-cta">Agenda una sesión</a></li>
+          <li><a href="#" class="js-tf-cta">Agenda tu diagnóstico</a></li>
           <li><a href="mailto:contacto@finabiz.mx">contacto@finabiz.mx</a></li>
           <li><a href="tel:+528998808616">+52 899-880-8616</a></li>
           <li>finabiz.mx</li>
@@ -2053,7 +2067,7 @@
 
 <!-- ═══════════ FLOATING CTA ═══════════ -->
 <a href="#" class="float-cta js-tf-cta" id="floatCta">
-  Agenda sesión gratuita <span>→</span>
+  Agenda tu diagnóstico <span>→</span>
 </a>
 
 <!-- ═══════════ TYPEFORM OVERLAY (precargado en segundo plano) ═══════════ -->
