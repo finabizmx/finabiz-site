@@ -1080,13 +1080,42 @@
     color: var(--muted);
   }
   .faq-group-title {
+    list-style: none;
+    cursor: pointer;
     font: 500 13px/1 "Space Grotesk", sans-serif;
     letter-spacing: .04em;
     text-transform: uppercase;
     color: var(--orange-ink);
-    padding: 28px 0 4px;
+    padding: 28px 36px 12px 0;
+    position: relative;
+    transition: color .15s;
   }
   .faq-group:first-child .faq-group-title { padding-top: 0; }
+  .faq-group-title::-webkit-details-marker { display: none; }
+  .faq-group-title:hover { color: var(--blue); }
+  .faq-group-title:focus-visible { outline: 2px solid var(--orange); outline-offset: 4px; }
+  .faq-group-title::after {
+    content: "+";
+    position: absolute;
+    right: 0;
+    top: 24px;
+    width: 22px;
+    height: 22px;
+    display: grid;
+    place-items: center;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--orange-ink);
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    transition: transform .2s, background .15s;
+  }
+  .faq-group[open] > .faq-group-title::after {
+    content: "–";
+    transform: rotate(180deg);
+    background: var(--orange-soft);
+  }
 
   /* ─── EQUIPO ─── */
   .team {
@@ -2321,8 +2350,8 @@
     </div>
 
     <div class="faq-list">
-      <div class="faq-group">
-        <h3 class="faq-group-title">Sobre la sesión gratuita</h3>
+      <details class="faq-group">
+        <summary class="faq-group-title">Sobre la sesión gratuita</summary>
         <details class="faq-item">
           <summary>¿Cuánto dura la sesión de diagnóstico y tiene costo?</summary>
           <p>Dura 30 minutos y es completamente gratuita. En la llamada revisamos tu situación fiscal y financiera actual, identificamos tus principales riesgos y te decimos con honestidad si Finabiz es adecuado para tu negocio — sin compromiso de contratar.</p>
@@ -2339,9 +2368,9 @@
           <summary>¿Qué información debo preparar antes de la sesión?</summary>
           <p>Idealmente tu RFC, tu régimen fiscal actual y una idea general de tus ingresos mensuales. Si ya facturas en plataformas de eCommerce o marketplaces, esa información también ayuda — pero no es obligatoria para agendar.</p>
         </details>
-      </div>
-      <div class="faq-group">
-        <h3 class="faq-group-title">Sobre Finabiz y el servicio</h3>
+      </details>
+      <details class="faq-group">
+        <summary class="faq-group-title">Sobre Finabiz y el servicio</summary>
         <details class="faq-item">
           <summary>¿Atienden negocios fuera de la Ciudad de México?</summary>
           <p>Sí. Trabajamos de forma remota con negocios en todo México — la ubicación no es una limitante.</p>
@@ -2358,7 +2387,7 @@
           <summary>¿Manejan facturación de plataformas como Mercado Pago, Stripe o marketplaces?</summary>
           <p>Sí, es parte de nuestra especialización: conciliación de ventas por plataforma, comisiones, retenciones y la diferencia entre lo que depositan los bancos y lo que realmente vendiste.</p>
         </details>
-      </div>
+      </details>
     </div>
   </div>
 </section>
