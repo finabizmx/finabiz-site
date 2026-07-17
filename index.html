@@ -1082,12 +1082,15 @@
   .faq-group-title {
     list-style: none;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
     font: 500 13px/1 "Space Grotesk", sans-serif;
     letter-spacing: .04em;
     text-transform: uppercase;
     color: var(--orange-ink);
-    padding: 28px 36px 12px 0;
-    position: relative;
+    padding: 28px 0 12px;
     transition: color .15s;
   }
   .faq-group:first-child .faq-group-title { padding-top: 0; }
@@ -1096,13 +1099,11 @@
   .faq-group-title:focus-visible { outline: 2px solid var(--orange); outline-offset: 4px; }
   .faq-group-title::after {
     content: "+";
-    position: absolute;
-    right: 0;
-    top: 24px;
     width: 22px;
     height: 22px;
     display: grid;
     place-items: center;
+    flex-shrink: 0;
     font-family: "Space Grotesk", sans-serif;
     font-size: 15px;
     font-weight: 500;
