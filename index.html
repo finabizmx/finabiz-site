@@ -526,6 +526,51 @@
   }
   .pull span { color: var(--orange); }
 
+  .compare {
+    margin: 32px 0 0;
+    max-width: 540px;
+    border: 1px solid var(--line);
+  }
+  .compare-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 1px solid var(--line);
+  }
+  .compare-row:last-child { border-bottom: none; }
+  .compare-row span {
+    padding: 14px 16px;
+    font-size: 13.5px;
+    line-height: 1.4;
+  }
+  .compare-row span:first-child {
+    color: var(--muted);
+    border-right: 1px solid var(--line);
+  }
+  .compare-row span:last-child {
+    color: var(--blue-ink);
+    font-weight: 600;
+    background: var(--blue-50);
+  }
+  .compare-head {
+    background: var(--blue-ink);
+  }
+  .compare-head span {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10.5px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .compare-head span:first-child {
+    color: rgba(255,255,255,.6);
+    border-right: 1px solid rgba(255,255,255,.15);
+    background: transparent;
+  }
+  .compare-head span:last-child {
+    color: var(--orange);
+    background: transparent;
+  }
+
   .stats {
     display: flex;
     flex-direction: column;
@@ -716,6 +761,27 @@
   }
   .svc:hover::after { opacity: 1; transform: translateX(0); }
 
+  /* ─── RUTAS DE SERVICIO ─── */
+  .routes { display: flex; flex-direction: column; gap: 48px; }
+  .route-head { margin-bottom: 18px; }
+  .route-n {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    letter-spacing: .2em;
+    color: var(--orange);
+    text-transform: uppercase;
+  }
+  .route-t {
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 500;
+    font-size: 24px;
+    color: var(--blue-ink);
+    letter-spacing: -.01em;
+    margin: 8px 0 6px;
+  }
+  .route-d { margin: 0; font-size: 14.5px; color: var(--muted); max-width: 520px; }
+  .svc-grid--pair { grid-template-columns: repeat(2, 1fr); }
+
   /* ─── ARQUITECTURA DE CLARIDAD FISCAL (insignia) ─── */
   .insignia {
     background: var(--blue-ink);
@@ -779,9 +845,16 @@
     font-size: 28px;
     color: #fff;
     letter-spacing: -.02em;
-    margin: 10px 0 22px;
+    margin: 10px 0 4px;
     line-height: 1;
   }
+  .phase .ptime {
+    display: block;
+    font-size: 12.5px;
+    color: rgba(255,255,255,.55);
+    margin-bottom: 20px;
+  }
+  .phase.highlight .ptime { color: rgba(27,38,84,.65); }
   .phase ul {
     list-style: none;
     padding: 0;
@@ -1492,6 +1565,7 @@
   }
   @media (max-width: 560px) {
     .svc-grid { grid-template-columns: 1fr; }
+    .svc-grid--pair { grid-template-columns: 1fr; }
     .why-grid { grid-template-columns: 1fr; }
     .footer-grid { grid-template-columns: 1fr; }
     .stat { grid-template-columns: 1fr; gap: 6px; }
@@ -1839,9 +1913,32 @@
       <div class="who-text">
         <h3 class="display">Finabiz no es un despacho contable tradicional.</h3>
         <p>Somos un <span class="hl">sistema estratégico</span> diseñado para dueños de negocios digitales y de eCommerce que generan ingresos pero carecen de visibilidad real sobre su dinero.</p>
-        <p>Unificamos contabilidad, fiscalidad y decisiones financieras en una <span class="hl">estructura clara y coherente</span> para que tomes decisiones con certeza y control — sin necesitar tres especialistas que no se comunican entre sí.</p>
+        <p>Unificamos contabilidad, fiscalidad y decisiones financieras en una <span class="hl">estructura clara y coherente</span>, para que tomes decisiones con certeza y control — sin depender de varios proveedores que no se comunican entre sí.</p>
         <div class="pull">
           "No tienes un problema de impuestos — tienes un problema de <span>visibilidad del dinero.</span>"
+        </div>
+
+        <div class="compare">
+          <div class="compare-row compare-head">
+            <span>Despacho tradicional</span>
+            <span>Finabiz</span>
+          </div>
+          <div class="compare-row">
+            <span>Reporta lo que ya sucedió</span>
+            <span>Proyecta lo que viene</span>
+          </div>
+          <div class="compare-row">
+            <span>Presenta declaraciones</span>
+            <span>Explica el impacto de los números</span>
+          </div>
+          <div class="compare-row">
+            <span>Información separada</span>
+            <span>Vista fiscal y financiera integrada</span>
+          </div>
+          <div class="compare-row">
+            <span>Contacto reactivo</span>
+            <span>Seguimiento mensual definido</span>
+          </div>
         </div>
       </div>
 
@@ -1917,42 +2014,71 @@
   <div class="wrap">
     <div class="section-head">
       <div>
-        <span class="eyebrow">Catálogo de servicios</span>
-        <h2 class="display">Soluciones para<br/>negocios en crecimiento.</h2>
+        <span class="eyebrow">Cómo trabajamos contigo</span>
+        <h2 class="display">Tres rutas, según<br/>dónde estás hoy.</h2>
       </div>
-      <p class="lede">Seis servicios diseñados para integrarse — no para reemplazarse entre sí. Operan como módulos de un mismo sistema.</p>
+      <p class="lede">No compras servicios sueltos: eliges la ruta que corresponde a tu momento actual, y avanzamos desde ahí.</p>
     </div>
 
-    <div class="svc-grid">
-      <div class="svc">
-        <div class="n">01 / Contabilidad</div>
-        <div class="t">Contabilidad y cumplimiento fiscal</div>
-        <p>Contabilidad simplificada y ordenada, con presentación puntual de declaraciones mensuales, anuales e informativas ante el SAT — siempre al corriente, sin multas.</p>
+    <div class="routes">
+      <div class="route">
+        <div class="route-head">
+          <span class="route-n">Ruta 01</span>
+          <h3 class="route-t">Necesito ponerme al corriente</h3>
+          <p class="route-d">Regularización de obligaciones pendientes, declaraciones y trámites ante el SAT.</p>
+        </div>
+        <div class="svc-grid svc-grid--pair">
+          <div class="svc">
+            <div class="n">Contabilidad y SAT</div>
+            <div class="t">Contabilidad y cumplimiento fiscal</div>
+            <p>Contabilidad ordenada, con presentación puntual de declaraciones mensuales, anuales e informativas ante el SAT.</p>
+          </div>
+          <div class="svc">
+            <div class="n">Trámites</div>
+            <div class="t">Gestión de trámites ante el SAT</div>
+            <p>RFC, e.firma, actualizaciones de obligaciones y solicitudes como el IVA fronterizo al 8%. Nos encargamos, no pierdes tiempo en filas.</p>
+          </div>
+        </div>
       </div>
-      <div class="svc">
-        <div class="n">02 / Impuestos</div>
-        <div class="t">Cálculo y optimización de impuestos</div>
-        <p>Calculamos ISR, IVA e IMSS de forma optimizada y 100% legal. Aplicamos cada deducción y estímulo disponible — que pagues exactamente lo justo.</p>
+
+      <div class="route">
+        <div class="route-head">
+          <span class="route-n">Ruta 02</span>
+          <h3 class="route-t">Necesito saber cuánto gano</h3>
+          <p class="route-d">Diagnóstico, utilidad real y visibilidad de tus ventas por plataforma.</p>
+        </div>
+        <div class="svc-grid svc-grid--pair">
+          <div class="svc">
+            <div class="n">Diagnóstico</div>
+            <div class="t">Diagnóstico fiscal y financiero</div>
+            <p>Análisis del estado actual de tu negocio: situación fiscal, salud financiera, obligaciones pendientes y oportunidades. El punto de partida.</p>
+          </div>
+          <div class="svc">
+            <div class="n">Utilidad real</div>
+            <div class="t">Cálculo de impuestos y utilidad para eCommerce</div>
+            <p>Calculamos ISR e IVA aplicando las deducciones disponibles, y conciliamos tus ventas en Mercado Pago, Stripe, PayPal y marketplaces: comisiones, retenciones, devoluciones y la diferencia entre lo que depositan los bancos y lo que realmente vendiste.</p>
+          </div>
+        </div>
       </div>
-      <div class="svc">
-        <div class="n">03 / Nómina</div>
-        <div class="t">Nóminas y seguridad social</div>
-        <p>Gestión completa de nóminas y cuotas obrero-patronales del IMSS, SAR e INFONAVIT. Pagos correctos y obligaciones cubiertas sin retrasos.</p>
-      </div>
-      <div class="svc">
-        <div class="n">04 / Diagnóstico</div>
-        <div class="t">Diagnóstico fiscal y financiero</div>
-        <p>Análisis completo del estado actual de tu negocio: situación fiscal, salud financiera, obligaciones pendientes y oportunidades. El punto de partida.</p>
-      </div>
-      <div class="svc">
-        <div class="n">05 / Trámites</div>
-        <div class="t">Gestión de trámites ante el SAT</div>
-        <p>RFC, e.firma, actualizaciones de obligaciones y solicitudes como el IVA fronterizo al 8%. Nos encargamos — no pierdes tiempo en filas.</p>
-      </div>
-      <div class="svc">
-        <div class="n">06 / Asesoría</div>
-        <div class="t">Asesoría estratégica continua</div>
-        <p>Más allá de los números: contratar personal, invertir en equipo, cambiar de régimen o abrir nueva línea de negocio. Decidimos juntos, con datos.</p>
+
+      <div class="route">
+        <div class="route-head">
+          <span class="route-n">Ruta 03</span>
+          <h3 class="route-t">Necesito una estructura permanente</h3>
+          <p class="route-d">Arquitectura de Claridad Fiscal y acompañamiento mensual continuo.</p>
+        </div>
+        <div class="svc-grid svc-grid--pair">
+          <div class="svc">
+            <div class="n">Nómina</div>
+            <div class="t">Nóminas y seguridad social</div>
+            <p>Gestión de nóminas y cuotas obrero-patronales del IMSS, SAR e INFONAVIT. Pagos y obligaciones cubiertas sin retrasos.</p>
+          </div>
+          <div class="svc">
+            <div class="n">Asesoría</div>
+            <div class="t">Asesoría estratégica continua</div>
+            <p>Más allá de los números: contratar personal, invertir en equipo, cambiar de régimen o abrir una nueva línea de negocio. Decidimos juntos, con datos.</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -1973,6 +2099,7 @@
       <div class="phase">
         <div class="ptag">Fase 01</div>
         <div class="pname">Diagnóstico</div>
+        <span class="ptime">Semanas 1–2</span>
         <ul>
           <li>Radiografía fiscal completa</li>
           <li>Identificación de riesgos</li>
@@ -1983,6 +2110,7 @@
       <div class="phase">
         <div class="ptag">Fase 02</div>
         <div class="pname">Estructuración</div>
+        <span class="ptime">Semanas 3–6</span>
         <ul>
           <li>Separación de cuentas</li>
           <li>Diseño del sistema contable</li>
@@ -1993,6 +2121,7 @@
       <div class="phase highlight">
         <div class="ptag">Fase 03</div>
         <div class="pname">Claridad continua</div>
+        <span class="ptime">A partir del día 60, cada mes</span>
         <ul>
           <li>Panel de utilidad mensual</li>
           <li>Proyección anticipada</li>
