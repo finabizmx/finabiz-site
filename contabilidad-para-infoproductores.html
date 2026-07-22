@@ -136,7 +136,7 @@
       <a href="/#faq">Preguntas frecuentes</a>
       <a href="/#contacto">Contacto</a>
     </nav>
-    <a href="#" class="nav-cta js-tf-cta">Agenda tu llamada</a>
+    <a href="https://form.typeform.com/to/ykt2ayIi" class="nav-cta js-tf-cta">Agenda tu llamada</a>
     <button class="nav-burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks" id="burger"><span></span></button>
   </div>
 </header>
@@ -154,7 +154,7 @@
     <h1 class="display reveal">Contabilidad para infoproductores, sin perderte entre Hotmart, Stripe y pagos del extranjero</h1>
     <p class="hero-subtitle reveal">Vendes cursos, membresías o mentorías y cobras en varias monedas y plataformas. Ordenamos tu contabilidad para que sepas cuánto ganas y cómo declararlo correctamente.</p>
     <div class="hero-cta-row reveal">
-      <a href="#" class="btn btn-primary js-tf-cta">
+      <a href="https://form.typeform.com/to/ykt2ayIi" class="btn btn-primary js-tf-cta">
         Agenda una llamada de orientación gratuita de 30 min
         <span class="arrow">→</span>
       </a>
@@ -276,7 +276,7 @@
         <p class="lede">
           Da el primer paso: agenda una <strong>llamada de orientación gratuita de 30 minutos</strong> y descubre cómo podemos ayudarte a transformar el caos financiero en estructura sólida.
         </p>
-        <a href="#" class="btn btn-primary js-tf-cta">
+        <a href="https://form.typeform.com/to/ykt2ayIi" class="btn btn-primary js-tf-cta">
           Agenda tu llamada de orientación de 30 min
           <span class="arrow">→</span>
         </a>
@@ -338,7 +338,7 @@
       <div>
         <h4>Contacto</h4>
         <ul>
-          <li><a href="#" class="js-tf-cta">Agenda tu llamada</a></li>
+          <li><a href="https://form.typeform.com/to/ykt2ayIi" class="js-tf-cta">Agenda tu llamada</a></li>
           <li><a href="https://wa.me/5218998808616" target="_blank" rel="noopener">WhatsApp</a></li>
           <li><a href="mailto:contacto@finabiz.mx">contacto@finabiz.mx</a></li>
           <li><a href="tel:+528998808616">+52 899-880-8616</a></li>
@@ -359,7 +359,7 @@
 </a>
 
 <!-- ═══════════ FLOATING CTA ═══════════ -->
-<a href="#" class="float-cta js-tf-cta" id="floatCta">
+<a href="https://form.typeform.com/to/ykt2ayIi" class="float-cta js-tf-cta" id="floatCta">
   Agenda tu llamada <span>→</span>
 </a>
 
@@ -387,7 +387,7 @@
       var div = document.createElement('div');
       div.setAttribute('data-tf-widget', 'ykt2ayIi');
       div.setAttribute('data-tf-opacity', '100');
-      div.setAttribute('data-tf-iframe-props', 'title=Agenda tu sesión estratégica gratuita');
+      div.setAttribute('data-tf-iframe-props', 'title=Formulario previo a tu llamada de orientación');
       div.style.width = '100%';
       div.style.height = '100%';
       widgetHost.appendChild(div);
@@ -443,6 +443,20 @@
   const hero = document.querySelector('.hero');
   const footerEl = document.querySelector('.footer');
   const contactoEl = document.getElementById('contacto');
+  let sectionCtaVisible = false;
+  const watchedCtas = [...document.querySelectorAll('.btn-primary.js-tf-cta')].filter(el => !hero || !hero.contains(el));
+  const faqSection = document.getElementById('faq');
+  const ctaObserverTargets = faqSection ? [...watchedCtas, faqSection] : watchedCtas;
+  function recomputeSectionCtaVisible() {
+    sectionCtaVisible = ctaObserverTargets.some((el) => {
+      const r = el.getBoundingClientRect();
+      return r.top < window.innerHeight && r.bottom > 0;
+    });
+    onScroll();
+  }
+  const ctaObserver = new IntersectionObserver(recomputeSectionCtaVisible, { threshold: 0.2 });
+  ctaObserverTargets.forEach((el) => ctaObserver.observe(el));
+
   function onScroll() {
     const y = window.scrollY;
     nav.classList.toggle('scrolled', y > 12);
@@ -451,6 +465,7 @@
       const heroBottom = hero.offsetTop + hero.offsetHeight;
       showCta = y > heroBottom - 200;
     }
+    if (sectionCtaVisible) showCta = false;
     const hideBoundary = contactoEl ? contactoEl.offsetTop : (footerEl ? footerEl.offsetTop : Infinity);
     if (y + window.innerHeight * .6 > hideBoundary) showCta = false;
     cta.classList.toggle('show', showCta);
