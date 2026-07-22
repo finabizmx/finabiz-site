@@ -65,7 +65,7 @@
   "employee": {
     "@type": "Person",
     "name": "Samuel Pintos",
-    "jobTitle": "Marketing y Administración"
+    "jobTitle": "Colaborador comercial"
   }
 }
 </script>
@@ -77,7 +77,7 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "¿Cuánto dura la sesión de diagnóstico y tiene costo?",
+      "name": "¿Cuánto dura la llamada de orientación y tiene costo?",
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "Dura 30 minutos y es completamente gratuita. En la llamada revisamos tu situación fiscal y financiera actual, identificamos tus principales riesgos y te decimos con honestidad si Finabiz es adecuado para tu negocio, sin compromiso de contratar."
@@ -93,15 +93,15 @@
     },
     {
       "@type": "Question",
-      "name": "¿Esta sesión es asesoría fiscal gratuita completa?",
+      "name": "¿Esta llamada es asesoría fiscal gratuita completa?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. Es un diagnóstico para entender tu situación y definir si Finabiz es el sistema adecuado para ti. La asesoría e implementación a fondo forman parte de nuestros servicios contratados, no de la sesión inicial."
+        "text": "No. Es una llamada de orientación para entender tu situación y definir si Finabiz es el sistema adecuado para ti. El diagnóstico fiscal y financiero completo, la asesoría y la implementación a fondo forman parte de nuestros servicios contratados, no de esta llamada inicial."
       }
     },
     {
       "@type": "Question",
-      "name": "¿Qué información debo preparar antes de la sesión?",
+      "name": "¿Qué información debo preparar antes de la llamada?",
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "Idealmente tu RFC, tu régimen fiscal actual y una idea general de tus ingresos mensuales. Si ya facturas en plataformas de eCommerce o marketplaces, esa información también ayuda, pero no es obligatoria para agendar."
@@ -109,10 +109,26 @@
     },
     {
       "@type": "Question",
-      "name": "¿Atienden negocios fuera de la Ciudad de México?",
+      "name": "¿Qué ocurre después de la llamada de orientación?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Sí. Trabajamos de forma remota con negocios en todo México."
+        "text": "Si Finabiz es adecuado para tu negocio, te compartimos una propuesta con alcance y honorarios definidos. Si no lo es, te lo decimos con honestidad, sin compromiso de contratar."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cuánto tarda el proceso de incorporación?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Depende de cuántos meses u obligaciones estén pendientes de regularizar. En la llamada de orientación te damos un estimado realista según tu situación."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Atienden negocios en todo México?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí. Trabajamos de manera remota con negocios digitales y de eCommerce en todo México, por lo que tu ubicación no representa una limitante."
       }
     },
     {
@@ -137,6 +153,38 @@
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "Sí, es parte de nuestra especialización: conciliación de ventas por plataforma, comisiones, retenciones y la diferencia entre lo que depositan los bancos y lo que realmente vendiste."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cuánto cuestan los servicios?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "La inversión depende del volumen de operaciones, plataformas, obligaciones y nivel de acompañamiento que necesites. Después de la llamada de orientación recibes una propuesta con alcance y honorarios definidos."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Trabajan con personas físicas y personas morales?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí, trabajamos con ambos regímenes. En la llamada de orientación evaluamos cuál corresponde a tu situación actual y si conviene algún cambio."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Pueden trabajar junto con mi contador actual?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí, podemos complementar el trabajo de tu contador actual, especialmente en diagnóstico, estructura fiscal y visibilidad financiera. No buscamos reemplazar relaciones que ya te funcionan bien."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cómo protegen mi e.firma, estados de cuenta e información fiscal?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Manejamos tu información con confidencialidad y solo para los fines del servicio contratado. No accedemos directamente a tus cuentas bancarias, tú nos compartes los documentos necesarios de forma segura."
       }
     }
   ]
@@ -769,8 +817,12 @@
     transition: background .2s;
     display: flex;
     flex-direction: column;
+    text-decoration: none;
+    color: inherit;
   }
   .svc:hover { background: var(--blue-50); }
+  .svc:focus-visible { outline: 2px solid var(--orange); outline-offset: -2px; }
+  .svc--static::after { display: none; }
   .svc .n {
     font-family: "JetBrains Mono", monospace;
     font-size: 12px;
@@ -1097,6 +1149,15 @@
     line-height: 1.6;
     color: var(--muted);
   }
+  .faq-subtitle {
+    font: 500 13px/1 "Space Grotesk", sans-serif;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--orange-ink);
+    padding: 28px 0 4px;
+    margin: 0;
+  }
+  .faq-list > .faq-subtitle:first-child { padding-top: 0; }
   .faq-group-title {
     list-style: none;
     cursor: pointer;
@@ -1676,9 +1737,16 @@
     .footer-grid { grid-template-columns: 1fr; }
     .stat { grid-template-columns: 1fr; gap: 6px; }
     .float-cta { right: 12px; bottom: 12px; padding: 12px 16px; font-size: 13px; }
-    .whatsapp-cta { right: 12px; bottom: 66px; width: 46px; height: 46px; }
-    .whatsapp-cta svg { width: 23px; height: 23px; }
+    /* En móvil solo un botón flotante a la vez: el CTA principal.
+       WhatsApp sigue disponible en el footer. */
+    .whatsapp-cta { display: none; }
     .guarantee { grid-template-columns: 1fr; gap: 8px; }
+  }
+  /* Mientras el modal de Typeform está abierto, ningún botón flotante debe
+     competir por atención ni cubrir el formulario. */
+  body.tf-open .float-cta,
+  body.tf-open .whatsapp-cta {
+    display: none;
   }
 
   /* ── V2 ENHANCEMENTS ── */
@@ -1934,7 +2002,7 @@
       <a href="#faq">Preguntas frecuentes</a>
       <a href="#contacto">Contacto</a>
     </nav>
-    <a href="#" class="nav-cta js-tf-cta">Agenda diagnóstico</a>
+    <a href="#" class="nav-cta js-tf-cta">Agenda tu llamada</a>
     <button class="nav-burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks" id="burger"><span></span></button>
   </div>
 </header>
@@ -1960,7 +2028,7 @@
     </p>
     <div class="hero-cta-row reveal">
       <a href="#" class="btn btn-primary js-tf-cta">
-        Agenda un diagnóstico gratuito de 30 min
+        Agenda una llamada de orientación gratuita de 30 min
         <span class="arrow">→</span>
       </a>
       <a href="#sistema" class="btn btn-secondary">Conoce el sistema</a>
@@ -1971,13 +2039,13 @@
     <div class="hero-pillars">
       <div class="hero-pillar">
         <div class="n">01 — Anticipación fiscal</div>
-        <div class="t">El SAT nunca te toma por sorpresa.</div>
-        <p>Proyectamos y calculamos tus impuestos antes de que surjan.</p>
+        <div class="t">Anticipamos tus obligaciones fiscales.</div>
+        <p>Proyectamos y calculamos tus impuestos antes de que surjan, para reducir sorpresas.</p>
       </div>
       <div class="hero-pillar">
         <div class="n">02 — Utilidad real</div>
-        <div class="t">Sabes exactamente cuánto ganas.</div>
-        <p>Después de impuestos, gastos y provisiones — sin sorpresas.</p>
+        <div class="t">Entiendes cuánto ganas de verdad.</div>
+        <p>Después de impuestos, gastos y provisiones — con datos, no a ciegas.</p>
       </div>
       <div class="hero-pillar">
         <div class="n">03 — Sistema unificado</div>
@@ -2054,29 +2122,29 @@
         <div class="stat">
           <div class="num" data-count="3" data-suffix="+" id="stat-years">3<sup>+</sup></div>
           <div>
-            <strong>Años de experiencia</strong>
+            <strong>Años de Finabiz</strong>
             <span>Construyendo estructura fiscal para negocios en crecimiento.</span>
           </div>
         </div>
         <div class="stat">
           <div class="num" data-count="20" data-suffix="+" id="stat-clients">20<sup>+</sup></div>
           <div>
-            <strong>Negocios atendidos</strong>
+            <strong>Negocios atendidos en distintos sectores</strong>
             <span>Operaciones caóticas transformadas en sistemas claros.</span>
           </div>
         </div>
         <div class="stat">
           <div class="num text">$350,000</div>
           <div>
-            <strong>Identificados en ahorros y errores</strong>
-            <span>Detectados y corregidos en revisiones fiscales y financieras. MXN.</span>
+            <strong>En errores, riesgos y oportunidades identificadas</strong>
+            <span>Detectados mediante revisiones fiscales y financieras. MXN.</span>
           </div>
         </div>
         <div class="stat">
           <div class="num orange" data-count="100" data-suffix="%" id="stat-ontime">100<span class="sm">%</span></div>
           <div>
-            <strong>Declaraciones a tiempo</strong>
-            <span>Presentadas en tiempo durante todo el periodo que llevamos operando.</span>
+            <strong>Historial de cumplimiento puntual</strong>
+            <span>Declaraciones presentadas en tiempo cuando recibimos la información completa dentro de los plazos acordados.</span>
           </div>
         </div>
       </div>
@@ -2099,12 +2167,12 @@
       <article class="puv">
         <div class="corner"></div>
         <div class="head"><span class="n">01</span><span class="t">Anticipación fiscal proactiva</span></div>
-        <p>Proyectamos y calculamos tus impuestos con anticipación. El SAT nunca te tomará por sorpresa. Planeación fiscal que protege tu patrimonio <strong>antes</strong> de que surja cualquier problema — no reaccionamos, anticipamos.</p>
+        <p>Proyectamos y calculamos tus impuestos con anticipación, para reducir sorpresas fiscales. Planeación fiscal pensada para proteger tu patrimonio <strong>antes</strong> de que un problema crezca — no reaccionamos, anticipamos.</p>
       </article>
       <article class="puv">
         <div class="corner"></div>
         <div class="head"><span class="n">02</span><span class="t">Utilidad real — no solo ingresos</span></div>
-        <p>Te mostramos exactamente cuánto ganas después de impuestos, gastos y provisiones. Sabrás cuánto es tuyo de verdad y cuánto puedes reinvertir con seguridad. Decisiones basadas en números reales.</p>
+        <p>Te mostramos cuánto ganas después de impuestos, gastos y provisiones, para que sepas cuánto puedes reinvertir con más seguridad. Decisiones basadas en números reales.</p>
       </article>
       <article class="puv">
         <div class="corner"></div>
@@ -2119,7 +2187,7 @@
     </div>
 
     <p class="puv-foot">
-      Tú te enfocas en crecer. <span>Nosotros, en que no pagues de más.</span>
+      Tú te enfocas en crecer. <span>Nosotros, en que no pagues más de lo que corresponde.</span>
     </p>
   </div>
 </section>
@@ -2143,17 +2211,17 @@
           <p class="route-d">Regularización de obligaciones pendientes, declaraciones y trámites ante el SAT.</p>
         </div>
         <div class="svc-grid">
-          <div class="svc">
+          <a class="svc" href="regularizacion-ante-el-sat.html">
             <div class="n">Regularización</div>
             <div class="t">Regularización de obligaciones pendientes</div>
             <p>Si te atrasaste con declaraciones u obligaciones vencidas ante el SAT, te ponemos al corriente: identificamos qué falta, corregimos y presentamos lo pendiente antes de que se convierta en un problema mayor.</p>
-          </div>
-          <div class="svc">
+          </a>
+          <div class="svc svc--static">
             <div class="n">Contabilidad y SAT</div>
             <div class="t">Contabilidad y cumplimiento fiscal</div>
             <p>Contabilidad ordenada, con presentación puntual de declaraciones mensuales, anuales e informativas ante el SAT.</p>
           </div>
-          <div class="svc">
+          <div class="svc svc--static">
             <div class="n">Trámites</div>
             <div class="t">Gestión de trámites ante el SAT</div>
             <p>RFC, e.firma, actualizaciones de obligaciones y solicitudes como el IVA fronterizo al 8%. Nos encargamos, no pierdes tiempo en filas.</p>
@@ -2168,21 +2236,21 @@
           <p class="route-d">Diagnóstico, cálculo de impuestos y visibilidad real de tus ventas por plataforma.</p>
         </div>
         <div class="svc-grid">
-          <div class="svc">
+          <a class="svc" href="diagnostico-fiscal-financiero.html">
             <div class="n">Diagnóstico</div>
             <div class="t">Diagnóstico fiscal y financiero</div>
             <p>Análisis del estado actual de tu negocio: situación fiscal, salud financiera, obligaciones pendientes y oportunidades. El punto de partida.</p>
-          </div>
-          <div class="svc">
+          </a>
+          <div class="svc svc--static">
             <div class="n">Impuestos</div>
             <div class="t">Cálculo de impuestos optimizado</div>
             <p>Calculamos ISR e IVA aplicando todas las deducciones disponibles, para que no pagues más de lo que en realidad debes.</p>
           </div>
-          <div class="svc">
+          <a class="svc" href="contabilidad-para-ecommerce.html">
             <div class="n">Utilidad eCommerce</div>
             <div class="t">Cálculo de utilidad de eCommerce</div>
             <p>Conciliamos tus ventas en Mercado Pago, Stripe, PayPal y marketplaces: comisiones, retenciones, devoluciones y la diferencia entre lo que depositan los bancos y lo que realmente vendiste.</p>
-          </div>
+          </a>
         </div>
       </div>
 
@@ -2193,16 +2261,16 @@
           <p class="route-d">Arquitectura de Claridad Fiscal y acompañamiento mensual continuo.</p>
         </div>
         <div class="svc-grid svc-grid--pair">
-          <div class="svc">
+          <a class="svc" href="nomina-seguridad-social.html">
             <div class="n">Nómina</div>
             <div class="t">Nóminas y seguridad social</div>
             <p>Gestión de nóminas y cuotas obrero-patronales del IMSS, SAR e INFONAVIT. Pagos y obligaciones cubiertas sin retrasos.</p>
-          </div>
-          <div class="svc">
+          </a>
+          <a class="svc" href="arquitectura-de-claridad-fiscal.html">
             <div class="n">Asesoría</div>
             <div class="t">Asesoría estratégica continua</div>
             <p>Más allá de los números: contratar personal, invertir en equipo, cambiar de régimen o abrir una nueva línea de negocio. Decidimos juntos, con datos.</p>
-          </div>
+          </a>
         </div>
       </div>
     </div>
@@ -2288,7 +2356,7 @@
       <div class="why">
         <div class="badge" aria-hidden="true">E</div>
         <div class="t">Estrategia, no solo cumplimiento</div>
-        <p>Te ayudamos a pagar menos de forma 100% legal. Cuándo, cómo y qué decisiones tomar para proteger tu patrimonio.</p>
+        <p>Te ayudamos a pagar menos dentro del marco fiscal aplicable. Cuándo, cómo y qué decisiones tomar para proteger tu patrimonio.</p>
       </div>
       <div class="why alt">
         <div class="badge" aria-hidden="true">T</div>
@@ -2341,7 +2409,7 @@
         <div class="role">Director General <span>· Co-fundador</span></div>
         <div class="cred">Contador Público Auditor · Fiscal y financiera para eCommerce</div>
         <div class="rule"></div>
-        <p>Lidera la visión estratégica de Finabiz y el diseño de la <strong>Arquitectura de Claridad Fiscal</strong>. Más de 4 años de experiencia en estructura fiscal para negocios digitales con ingresos variables. Ha ayudado a transformar más de 20 operaciones caóticas en sistemas claros y sostenibles.</p>
+        <p>Lidera la visión estratégica de Finabiz y el diseño de la <strong>Arquitectura de Claridad Fiscal</strong>. Más de 4 años de experiencia profesional en estructura fiscal para negocios digitales con ingresos variables. Ha ayudado a transformar más de 20 operaciones caóticas en sistemas claros y sostenibles.</p>
         <a href="https://www.linkedin.com/in/victorperezcpa" target="_blank" rel="noopener" class="linkedin">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.446-2.136 2.94v5.666H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124zM7.114 20.452H3.56V9h3.554v11.452z"/></svg>
           LinkedIn
@@ -2358,10 +2426,10 @@
       <article class="member">
         <div class="avatar"><image-slot id="team-web-sp" shape="circle" placeholder="SP"></image-slot></div>
         <div class="name">Samuel Pintos</div>
-        <div class="role">Marketing y Administración</div>
+        <div class="role">Colaborador comercial</div>
         <div class="cred">Contador Público Auditor</div>
         <div class="rule"></div>
-        <p>Apoya la gestión administrativa y la comunicación estratégica de la marca hacia el exterior. Cuida que la experiencia del cliente comience con el pie derecho desde el primer punto de contacto.</p>
+        <p>Apoya de forma puntual en marketing y comunicación estratégica de la marca hacia el exterior, sumando su experiencia como contador público auditor a la conversación comercial.</p>
       </article>
     </div>
   </div>
@@ -2379,43 +2447,64 @@
     </div>
 
     <div class="faq-list">
-      <details class="faq-group">
-        <summary class="faq-group-title">Sobre la sesión gratuita</summary>
-        <details class="faq-item">
-          <summary>¿Cuánto dura la sesión de diagnóstico y tiene costo?</summary>
-          <p>Dura 30 minutos y es completamente gratuita. En la llamada revisamos tu situación fiscal y financiera actual, identificamos tus principales riesgos y te decimos con honestidad si Finabiz es adecuado para tu negocio — sin compromiso de contratar.</p>
-        </details>
-        <details class="faq-item">
-          <summary>¿Con quién voy a hablar?</summary>
-          <p>Directamente con uno de los cofundadores de Finabiz — Víctor o Pedro. No pasas por un equipo de ventas ni por un ejecutivo de cuenta — hablas con quien va a supervisar tu caso. Nuestro tiempo de respuesta promedio es menor a 1 hora.</p>
-        </details>
-        <details class="faq-item">
-          <summary>¿Esta sesión es asesoría fiscal gratuita completa?</summary>
-          <p>No. Es un diagnóstico para entender tu situación y definir si Finabiz es el sistema adecuado para ti. La asesoría e implementación a fondo forman parte de nuestros servicios contratados, no de la sesión inicial.</p>
-        </details>
-        <details class="faq-item">
-          <summary>¿Qué información debo preparar antes de la sesión?</summary>
-          <p>Idealmente tu RFC, tu régimen fiscal actual y una idea general de tus ingresos mensuales. Si ya facturas en plataformas de eCommerce o marketplaces, esa información también ayuda — pero no es obligatoria para agendar.</p>
-        </details>
+      <h3 class="faq-subtitle">Sobre la llamada de orientación gratuita</h3>
+      <details class="faq-item">
+        <summary>¿Cuánto dura la llamada de orientación y tiene costo?</summary>
+        <p>Dura 30 minutos y es completamente gratuita. En la llamada revisamos tu situación fiscal y financiera actual, identificamos tus principales riesgos y te decimos con honestidad si Finabiz es adecuado para tu negocio — sin compromiso de contratar.</p>
       </details>
-      <details class="faq-group">
-        <summary class="faq-group-title">Sobre Finabiz y el servicio</summary>
-        <details class="faq-item">
-          <summary>¿Atienden negocios fuera de la Ciudad de México?</summary>
-          <p>Sí. Trabajamos de forma remota con negocios en todo México — la ubicación no es una limitante.</p>
-        </details>
-        <details class="faq-item">
-          <summary>¿Qué incluye la garantía de 60 días?</summary>
-          <p>Si al finalizar la implementación acordada no cuentas con tu mapa fiscal, proyección de impuestos, cálculo de utilidad y plan de acción, continuamos trabajando en esos entregables sin costo adicional, siempre que hayamos recibido a tiempo la información solicitada.</p>
-        </details>
-        <details class="faq-item">
-          <summary>¿Para qué tamaño de negocio es adecuado Finabiz?</summary>
-          <p>Trabajamos principalmente con negocios digitales y de eCommerce que ya generan ingresos constantes, pero cuya contabilidad y visibilidad financiera no ha crecido al mismo ritmo. En la sesión de diagnóstico te decimos con honestidad si tu etapa actual es la adecuada.</p>
-        </details>
-        <details class="faq-item">
-          <summary>¿Manejan facturación de plataformas como Mercado Pago, Stripe o marketplaces?</summary>
-          <p>Sí, es parte de nuestra especialización: conciliación de ventas por plataforma, comisiones, retenciones y la diferencia entre lo que depositan los bancos y lo que realmente vendiste.</p>
-        </details>
+      <details class="faq-item">
+        <summary>¿Con quién voy a hablar?</summary>
+        <p>Directamente con uno de los cofundadores de Finabiz — Víctor o Pedro. No pasas por un equipo de ventas ni por un ejecutivo de cuenta — hablas con quien va a supervisar tu caso. Nuestro tiempo de respuesta promedio es menor a 1 hora.</p>
+      </details>
+      <details class="faq-item">
+        <summary>¿Esta llamada es asesoría fiscal gratuita completa?</summary>
+        <p>No. Es una llamada de orientación para entender tu situación y definir si Finabiz es el sistema adecuado para ti. El diagnóstico fiscal y financiero completo, la asesoría y la implementación a fondo forman parte de nuestros servicios contratados, no de esta llamada inicial.</p>
+      </details>
+      <details class="faq-item">
+        <summary>¿Qué información debo preparar antes de la llamada?</summary>
+        <p>Idealmente tu RFC, tu régimen fiscal actual y una idea general de tus ingresos mensuales. Si ya facturas en plataformas de eCommerce o marketplaces, esa información también ayuda — pero no es obligatoria para agendar.</p>
+      </details>
+      <details class="faq-item">
+        <summary>¿Qué ocurre después de la llamada de orientación?</summary>
+        <p>Si Finabiz es adecuado para tu negocio, te compartimos una propuesta con alcance y honorarios definidos. Si no lo es, te lo decimos con honestidad — sin compromiso de contratar.</p>
+      </details>
+      <details class="faq-item">
+        <summary>¿Cuánto tarda el proceso de incorporación?</summary>
+        <p>Depende de cuántos meses u obligaciones estén pendientes de regularizar. En la llamada de orientación te damos un estimado realista según tu situación.</p>
+      </details>
+
+      <h3 class="faq-subtitle">Sobre Finabiz y el servicio</h3>
+      <details class="faq-item">
+        <summary>¿Atienden negocios en todo México?</summary>
+        <p>Sí. Trabajamos de manera remota con negocios digitales y de eCommerce en todo México, por lo que tu ubicación no representa una limitante.</p>
+      </details>
+      <details class="faq-item">
+        <summary>¿Qué incluye la garantía de 60 días?</summary>
+        <p>Si al finalizar la implementación acordada no cuentas con tu mapa fiscal, proyección de impuestos, cálculo de utilidad y plan de acción, continuamos trabajando en esos entregables sin costo adicional, siempre que hayamos recibido a tiempo la información solicitada.</p>
+      </details>
+      <details class="faq-item">
+        <summary>¿Para qué tamaño de negocio es adecuado Finabiz?</summary>
+        <p>Trabajamos principalmente con negocios digitales y de eCommerce que ya generan ingresos constantes, pero cuya contabilidad y visibilidad financiera no ha crecido al mismo ritmo. En la llamada de orientación te decimos con honestidad si tu etapa actual es la adecuada.</p>
+      </details>
+      <details class="faq-item">
+        <summary>¿Manejan facturación de plataformas como Mercado Pago, Stripe o marketplaces?</summary>
+        <p>Sí, es parte de nuestra especialización: conciliación de ventas por plataforma, comisiones, retenciones y la diferencia entre lo que depositan los bancos y lo que realmente vendiste.</p>
+      </details>
+      <details class="faq-item">
+        <summary>¿Cuánto cuestan los servicios?</summary>
+        <p>La inversión depende del volumen de operaciones, plataformas, obligaciones y nivel de acompañamiento que necesites. Después de la llamada de orientación recibes una propuesta con alcance y honorarios definidos.</p>
+      </details>
+      <details class="faq-item">
+        <summary>¿Trabajan con personas físicas y personas morales?</summary>
+        <p>Sí, trabajamos con ambos regímenes. En la llamada de orientación evaluamos cuál corresponde a tu situación actual y si conviene algún cambio.</p>
+      </details>
+      <details class="faq-item">
+        <summary>¿Pueden trabajar junto con mi contador actual?</summary>
+        <p>Sí, podemos complementar el trabajo de tu contador actual, especialmente en diagnóstico, estructura fiscal y visibilidad financiera — no buscamos reemplazar relaciones que ya te funcionan bien.</p>
+      </details>
+      <details class="faq-item">
+        <summary>¿Cómo protegen mi e.firma, estados de cuenta e información fiscal?</summary>
+        <p>Manejamos tu información con confidencialidad y solo para los fines del servicio contratado. No accedemos directamente a tus cuentas bancarias — tú nos compartes los documentos necesarios de forma segura. Consulta el <a href="aviso-de-privacidad.html">Aviso de Privacidad</a> para más detalle.</p>
       </details>
     </div>
   </div>
@@ -2436,7 +2525,7 @@
           Da el primer paso: agenda un <strong>diagnóstico gratuito de 30 minutos</strong> y descubre cómo podemos ayudarte a transformar el caos financiero en estructura sólida.
         </p>
         <a href="#" class="btn btn-primary js-tf-cta">
-          Agenda tu diagnóstico inicial de 30 min
+          Agenda tu llamada de orientación de 30 min
           <span class="arrow">→</span>
         </a>
         <p class="cta-final-microcopy">Con Víctor o Pedro, cofundadores de Finabiz. Revisaremos tu situación, tus principales bloqueos y el siguiente paso recomendado.</p>
@@ -2494,7 +2583,8 @@
       <div>
         <h4>Contacto</h4>
         <ul>
-          <li><a href="#" class="js-tf-cta">Agenda tu diagnóstico</a></li>
+          <li><a href="#" class="js-tf-cta">Agenda tu llamada</a></li>
+          <li><a href="https://wa.me/5218998808616" target="_blank" rel="noopener">WhatsApp</a></li>
           <li><a href="mailto:contacto@finabiz.mx">contacto@finabiz.mx</a></li>
           <li><a href="tel:+528998808616">+52 899-880-8616</a></li>
           <li>finabiz.mx</li>
@@ -2515,7 +2605,7 @@
 
 <!-- ═══════════ FLOATING CTA ═══════════ -->
 <a href="#" class="float-cta js-tf-cta" id="floatCta">
-  Agenda tu diagnóstico <span>→</span>
+  Agenda tu llamada <span>→</span>
 </a>
 
 <!-- ═══════════ TYPEFORM OVERLAY (precargado en segundo plano) ═══════════ -->
@@ -2552,6 +2642,7 @@
     function open() {
       preload();
       overlay.classList.add('show');
+      document.body.classList.add('tf-open');
       document.body.style.overflow = 'hidden';
       // Empuja una entrada al historial para que el botón "atrás" del navegador
       // (o del celular) cierre el formulario en vez de salir de la página.
@@ -2561,6 +2652,7 @@
     function close() {
       if (!overlay.classList.contains('show')) return;
       overlay.classList.remove('show');
+      document.body.classList.remove('tf-open');
       document.body.style.overflow = '';
       // Si la entrada de historial que abrimos sigue activa, la quitamos para
       // que un segundo "atrás" no se quede en un estado vacío.
@@ -2582,6 +2674,7 @@
     window.addEventListener('popstate', function () {
       if (overlay.classList.contains('show')) {
         overlay.classList.remove('show');
+        document.body.classList.remove('tf-open');
         document.body.style.overflow = '';
       }
     });
@@ -2833,13 +2926,21 @@
   const nav = document.getElementById('nav');
   const cta = document.getElementById('floatCta');
   const hero = document.querySelector('.hero');
+  const footerEl = document.querySelector('.footer');
+  const contactoEl = document.getElementById('contacto');
   function onScroll() {
     const y = window.scrollY;
     nav.classList.toggle('scrolled', y > 12);
+    let showCta = false;
     if (hero) {
       const heroBottom = hero.offsetTop + hero.offsetHeight;
-      cta.classList.toggle('show', y > heroBottom - 200);
+      showCta = y > heroBottom - 200;
     }
+    // Oculta el CTA flotante al llegar al CTA final / footer, donde ya hay
+    // un CTA equivalente en la propia sección y el flotante solo taparía contenido.
+    const hideBoundary = contactoEl ? contactoEl.offsetTop : (footerEl ? footerEl.offsetTop : Infinity);
+    if (y + window.innerHeight * .6 > hideBoundary) showCta = false;
+    cta.classList.toggle('show', showCta);
   }
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();

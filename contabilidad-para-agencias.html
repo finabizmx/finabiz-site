@@ -91,7 +91,7 @@
     },
     {
       "@type": "Question",
-      "name": "¿Cuánto dura la sesión de diagnóstico y tiene costo?",
+      "name": "¿Cuánto dura la llamada de orientación y tiene costo?",
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "Dura 30 minutos y es completamente gratuita. En la llamada revisamos tu situación fiscal y financiera actual, identificamos tus principales riesgos y te decimos con honestidad si Finabiz es adecuado para tu negocio, sin compromiso de contratar."
@@ -136,7 +136,7 @@
       <a href="/#faq">Preguntas frecuentes</a>
       <a href="/#contacto">Contacto</a>
     </nav>
-    <a href="#" class="nav-cta js-tf-cta">Agenda diagnóstico</a>
+    <a href="#" class="nav-cta js-tf-cta">Agenda tu llamada</a>
     <button class="nav-burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks" id="burger"><span></span></button>
   </div>
 </header>
@@ -155,7 +155,7 @@
     <p class="hero-subtitle reveal">Facturas a clientes distintos cada mes, con montos que suben y bajan. Te ayudamos a saber cuánto ganas de verdad, cuánto provisionar y cómo cobrar sin ahogar tu flujo de efectivo.</p>
     <div class="hero-cta-row reveal">
       <a href="#" class="btn btn-primary js-tf-cta">
-        Agenda un diagnóstico gratuito de 30 min
+        Agenda una llamada de orientación gratuita de 30 min
         <span class="arrow">→</span>
       </a>
       <a href="/#servicios" class="btn btn-secondary">Ver todos los servicios</a>
@@ -255,7 +255,7 @@
           <p>Sí, evaluamos tu situación actual y tu proyección de crecimiento para decirte con honestidad si conviene cambiar de régimen y en qué momento.</p>
         </details>
         <details class="faq-item">
-          <summary>¿Cuánto dura la sesión de diagnóstico y tiene costo?</summary>
+          <summary>¿Cuánto dura la llamada de orientación y tiene costo?</summary>
           <p>Dura 30 minutos y es completamente gratuita. En la llamada revisamos tu situación fiscal y financiera actual, identificamos tus principales riesgos y te decimos con honestidad si Finabiz es adecuado para tu negocio, sin compromiso de contratar.</p>
         </details>
     </div>
@@ -277,7 +277,7 @@
           Da el primer paso: agenda un <strong>diagnóstico gratuito de 30 minutos</strong> y descubre cómo podemos ayudarte a transformar el caos financiero en estructura sólida.
         </p>
         <a href="#" class="btn btn-primary js-tf-cta">
-          Agenda tu diagnóstico inicial de 30 min
+          Agenda tu llamada de orientación de 30 min
           <span class="arrow">→</span>
         </a>
         <p class="cta-final-microcopy">Con Víctor o Pedro, cofundadores de Finabiz. Revisaremos tu situación, tus principales bloqueos y el siguiente paso recomendado.</p>
@@ -335,7 +335,8 @@
       <div>
         <h4>Contacto</h4>
         <ul>
-          <li><a href="#" class="js-tf-cta">Agenda tu diagnóstico</a></li>
+          <li><a href="#" class="js-tf-cta">Agenda tu llamada</a></li>
+          <li><a href="https://wa.me/5218998808616" target="_blank" rel="noopener">WhatsApp</a></li>
           <li><a href="mailto:contacto@finabiz.mx">contacto@finabiz.mx</a></li>
           <li><a href="tel:+528998808616">+52 899-880-8616</a></li>
           <li>finabiz.mx</li>
@@ -356,7 +357,7 @@
 
 <!-- ═══════════ FLOATING CTA ═══════════ -->
 <a href="#" class="float-cta js-tf-cta" id="floatCta">
-  Agenda tu diagnóstico <span>→</span>
+  Agenda tu llamada <span>→</span>
 </a>
 
 <!-- ═══════════ TYPEFORM OVERLAY (precargado en segundo plano) ═══════════ -->
@@ -393,6 +394,7 @@
     function open() {
       preload();
       overlay.classList.add('show');
+      document.body.classList.add('tf-open');
       document.body.style.overflow = 'hidden';
       history.pushState({ tfOverlay: true }, '', location.href);
     }
@@ -400,6 +402,7 @@
     function close() {
       if (!overlay.classList.contains('show')) return;
       overlay.classList.remove('show');
+      document.body.classList.remove('tf-open');
       document.body.style.overflow = '';
       if (history.state && history.state.tfOverlay) history.back();
     }
@@ -416,6 +419,7 @@
     window.addEventListener('popstate', function () {
       if (overlay.classList.contains('show')) {
         overlay.classList.remove('show');
+        document.body.classList.remove('tf-open');
         document.body.style.overflow = '';
       }
     });
@@ -434,13 +438,19 @@
   const nav = document.getElementById('nav');
   const cta = document.getElementById('floatCta');
   const hero = document.querySelector('.hero');
+  const footerEl = document.querySelector('.footer');
+  const contactoEl = document.getElementById('contacto');
   function onScroll() {
     const y = window.scrollY;
     nav.classList.toggle('scrolled', y > 12);
+    let showCta = false;
     if (hero) {
       const heroBottom = hero.offsetTop + hero.offsetHeight;
-      cta.classList.toggle('show', y > heroBottom - 200);
+      showCta = y > heroBottom - 200;
     }
+    const hideBoundary = contactoEl ? contactoEl.offsetTop : (footerEl ? footerEl.offsetTop : Infinity);
+    if (y + window.innerHeight * .6 > hideBoundary) showCta = false;
+    cta.classList.toggle('show', showCta);
   }
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();

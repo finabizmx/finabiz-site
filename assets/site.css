@@ -1521,9 +1521,16 @@
     .footer-grid { grid-template-columns: 1fr; }
     .stat { grid-template-columns: 1fr; gap: 6px; }
     .float-cta { right: 12px; bottom: 12px; padding: 12px 16px; font-size: 13px; }
-    .whatsapp-cta { right: 12px; bottom: 66px; width: 46px; height: 46px; }
-    .whatsapp-cta svg { width: 23px; height: 23px; }
+    /* En móvil solo un botón flotante a la vez: el CTA principal.
+       WhatsApp sigue disponible en el footer. */
+    .whatsapp-cta { display: none; }
     .guarantee { grid-template-columns: 1fr; gap: 8px; }
+  }
+  /* Mientras el modal de Typeform está abierto, ningún botón flotante debe
+     competir por atención ni cubrir el formulario. */
+  body.tf-open .float-cta,
+  body.tf-open .whatsapp-cta {
+    display: none;
   }
 
   /* ── V2 ENHANCEMENTS ── */
