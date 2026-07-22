@@ -1754,7 +1754,13 @@
   }
 
   /* ─── SUBPAGINAS SEO (servicios individuales) ─── */
-  .hero--sub { padding: clamp(56px, 8vw, 100px) 0 clamp(64px, 8vw, 100px); }
+  /* Sin el canvas 3D, .hero-bg por si sola queda muy clara — le damos
+     la misma base oscura que usa el canvas en la portada, con un
+     angulo distinto como variante para las subpaginas. */
+  .hero--sub {
+    padding: clamp(56px, 8vw, 100px) 0 clamp(64px, 8vw, 100px);
+    background: linear-gradient(200deg, #0c1035 0%, #101a4a 55%, #080d22 100%);
+  }
   .breadcrumb {
     margin: 0 0 18px;
     font: 500 12px/1 "JetBrains Mono", monospace;
