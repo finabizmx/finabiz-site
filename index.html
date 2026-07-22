@@ -2593,7 +2593,6 @@
   })();
 </script>
 
-<script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
 <script>
 /* ============================================================
    V2 HERO — DRAMATIC PARTICLE SPHERE + ORBITAL RINGS
@@ -2601,8 +2600,29 @@
    (neon glow), three rotating rings, inner icosahedron,
    floating dashboard cards, 700-star field.
    Scroll-driven camera + mouse parallax.
+
+   Cargado y ejecutado despues de window.load para no competir
+   por el hilo principal durante el render inicial (Core Web Vitals).
    ============================================================ */
 (function () {
+  const canvasEl = document.getElementById('hero-3d-canvas');
+  if (!canvasEl) return;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) { canvasEl.style.display = 'none'; return; }
+
+  function loadThree(cb) {
+    const s = document.createElement('script');
+    s.src = 'https://unpkg.com/three@0.160.0/build/three.min.js';
+    s.onload = cb;
+    document.body.appendChild(s);
+  }
+  function schedule() {
+    if ('requestIdleCallback' in window) requestIdleCallback(() => loadThree(initHero), { timeout: 2000 });
+    else setTimeout(() => loadThree(initHero), 200);
+  }
+  if (document.readyState === 'complete') schedule();
+  else window.addEventListener('load', schedule);
+
+  function initHero() {
   const canvas = document.getElementById('hero-3d-canvas');
   if (!canvas || !window.THREE) return;
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) { canvas.style.display = 'none'; return; }
@@ -2801,6 +2821,7 @@
     renderer.render(scene,camera);
   }
   requestAnimationFrame(tick);
+  }
 })();
 </script>
 
