@@ -1145,6 +1145,17 @@
     text-align: center;
   }
   .samples-cta { display: flex; justify-content: center; flex-wrap: wrap; gap: 16px; margin-top: 32px; }
+  /* .btn-secondary por defecto es texto blanco (pensado para fondos oscuros como el hero);
+     esta sección tiene fondo claro, así que necesita su propio contraste. */
+  .samples-cta .btn-secondary {
+    color: var(--blue-ink);
+    border: 1px solid var(--line);
+  }
+  .samples-cta .btn-secondary:hover {
+    background: var(--blue-ink);
+    color: #fff;
+    border-color: var(--blue-ink);
+  }
 
   /* ─── POR QUÉ FINABIZ ─── */
   .why-grid {
