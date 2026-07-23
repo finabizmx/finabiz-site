@@ -704,6 +704,8 @@
     color: var(--muted);
     line-height: 1.5;
   }
+  .stat.stat--stacked { grid-template-columns: 1fr; gap: 10px; }
+  .stat.stat--stacked .num.text { padding-top: 0; }
 
   /* ─── PROPUESTA DE VALOR ─── */
   .puv-quote {
@@ -1144,7 +1146,7 @@
     color: var(--muted);
     text-align: center;
   }
-  .samples-cta { display: flex; justify-content: center; flex-wrap: wrap; gap: 16px; margin-top: 32px; }
+  .samples-cta { display: flex; justify-content: center; align-items: flex-start; flex-wrap: wrap; gap: 16px; margin-top: 32px; }
   /* .btn-secondary por defecto es texto blanco (pensado para fondos oscuros como el hero);
      esta sección tiene fondo claro, así que necesita su propio contraste. */
   .samples-cta .btn-secondary {
@@ -1156,9 +1158,10 @@
     color: #fff;
     border-color: var(--blue-ink);
   }
+  .samples-cta-pdf { display: flex; flex-direction: column; align-items: center; gap: 10px; }
   .samples-cta-note {
     text-align: center;
-    margin: 12px 0 0;
+    margin: 0;
     font: 500 11px/1 "JetBrains Mono", monospace;
     letter-spacing: .06em;
     text-transform: uppercase;
@@ -2251,7 +2254,7 @@
             <span>Acompañamiento en contabilidad, cumplimiento y estructura fiscal.</span>
           </div>
         </div>
-        <div class="stat">
+        <div class="stat stat--stacked">
           <div class="num text">Más de $350 mil MXN</div>
           <div>
             <strong>En posibles impactos fiscales y financieros identificados</strong>
@@ -2536,11 +2539,13 @@
         Agenda tu llamada de orientación
         <span class="arrow">→</span>
       </a>
-      <a href="assets/ejemplo-sistema-finabiz.pdf" class="btn btn-secondary" target="_blank" rel="noopener">
-        Ver ejemplo completo en PDF
-      </a>
+      <div class="samples-cta-pdf">
+        <a href="assets/ejemplo-sistema-finabiz.pdf" class="btn btn-secondary" target="_blank" rel="noopener">
+          Ver ejemplo completo en PDF
+        </a>
+        <p class="samples-cta-note">10 páginas · datos simulados</p>
+      </div>
     </div>
-    <p class="samples-cta-note">10 páginas · datos simulados · gratuito</p>
   </div>
 </section>
 
