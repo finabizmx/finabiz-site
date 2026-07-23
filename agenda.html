@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8" />
+<title>Agenda tu llamada — Finabiz</title>
+<meta name="description" content="Agenda tu sesión estratégica gratuita con Finabiz." />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<meta name="theme-color" content="#1B2654" />
+<link rel="icon" href="favicon.ico" sizes="any" />
+<link rel="icon" type="image/png" href="assets/F-blue.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+
+<!--
+  Página intencionalmente sin enlaces de entrada desde el resto del sitio
+  (por eso robots noindex,nofollow). Solo se llega por URL directa —
+  pensada para usarse como destino de una redirección al finalizar el
+  formulario de Typeform una vez que el plan de Typeform lo permita (en
+  el plan gratuito no hay redirect/botón personalizado al finalizar,
+  según lo confirmado por el usuario el 2026-07-23).
+
+  Acepta ?name= y ?email= (o ?nombre= y ?correo=) en la URL para
+  prellenar el widget de Calendly.
+-->
+
+<style>
+  :root {
+    --blue: #3F54B0;
+    --blue-ink: #1B2654;
+    --orange: #FF8C00;
+    --ink: #15182B;
+    --muted: #5C627A;
+    --line: #E6E5E0;
+    --paper: #FAFAF7;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "DM Sans", system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+  }
+  a { color: var(--blue); text-decoration: underline; text-underline-offset: 2px; }
+  .wrap { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+
+  header {
+    background: var(--blue-ink);
+    padding: 18px 0;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .brand .rook { width: 32px; height: 32px; background: #fff; border-radius: 4px; display: grid; place-items: center; }
+  .brand .rook img { width: 70%; }
+  .brand .word { font-family: "Space Grotesk", sans-serif; font-weight: 600; font-size: 18px; color: #fff; letter-spacing: -.01em; }
+
+  main { padding: clamp(32px, 6vw, 64px) 0 100px; }
+  .eyebrow {
+    font: 600 11px/1 "JetBrains Mono", monospace;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--orange);
+    display: block;
+    margin-bottom: 16px;
+  }
+  h1 {
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 600;
+    font-size: clamp(26px, 3.6vw, 36px);
+    color: var(--blue-ink);
+    letter-spacing: -.01em;
+    margin: 0 0 10px;
+  }
+  .lede { color: var(--muted); font-size: 15.5px; margin: 0 0 32px; max-width: 560px; }
+
+  .calendly-frame {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+    min-height: 700px;
+  }
+  .calendly-inline-widget { min-width: 320px; height: 700px; }
+
+  .fallback-link {
+    margin-top: 16px;
+    font-size: 13.5px;
+    color: var(--muted);
+  }
+
+  footer {
+    background: var(--blue-ink);
+    padding: 32px 0;
+    text-align: center;
+  }
+  footer p { color: rgba(255,255,255,.6); font-size: 13px; margin: 0; }
+  footer a { color: rgba(255,255,255,.85); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="index.html" class="brand" aria-label="Finabiz — volver al inicio">
+      <div class="rook"><img src="assets/F-blue.png" alt="" /></div>
+      <span class="word">FINABIZ</span>
+    </a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <span class="eyebrow">Sesión estratégica gratuita</span>
+    <h1 id="greeting">Agenda tu llamada de orientación</h1>
+    <p class="lede">Elige el día y la hora que mejor te acomoden. La sesión dura 45 minutos y los detalles de la conferencia web se te confirmarán junto con tu cita.</p>
+
+    <div class="calendly-frame">
+      <div class="calendly-inline-widget" data-url="" id="calendlyWidget"></div>
+    </div>
+    <p class="fallback-link">¿No carga el calendario? <a id="calendlyFallback" href="https://calendly.com/finabiz-mx/sesion-estrategica-gratuita" target="_blank" rel="noopener">Ábrelo en una pestaña nueva</a>.</p>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>© 2026 Finabiz · <a href="index.html">Volver al inicio</a> · <a href="aviso-de-privacidad.html">Aviso de privacidad</a></p>
+  </div>
+</footer>
+
+<script src="https://assets.calendly.com/assets/external/widget.js"></script>
+<script>
+  (function () {
+    var BASE_URL = 'https://calendly.com/finabiz-mx/sesion-estrategica-gratuita';
+    var params = new URLSearchParams(window.location.search);
+    var name = params.get('name') || params.get('nombre');
+    var email = params.get('email') || params.get('correo');
+
+    var calendlyParams = new URLSearchParams();
+    calendlyParams.set('hide_gdpr_banner', '1');
+    if (name) calendlyParams.set('name', name);
+    if (email) calendlyParams.set('email', email);
+
+    var fullUrl = BASE_URL + '?' + calendlyParams.toString();
+    document.getElementById('calendlyWidget').setAttribute('data-url', fullUrl);
+    document.getElementById('calendlyFallback').href = fullUrl;
+
+    if (name) {
+      document.getElementById('greeting').textContent = 'Listo, ' + name + '. Agenda tu llamada de orientación';
+    }
+  })();
+</script>
+
+</body>
+</html>
