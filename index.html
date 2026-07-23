@@ -217,7 +217,7 @@
     --cream: #F4F1E9;
     --max: 1240px;
     --pad-x: clamp(20px, 4vw, 64px);
-    --section-y: clamp(60px, 7.5vw, 106px);
+    --section-y: clamp(55px, 6.8vw, 96px);
   }
 
   * { box-sizing: border-box; }
@@ -397,7 +397,7 @@
 
   /* ─── HERO ─── */
   .hero {
-    padding: clamp(60px, 8.3vw, 116px) 0 clamp(73px, 9vw, 126px);
+    padding: clamp(55px, 7.6vw, 106px) 0 clamp(66px, 8.2vw, 115px);
     position: relative;
     overflow: hidden;
     isolation: isolate;
@@ -568,10 +568,10 @@
   .section-head {
     display: grid;
     grid-template-columns: 1.1fr 1fr;
-    gap: 40px;
+    gap: 36px;
     align-items: end;
-    margin-bottom: 46px;
-    padding-bottom: 20px;
+    margin-bottom: 40px;
+    padding-bottom: 18px;
     border-bottom: 1px solid var(--line);
   }
   .section-head .eyebrow { margin-bottom: 16px; }
@@ -1155,6 +1155,14 @@
     background: var(--blue-ink);
     color: #fff;
     border-color: var(--blue-ink);
+  }
+  .samples-cta-note {
+    text-align: center;
+    margin: 12px 0 0;
+    font: 500 11px/1 "JetBrains Mono", monospace;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--muted);
   }
 
   /* ─── POR QUÉ FINABIZ ─── */
@@ -2097,7 +2105,7 @@
 <!-- ═══════════ NAV ═══════════ -->
 <header class="nav" id="nav">
   <div class="nav-inner">
-    <a href="#" class="brand" aria-label="Finabiz">
+    <a href="/" class="brand" aria-label="Finabiz">
       <div class="rook"><img src="assets/F-blue.png" alt="" /></div>
       <div class="text">
         <img src="assets/Logo-H-T.png" alt="FINABIZ" class="brand-logo-img" />
@@ -2244,10 +2252,10 @@
           </div>
         </div>
         <div class="stat">
-          <div class="num text">$350,000</div>
+          <div class="num text">Más de $350 mil MXN</div>
           <div>
             <strong>En posibles impactos fiscales y financieros identificados</strong>
-            <span>En revisiones realizadas entre 2023 y 2026. MXN.</span>
+            <span>en revisiones realizadas entre 2023 y 2026.</span>
           </div>
         </div>
         <div class="stat">
@@ -2528,10 +2536,11 @@
         Agenda tu llamada de orientación
         <span class="arrow">→</span>
       </a>
-      <a href="assets/ejemplo-sistema-finabiz.pdf" class="btn btn-secondary" download>
-        Descargar PDF de muestra
+      <a href="assets/ejemplo-sistema-finabiz.pdf" class="btn btn-secondary" target="_blank" rel="noopener">
+        Ver ejemplo completo en PDF
       </a>
     </div>
+    <p class="samples-cta-note">10 páginas · datos simulados · gratuito</p>
   </div>
 </section>
 
@@ -2902,10 +2911,36 @@
   if (!canvasEl) return;
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) { canvasEl.style.display = 'none'; return; }
 
+  // Comprueba soporte de WebGL antes de cargar three.js — evita descargar
+  // la librería y lanzar un error sin control en equipos con WebGL
+  // deshabilitado (navegadores corporativos, hardware antiguo, etc.).
+  function supportsWebGL() {
+    try {
+      const testCanvas = document.createElement('canvas');
+      return !!(testCanvas.getContext('webgl') || testCanvas.getContext('experimental-webgl'));
+    } catch (e) {
+      return false;
+    }
+  }
+  if (!supportsWebGL()) { canvasEl.style.display = 'none'; return; }
+
   function loadThree(cb) {
     const s = document.createElement('script');
     s.src = 'https://unpkg.com/three@0.160.0/build/three.min.js';
-    s.onload = cb;
+    // Cualquier fallo al inicializar la escena (contexto WebGL perdido,
+    // extensión no disponible, etc.) se captura en vez de quedar como un
+    // error sin control — el sitio simplemente se queda con el fondo estático.
+    s.onload = function () {
+      try {
+        cb();
+      } catch (e) {
+        console.warn('Hero 3D no pudo inicializarse, se usa el fondo estático:', e);
+        if (canvasEl) canvasEl.style.display = 'none';
+      }
+    };
+    s.onerror = function () {
+      if (canvasEl) canvasEl.style.display = 'none';
+    };
     document.body.appendChild(s);
   }
   function schedule() {
@@ -3127,10 +3162,14 @@
   const contactoEl = document.getElementById('contacto');
   // El CTA flotante debe ceder el paso cuando un CTA de seccion (o el FAQ)
   // ya esta a la vista, para no competir ni tapar contenido.
+  // El CTA flotante cede el paso a cualquier seccion que ya traiga su propio
+  // CTA naranja (ejemplos, FAQ, contacto), no solo al boton especifico —
+  // asi nunca se superpone con tarjetas, el enlace del PDF o el resto del
+  // contenido de esa seccion mientras esta a la vista.
   let sectionCtaVisible = false;
-  const watchedCtas = [...document.querySelectorAll('.btn-primary.js-tf-cta')].filter(el => !hero || !hero.contains(el));
-  const faqSection = document.getElementById('faq');
-  const ctaObserverTargets = faqSection ? [...watchedCtas, faqSection] : watchedCtas;
+  const ctaObserverTargets = ['ejemplos', 'faq', 'contacto']
+    .map((id) => document.getElementById(id))
+    .filter(Boolean);
   function recomputeSectionCtaVisible() {
     sectionCtaVisible = ctaObserverTargets.some((el) => {
       const r = el.getBoundingClientRect();
@@ -3138,7 +3177,7 @@
     });
     onScroll();
   }
-  const ctaObserver = new IntersectionObserver(recomputeSectionCtaVisible, { threshold: 0.2 });
+  const ctaObserver = new IntersectionObserver(recomputeSectionCtaVisible, { threshold: 0 });
   ctaObserverTargets.forEach((el) => ctaObserver.observe(el));
 
   function onScroll() {
@@ -3150,6 +3189,9 @@
       showCta = y > heroBottom - 200;
     }
     if (sectionCtaVisible) showCta = false;
+    // Con poco alto de pantalla (ventanas cortas, celular en horizontal) el
+    // CTA flotante ocupa proporcionalmente demasiado espacio y tapa contenido.
+    if (window.innerHeight < 560) showCta = false;
     // Oculta el CTA flotante al llegar al CTA final / footer, donde ya hay
     // un CTA equivalente en la propia sección y el flotante solo taparía contenido.
     const hideBoundary = contactoEl ? contactoEl.offsetTop : (footerEl ? footerEl.offsetTop : Infinity);
@@ -3157,6 +3199,7 @@
     cta.classList.toggle('show', showCta);
   }
   window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
   onScroll();
 
   // Mobile menu toggle

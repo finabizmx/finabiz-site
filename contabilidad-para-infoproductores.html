@@ -444,9 +444,9 @@
   const footerEl = document.querySelector('.footer');
   const contactoEl = document.getElementById('contacto');
   let sectionCtaVisible = false;
-  const watchedCtas = [...document.querySelectorAll('.btn-primary.js-tf-cta')].filter(el => !hero || !hero.contains(el));
-  const faqSection = document.getElementById('faq');
-  const ctaObserverTargets = faqSection ? [...watchedCtas, faqSection] : watchedCtas;
+  const ctaObserverTargets = ['faq', 'contacto']
+    .map((id) => document.getElementById(id))
+    .filter(Boolean);
   function recomputeSectionCtaVisible() {
     sectionCtaVisible = ctaObserverTargets.some((el) => {
       const r = el.getBoundingClientRect();
@@ -454,7 +454,7 @@
     });
     onScroll();
   }
-  const ctaObserver = new IntersectionObserver(recomputeSectionCtaVisible, { threshold: 0.2 });
+  const ctaObserver = new IntersectionObserver(recomputeSectionCtaVisible, { threshold: 0 });
   ctaObserverTargets.forEach((el) => ctaObserver.observe(el));
 
   function onScroll() {
@@ -466,11 +466,13 @@
       showCta = y > heroBottom - 200;
     }
     if (sectionCtaVisible) showCta = false;
+    if (window.innerHeight < 560) showCta = false;
     const hideBoundary = contactoEl ? contactoEl.offsetTop : (footerEl ? footerEl.offsetTop : Infinity);
     if (y + window.innerHeight * .6 > hideBoundary) showCta = false;
     cta.classList.toggle('show', showCta);
   }
   window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
   onScroll();
 
   // Mobile menu toggle
