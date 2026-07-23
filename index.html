@@ -133,10 +133,10 @@
     },
     {
       "@type": "Question",
-      "name": "¿Qué incluye la garantía de 60 días?",
+      "name": "¿Qué incluye el compromiso de implementación de 60 días?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Si al finalizar la implementación acordada no cuentas con tu mapa fiscal, proyección de impuestos, cálculo de utilidad y plan de acción, continuamos trabajando en esos entregables sin costo adicional, siempre que hayamos recibido a tiempo la información solicitada."
+        "text": "Si al finalizar el plazo de implementación acordado no cuentas con tu mapa fiscal, proyección financiera y fiscal, cálculo de utilidad y plan de acción, continuamos trabajando en esos entregables sin honorarios adicionales, siempre que hayamos recibido a tiempo la información solicitada. El plazo puede pausarse por retrasos del cliente, indisponibilidad de plataformas gubernamentales, cambios de alcance o causas de fuerza mayor; este compromiso no garantiza resultados específicos ante autoridades."
       }
     },
     {
@@ -1596,8 +1596,23 @@
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 40px 100px -20px rgba(0,0,0,.5);
+    display: flex;
+    flex-direction: column;
   }
-  .tf-overlay-widget { width: 100%; height: 100%; }
+  /* Aviso simplificado (art. 16 LFPDPPP): el formulario en sí vive en Typeform,
+     así que este texto es lo único que controlamos directamente sobre qué se
+     informa antes de que la persona empiece a llenarlo. */
+  .tf-overlay-notice {
+    flex-shrink: 0;
+    padding: 12px 64px 12px 18px;
+    background: var(--paper);
+    border-bottom: 1px solid var(--line);
+    font-size: 12px;
+    line-height: 1.45;
+    color: var(--muted);
+  }
+  .tf-overlay-notice a { color: var(--blue); }
+  .tf-overlay-widget { width: 100%; flex: 1; min-height: 0; }
   /* Fixed to the true viewport (not nested in the clipped panel) so it can
      never end up hidden behind mobile browser chrome or the iframe's own
      stacking context — this is the only way to close the overlay since the
@@ -2446,8 +2461,8 @@
     </div>
 
     <div class="guarantee">
-      <span class="gtag">Garantía · 60 días</span>
-      <p>Si al finalizar los 60 días no cuentas con tu <strong>mapa fiscal, proyección de impuestos y cálculo de utilidad</strong>, seguimos trabajando en esos entregables sin costo adicional — siempre que hayamos recibido a tiempo la información solicitada.</p>
+      <span class="gtag">Compromiso · 60 días</span>
+      <p>Si al finalizar el plazo de implementación acordado no cuentas con tu <strong>mapa fiscal, proyección financiera y fiscal y cálculo de utilidad</strong>, seguimos trabajando en esos entregables sin honorarios adicionales — siempre que hayamos recibido a tiempo la información solicitada. El plazo puede pausarse por retrasos del cliente, indisponibilidad de plataformas gubernamentales o causas de fuerza mayor.</p>
     </div>
 
     <div class="forwhom">
@@ -2687,8 +2702,8 @@
         <p>Sí. Trabajamos de manera remota con negocios digitales y de eCommerce en todo México, por lo que tu ubicación no representa una limitante.</p>
       </details>
       <details class="faq-item">
-        <summary>¿Qué incluye la garantía de 60 días?</summary>
-        <p>Si al finalizar la implementación acordada no cuentas con tu mapa fiscal, proyección de impuestos, cálculo de utilidad y plan de acción, continuamos trabajando en esos entregables sin costo adicional, siempre que hayamos recibido a tiempo la información solicitada.</p>
+        <summary>¿Qué incluye el compromiso de implementación de 60 días?</summary>
+        <p>Si al finalizar el plazo de implementación acordado no cuentas con tu mapa fiscal, proyección financiera y fiscal, cálculo de utilidad y plan de acción, continuamos trabajando en esos entregables sin honorarios adicionales, siempre que hayamos recibido a tiempo la información solicitada. El plazo puede pausarse por retrasos del cliente, indisponibilidad de plataformas gubernamentales, cambios de alcance o causas de fuerza mayor; este compromiso no garantiza resultados específicos ante autoridades.</p>
       </details>
       <details class="faq-item">
         <summary>¿Para qué tamaño de negocio es adecuado Finabiz?</summary>
@@ -2739,8 +2754,8 @@
         <p class="cta-final-microcopy">Con Víctor o Pedro, cofundadores de Finabiz. Revisaremos tu situación, tus principales bloqueos y el siguiente paso recomendado.</p>
       </div>
       <div class="promise">
-        <div class="ptag">Nuestra garantía</div>
-        <p>Si al finalizar la implementación acordada no cuentas con tu <strong>mapa fiscal, proyección de impuestos, cálculo de utilidad y plan de acción</strong>, continuamos trabajando en esos entregables <strong>sin honorarios adicionales</strong>, siempre que hayamos recibido la información solicitada a tiempo.</p>
+        <div class="ptag">Nuestro compromiso</div>
+        <p>Si al finalizar el plazo de implementación acordado no cuentas con tu <strong>mapa fiscal, proyección financiera y fiscal, cálculo de utilidad y plan de acción</strong>, continuamos trabajando en esos entregables <strong>sin honorarios adicionales</strong> — siempre que hayamos recibido la información solicitada a tiempo. El plazo puede pausarse por retrasos del cliente, indisponibilidad de plataformas gubernamentales, cambios de alcance o causas de fuerza mayor, y no garantiza resultados específicos ante autoridades.</p>
       </div>
     </div>
   </div>
@@ -2823,6 +2838,7 @@
 <div class="tf-overlay" id="tfOverlay">
   <button type="button" class="tf-overlay-close" id="tfOverlayClose" aria-label="Cerrar">&times;</button>
   <div class="tf-overlay-panel">
+    <p class="tf-overlay-notice">Finabiz tratará tu nombre, correo, teléfono e información de tu negocio para evaluar la compatibilidad del servicio y para preparar, agendar y dar seguimiento a esta llamada de orientación. Puedes limitar su uso, revocar tu consentimiento o ejercer tus derechos ARCO escribiendo a <a href="mailto:contacto@finabiz.mx">contacto@finabiz.mx</a>. Consulta el <a href="aviso-de-privacidad.html" target="_blank" rel="noopener">Aviso de Privacidad completo</a>.</p>
     <div class="tf-overlay-widget" id="tfOverlayWidget"></div>
   </div>
 </div>
