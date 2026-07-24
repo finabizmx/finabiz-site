@@ -1,6 +1,31 @@
 <!doctype html>
 <html lang="es-MX">
 <head>
+<!--
+  ══════════════════════════════════════════════════════════════════
+  PLANTILLA PARA UN ARTÍCULO NUEVO DEL BLOG — no publicar este archivo.
+
+  Cómo usarla (ver también COMO-EDITAR-EL-BLOG.md en la raíz del repo):
+  1. En github.com, dentro del repositorio finabiz-site, usa "Add file
+     → Create new file". Nombra el archivo como
+     blog-tu-tema-aqui.html (todo en minúsculas, con guiones, sin
+     acentos ni espacios).
+  2. Copia y pega TODO el contenido de esta plantilla en el archivo
+     nuevo.
+  3. Reemplaza cada [[MARCADOR]] por tu contenido real. Usa Ctrl+F /
+     Cmd+F para encontrarlos todos — cada uno aparece más de una vez.
+  4. IMPORTANTE: cambia <meta name="robots" content="noindex, nofollow" />
+     por content="index, follow" — esta plantilla trae "noindex" para
+     que Google nunca la indexe a ella misma; tu artículo real sí debe
+     ser indexable.
+  5. Borra este bloque de comentario antes de publicar.
+  6. Agrega tu artículo a blog.html (tarjeta en el grid + entrada en
+     el schema "blogPost") y a sitemap.xml. Ver la guía para el
+     detalle exacto de qué copiar.
+  7. Guarda los cambios (commit) directo a la rama main. El sitio se
+     publica solo en unos minutos.
+  ══════════════════════════════════════════════════════════════════
+-->
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-VDZXBBNES7"></script>
 <script>
@@ -11,42 +36,42 @@
   gtag('config', 'G-VDZXBBNES7');
 </script>
 <meta charset="utf-8" />
-<title>Cómo calcular tu utilidad real vendiendo en varias plataformas | Finabiz</title>
-<meta name="description" content="Lo que el banco te depositó no es lo que ganaste. El método para consolidar comisiones, retenciones y devoluciones de varias plataformas y saber tu utilidad real." />
+<title>[[TITULO]] | Finabiz</title>
+<meta name="description" content="[[DESCRIPCION]]" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="robots" content="index, follow" />
+<meta name="robots" content="noindex, nofollow" />
 <meta name="theme-color" content="#1B2654" />
-<link rel="canonical" href="https://finabiz.mx/blog-utilidad-real-multiples-plataformas.html" />
+<link rel="canonical" href="https://finabiz.mx/blog-[[SLUG]].html" />
 <link rel="icon" href="favicon.ico" sizes="any" />
 <link rel="icon" type="image/png" href="assets/F-blue.png" />
 <link rel="apple-touch-icon" href="assets/F-on-blue.png" />
 
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://finabiz.mx/blog-utilidad-real-multiples-plataformas.html" />
+<meta property="og:url" content="https://finabiz.mx/blog-[[SLUG]].html" />
 <meta property="og:site_name" content="Finabiz" />
-<meta property="og:title" content="Cómo calcular tu utilidad real vendiendo en varias plataformas" />
-<meta property="og:description" content="Lo que el banco te depositó no es lo que ganaste. El método para consolidar comisiones, retenciones y devoluciones de varias plataformas." />
+<meta property="og:title" content="[[TITULO]]" />
+<meta property="og:description" content="[[DESCRIPCION]]" />
 <meta property="og:image" content="https://finabiz.mx/assets/og-image.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta property="og:locale" content="es_MX" />
 
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Cómo calcular tu utilidad real vendiendo en varias plataformas" />
-<meta name="twitter:description" content="Lo que el banco te depositó no es lo que ganaste. El método para consolidar comisiones, retenciones y devoluciones de varias plataformas." />
+<meta name="twitter:title" content="[[TITULO]]" />
+<meta name="twitter:description" content="[[DESCRIPCION]]" />
 <meta name="twitter:image" content="https://finabiz.mx/assets/og-image.png" />
 
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "Cómo calcular tu utilidad real vendiendo en varias plataformas",
-  "description": "Lo que el banco te depositó no es lo que ganaste. El método para consolidar comisiones, retenciones y devoluciones de varias plataformas y saber tu utilidad real.",
+  "headline": "[[TITULO]]",
+  "description": "[[DESCRIPCION]]",
   "image": "https://finabiz.mx/assets/og-image.png",
   "author": {
     "@type": "Person",
-    "name": "Víctor Pérez",
-    "jobTitle": "Director General",
+    "name": "[[AUTOR-NOMBRE]]",
+    "jobTitle": "[[AUTOR-TITULO]]",
     "worksFor": { "@type": "Organization", "name": "Finabiz", "url": "https://finabiz.mx/" },
     "url": "https://finabiz.mx/#equipo"
   },
@@ -55,9 +80,9 @@
     "name": "Finabiz",
     "logo": { "@type": "ImageObject", "url": "https://finabiz.mx/assets/F-on-blue.png" }
   },
-  "datePublished": "2026-07-23",
-  "dateModified": "2026-07-23",
-  "mainEntityOfPage": { "@type": "WebPage", "@id": "https://finabiz.mx/blog-utilidad-real-multiples-plataformas.html" }
+  "datePublished": "[[FECHA-ISO]]",
+  "dateModified": "[[FECHA-ISO]]",
+  "mainEntityOfPage": { "@type": "WebPage", "@id": "https://finabiz.mx/blog-[[SLUG]].html" }
 }
 </script>
 
@@ -68,7 +93,7 @@
   "itemListElement": [
     { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://finabiz.mx/" },
     { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://finabiz.mx/blog.html" },
-    { "@type": "ListItem", "position": 3, "name": "Utilidad real vendiendo en varias plataformas", "item": "https://finabiz.mx/blog-utilidad-real-multiples-plataformas.html" }
+    { "@type": "ListItem", "position": 3, "name": "[[TITULO-CORTO-PARA-MIGA-DE-PAN]]", "item": "https://finabiz.mx/blog-[[SLUG]].html" }
   ]
 }
 </script>
@@ -117,78 +142,57 @@
   <div class="hero-orb hero-orb-2"></div>
   <div class="hero-orb hero-orb-3"></div>
   <div class="wrap">
-    <p class="breadcrumb reveal"><a href="/">Inicio</a> / <a href="/blog.html">Blog</a> / Utilidad real vendiendo en varias plataformas</p>
-    <span class="eyebrow reveal">Utilidad real</span>
-    <h1 class="display reveal">Cómo calcular tu utilidad real vendiendo en varias plataformas</h1>
-    <p class="hero-subtitle reveal">Lo que el banco te depositó no es lo que ganaste. Entre comisiones, retenciones, envíos y devoluciones, la diferencia entre "ingreso bruto" y "utilidad real" puede ser enorme — y la mayoría de los vendedores no la calculan bien.</p>
+    <p class="breadcrumb reveal"><a href="/">Inicio</a> / <a href="/blog.html">Blog</a> / [[TITULO-CORTO-PARA-MIGA-DE-PAN]]</p>
+    <span class="eyebrow reveal">[[CATEGORIA]]</span>
+    <h1 class="display reveal">[[TITULO]]</h1>
+    <p class="hero-subtitle reveal">[[SUBTITULO — una o dos frases que resuman de qué trata y por qué importa]]</p>
     <div class="article-meta reveal">
-      <span>Por Víctor Pérez, Director General</span>
-      <span>23 de julio de 2026</span>
-      <span>8 min de lectura</span>
-      <span>Utilidad real · Multiplataforma</span>
+      <span>Por [[AUTOR-NOMBRE]], [[AUTOR-TITULO]]</span>
+      <span>[[FECHA, ej. 24 de julio de 2026]]</span>
+      <span>[[MINUTOS]] min de lectura</span>
+      <span>[[CATEGORIA]] · [[SUBCATEGORIA]]</span>
     </div>
   </div>
 </section>
 
 <article class="article-body">
-  <p class="article-lede">Si administras tu negocio viendo solo lo que entra a tu cuenta de banco, estás viendo un número que ya pasó por varios filtros — y ninguno de ellos aparece claramente en un solo lugar. Esto es lo que se descuenta antes de que veas tu dinero, y el método para saber cuánto ganaste de verdad.</p>
+  <p class="article-lede">[[PÁRRAFO DE ENTRADA — una idea fuerte que enganche, sin relleno.]]</p>
 
-  <h2>Por qué el depósito bancario no es tu ganancia</h2>
-  <p>Toma una venta de $1,000 en una plataforma típica de eCommerce. Antes de que ese dinero llegue a tu cuenta, ya se descontaron varias cosas: la comisión de la plataforma (que puede ir del 10% al 20% según la categoría), el costo de envío si lo subsidias, la retención de ISR (2.5% sobre el bruto en 2026) y la retención de IVA (8% si tu RFC está bien registrado). De esos $1,000, lo que efectivamente ves depositado puede ser $780 o menos — y de ahí todavía falta restar el costo de lo que vendiste.</p>
+  <h2>[[SUBTÍTULO 1]]</h2>
+  <p>[[Párrafo de contenido.]]</p>
 
-  <h2>Los descuentos que "desaparecen" antes de llegar a tu cuenta</h2>
+  <h2>[[SUBTÍTULO 2]]</h2>
+  <p>[[Párrafo de contenido. Para enlazar a otro artículo del blog usa:]] <a href="blog-otro-articulo.html">texto del enlace</a>.</p>
   <ul>
-    <li><strong>Comisión de venta de la plataforma:</strong> varía por categoría de producto, normalmente entre 10% y 20% del precio de venta.</li>
-    <li><strong>Cargos por publicidad interna:</strong> si usas ads dentro de la plataforma (Product Ads, promociones patrocinadas), ese gasto se descuenta por separado y rara vez aparece en el mismo reporte que la comisión de venta.</li>
-    <li><strong>Costo de envío no cubierto por el cliente:</strong> muchas plataformas premian el envío gratis con mejor posicionamiento, pero ese costo lo absorbes tú.</li>
-    <li><strong>Retenciones de ISR e IVA:</strong> revisa nuestro <a href="blog-retenciones-mercado-libre-mercado-pago.html">artículo sobre retenciones de plataformas</a> para las tasas exactas vigentes.</li>
-    <li><strong>Devoluciones y cancelaciones:</strong> a veces se reflejan el mismo mes, a veces hasta el siguiente ciclo de pago — y si no las rastreas, sobreestimas tu ingreso real.</li>
+    <li>[[Punto de lista]]</li>
+    <li>[[Punto de lista]]</li>
   </ul>
 
-  <h2>El método de cuatro pasos para calcular tu utilidad real</h2>
-  <ol>
-    <li><strong>Ingreso bruto por plataforma:</strong> la suma de tus ventas confirmadas en el periodo, antes de cualquier descuento — este es el número que la mayoría confunde con "lo que gané".</li>
-    <li><strong>Resta comisiones y cargos de la plataforma:</strong> comisión de venta, cargos por publicidad interna, cuotas fijas o de suscripción al programa de vendedor.</li>
-    <li><strong>Resta las retenciones fiscales:</strong> ISR e IVA retenidos — este monto no lo pierdes del todo (se acredita contra tu impuesto anual si estás en pago provisional), pero sí sale de tu flujo de efectivo disponible ahora.</li>
-    <li><strong>Resta el costo de lo vendido y gastos operativos directos:</strong> costo de mercancía, empaque, envío no cubierto. Lo que queda es tu utilidad real de esa plataforma en ese periodo.</li>
-  </ol>
-
-  <h2>Consolidar cuando vendes en varias plataformas a la vez</h2>
-  <p>El error más común de quien vende en 3 o 4 plataformas es sumar los depósitos bancarios de todas y llamar a eso "ingreso total" — sin notar que cada plataforma retiene y cobra comisión de forma distinta. Un ejemplo simplificado con tres plataformas en un mes:</p>
+  <!-- Tabla opcional — bórrala si no la necesitas -->
   <div class="article-table-wrap">
     <table class="article-table">
-      <thead><tr><th>Plataforma</th><th class="num">Ingreso bruto</th><th class="num">Comisión + retenciones</th><th class="num">Neto recibido</th><th class="num">Margen %</th></tr></thead>
+      <thead><tr><th>[[Columna]]</th><th class="num">[[Columna numérica]]</th></tr></thead>
       <tbody>
-        <tr><td>Marketplace A</td><td class="num">$180,000</td><td class="num">$45,000</td><td class="num">$135,000</td><td class="num">75%</td></tr>
-        <tr><td>Tienda propia + pasarela</td><td class="num">$95,000</td><td class="num">$14,000</td><td class="num">$81,000</td><td class="num">85%</td></tr>
-        <tr><td>Marketplace B</td><td class="num">$60,000</td><td class="num">$19,000</td><td class="num">$41,000</td><td class="num">68%</td></tr>
+        <tr><td>[[Fila]]</td><td class="num">[[Valor]]</td></tr>
       </tbody>
     </table>
   </div>
-  <p>Con esta vista consolidada puedes ver algo que ninguna plataforma te va a mostrar por sí sola: cuál te está costando más en comisiones y retenciones en proporción a lo que vendes, y si te conviene concentrar esfuerzo ahí o no.</p>
 
-  <h2>Errores comunes al calcular tu utilidad</h2>
-  <ul>
-    <li>Confundir el depósito bancario con el ingreso — el depósito ya viene neto de comisión y retención.</li>
-    <li>No descontar la publicidad interna de la plataforma, que suele facturarse aparte de la comisión de venta.</li>
-    <li>No ajustar por devoluciones que se reflejan en un periodo distinto al de la venta original.</li>
-    <li>Mezclar la utilidad de cada plataforma sin normalizarla, lo que impide comparar cuál canal es realmente más rentable.</li>
-  </ul>
-
-  <h2>Por qué esto importa más allá de "saber cuánto gané"</h2>
-  <p>Calcular bien tu utilidad real no es solo un ejercicio contable — es lo que te permite decidir en qué plataforma invertir más, ajustar precios cuando el margen real es menor al que creías, y llegar a tu declaración anual con cifras que ya cuadran, en vez de reconstruir todo el año en abril.</p>
-
+  <!-- Caja de llamada a la acción a mitad del artículo — opcional, se puede repetir o quitar -->
   <div class="article-cta-inline">
-    <p>Si vendes en más de una plataforma y no tienes claridad de tu utilidad real consolidada, podemos armarte ese panel mensual.</p>
+    <p>[[Frase corta invitando a agendar una llamada.]]</p>
     <a href="https://form.typeform.com/to/ykt2ayIi" class="btn btn-primary js-tf-cta">
       Agenda tu llamada de orientación gratuita
       <span class="arrow">→</span>
     </a>
   </div>
 
+  <!-- Aviso de vigencia — usar siempre que el artículo mencione cifras, tasas o límites fiscales -->
   <div class="article-callout">
-    <strong>Nota:</strong> las cifras de comisión usadas en el ejemplo son ilustrativas — cada plataforma y categoría de producto tiene su propia estructura de comisiones, que además cambia con el tiempo. Verifica la tabla de comisiones vigente directamente en tu cuenta de vendedor de cada plataforma.
+    <strong>Verifica la vigencia:</strong> [[nota de que las cifras mencionadas pueden cambiar con cada Resolución Miscelánea Fiscal y deben confirmarse antes de tomar una decisión]].
   </div>
+
+  <p class="article-source-note">Fundamento: [[artículos de ley / reglas citadas, si aplica]].</p>
 </article>
 
 <section id="contacto" class="cta-final">
