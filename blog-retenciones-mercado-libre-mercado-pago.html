@@ -184,6 +184,32 @@
     <li>Si vendes en más de una plataforma, no asumas que todas retienen igual — verifica la configuración de cada una por separado.</li>
   </ul>
 
+  <div class="article-cta-secondary">
+    <p>¿Aún no listo para agendar? Descarga el ejemplo del sistema Finabiz — mapa fiscal, estado de cuenta de impuestos, proyección y detección de riesgos, con datos simulados.</p>
+    <a href="assets/ejemplo-sistema-finabiz.pdf" class="btn-outline" target="_blank" rel="noopener">
+      Ver ejemplo completo en PDF
+      <span class="arrow">→</span>
+    </a>
+  </div>
+
+  <div class="article-related">
+    <span class="related-eyebrow">Sigue leyendo</span>
+    <div class="blog-grid">
+        <a href="blog-plataformas-tecnologicas-vs-actividad-empresarial.html" class="blog-card">
+          <span class="tag">Régimen fiscal</span>
+          <h3>Régimen de plataformas tecnológicas vs. régimen de actividad empresarial</h3>
+          <p>Si vendes por plataforma, RESICO rara vez es la comparación correcta. La decisión real es entre el esquema simple y el régimen de actividad empresarial.</p>
+          <span class="read-more">Leer artículo →</span>
+        </a>
+        <a href="blog-declaracion-anual-vendedores-plataformas.html" class="blog-card">
+          <span class="tag">Declaración anual</span>
+          <h3>Declaración anual para vendedores de plataformas: guía paso a paso</h3>
+          <p>Qué información reunir, cómo se acumulan las retenciones ya pagadas, y los errores más comunes al declarar ingresos de varias plataformas.</p>
+          <span class="read-more">Leer artículo →</span>
+        </a>
+    </div>
+  </div>
+
   <div class="article-cta-inline">
     <p>Si no estás seguro de si te están reteniendo correctamente, o si esas retenciones ya están reduciendo tu impuesto anual, lo revisamos juntos en una llamada gratuita.</p>
     <a href="https://form.typeform.com/to/ykt2ayIi" class="btn btn-primary js-tf-cta">
@@ -277,7 +303,7 @@
         <h4>Contacto</h4>
         <ul>
           <li><a href="https://form.typeform.com/to/ykt2ayIi" class="js-tf-cta">Agenda tu llamada</a></li>
-          <li><a href="https://wa.me/5218998808616" target="_blank" rel="noopener">WhatsApp</a></li>
+          <li><a href="https://wa.me/5218998808616?text=Hola%2C%20tengo%20una%20pregunta%20r%C3%A1pida%20antes%20de%20agendar%20mi%20llamada" target="_blank" rel="noopener">WhatsApp</a></li>
           <li><a href="mailto:contacto@finabiz.mx">contacto@finabiz.mx</a></li>
           <li><a href="tel:+528998808616">+52 899-880-8616</a></li>
           <li>finabiz.mx</li>
@@ -291,7 +317,7 @@
   </div>
 </footer>
 
-<a href="https://wa.me/5218998808616" target="_blank" rel="noopener" class="whatsapp-cta" aria-label="Chatea por WhatsApp">
+<a href="https://wa.me/5218998808616?text=Hola%2C%20tengo%20una%20pregunta%20r%C3%A1pida%20antes%20de%20agendar%20mi%20llamada" target="_blank" rel="noopener" class="whatsapp-cta" aria-label="¿Tienes una pregunta rápida? Chatea por WhatsApp">
   <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#fff" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path fill="#fff" d="M12.004 2C6.486 2 2.004 6.482 2.004 12c0 1.85.505 3.58 1.38 5.065L2 22l5.078-1.36A9.94 9.94 0 0 0 12.004 22C17.522 22 22 17.518 22 12S17.522 2 12.004 2zm0 18.181a8.15 8.15 0 0 1-4.38-1.271l-.314-.187-3.11.833.836-3.036-.204-.313a8.15 8.15 0 0 1-1.257-4.407c0-4.508 3.68-8.187 8.43-8.187 4.75 0 8.43 3.679 8.43 8.187 0 4.508-3.68 8.381-8.43 8.381z"/></svg>
 </a>
 
@@ -366,6 +392,43 @@
     }
     if (document.readyState === 'complete') schedulePreload();
     else window.addEventListener('load', schedulePreload);
+  })();
+</script>
+
+<!-- ═══════════ SEGUIMIENTO DE CONVERSIÓN (GA4) ═══════════ -->
+<script>
+  (function () {
+    function track(name, params) {
+      if (typeof gtag === 'function') gtag('event', name, params || {});
+    }
+    document.querySelectorAll('.js-tf-cta').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        track('click_agendar_llamada', {
+          event_category: 'conversion',
+          event_label: btn.className,
+          page_path: location.pathname
+        });
+      });
+    });
+    document.querySelectorAll('a[href*="wa.me"]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        track('click_whatsapp', {
+          event_category: 'engagement',
+          event_label: btn.className || 'whatsapp-link',
+          page_path: location.pathname
+        });
+      });
+    });
+    // Typeform envía un postMessage con type que incluye "submit" cuando el
+    // visitante termina el formulario y elige horario — lo tratamos como la
+    // conversión real (no solo abrir el formulario).
+    window.addEventListener('message', function (event) {
+      if (typeof event.origin !== 'string' || event.origin.indexOf('typeform.com') === -1) return;
+      var data = event.data;
+      if (data && typeof data === 'object' && typeof data.type === 'string' && data.type.indexOf('submit') !== -1) {
+        track('llamada_agendada', { event_category: 'conversion', page_path: location.pathname });
+      }
+    });
   })();
 </script>
 
