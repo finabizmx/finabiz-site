@@ -1317,20 +1317,21 @@
   /* ─── WHATSAPP CTA (siempre visible) ─── */
   .whatsapp-cta {
     position: fixed;
-    bottom: 80px;
-    right: 22px;
+    bottom: 78px;
+    right: 24px;
     z-index: 40;
-    width: 52px;
-    height: 52px;
+    width: 42px;
+    height: 42px;
     border-radius: 50%;
     background: #25D366;
     display: grid;
     place-items: center;
-    box-shadow: 0 14px 30px -10px rgba(37,211,102,.65);
-    transition: transform .2s, box-shadow .2s;
+    box-shadow: 0 6px 14px -8px rgba(37,211,102,.45);
+    opacity: .78;
+    transition: transform .2s, box-shadow .2s, opacity .2s;
   }
-  .whatsapp-cta:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 18px 36px -8px rgba(37,211,102,.75); }
-  .whatsapp-cta svg { width: 26px; height: 26px; display: block; }
+  .whatsapp-cta:hover { opacity: 1; transform: translateY(-2px) scale(1.05); box-shadow: 0 10px 22px -8px rgba(37,211,102,.6); }
+  .whatsapp-cta svg { width: 20px; height: 20px; display: block; }
 
   /* ─── MARQUEE / TICKER ─── */
   .marquee {
