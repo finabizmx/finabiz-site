@@ -449,6 +449,13 @@
     .hero-3d-canvas { display: none; }
     .hero-bg { background: linear-gradient(180deg, rgba(63,84,176,.92) 0%, rgba(42,59,133,.95) 100%); }
   }
+  /* En móvil el JS desactiva el canvas 3D (< 768px, ver initHero) para no
+     cargar three.js en la mayoría del tráfico — sin el canvas, .hero-bg por
+     sí sola queda demasiado clara sobre el fondo --paper. Mismo respaldo
+     sólido que la regla de prefers-reduced-motion. */
+  @media (max-width: 767px) {
+    .hero-bg { background: linear-gradient(180deg, rgba(63,84,176,.92) 0%, rgba(42,59,133,.95) 100%); }
+  }
 
   .hero .eyebrow { margin-bottom: 22px; color: var(--orange); }
   .hero h1.display { color: #fff; }
