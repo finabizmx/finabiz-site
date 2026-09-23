@@ -98,7 +98,7 @@
   </url>
   <url>
     <loc>https://finabiz.mx/blog.html</loc>
-    <lastmod>2026-08-22</lastmod>
+    <lastmod>2026-09-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -147,6 +147,12 @@
   <url>
     <loc>https://finabiz.mx/blog-facturacion-agencias-marketing.html</loc>
     <lastmod>2026-08-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://finabiz.mx/blog-alta-primer-empleado-nomina-imss.html</loc>
+    <lastmod>2026-09-29</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
