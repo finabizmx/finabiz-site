@@ -528,6 +528,15 @@
         });
       });
     });
+    document.querySelectorAll('a[href*="buy.stripe.com"]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        track('click_pagar_stripe', {
+          event_category: 'conversion',
+          event_label: btn.className || 'stripe-link',
+          page_path: location.pathname
+        });
+      });
+    });
     // Typeform envía un postMessage con type que incluye "submit" cuando el
     // visitante termina el formulario y elige horario — lo tratamos como la
     // conversión real (no solo abrir el formulario).
