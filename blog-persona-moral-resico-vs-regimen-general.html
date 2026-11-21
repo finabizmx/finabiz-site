@@ -468,6 +468,60 @@
   </div>
 </div>
 
+<script>
+/* Atribución no identificable: conserva UTMs de la primera entrada durante la sesión. */
+(function () {
+  var keys = ['utm_source', 'utm_medium', 'utm_campaign'];
+  var params = new URLSearchParams(window.location.search);
+  var saved = {};
+  try { saved = JSON.parse(sessionStorage.getItem('finabiz_attribution_v1') || '{}') || {}; } catch (_) {}
+  keys.forEach(function (key) {
+    var value = params.get(key);
+    if (value && !saved[key]) saved[key] = value.slice(0, 120);
+  });
+  // Referrer externo como respaldo cuando el visitante no trae UTMs.
+  // No almacenar URL de referencia completa ni datos personales.
+  if (!saved.utm_source) {
+    var sourceHost = '';
+    try { sourceHost = new URL(document.referrer).hostname.toLowerCase(); } catch (_) {}
+    var knownSources = [
+      [/^(chatgpt\.com|chat\.openai\.com)$/, 'chatgpt'],
+      [/^(www\.)?perplexity\.ai$/, 'perplexity'],
+      [/^(gemini\.google\.com)$/, 'gemini'],
+      [/^(www\.)?google\.[a-z.]+$/, 'google'],
+      [/^(www\.)?bing\.com$/, 'bing']
+    ];
+    knownSources.some(function (entry) {
+      if (entry[0].test(sourceHost)) {
+        saved.utm_source = entry[1];
+        if (!saved.utm_medium) saved.utm_medium = 'referral';
+        return true;
+      }
+      return false;
+    });
+  }
+  if (!saved.landing_page) saved.landing_page = window.location.pathname.slice(0, 200);
+  try { sessionStorage.setItem('finabiz_attribution_v1', JSON.stringify(saved)); } catch (_) {}
+  window.finabizAttribution = {
+    hidden: keys.concat(['landing_page']).map(function (key) {
+      return key + '=' + encodeURIComponent(saved[key] || '');
+    }).join(','),
+    query: function () {
+      var q = new URLSearchParams();
+      keys.concat(['landing_page']).forEach(function (key) { if (saved[key]) q.set(key, saved[key]); });
+      return q.toString();
+    }
+  };
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('a[href*="form.typeform.com/to/ykt2ayIi"]').forEach(function (link) {
+      var url = new URL(link.href);
+      var q = new URLSearchParams(window.finabizAttribution.query());
+      q.forEach(function (value, key) { url.searchParams.set(key, value); });
+      link.href = url.toString();
+    });
+  });
+})();
+</script>
 <script src="//embed.typeform.com/next/embed.js"></script>
 <script>
   (function () {
@@ -481,6 +535,7 @@
       loaded = true;
       var div = document.createElement('div');
       div.setAttribute('data-tf-widget', 'ykt2ayIi');
+      div.setAttribute('data-tf-hidden', window.finabizAttribution ? window.finabizAttribution.hidden : '');
       div.setAttribute('data-tf-opacity', '100');
       div.setAttribute('data-tf-iframe-props', 'title=Formulario previo a tu llamada de orientación');
       div.style.width = '100%';
@@ -559,10 +614,10 @@
     // visitante termina el formulario y elige horario — lo tratamos como la
     // conversión real (no solo abrir el formulario).
     window.addEventListener('message', function (event) {
-      if (typeof event.origin !== 'string' || event.origin.indexOf('typeform.com') === -1) return;
+      if (typeof event.origin !== 'string' || !/^https:\/\/([a-z0-9-]+\.)*typeform\.com$/i.test(event.origin)) return;
       var data = event.data;
       if (data && typeof data === 'object' && typeof data.type === 'string' && data.type.indexOf('submit') !== -1) {
-        track('llamada_agendada', { event_category: 'conversion', page_path: location.pathname });
+        track('formulario_completado', { event_category: 'lead', page_path: location.pathname });
       }
     });
   })();
