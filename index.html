@@ -2188,6 +2188,26 @@
 }
 @media(prefers-reduced-motion:reduce) { .service-entry-card { transition:none; } }
 
+
+/* Refinamiento de muestras de entregables — datos simulados claramente identificados. */
+.samples-grid { gap:20px; }
+.sample-card {
+  border-radius:22px; overflow:hidden; border:1px solid rgba(62,86,172,.14);
+  background:linear-gradient(165deg,#fff 0%,#f7f9fe 100%);
+  box-shadow:0 18px 48px rgba(28,42,94,.085);
+  transition:transform .22s ease,box-shadow .22s ease;
+}
+.sample-card:hover { transform:translateY(-4px); box-shadow:0 24px 55px rgba(28,42,94,.14); }
+.sample-mock { border-radius:14px; }
+.sample-badge { border-radius:999px; }
+.samples-disclaimer { max-width:820px; line-height:1.65; }
+@media(max-width:767px) {
+  .samples-grid { gap:16px; }
+  .sample-card { border-radius:18px; }
+  .sample-mock { max-width:100%; overflow-x:auto; }
+}
+@media(prefers-reduced-motion:reduce) { .sample-card { transition:none; } }
+
 </style>
 </head>
 <body>
