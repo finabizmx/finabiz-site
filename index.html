@@ -3011,14 +3011,14 @@
         });
       });
     });
-    // Typeform envía un postMessage con type que incluye "submit" cuando el
-    // visitante termina el formulario y elige horario — lo tratamos como la
-    // conversión real (no solo abrir el formulario).
+    // La señal de envío de Typeform NO confirma una reserva de Calendly.
+    // Medimos formulario completado por separado; llamada_agendada se debe
+    // emitir exclusivamente tras confirmar la cita desde Calendly/CRM.
     window.addEventListener('message', function (event) {
-      if (typeof event.origin !== 'string' || event.origin.indexOf('typeform.com') === -1) return;
+      if (typeof event.origin !== 'string' || !/^https:\/\/([a-z0-9-]+\.)*typeform\.com$/i.test(event.origin)) return;
       var data = event.data;
       if (data && typeof data === 'object' && typeof data.type === 'string' && data.type.indexOf('submit') !== -1) {
-        track('llamada_agendada', { event_category: 'conversion', page_path: location.pathname });
+        track('formulario_completado', { event_category: 'lead', page_path: location.pathname });
       }
     });
   })();
