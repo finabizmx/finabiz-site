@@ -2160,6 +2160,34 @@
   .hero-pillar, .hero-cta-row .btn { transition: none; }
 }
 
+
+/* Dos caminos de entrada sin eliminar el catálogo de tres frentes. */
+.service-entry { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; margin: 12px 0 52px; }
+.service-entry-card {
+  display:flex; flex-direction:column; align-items:flex-start; gap:15px;
+  min-width:0; padding:clamp(25px,3.2vw,44px);
+  border-radius:24px; border:1px solid rgba(62,86,172,.16);
+  background:linear-gradient(145deg,#fff 0%,#f1f4fc 100%);
+  box-shadow:0 16px 42px rgba(28,42,94,.075);
+  color:#1C2A5E; text-decoration:none;
+  transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease;
+}
+.service-entry-card--clarity { background:linear-gradient(145deg,#1C2A5E 0%,#3E56AC 100%); color:#fff; }
+.service-entry-card:hover { transform:translateY(-4px); box-shadow:0 24px 52px rgba(28,42,94,.15); border-color:rgba(62,86,172,.4); }
+.service-entry-card:focus-visible { outline:3px solid #F28C28; outline-offset:4px; }
+.service-entry-kicker { font:600 11px/1.4 "IBM Plex Mono",monospace; letter-spacing:.07em; text-transform:uppercase; color:#3E56AC; }
+.service-entry-card--clarity .service-entry-kicker { color:#F7AD62; }
+.service-entry-title { font:600 clamp(25px,2.8vw,36px)/1.12 "Archivo",sans-serif; letter-spacing:-.035em; max-width:440px; }
+.service-entry-desc { font:400 16px/1.6 "IBM Plex Sans",sans-serif; max-width:430px; opacity:.86; }
+.service-entry-action { margin-top:auto; padding-top:10px; font:600 13px/1.3 "IBM Plex Sans",sans-serif; color:#3E56AC; }
+.service-entry-card--clarity .service-entry-action { color:#fff; }
+#ruta-cumplimiento,#ruta-claridad { scroll-margin-top:100px; }
+@media(max-width:767px) {
+  .service-entry { grid-template-columns:1fr; gap:14px; margin-bottom:36px; }
+  .service-entry-card { padding:26px 24px; border-radius:20px; }
+}
+@media(prefers-reduced-motion:reduce) { .service-entry-card { transition:none; } }
+
 </style>
 </head>
 <body>
@@ -2390,8 +2418,22 @@
       <p class="lede">No son compartimentos separados: la mayoría de clientes combina más de un frente según lo que su negocio necesita en cada momento.</p>
     </div>
 
+    <div class="service-entry" aria-label="Elige por dónde comenzar">
+      <a class="service-entry-card" href="#ruta-cumplimiento">
+        <span class="service-entry-kicker">Ruta 01 · Resolver pendientes</span>
+        <span class="service-entry-title">Necesito ponerme al corriente</span>
+        <span class="service-entry-desc">Regularización, declaraciones, contabilidad y trámites ante el SAT.</span>
+        <span class="service-entry-action" aria-hidden="true">Explorar soluciones →</span>
+      </a>
+      <a class="service-entry-card service-entry-card--clarity" href="#ruta-claridad">
+        <span class="service-entry-kicker">Ruta 02 · Decidir con claridad</span>
+        <span class="service-entry-title">Quiero entender y mejorar mi negocio</span>
+        <span class="service-entry-desc">Diagnóstico, utilidad real, proyección fiscal y acompañamiento continuo.</span>
+        <span class="service-entry-action" aria-hidden="true">Explorar soluciones →</span>
+      </a>
+    </div>
     <div class="routes">
-      <div class="route">
+      <div class="route" id="ruta-cumplimiento">
         <div class="route-head">
           <span class="route-n">Frente 01</span>
           <h3 class="route-t">Cumplimiento fiscal</h3>
@@ -2421,7 +2463,7 @@
         </div>
       </div>
 
-      <div class="route">
+      <div class="route" id="ruta-claridad">
         <div class="route-head">
           <span class="route-n">Frente 02</span>
           <h3 class="route-t">Visibilidad financiera</h3>
