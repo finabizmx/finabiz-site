@@ -3232,12 +3232,22 @@
 
   /* ── SCROLL & MOUSE ── */
   let tProg=0,prog=0,visible=true;
+  // El render 3D decorativo se pausa fuera de pantalla y al ocultar la pestaña.
+  // Se reinicia solo cuando vuelve a ser visible, evitando trabajo de GPU innecesario.
+  let animationFrameId = null;
+  function requestFrameIfVisible() {
+    if (animationFrameId === null && visible && !document.hidden) {
+      animationFrameId = requestAnimationFrame(tick);
+    }
+  }
+  document.addEventListener('visibilitychange', requestFrameIfVisible);
   function onScroll(){
     const hero=document.querySelector('.hero');
     const heroH=hero?hero.offsetHeight:innerHeight;
     const y=scrollY;
     tProg=Math.max(0,Math.min(y/heroH,1.3));
     visible=hero?hero.getBoundingClientRect().bottom>0:true;
+    requestFrameIfVisible();
   }
   addEventListener('scroll',onScroll,{passive:true}); onScroll();
 
@@ -3250,8 +3260,9 @@
   /* ── ANIMATION LOOP ── */
   let lastT=performance.now(),netT=0;
   function tick(now){
-    requestAnimationFrame(tick);
-    if(!visible) return;
+    animationFrameId = null;
+    if (!visible || document.hidden) return;
+    requestFrameIfVisible();
     const dt=Math.min(.05,(now-lastT)/1e3); lastT=now;
     const t=now*.001;
 
@@ -3283,7 +3294,7 @@
 
     renderer.render(scene,camera);
   }
-  requestAnimationFrame(tick);
+  requestFrameIfVisible();
   }
 })();
 </script>
