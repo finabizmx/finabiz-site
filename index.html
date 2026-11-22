@@ -2210,6 +2210,59 @@
 
 
 .sample-tabs{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 12px}.sample-tab{font:600 14px "IBM Plex Sans",sans-serif;color:#1C2A5E;background:#fff;border:1px solid #ccd5ea;border-radius:999px;padding:12px 18px;min-height:46px;cursor:pointer}.sample-tab.is-active{color:#fff;background:#3E56AC;border-color:#3E56AC}.sample-tab:focus-visible{outline:3px solid #F28C28;outline-offset:3px}.sample-instruction{font:400 14px "IBM Plex Sans",sans-serif;color:#5C627A;margin:0 0 22px}.samples-grid.is-interactive{grid-template-columns:minmax(0,1fr);max-width:800px;margin-inline:auto}.samples-grid.is-interactive>.sample-card{display:none}.samples-grid.is-interactive>.sample-card.is-active{display:block}@media(max-width:600px){.sample-tabs{display:grid;grid-template-columns:1fr 1fr}.sample-tab{padding:12px 10px}.sample-tab:last-child{grid-column:1/-1}}
+
+/* Finabiz homepage experience refresh: calm editorial rhythm and clear service journey */
+html{scroll-padding-top:90px}
+#servicios{background:#f7f9fd;position:relative}
+#servicios .wrap{max-width:1160px}
+#servicios .section-head{align-items:end;gap:28px;margin-bottom:34px}
+#servicios .section-head .display{font-size:clamp(36px,5.2vw,70px);line-height:1.02;letter-spacing:-.055em;max-width:780px}
+#servicios .section-head .lede{max-width:365px;line-height:1.7}
+.service-step-label{display:block;margin:0 0 18px;font:600 11px/1.5 "IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:#5267a6}
+#servicios .service-entry{gap:12px;margin:0 0 clamp(54px,7vw,100px)}
+#servicios .service-entry-card{position:relative;min-height:260px;padding:clamp(25px,3vw,38px);border-radius:16px;box-shadow:none;background:#fff;border:1px solid #dce3f0;gap:16px}
+#servicios .service-entry-card--clarity{background:#1c2a5e;color:#fff;border-color:#1c2a5e}
+#servicios .service-entry-title{font-size:clamp(25px,2.7vw,34px);line-height:1.13;max-width:350px}
+#servicios .service-entry-desc{font-size:15px;line-height:1.6}
+#servicios .service-entry-action{padding-top:18px;margin-top:auto}
+#servicios .service-entry-card:hover{transform:translateY(-2px);box-shadow:0 14px 32px rgba(28,42,94,.09)}
+.service-catalog-head{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:start;border-top:1px solid #d9e1ee;padding:27px 0 25px}
+.service-catalog-head p{font:400 15px/1.7 "IBM Plex Sans",sans-serif;color:#536079;margin:0;max-width:480px}
+#servicios .routes{gap:0}
+#servicios .route{padding:32px 0 44px;border-top:1px solid #d9e1ee;scroll-margin-top:100px}
+#servicios .route-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:30px;align-items:start;margin-bottom:24px}
+#servicios .route-n{grid-column:1/-1;margin-bottom:8px;font-size:11px;letter-spacing:.1em;color:#5267a6}
+#servicios .route-t{font-size:clamp(26px,3vw,38px);font-weight:600;line-height:1.12;letter-spacing:-.035em;margin:0}
+#servicios .route-d{font-size:15px;line-height:1.7;max-width:440px}
+#servicios .svc-grid{gap:10px}
+#servicios .svc{border-radius:12px;background:#fff;border:1px solid #e0e6f0;box-shadow:none;padding:25px;min-height:190px}
+#servicios .svc:hover{border-color:#8295d0;transform:translateY(-2px);box-shadow:0 12px 28px rgba(28,42,94,.065)}
+#servicios .svc .t{font-size:clamp(18px,2vw,22px);line-height:1.2}
+#servicios .svc p{line-height:1.65}
+.hero .hero-subtitle{max-width:650px}
+.hero .hero-cta-row{flex-wrap:wrap}
+.marquee{display:none}
+#propuesta .puv-grid .puv{transition:transform .2s ease}
+#propuesta .puv-grid .puv:hover{transform:translateY(-2px)}
+@media(max-width:767px){
+#servicios .section-head{display:block;margin-bottom:28px}
+#servicios .section-head .display{font-size:clamp(36px,10vw,50px)}
+#servicios .section-head .lede{margin-top:18px}
+#servicios .service-entry{gap:10px;margin-bottom:58px}
+#servicios .service-entry-card{min-height:0;padding:26px 22px;border-radius:14px;gap:12px}
+#servicios .service-entry-title{font-size:27px}
+#servicios .service-entry-desc{font-size:14px}
+.service-catalog-head{grid-template-columns:1fr;gap:6px}
+#servicios .route{padding:26px 0 34px}
+#servicios .route-head{display:block}
+#servicios .route-t{margin:9px 0 10px}
+#servicios .route-d{max-width:none}
+#servicios .svc-grid{grid-template-columns:1fr;gap:9px}
+#servicios .svc{min-height:0;padding:22px}
+.hero .hero-cta-row .btn{width:100%;justify-content:space-between}
+}
+@media(prefers-reduced-motion:reduce){#servicios .svc,#propuesta .puv-grid .puv{transition:none}}
+
 </style>
 </head>
 <body>
@@ -2268,7 +2321,7 @@
         Agenda una llamada de orientación gratuita de 30 min
         <span class="arrow">→</span>
       </a>
-      <a href="#sistema" class="btn btn-secondary">Conoce cómo trabajamos</a>
+      <a href="#servicios" class="btn btn-secondary">Explora nuestros servicios</a>
     </div>
     <p class="hero-microcopy reveal">Revisaremos tu situación actual, tus principales riesgos y si Finabiz es adecuado para tu negocio. Sin compromiso.</p>
     <p class="hero-trustline reveal">Atención directa de los fundadores · Enfocados en negocios digitales y eCommerce en México</p>
@@ -2435,29 +2488,31 @@
     <div class="section-head">
       <div>
         <span class="eyebrow">Cómo trabajamos contigo</span>
-        <h2 class="display">Tres frentes,<br/>un mismo equipo.</h2>
+        <h2 class="display">Empecemos por lo<br/>que necesitas hoy.</h2>
       </div>
-      <p class="lede">No son compartimentos separados: la mayoría de clientes combina más de un frente según lo que su negocio necesita en cada momento.</p>
+      <p class="lede">Elige tu punto de partida. Después encontrarás los servicios que podemos combinar según la etapa de tu negocio.</p>
     </div>
 
+    <p class="service-step-label">01 / Elige tu situación</p>
     <div class="service-entry" aria-label="Elige por dónde comenzar">
       <a class="service-entry-card" href="#ruta-cumplimiento">
-        <span class="service-entry-kicker">Ruta 01 · Resolver pendientes</span>
+        <span class="service-entry-kicker">Tengo pendientes fiscales</span>
         <span class="service-entry-title">Necesito ponerme al corriente</span>
         <span class="service-entry-desc">Regularización, declaraciones, contabilidad y trámites ante el SAT.</span>
-        <span class="service-entry-action" aria-hidden="true">Explorar soluciones →</span>
+        <span class="service-entry-action" aria-hidden="true">Ver servicios relacionados →</span>
       </a>
       <a class="service-entry-card service-entry-card--clarity" href="#ruta-claridad">
-        <span class="service-entry-kicker">Ruta 02 · Decidir con claridad</span>
+        <span class="service-entry-kicker">Busco claridad financiera</span>
         <span class="service-entry-title">Quiero entender y mejorar mi negocio</span>
-        <span class="service-entry-desc">Diagnóstico, utilidad real, proyección fiscal y acompañamiento continuo.</span>
+        <span class="service-entry-desc">Diagnóstico, utilidad real, proyección fiscal y decisiones con datos.</span>
         <span class="service-entry-action" aria-hidden="true">Explorar soluciones →</span>
       </a>
     </div>
+    <div class="service-catalog-head"><span class="service-step-label">02 / Explora las soluciones</span><p>Organizamos nuestros servicios en tres áreas complementarias. Puedes comenzar por una y sumar las demás cuando tu negocio lo necesite.</p></div>
     <div class="routes">
       <div class="route" id="ruta-cumplimiento">
         <div class="route-head">
-          <span class="route-n">Frente 01</span>
+          <span class="route-n">Área 01 · Orden y cumplimiento</span>
           <h3 class="route-t">Cumplimiento fiscal</h3>
           <p class="route-d">Regularización de obligaciones pendientes, declaraciones y trámites ante el SAT.</p>
         </div>
@@ -2487,7 +2542,7 @@
 
       <div class="route" id="ruta-claridad">
         <div class="route-head">
-          <span class="route-n">Frente 02</span>
+          <span class="route-n">Área 02 · Entender tus números</span>
           <h3 class="route-t">Visibilidad financiera</h3>
           <p class="route-d">Diagnóstico, cálculo de impuestos y visibilidad real de tus ventas por plataforma.</p>
         </div>
@@ -2515,9 +2570,9 @@
         </div>
       </div>
 
-      <div class="route">
+      <div class="route" id="ruta-crecimiento">
         <div class="route-head">
-          <span class="route-n">Frente 03</span>
+          <span class="route-n">Área 03 · Acompañamiento</span>
           <h3 class="route-t">Estructura y crecimiento</h3>
           <p class="route-d">Arquitectura de Claridad Fiscal y acompañamiento mensual continuo.</p>
         </div>
