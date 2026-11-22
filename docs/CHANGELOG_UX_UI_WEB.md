@@ -29,3 +29,9 @@
 ## Fases siguientes · Estado
 
 Pendientes la validación de proveedores y métricas reales, los ajustes de presentación, la consolidación de CSS, el bloque SEO y la implementación por familias de páginas. Los hallazgos y criterios de aceptación se conservan en [la auditoría](AUDITORIA_INTEGRAL_WEB.md) y [el roadmap](ROADMAP_OPTIMIZACION_WEB.md).
+
+## Navegación interior y URLs canónicas
+
+- WEB-06. Se añadió una región principal a las plantillas corporativas, servicios, blog, artículos y calculadora. Los menús interiores comparten orden de foco, cierre por Escape, estados accesibles y una versión que funciona sin JavaScript. La tabla comparativa de la calculadora admite desplazamiento por teclado. El pie compartido tiene enlaces legales más amplios y mejor contraste. Se ajustó el contraste de los rótulos de agenda y páginas legales.
+- WEB-12. El sitemap y los enlaces internos apuntan directamente a Cumplimiento y Optimización Fiscal. Se conserva la redirección HTML de la URL anterior. La plantilla editorial con marcadores se conserva como archivo de texto en `docs/plantillas/`. La intención de indexación de Asesoría Fiscal Estratégica sigue pendiente de confirmación.
+- Se verificaron ocho pruebas de Node, incluida la coincidencia de los 29 destinos de sitemap con sus canónicas y directivas de indexación. Chromium comprobó navegación por teclado, salto a contenido y desbordamiento en seis páginas, desplazamiento de la tabla comparativa y navegación horizontal y sin JavaScript. Queda pendiente la evaluación manual de WCAG en dispositivos reales.

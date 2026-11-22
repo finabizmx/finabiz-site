@@ -1160,7 +1160,7 @@
     gap: 48px;
     margin-bottom: 40px;
   }
-  .footer h4 {
+  .footer h2 {
     font: 500 11px/1 "IBM Plex Mono", monospace;
     letter-spacing: .22em;
     color: var(--orange);
@@ -1235,9 +1235,11 @@
     gap: 12px;
     font: 500 11px/1.4 "IBM Plex Mono", monospace;
     letter-spacing: .14em;
-    color: rgba(255,255,255,.45);
+    color: rgba(255,255,255,.65);
     text-transform: uppercase;
   }
+
+  .footer-bottom a { display: inline-block; padding-block: 5px; }
 
   /* ─── TYPEFORM OVERLAY ─── */
   .tf-overlay {
@@ -1490,8 +1492,12 @@
       border-top: 1px solid rgba(255,255,255,.18);
       border-bottom: 1px solid rgba(255,255,255,.18);
       padding: 16px var(--pad-x);
-      gap: 16px;
+      max-height: calc(100dvh - 80px);
+      overflow-y: auto;
+      gap: 8px;
     }
+
+    .nav-links a { display: flex; min-height: 44px; align-items: center; }
 
     .hero-pillars { grid-template-columns: 1fr; }
     .hero-pillar { border-right: none; padding: 28px 0 0 !important; border-top: 1px solid var(--line); }
