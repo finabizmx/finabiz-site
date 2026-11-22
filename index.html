@@ -2435,6 +2435,26 @@ body{font-family:"IBM Plex Sans",sans-serif}
 #ejemplos .sample-tab:last-child{grid-column:auto}
 }
 
+
+/* Quality assurance: consistent accessible states and small-screen safeguards */
+#ejemplos .sample-card[hidden]{display:none!important}
+#ejemplos .sample-tab[aria-pressed="true"]{box-shadow:inset 0 -3px 0 #f28c28}
+#ejemplos .sample-tab:focus-visible,.nav-burger:focus-visible,.js-tf-cta:focus-visible{outline:3px solid #f28c28;outline-offset:3px}
+.hero-preview-metrics>div{min-width:0}
+.hero-preview-metrics strong{font-variant-numeric:tabular-nums}
+@media(max-width:390px){
+.hero-preview-metrics>div{gap:8px}
+.hero-preview-metrics strong{font-size:clamp(15px,5vw,20px)}
+.hero-preview-metrics span{max-width:47%;font-size:9px}
+.hero-preview-top{gap:8px}
+.hero-preview-eyebrow,.hero-preview-dot{font-size:9px}
+#ejemplos .mock-table{font-size:11px}
+#ejemplos .sample-mock{overflow-x:auto}
+}
+@media(prefers-reduced-motion:reduce){
+.reveal,.reveal.in{opacity:1!important;transform:none!important;transition:none!important}
+}
+
 </style>
 </head>
 <body>
@@ -3277,6 +3297,8 @@ body{font-family:"IBM Plex Sans",sans-serif}
     }
 
     function open() {
+      // Si Typeform no cargó, conservar la ruta directa al formulario.
+      if (!window.tf || typeof window.tf.load !== 'function') return false;
       preload();
       overlay.classList.add('show');
       document.body.classList.add('tf-open');
@@ -3298,8 +3320,7 @@ body{font-family:"IBM Plex Sans",sans-serif}
 
     document.querySelectorAll('.js-tf-cta').forEach(function (btn) {
       btn.addEventListener('click', function (e) {
-        e.preventDefault();
-        open();
+        if (open()) e.preventDefault();
       });
     });
     closeBtn.addEventListener('click', close);
@@ -3515,7 +3536,7 @@ body{font-family:"IBM Plex Sans",sans-serif}
 
 </script>
 <script>
-(function(){const tabs=[...document.querySelectorAll('.sample-tab')];const grid=document.querySelector('#ejemplos .samples-grid');if(!grid||tabs.length!==3)return;const cards=[...grid.querySelectorAll(':scope > .sample-card')];if(cards.length!==3)return;function activate(index){tabs.forEach((t,i)=>{t.classList.toggle('is-active',i===index);t.setAttribute('aria-pressed',String(i===index))});cards.forEach((card,i)=>card.classList.toggle('is-active',i===index))}grid.classList.add('is-interactive');tabs.forEach((t,i)=>t.addEventListener('click',()=>activate(i)));activate(0)})();
+(function(){const tabs=[...document.querySelectorAll('.sample-tab')];const grid=document.querySelector('#ejemplos .samples-grid');if(!grid||tabs.length!==3)return;const cards=[...grid.querySelectorAll(':scope > .sample-card')];if(cards.length!==3)return;function activate(index){tabs.forEach((t,i)=>{t.classList.toggle('is-active',i===index);t.setAttribute('aria-pressed',String(i===index));t.setAttribute('aria-controls','finabiz-sample-'+i)});cards.forEach((card,i)=>{card.id='finabiz-sample-'+i;card.classList.toggle('is-active',i===index);card.hidden=i!==index;card.setAttribute('aria-hidden',String(i!==index))})}grid.classList.add('is-interactive');tabs.forEach((t,i)=>t.addEventListener('click',()=>activate(i)));activate(0)})();
 </script><script>
 /* Contextual service navigation: reveal the destination before scrolling. */
 (function(){
@@ -3528,7 +3549,8 @@ body{font-family:"IBM Plex Sans",sans-serif}
     });
   });
   if(location.hash){
-    const target=document.querySelector(location.hash);
+    const id=decodeURIComponent(location.hash.slice(1));
+    const target=document.getElementById(id);
     if(target&&target.matches('details.route-disclosure'))target.open=true;
   }
 })();
