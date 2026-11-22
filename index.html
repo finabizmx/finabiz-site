@@ -2208,6 +2208,8 @@
 }
 @media(prefers-reduced-motion:reduce) { .sample-card { transition:none; } }
 
+
+.sample-tabs{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 12px}.sample-tab{font:600 14px "IBM Plex Sans",sans-serif;color:#1C2A5E;background:#fff;border:1px solid #ccd5ea;border-radius:999px;padding:12px 18px;min-height:46px;cursor:pointer}.sample-tab.is-active{color:#fff;background:#3E56AC;border-color:#3E56AC}.sample-tab:focus-visible{outline:3px solid #F28C28;outline-offset:3px}.sample-instruction{font:400 14px "IBM Plex Sans",sans-serif;color:#5C627A;margin:0 0 22px}.samples-grid.is-interactive{grid-template-columns:minmax(0,1fr);max-width:800px;margin-inline:auto}.samples-grid.is-interactive>.sample-card{display:none}.samples-grid.is-interactive>.sample-card.is-active{display:block}@media(max-width:600px){.sample-tabs{display:grid;grid-template-columns:1fr 1fr}.sample-tab{padding:12px 10px}.sample-tab:last-child{grid-column:1/-1}}
 </style>
 </head>
 <body>
@@ -2611,6 +2613,8 @@
       <p class="lede">Conoce ejemplos de los entregables que utilizamos para ordenar la situación fiscal, proyectar impuestos y calcular la utilidad real de un negocio digital.</p>
     </div>
 
+    <div class="sample-tabs" role="group" aria-label="Explorar ejemplos de entregables"><button type="button" class="sample-tab is-active" data-sample="0" aria-pressed="true">Mapa fiscal</button><button type="button" class="sample-tab" data-sample="1" aria-pressed="false">Panel de utilidad</button><button type="button" class="sample-tab" data-sample="2" aria-pressed="false">Proyección</button></div>
+    <p class="sample-instruction">Selecciona un entregable para explorar su ejemplo. Todos los datos son simulados.</p>
     <div class="samples-grid">
       <div class="sample-card">
         <span class="sample-badge">Datos simulados</span>
@@ -3581,5 +3585,7 @@
   addTilt('.phase',   7);
   addTilt('.why',     5);
 </script>
-</body>
+<script>
+(function(){const tabs=[...document.querySelectorAll('.sample-tab')];const grid=document.querySelector('#ejemplos .samples-grid');if(!grid||tabs.length!==3)return;const cards=[...grid.querySelectorAll(':scope > .sample-card')];if(cards.length!==3)return;function activate(index){tabs.forEach((t,i)=>{t.classList.toggle('is-active',i===index);t.setAttribute('aria-pressed',String(i===index))});cards.forEach((card,i)=>card.classList.toggle('is-active',i===index))}grid.classList.add('is-interactive');tabs.forEach((t,i)=>t.addEventListener('click',()=>activate(i)));activate(0)})();
+</script></body>
 </html>
