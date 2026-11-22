@@ -181,3 +181,112 @@ test('the example selector only appears after setup and switches its visible car
   assert.equal(tabs[2].attributes.get('aria-pressed'), 'true');
   assert.equal(tabs[0].attributes.get('aria-pressed'), 'false');
 });
+
+const interactive = readFileSync(new URL('../assets/inicio-interactivo.js', import.meta.url), 'utf8');
+
+test('the utility view switches to shares of gross sales and restores the original amounts', () => {
+  const amounts = ['$180,000', '−$21,600', '−$27,000', '−$34,200', '$97,200'];
+  const cells = amounts.map(textContent => ({ textContent }));
+  const units = ['amount', 'share'].map(utilityUnit => eventTarget({
+    dataset: { utilityUnit },
+    setAttribute(name, value) { this[name] = value; },
+  }));
+  const controls = { hidden: true, querySelectorAll: () => units };
+  const selectors = {
+    '.report-utility': { querySelectorAll: () => cells },
+    '.report-units': controls,
+  };
+  const document = { querySelector: selector => selectors[selector], getElementById: () => null };
+  runInNewContext(interactive, { document });
+
+  assert.equal(controls.hidden, false);
+  units[1].emit('click');
+  assert.deepEqual(cells.map(cell => cell.textContent.replace('−', '-')), ['100%', '-12%', '-15%', '-19%', '54%']);
+  assert.equal(units[1]['aria-pressed'], 'true');
+  units[0].emit('click');
+  assert.deepEqual(cells.map(cell => cell.textContent), amounts);
+  assert.equal(units[0]['aria-pressed'], 'true');
+});
+
+test('the forecast chart derives its scale and selected month from the table', () => {
+  const entries = [
+    ['Mes 1', '$820K', '$98K', '$27K'],
+    ['Mes 2', '$865K', '$104K', '$29K'],
+    ['Mes 3', '$910K', '$112K', '$31K'],
+  ];
+  const output = { textContent: '' };
+  const options = [];
+  const bars = { append: option => options.push(option) };
+  const chart = { hidden: true, querySelector: selector => selector === '.projection-bars' ? bars : output };
+  const forecast = {
+    querySelectorAll: () => entries.map(cells => ({ cells: cells.map(textContent => ({ textContent })) })),
+    querySelector: () => chart,
+  };
+  const template = { content: { firstElementChild: { cloneNode() {
+    const nodes = { input: eventTarget(), '.projection-month': {}, '.projection-value': {} };
+    const properties = new Map();
+    return {
+      properties,
+      style: { setProperty: (key, value) => properties.set(key, value) },
+      querySelector: selector => nodes[selector],
+    };
+  } } } };
+  const document = {
+    querySelector: selector => selector === '.report-forecast' ? forecast : null,
+    getElementById: id => id === 'projection-option' ? template : null,
+  };
+  runInNewContext(interactive, { document });
+
+  assert.equal(chart.hidden, false);
+  assert.equal(options.length, 3);
+  assert.equal(options[0].querySelector('input').checked, true);
+  assert.equal(options[0].querySelector('.projection-value').textContent, '$27K');
+  assert.equal(options[2].properties.get('--bar-height'), '100%');
+  assert.ok(parseFloat(options[0].properties.get('--bar-height')) < parseFloat(options[1].properties.get('--bar-height')));
+  const third = options[2].querySelector('input');
+  third.checked = true;
+  third.emit('change');
+  assert.equal(output.textContent, 'Mes 3 · Ventas $910K · Utilidad $112K');
+});
+
+test('hero depth uses a single animation frame and clears when motion is disabled', () => {
+  const styles = new Map();
+  const depth = {
+    style: {
+      setProperty: (name, value) => styles.set(name, value),
+      removeProperty: name => styles.delete(name),
+    },
+  };
+  const hero = eventTarget({
+    querySelector: () => depth,
+    getBoundingClientRect: () => ({ left: 0, top: 0, width: 1000, height: 500 }),
+  });
+  const preference = eventTarget({ matches: true });
+  const frames = new Map();
+  let frameId = 0;
+  const document = {
+    querySelector: selector => selector === '.hero-editorial' ? hero : null,
+    getElementById: () => null,
+  };
+  runInNewContext(interactive, {
+    document,
+    matchMedia: () => preference,
+    requestAnimationFrame(callback) {
+      frames.set(++frameId, callback);
+      return frameId;
+    },
+    cancelAnimationFrame: id => frames.delete(id),
+  });
+
+  hero.emit('pointermove', { pointerType: 'touch', clientX: 900, clientY: 450 });
+  assert.equal(frames.size, 0);
+  hero.emit('pointermove', { pointerType: 'mouse', clientX: 200, clientY: 100 });
+  hero.emit('pointermove', { pointerType: 'mouse', clientX: 900, clientY: 450 });
+  assert.equal(frames.size, 1);
+  frames.get(frameId)();
+  assert.equal(styles.get('--hero-tilt-x'), '-3.60deg');
+  assert.equal(styles.get('--hero-tilt-y'), '4.40deg');
+  preference.matches = false;
+  preference.emit('change');
+  assert.equal(styles.size, 0);
+});
