@@ -208,7 +208,7 @@
 <link rel="preconnect" href="https://embed.typeform.com" />
 <link rel="preconnect" href="https://form.typeform.com" crossorigin />
 <link rel="preconnect" href="https://api.typeform.com" />
-<script src="image-slot.js"></script>
+<script defer src="image-slot.js"></script>
 <style>
   :root {
     --blue: #3F54B0;
@@ -2305,6 +2305,21 @@ body{background:#fff}
 #quienes .who-grid{grid-template-columns:1fr}
 }
 
+
+/* Homepage v3: responsive navigation and reduced rendering cost */
+.hero{min-height:0}
+.hero .hero-bg{background:linear-gradient(135deg,#1c2a5e 0%,#273c83 100%)}
+.hero .hero-bg::before{opacity:.1}
+.hero .hero-grain,.hero .hero-orb{display:none!important}
+#servicios .service-entry-card:focus-visible,#servicios .svc:focus-visible{outline:3px solid #f28c28;outline-offset:3px}
+#ejemplos .sample-tab:focus-visible{outline:3px solid #f28c28;outline-offset:3px}
+@media(max-width:767px){
+.nav-links a{min-height:44px;display:flex;align-items:center}
+.hero .hero-cta-row{gap:10px}
+.hero .hero-cta-row .btn{min-height:52px;padding:14px 18px;font-size:14px}
+#servicios .service-entry-card{min-height:0}
+}
+
 </style>
 </head>
 <body>
@@ -2326,11 +2341,8 @@ body{background:#fff}
     </a>
     <nav class="nav-links" id="navLinks" aria-label="Principal">
       <a href="#servicios">Servicios</a>
-      <a href="#propuesta">Cómo ayudamos</a>
       <a href="#sistema">Nuestro método</a>
-      <a href="#equipo">Equipo</a>
       <a href="blog.html">Blog</a>
-      <a href="#faq">Preguntas frecuentes</a>
       <a href="#contacto">Contacto</a>
     </nav>
     <a href="https://form.typeform.com/to/ykt2ayIi" class="nav-cta js-tf-cta">Agenda tu llamada</a>
@@ -2340,12 +2352,7 @@ body{background:#fff}
 
 <!-- ═══════════ HERO ═══════════ -->
 <section class="hero" id="main-content">
-  <canvas id="hero-3d-canvas" class="hero-3d-canvas" aria-hidden="true"></canvas>
   <div class="hero-bg"></div>
-  <div class="hero-grain"></div>
-  <div class="hero-orb hero-orb-1"></div>
-  <div class="hero-orb hero-orb-2"></div>
-  <div class="hero-orb hero-orb-3"></div>
   <div class="wrap">
     <span class="eyebrow reveal">Contabilidad & fiscalidad · México</span>
     <h1 class="display reveal">
@@ -3124,7 +3131,7 @@ body{background:#fff}
 })();
 </script>
 <!-- ═══════════ TYPEFORM EMBED ═══════════ -->
-<script src="//embed.typeform.com/next/embed.js"></script>
+<script defer src="https://embed.typeform.com/next/embed.js"></script>
 <script>
   /* Precarga el formulario oculto en segundo plano para que abra al instante */
   (function () {
@@ -3187,13 +3194,6 @@ body{background:#fff}
       }
     });
 
-    // Precarga en segundo plano cuando el navegador está libre, sin competir con el render inicial
-    function schedulePreload() {
-      if ('requestIdleCallback' in window) requestIdleCallback(preload, { timeout: 4000 });
-      else setTimeout(preload, 1500);
-    }
-    if (document.readyState === 'complete') schedulePreload();
-    else window.addEventListener('load', schedulePreload);
   })();
 </script>
 
@@ -3234,280 +3234,7 @@ body{background:#fff}
   })();
 </script>
 
-<script>
-/* ============================================================
-   V2 HERO — DRAMATIC PARTICLE SPHERE + ORBITAL RINGS
-   Fibonacci-distributed particle sphere with AdditiveBlending
-   (neon glow), three rotating rings, inner icosahedron,
-   floating dashboard cards, 700-star field.
-   Scroll-driven camera + mouse parallax.
 
-   Cargado y ejecutado despues de window.load para no competir
-   por el hilo principal durante el render inicial (Core Web Vitals).
-   ============================================================ */
-(function () {
-  const canvasEl = document.getElementById('hero-3d-canvas');
-  if (!canvasEl) return;
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches) { canvasEl.style.display = 'none'; return; }
-
-  // Comprueba soporte de WebGL antes de cargar three.js — evita descargar
-  // la librería y lanzar un error sin control en equipos con WebGL
-  // deshabilitado (navegadores corporativos, hardware antiguo, etc.).
-  function supportsWebGL() {
-    try {
-      const testCanvas = document.createElement('canvas');
-      return !!(testCanvas.getContext('webgl') || testCanvas.getContext('experimental-webgl'));
-    } catch (e) {
-      return false;
-    }
-  }
-  if (!supportsWebGL()) { canvasEl.style.display = 'none'; return; }
-
-  // En viewports angostos (móvil) no cargamos Three.js: es la dependencia
-  // más pesada de la página para un fondo decorativo, y la mayoría del
-  // tráfico de este sitio llega por móvil — mejor priorizar el tiempo hasta
-  // que el titular y el botón de agendar sean interactivos.
-  if (window.innerWidth < 768) { canvasEl.style.display = 'none'; return; }
-
-  function loadThree(cb) {
-    const s = document.createElement('script');
-    s.src = 'https://unpkg.com/three@0.160.0/build/three.min.js';
-    // Cualquier fallo al inicializar la escena (contexto WebGL perdido,
-    // extensión no disponible, etc.) se captura en vez de quedar como un
-    // error sin control — el sitio simplemente se queda con el fondo estático.
-    s.onload = function () {
-      try {
-        cb();
-      } catch (e) {
-        console.warn('Hero 3D no pudo inicializarse, se usa el fondo estático:', e);
-        if (canvasEl) canvasEl.style.display = 'none';
-      }
-    };
-    s.onerror = function () {
-      if (canvasEl) canvasEl.style.display = 'none';
-    };
-    document.body.appendChild(s);
-  }
-  function schedule() {
-    if ('requestIdleCallback' in window) requestIdleCallback(() => loadThree(initHero), { timeout: 2000 });
-    else setTimeout(() => loadThree(initHero), 200);
-  }
-  if (document.readyState === 'complete') schedule();
-  else window.addEventListener('load', schedule);
-
-  function initHero() {
-  const canvas = document.getElementById('hero-3d-canvas');
-  if (!canvas || !window.THREE) return;
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches) { canvas.style.display = 'none'; return; }
-
-  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false });
-  renderer.setPixelRatio(Math.min(devicePixelRatio, 1));
-
-  const scene = new THREE.Scene();
-  scene.fog = new THREE.FogExp2(0x020818, 0.03);
-
-  const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 100);
-  camera.position.set(0, 0, 10);
-
-  /* soft lighting so the rook mesh reads as 3D */
-  scene.add(new THREE.AmbientLight(0xffffff, 0.65));
-  const keyLight = new THREE.DirectionalLight(0xffffff, 1.1);
-  keyLight.position.set(-3, 4, 6);
-  scene.add(keyLight);
-  const rimLight = new THREE.DirectionalLight(0x6b82d4, 0.7);
-  rimLight.position.set(4, -2, -3);
-  scene.add(rimLight);
-
-  /* ── FINABIZ ROOK — cylindrical chess-piece body ── */
-  const rookMat = new THREE.MeshStandardMaterial({
-    color: 0xffffff, metalness: 0.28, roughness: 0.38,
-    emissive: 0x1B2654, emissiveIntensity: 0.05
-  });
-
-  const rookProfile = [
-    new THREE.Vector2(0.00, -1.02),
-    new THREE.Vector2(0.62, -1.02),
-    new THREE.Vector2(0.62, -0.90),
-    new THREE.Vector2(0.58, -0.85),
-    new THREE.Vector2(0.44, -0.76),
-    new THREE.Vector2(0.40, -0.70),
-    new THREE.Vector2(0.55, -0.60),
-    new THREE.Vector2(0.50, -0.50),
-    new THREE.Vector2(0.34, -0.44),
-    new THREE.Vector2(0.29, -0.38),
-    new THREE.Vector2(0.30, -0.08),
-    new THREE.Vector2(0.28,  0.20),
-    new THREE.Vector2(0.33,  0.27),
-    new THREE.Vector2(0.29,  0.33),
-    new THREE.Vector2(0.35,  0.40),
-    new THREE.Vector2(0.46,  0.50),
-    new THREE.Vector2(0.50,  0.56),
-    new THREE.Vector2(0.50,  0.60),
-  ];
-  const bodyGeom = new THREE.LatheGeometry(rookProfile, 40);
-  const rook = new THREE.Group();
-  rook.add(new THREE.Mesh(bodyGeom, rookMat));
-
-  /* crenellations — squared merlons ringed tightly around the crown */
-  const MERLONS = 8;
-  const merlonGeom = new THREE.BoxGeometry(0.30, 0.24, 0.16);
-  for (let i = 0; i < MERLONS; i++) {
-    const a = (i / MERLONS) * Math.PI * 2;
-    const m = new THREE.Mesh(merlonGeom, rookMat);
-    m.position.set(Math.cos(a) * 0.42, 0.70, Math.sin(a) * 0.42);
-    m.rotation.y = -a;
-    rook.add(m);
-  }
-
-  rook.scale.setScalar(3.6);
-  rook.position.set(4.6, 0, -2.6);
-  scene.add(rook);
-
-  function resize() {
-    renderer.setSize(innerWidth, innerHeight, false);
-    camera.aspect = innerWidth / innerHeight;
-    camera.updateProjectionMatrix();
-  }
-  resize();
-  addEventListener('resize', resize);
-
-  /* ── SINGLE SPARSE PARTICLE FIELD (minimal) ── */
-  const N = 60;
-  const pPos = new Float32Array(N * 3);
-  const pVel = [];
-  for (let i = 0; i < N; i++) {
-    pPos[i*3]   = (Math.random() - 0.5) * 18;
-    pPos[i*3+1] = (Math.random() - 0.5) * 11;
-    pPos[i*3+2] = (Math.random() - 0.5) * 6 - 1;
-    pVel.push({ x:(Math.random()-.5)*.0022, y:(Math.random()-.5)*.0018 });
-  }
-  const pGeom = new THREE.BufferGeometry();
-  const pAttr = new THREE.BufferAttribute(pPos, 3);
-  pGeom.setAttribute('position', pAttr);
-  const pts = new THREE.Points(pGeom, new THREE.PointsMaterial({
-    color: 0xAFC0FF, size: 0.055, transparent: true, opacity: 0.55,
-    sizeAttenuation: true, depthWrite: false
-  }));
-  scene.add(pts);
-
-  /* faint orange accent points, sparse */
-  const A = 14;
-  const aPos = new Float32Array(A * 3);
-  for (let i = 0; i < A; i++) {
-    aPos[i*3]   = (Math.random() - 0.5) * 16;
-    aPos[i*3+1] = (Math.random() - 0.5) * 9;
-    aPos[i*3+2] = (Math.random() - 0.5) * 4;
-  }
-  const aGeom = new THREE.BufferGeometry();
-  aGeom.setAttribute('position', new THREE.BufferAttribute(aPos, 3));
-  scene.add(new THREE.Points(aGeom, new THREE.PointsMaterial({
-    color: 0xFF8C00, size: 0.075, transparent: true, opacity: 0.45,
-    sizeAttenuation: true, depthWrite: false
-  })));
-
-  /* ── THIN CONNECTION LINES ── */
-  const MAX_SEG = 60;
-  const lBuf  = new Float32Array(MAX_SEG * 6);
-  const lGeom = new THREE.BufferGeometry();
-  const lAttr = new THREE.BufferAttribute(lBuf, 3);
-  lGeom.setAttribute('position', lAttr);
-  const lObj  = new THREE.LineSegments(lGeom,
-    new THREE.LineBasicMaterial({ color: 0x3F54B0, transparent: true, opacity: 0.16 }));
-  scene.add(lObj);
-
-  const THRESH2 = 2.6 * 2.6;
-  function updateNet() {
-    let c = 0;
-    for (let i = 0; i < N && c < MAX_SEG; i++)
-      for (let j = i+1; j < N && c < MAX_SEG; j++) {
-        const dx=pPos[i*3]-pPos[j*3], dy=pPos[i*3+1]-pPos[j*3+1];
-        if (dx*dx+dy*dy < THRESH2) {
-          const b=c*6;
-          lBuf[b]=pPos[i*3]; lBuf[b+1]=pPos[i*3+1]; lBuf[b+2]=pPos[i*3+2];
-          lBuf[b+3]=pPos[j*3]; lBuf[b+4]=pPos[j*3+1]; lBuf[b+5]=pPos[j*3+2];
-          c++;
-        }
-      }
-    for (let k=c*6; k<MAX_SEG*6; k++) lBuf[k]=9999;
-    lAttr.needsUpdate = true;
-  }
-  updateNet();
-
-  /* ── ONE SOFT WIREFRAME SPHERE, BARELY VISIBLE ── */
-  const wire = new THREE.LineSegments(
-    new THREE.EdgesGeometry(new THREE.IcosahedronGeometry(3.2, 1)),
-    new THREE.LineBasicMaterial({ color: 0x3F54B0, transparent: true, opacity: 0.12 })
-  );
-  scene.add(wire);
-
-  /* ── SCROLL & MOUSE ── */
-  let tProg=0,prog=0,visible=true;
-  // El render 3D decorativo se pausa fuera de pantalla y al ocultar la pestaña.
-  // Se reinicia solo cuando vuelve a ser visible, evitando trabajo de GPU innecesario.
-  let animationFrameId = null;
-  function requestFrameIfVisible() {
-    if (animationFrameId === null && visible && !document.hidden) {
-      animationFrameId = requestAnimationFrame(tick);
-    }
-  }
-  document.addEventListener('visibilitychange', requestFrameIfVisible);
-  function onScroll(){
-    const hero=document.querySelector('.hero');
-    const heroH=hero?hero.offsetHeight:innerHeight;
-    const y=scrollY;
-    tProg=Math.max(0,Math.min(y/heroH,1.3));
-    visible=hero?hero.getBoundingClientRect().bottom>0:true;
-    requestFrameIfVisible();
-  }
-  addEventListener('scroll',onScroll,{passive:true}); onScroll();
-
-  const mouse={x:0,y:0,tx:0,ty:0};
-  addEventListener('mousemove',e=>{
-    mouse.tx=(e.clientX/innerWidth-.5);
-    mouse.ty=(e.clientY/innerHeight-.5);
-  },{passive:true});
-
-  /* ── ANIMATION LOOP ── */
-  let lastT=performance.now(),netT=0;
-  function tick(now){
-    animationFrameId = null;
-    if (!visible || document.hidden) return;
-    requestFrameIfVisible();
-    const dt=Math.min(.05,(now-lastT)/1e3); lastT=now;
-    const t=now*.001;
-
-    prog+=(tProg-prog)*Math.min(1,dt*5);
-    mouse.x+=(mouse.tx-mouse.x)*.04;
-    mouse.y+=(mouse.ty-mouse.y)*.04;
-
-    /* Drift particles slowly, bounce off soft bounds */
-    for(let i=0;i<N;i++){
-      pPos[i*3]+=pVel[i].x; pPos[i*3+1]+=pVel[i].y;
-      if(Math.abs(pPos[i*3])>9)pVel[i].x*=-1;
-      if(Math.abs(pPos[i*3+1])>5.5)pVel[i].y*=-1;
-    }
-    pAttr.needsUpdate=true;
-    netT+=dt; if(netT>.08){updateNet();netT=0;}
-
-    pts.rotation.y = t*.015+mouse.x*.06;
-    lObj.rotation.copy(pts.rotation);
-
-    wire.rotation.y = t*.02+prog*.2+mouse.x*.08;
-    wire.rotation.x = t*.012+mouse.y*.05;
-
-    rook.rotation.y = t*.18+mouse.x*.25;
-    rook.rotation.x = Math.sin(t*.25)*.08+mouse.y*.1;
-    rook.position.y = Math.sin(t*.4)*.25;
-
-    camera.position.z += (10 - prog*2 - camera.position.z)*.05;
-    camera.position.x += (mouse.x*.4 - camera.position.x)*.05;
-
-    renderer.render(scene,camera);
-  }
-  requestFrameIfVisible();
-  }
-})();
-</script>
 
 <script>
   // Nav shadow on scroll + floating CTA appear after hero
