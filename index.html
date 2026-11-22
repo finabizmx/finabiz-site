@@ -579,7 +579,7 @@
 
   /* ─── SECTION HEAD ─── */
   section { padding: var(--section-y) 0; }
-  section[id] { scroll-margin-top: 80px; }
+  section[id], #main-content { scroll-margin-top: 80px; }
 
   .section-head {
     display: grid;
@@ -1511,7 +1511,7 @@
     gap: 48px;
     margin-bottom: 40px;
   }
-  .footer h4 {
+  .footer h2 {
     font: 500 11px/1 "IBM Plex Mono", monospace;
     letter-spacing: .22em;
     color: var(--orange);
@@ -1586,15 +1586,22 @@
     gap: 12px;
     font: 500 11px/1.4 "IBM Plex Mono", monospace;
     letter-spacing: .14em;
-    color: rgba(255,255,255,.45);
+    color: rgba(255,255,255,.65);
     text-transform: uppercase;
   }
+
+  .footer-bottom a { display: inline-block; padding-block: 5px; }
 
   /* ─── TYPEFORM OVERLAY ─── */
   .tf-overlay {
     position: fixed;
     inset: 0;
-    z-index: 500;
+    margin: 0;
+    border: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
     background: rgba(15, 17, 32, .78);
     backdrop-filter: blur(2px);
     display: none;
@@ -1602,7 +1609,8 @@
     justify-content: center;
     padding: clamp(12px, 4vw, 40px);
   }
-  .tf-overlay.show { display: flex; }
+  .tf-overlay[open] { display: flex; }
+  .tf-overlay::backdrop { background: transparent; }
   .tf-overlay-panel {
     position: relative;
     width: 100%;
@@ -1613,16 +1621,18 @@
     overflow: hidden;
     box-shadow: 0 40px 100px -20px rgba(0,0,0,.5);
   }
-  .tf-overlay-widget { width: 100%; height: 100%; }
-  /* Fixed to the true viewport (not nested in the clipped panel) so it can
-     never end up hidden behind mobile browser chrome or the iframe's own
-     stacking context — this is the only way to close the overlay since the
-     widget embed (unlike a popup) has no built-in close button. */
+  .tf-overlay-panel { display: flex; flex-direction: column; }
+  .tf-overlay-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px 12px;
+    gap: 12px;
+  }
+  .tf-overlay-toolbar a { color: var(--blue-ink); text-decoration: underline; }
+  .tf-overlay-widget { flex: 1; min-height: 0; }
   .tf-overlay-close {
-    position: fixed;
-    top: calc(env(safe-area-inset-top, 0px) + 14px);
-    right: calc(env(safe-area-inset-right, 0px) + 14px);
-    z-index: 501;
+    flex-shrink: 0;
     width: 44px;
     height: 44px;
     border-radius: 50%;
@@ -1841,6 +1851,8 @@
       border-top: 1px solid rgba(255,255,255,.18);
       border-bottom: 1px solid rgba(255,255,255,.18);
       padding: 16px var(--pad-x);
+      max-height: calc(100dvh - 80px);
+      overflow-y: auto;
       gap: 16px;
     }
 
@@ -2478,13 +2490,14 @@ body{font-family:"IBM Plex Sans",sans-serif}
 <!-- ═══════════ NAV ═══════════ -->
 <header class="nav" id="nav">
   <div class="nav-inner">
-    <a href="/" class="brand" aria-label="Finabiz">
+    <a href="/" class="brand" aria-label="Finabiz · Servicios contables y fiscales">
       <div class="rook"><img src="assets/F-blue.png" alt="" /></div>
       <div class="text">
         <img src="assets/Logo-H-T.png" alt="FINABIZ" class="brand-logo-img" />
         <div class="sub">Servicios contables y fiscales</div>
       </div>
     </a>
+    <button type="button" class="nav-burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks" id="burger"><span></span></button>
     <nav class="nav-links" id="navLinks" aria-label="Principal">
       <a href="#servicios">Servicios</a>
       <a href="#sistema">Nuestro método</a>
@@ -2492,26 +2505,26 @@ body{font-family:"IBM Plex Sans",sans-serif}
       <a href="#contacto">Contacto</a>
     </nav>
     <a href="https://form.typeform.com/to/ykt2ayIi" class="nav-cta js-tf-cta">Agenda tu llamada</a>
-    <button class="nav-burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks" id="burger"><span></span></button>
   </div>
 </header>
 
 <!-- ═══════════ HERO ═══════════ -->
-<section class="hero" id="main-content">
+<main id="main-content" tabindex="-1">
+<section class="hero">
   <div class="hero-bg"></div>
   <div class="wrap">
-    <span class="eyebrow reveal">FINABIZ · PARA NEGOCIOS DIGITALES</span>
-    <h1 class="display reveal">La estructura fiscal y financiera<br/><span class="word-shine">que impulsa tu negocio.</span></h1>
-    <p class="hero-subtitle reveal">Te ayudamos a cumplir tus obligaciones, anticipar impuestos y entender el desempeño de tu negocio con información confiable.</p>
-    <div class="hero-cta-row reveal">
+    <span class="eyebrow">FINABIZ · PARA NEGOCIOS DIGITALES</span>
+    <h1 class="display">La estructura fiscal y financiera<br/><span class="word-shine">que impulsa tu negocio.</span></h1>
+    <p class="hero-subtitle">Te ayudamos a cumplir tus obligaciones, anticipar impuestos y entender el desempeño de tu negocio con información confiable.</p>
+    <div class="hero-cta-row">
       <a href="https://form.typeform.com/to/ykt2ayIi" class="btn btn-primary js-tf-cta">
         Agenda una orientación gratuita · 30 min
         <span class="arrow">→</span>
       </a>
       <a href="#servicios" class="btn btn-secondary">Explora nuestros servicios</a>
     </div>
-    <p class="hero-microcopy reveal">Conversemos sobre tu situación y si podemos ayudarte. Sin compromiso.</p>
-    <p class="hero-trustline reveal">Atención directa de los fundadores · Enfocados en negocios digitales y eCommerce en México</p>
+    <p class="hero-microcopy">Conversemos sobre tu situación y si podemos ayudarte. Sin compromiso.</p>
+    <p class="hero-trustline">Atención directa de los fundadores · Enfocados en negocios digitales y eCommerce en México</p>
 
     <div class="hero-pillars">
       <div class="hero-pillar">
@@ -3130,6 +3143,8 @@ body{font-family:"IBM Plex Sans",sans-serif}
 </section>
 
 <!-- ═══════════ FOOTER ═══════════ -->
+</main>
+
 <footer class="footer">
   <div class="wrap">
     <div class="footer-grid">
@@ -3151,7 +3166,7 @@ body{font-family:"IBM Plex Sans",sans-serif}
         </div>
       </div>
       <div>
-        <h4>Empresa</h4>
+        <h2>Empresa</h2>
         <ul>
           <li><a href="#quienes">Quiénes somos</a></li>
           <li><a href="#equipo">Nuestro equipo</a></li>
@@ -3161,7 +3176,7 @@ body{font-family:"IBM Plex Sans",sans-serif}
         </ul>
       </div>
       <div>
-        <h4>Servicios</h4>
+        <h2>Servicios</h2>
         <ul>
           <li><a href="contabilidad-y-cumplimiento-fiscal.html">Contabilidad y cumplimiento fiscal</a></li>
           <li><a href="tramites-ante-el-sat.html">Trámites ante el SAT</a></li>
@@ -3178,7 +3193,7 @@ body{font-family:"IBM Plex Sans",sans-serif}
         </ul>
       </div>
       <div>
-        <h4>Contacto</h4>
+        <h2>Contacto</h2>
         <ul>
           <li><a href="https://form.typeform.com/to/ykt2ayIi" class="js-tf-cta">Agenda tu llamada</a></li>
           <li><a href="https://wa.me/5218998808616?text=Hola%2C%20tengo%20una%20pregunta%20r%C3%A1pida%20antes%20de%20agendar%20mi%20llamada" target="_blank" rel="noopener">WhatsApp</a></li>
@@ -3205,13 +3220,16 @@ body{font-family:"IBM Plex Sans",sans-serif}
   Agenda tu llamada <span>→</span>
 </a>
 
-<!-- ═══════════ TYPEFORM OVERLAY (precargado en segundo plano) ═══════════ -->
-<div class="tf-overlay" id="tfOverlay">
-  <button type="button" class="tf-overlay-close" id="tfOverlayClose" aria-label="Cerrar">&times;</button>
+<!-- ═══════════ TYPEFORM OVERLAY ═══════════ -->
+<dialog class="tf-overlay" id="tfOverlay" aria-label="Formulario previo a tu llamada de orientación">
   <div class="tf-overlay-panel">
+    <div class="tf-overlay-toolbar">
+      <a href="https://form.typeform.com/to/ykt2ayIi">Abrir formulario directamente</a>
+      <button type="button" class="tf-overlay-close" id="tfOverlayClose" aria-label="Cerrar formulario" autofocus>&times;</button>
+    </div>
     <div class="tf-overlay-widget" id="tfOverlayWidget"></div>
   </div>
-</div>
+</dialog>
 
 <script>
 /* Atribución no identificable: conserva UTMs de la primera entrada durante la sesión. */
@@ -3270,68 +3288,69 @@ body{font-family:"IBM Plex Sans",sans-serif}
 <!-- ═══════════ TYPEFORM EMBED ═══════════ -->
 <script defer src="https://embed.typeform.com/next/embed.js"></script>
 <script>
-  /* Precarga el formulario oculto en segundo plano para que abra al instante */
   (function () {
     var overlay = document.getElementById('tfOverlay');
     var widgetHost = document.getElementById('tfOverlayWidget');
     var closeBtn = document.getElementById('tfOverlayClose');
     var loaded = false;
+    var previousOverflow = '';
 
-    function preload() {
-      if (loaded || !window.tf) return;
-      loaded = true;
-      var div = document.createElement('div');
-      div.setAttribute('data-tf-widget', 'ykt2ayIi');
-       div.setAttribute('data-tf-hidden', window.finabizAttribution ? window.finabizAttribution.hidden : '');
-      div.setAttribute('data-tf-opacity', '100');
-      div.setAttribute('data-tf-iframe-props', 'title=Formulario previo a tu llamada de orientación');
-      div.style.width = '100%';
-      div.style.height = '100%';
-      widgetHost.appendChild(div);
-      window.tf.load();
+    function mount() {
+      if (loaded) return;
+      var widget = document.createElement('div');
+      widget.setAttribute('data-tf-widget', 'ykt2ayIi');
+      widget.setAttribute('data-tf-hidden', window.finabizAttribution ? window.finabizAttribution.hidden : '');
+      widget.setAttribute('data-tf-opacity', '100');
+      widget.setAttribute('data-tf-iframe-props', 'title=Formulario previo a tu llamada de orientación');
+      widget.style.width = '100%';
+      widget.style.height = '100%';
+      widgetHost.appendChild(widget);
+      try {
+        window.tf.load();
+        loaded = true;
+      } catch (error) {
+        widget.remove();
+        throw error;
+      }
     }
 
-    function open() {
-      // Si Typeform no cargó, conservar la ruta directa al formulario.
-      if (!window.tf || typeof window.tf.load !== 'function') return false;
-      preload();
-      overlay.classList.add('show');
-      document.body.classList.add('tf-open');
-      document.body.style.overflow = 'hidden';
-      // Empuja una entrada al historial para que el botón "atrás" del navegador
-      // (o del celular) cierre el formulario en vez de salir de la página.
-      history.pushState({ tfOverlay: true }, '', location.href);
-    }
+    document.querySelectorAll('.js-tf-cta').forEach(function (link) {
+      link.addEventListener('click', function (event) {
+        if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        if (!window.tf || typeof window.tf.load !== 'function' || typeof overlay.showModal !== 'function') return;
+        try {
+          mount();
+          history.pushState({ tfOverlay: true }, '', location.href);
+        } catch {
+          return;
+        }
+        previousOverflow = document.body.style.overflow;
+        overlay.showModal();
+        document.body.classList.add('tf-open');
+        document.body.style.overflow = 'hidden';
+        event.preventDefault();
+      });
+    });
 
     function close() {
-      if (!overlay.classList.contains('show')) return;
-      overlay.classList.remove('show');
+      if (!overlay.open) return;
+      overlay.close();
       document.body.classList.remove('tf-open');
-      document.body.style.overflow = '';
-      // Si la entrada de historial que abrimos sigue activa, la quitamos para
-      // que un segundo "atrás" no se quede en un estado vacío.
+      document.body.style.overflow = previousOverflow;
+    }
+
+    function dismiss() {
+      close();
       if (history.state && history.state.tfOverlay) history.back();
     }
 
-    document.querySelectorAll('.js-tf-cta').forEach(function (btn) {
-      btn.addEventListener('click', function (e) {
-        if (open()) e.preventDefault();
-      });
+    closeBtn.addEventListener('click', dismiss);
+    overlay.addEventListener('click', function (event) { if (event.target === overlay) dismiss(); });
+    overlay.addEventListener('cancel', function (event) {
+      event.preventDefault();
+      dismiss();
     });
-    closeBtn.addEventListener('click', close);
-    overlay.addEventListener('click', function (e) { if (e.target === overlay) close(); });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
-    // El usuario presionó "atrás": si el formulario está abierto, solo lo
-    // cerramos (el historial ya retrocedió solo); no dejamos que la página
-    // completa navegue hacia atrás con el overlay abierto.
-    window.addEventListener('popstate', function () {
-      if (overlay.classList.contains('show')) {
-        overlay.classList.remove('show');
-        document.body.classList.remove('tf-open');
-        document.body.style.overflow = '';
-      }
-    });
-
+    window.addEventListener('popstate', close);
   })();
 </script>
 
@@ -3432,6 +3451,11 @@ body{font-family:"IBM Plex Sans",sans-serif}
   }
   burgerBtn.addEventListener('click', () => {
     setMenuOpen(!nav.classList.contains('menu-open'));
+  });
+  nav.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape' || !nav.classList.contains('menu-open')) return;
+    setMenuOpen(false);
+    burgerBtn.focus();
   });
   document.querySelectorAll('.nav-links a').forEach(a => {
     a.addEventListener('click', () => setMenuOpen(false));
@@ -3544,7 +3568,9 @@ body{font-family:"IBM Plex Sans",sans-serif}
     });
   });
   if(location.hash){
-    const id=decodeURIComponent(location.hash.slice(1));
+    let id;
+    try { id=decodeURIComponent(location.hash.slice(1)); }
+    catch { return; }
     const target=document.getElementById(id);
     if(target&&target.matches('details.route-disclosure'))target.open=true;
   }
