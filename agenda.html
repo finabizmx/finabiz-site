@@ -1,16 +1,49 @@
 <!doctype html>
 <html lang="es-MX">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-VDZXBBNES7"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-VDZXBBNES7');
-</script>
 <meta charset="utf-8" />
+<meta name="referrer" content="no-referrer" />
+<script>
+  (() => {
+    const page = new URL(location.href);
+    const params = page.searchParams;
+    const name = params.get('name') || params.get('nombre');
+    const email = params.get('email') || params.get('correo');
+    const prefillKeys = ['name', 'nombre', 'email', 'correo'];
+    let canTrack = true;
+
+    if (prefillKeys.some(key => params.has(key))) {
+      prefillKeys.forEach(key => params.delete(key));
+      try {
+        history.replaceState(history.state, '', page.href);
+      } catch {
+        canTrack = false;
+      }
+    }
+
+    if (canTrack) {
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { window.dataLayer.push(arguments); };
+      window.gtag('js', new Date());
+      window.gtag('config', 'G-VDZXBBNES7', { page_location: page.origin + page.pathname, page_referrer: '' });
+      const analytics = document.createElement('script');
+      analytics.async = true;
+      analytics.src = 'https://www.googletagmanager.com/gtag/js?id=G-VDZXBBNES7';
+      document.head.append(analytics);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const calendar = new URL('https://calendly.com/finabiz-mx/sesion-estrategica-gratuita');
+      calendar.searchParams.set('hide_gdpr_banner', '1');
+      if (name) calendar.searchParams.set('name', name);
+      if (email) calendar.searchParams.set('email', email);
+      document.getElementById('calendlyWidget').setAttribute('data-url', calendar.href);
+      if (name) {
+        document.getElementById('greeting').textContent = 'Listo, ' + name + '. Agenda tu llamada de orientación';
+      }
+    }, { once: true });
+  })();
+</script>
 <title>Agenda tu llamada — Finabiz</title>
 <meta name="description" content="Agenda tu sesión estratégica gratuita con Finabiz." />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -31,7 +64,8 @@
   según lo confirmado por el usuario el 2026-07-23).
 
   Acepta ?name= y ?email= (o ?nombre= y ?correo=) en la URL para
-  prellenar el widget de Calendly.
+  prellenar el widget de Calendly. Los parámetros se eliminan de la
+  URL visible antes de cargar analítica.
 -->
 
 <style>
@@ -138,28 +172,7 @@
   </div>
 </footer>
 
-<script src="https://assets.calendly.com/assets/external/widget.js"></script>
-<script>
-  (function () {
-    var BASE_URL = 'https://calendly.com/finabiz-mx/sesion-estrategica-gratuita';
-    var params = new URLSearchParams(window.location.search);
-    var name = params.get('name') || params.get('nombre');
-    var email = params.get('email') || params.get('correo');
-
-    var calendlyParams = new URLSearchParams();
-    calendlyParams.set('hide_gdpr_banner', '1');
-    if (name) calendlyParams.set('name', name);
-    if (email) calendlyParams.set('email', email);
-
-    var fullUrl = BASE_URL + '?' + calendlyParams.toString();
-    document.getElementById('calendlyWidget').setAttribute('data-url', fullUrl);
-    document.getElementById('calendlyFallback').href = fullUrl;
-
-    if (name) {
-      document.getElementById('greeting').textContent = 'Listo, ' + name + '. Agenda tu llamada de orientación';
-    }
-  })();
-</script>
+<script defer src="https://assets.calendly.com/assets/external/widget.js"></script>
 
 </body>
 </html>
