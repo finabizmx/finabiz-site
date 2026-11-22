@@ -114,3 +114,31 @@ test('service deep links handle valid and malformed percent encoding', () => {
   runInNewContext(script, { document, location: { hash: '#ruta-%63laridad' } });
   assert.equal(area.open, true);
 });
+
+test('the example selector only appears after setup and switches its visible card', () => {
+  assert.match(html, /<div class="sample-tabs" hidden role="group"/);
+  assert.match(html, /<p class="sample-instruction" hidden>/);
+  const classList = { toggle() {}, add() {} };
+  const cards = Array.from({ length: 3 }, () => ({ classList }));
+  const tabs = Array.from({ length: 3 }, () => eventTarget({
+    classList,
+    attributes: new Map(),
+    setAttribute(name, value) { this.attributes.set(name, value); },
+  }));
+  const controls = { hidden: true, querySelectorAll: () => tabs };
+  const instruction = { hidden: true };
+  const grid = { classList, querySelectorAll: () => cards };
+  const selectors = { '.sample-tabs': controls, '.sample-instruction': instruction, '.samples-grid': grid };
+  const document = { getElementById: () => ({ querySelector: selector => selectors[selector] }) };
+
+  const script = scripts.find(source => source.includes("const examples = document.getElementById('ejemplos')"));
+  runInNewContext(script, { document });
+  assert.equal(controls.hidden, false);
+  assert.equal(instruction.hidden, false);
+  assert.deepEqual(cards.map(card => card.hidden), [false, true, true]);
+  tabs[2].emit('click');
+  assert.deepEqual(cards.map(card => card.hidden), [true, true, false]);
+  assert.equal(tabs[2].attributes.get('aria-controls'), cards[2].id);
+  assert.equal(tabs[2].attributes.get('aria-pressed'), 'true');
+  assert.equal(tabs[0].attributes.get('aria-pressed'), 'false');
+});

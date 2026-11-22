@@ -969,7 +969,7 @@
     color: rgba(255,255,255,.55);
     margin-bottom: 20px;
   }
-  .phase.highlight .ptime { color: rgba(27,38,84,.65); }
+  .phase.highlight .ptime { color: var(--blue-ink); }
   .phase ul {
     list-style: none;
     padding: 0;
@@ -996,7 +996,7 @@
     background: var(--orange);
     border-color: var(--orange);
   }
-  .phase.highlight .ptag { color: var(--blue-ink); opacity: .8; }
+  .phase.highlight .ptag { color: var(--blue-ink); }
   .phase.highlight .pname { color: var(--blue-ink); }
   .phase.highlight li { color: var(--blue-ink); }
   .phase.highlight li::before { background: var(--blue-ink); }
@@ -1733,21 +1733,7 @@
     to   { transform: translateX(-50%); }
   }
 
-  /* ─── REVEAL ON SCROLL ─── */
-  /* Default visible; only when JS arms .reveal-arm on body do we hide them */
-  .reveal { opacity: 1; transform: none; }
-  body.reveal-arm .reveal {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1);
-    transition-delay: var(--reveal-delay, 0s);
-  }
-  body.reveal-arm .reveal.in {
-    opacity: 1;
-    transform: translateY(0);
-  }
   @media (prefers-reduced-motion: reduce) {
-    body.reveal-arm .reveal { opacity: 1; transform: none; transition: none; }
     .hero h1.display .word::after { animation: none; transform: scaleX(1); }
     .marquee-track { animation: none; }
     #scroll-progress,
@@ -2449,7 +2435,9 @@ body{font-family:"IBM Plex Sans",sans-serif}
 
 
 /* Quality assurance: consistent accessible states and small-screen safeguards */
-#ejemplos .sample-card[hidden]{display:none!important}
+#ejemplos .sample-card[hidden],
+#ejemplos .sample-tabs[hidden],
+#ejemplos .sample-instruction[hidden] { display: none; }
 #ejemplos .sample-tab[aria-pressed="true"]{box-shadow:inset 0 -3px 0 #f28c28}
 #ejemplos .sample-tab:focus-visible,.nav-burger:focus-visible,.js-tf-cta:focus-visible{outline:3px solid #f28c28;outline-offset:3px}
 .hero-preview-metrics>div{min-width:0}
@@ -2462,9 +2450,6 @@ body{font-family:"IBM Plex Sans",sans-serif}
 .hero-preview-eyebrow,.hero-preview-dot{font-size:9px}
 #ejemplos .mock-table{font-size:11px}
 #ejemplos .sample-mock{overflow-x:auto}
-}
-@media(prefers-reduced-motion:reduce){
-.reveal,.reveal.in{opacity:1!important;transform:none!important;transition:none!important}
 }
 
 
@@ -2479,6 +2464,21 @@ body{font-family:"IBM Plex Sans",sans-serif}
 @media(max-width:767px){.hero{padding-bottom:76px}.hero h1.display{font-size:clamp(39px,10vw,57px)}.hero .hero-subtitle{margin-top:20px}}
 
 </style>
+<noscript>
+  <style>
+    @media (max-width: 920px) {
+      .nav { position: relative; }
+      .nav-inner { flex-direction: column; align-items: flex-start; gap: 4px; }
+      .nav-burger { display: none; }
+      .nav-links {
+        display: grid;
+        width: 100%;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        column-gap: 16px;
+      }
+    }
+  </style>
+</noscript>
 </head>
 <body>
 
@@ -2749,8 +2749,8 @@ body{font-family:"IBM Plex Sans",sans-serif}
     </div>
 
     <div class="example-intro"><span class="example-intro-index">DE LOS DATOS A LAS DECISIONES</span><p>Elige qué quieres entender. Cada vista muestra una pregunta distinta que tus números deberían responder.</p></div>
-    <div class="sample-tabs" role="group" aria-label="Explorar ejemplos de entregables"><button type="button" class="sample-tab is-active" data-sample="0" aria-pressed="true">01 · ¿Estoy al día?</button><button type="button" class="sample-tab" data-sample="1" aria-pressed="false">02 · ¿Cuánto gano?</button><button type="button" class="sample-tab" data-sample="2" aria-pressed="false">03 · ¿Qué viene?</button></div>
-    <p class="sample-instruction">Selecciona una vista. Ejemplos ilustrativos con datos simulados.</p>
+    <div class="sample-tabs" hidden role="group" aria-label="Explorar ejemplos de entregables"><button type="button" class="sample-tab is-active" data-sample="0" aria-pressed="true">01 · ¿Estoy al día?</button><button type="button" class="sample-tab" data-sample="1" aria-pressed="false">02 · ¿Cuánto gano?</button><button type="button" class="sample-tab" data-sample="2" aria-pressed="false">03 · ¿Qué viene?</button></div>
+    <p class="sample-instruction" hidden>Selecciona una vista. Ejemplos ilustrativos con datos simulados.</p>
     <div class="samples-grid">
       <div class="sample-card">
         <span class="sample-badge">Datos simulados</span>
@@ -2873,14 +2873,14 @@ body{font-family:"IBM Plex Sans",sans-serif}
 
       <div class="stats">
         <div class="stat">
-          <div class="num" data-count="3" data-suffix="+" id="stat-years">3<sup>+</sup></div>
+          <div class="num" id="stat-years">3<sup>+</sup></div>
           <div>
             <strong>Años de Finabiz</strong>
             <span>Construyendo estructura fiscal para negocios en crecimiento.</span>
           </div>
         </div>
         <div class="stat">
-          <div class="num" data-count="20" data-suffix="+" id="stat-clients">20<sup>+</sup></div>
+          <div class="num" id="stat-clients">20<sup>+</sup></div>
           <div>
             <strong>Negocios atendidos en distintos sectores</strong>
             <span>Acompañamiento en contabilidad, cumplimiento y estructura fiscal.</span>
@@ -2894,7 +2894,7 @@ body{font-family:"IBM Plex Sans",sans-serif}
           </div>
         </div>
         <div class="stat">
-          <div class="num orange" data-count="100" data-suffix="%" id="stat-ontime">100<span class="sm">%</span></div>
+          <div class="num orange" id="stat-ontime">100<span class="sm">%</span></div>
           <div>
             <strong>Historial de cumplimiento puntual</strong>
             <span>Declaraciones presentadas en tiempo desde 2023, cuando recibimos la información completa dentro de los plazos acordados.</span>
@@ -3210,15 +3210,15 @@ body{font-family:"IBM Plex Sans",sans-serif}
   </div>
 </footer>
 
-<!-- ═══════════ WHATSAPP CTA ═══════════ -->
-<a href="https://wa.me/5218998808616?text=Hola%2C%20tengo%20una%20pregunta%20r%C3%A1pida%20antes%20de%20agendar%20mi%20llamada" target="_blank" rel="noopener" class="whatsapp-cta" aria-label="¿Tienes una pregunta rápida? Chatea por WhatsApp">
-  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#fff" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path fill="#fff" d="M12.004 2C6.486 2 2.004 6.482 2.004 12c0 1.85.505 3.58 1.38 5.065L2 22l5.078-1.36A9.94 9.94 0 0 0 12.004 22C17.522 22 22 17.518 22 12S17.522 2 12.004 2zm0 18.181a8.15 8.15 0 0 1-4.38-1.271l-.314-.187-3.11.833.836-3.036-.204-.313a8.15 8.15 0 0 1-1.257-4.407c0-4.508 3.68-8.187 8.43-8.187 4.75 0 8.43 3.679 8.43 8.187 0 4.508-3.68 8.381-8.43 8.381z"/></svg>
-</a>
+<aside aria-label="Accesos rápidos de contacto">
+  <a href="https://wa.me/5218998808616?text=Hola%2C%20tengo%20una%20pregunta%20r%C3%A1pida%20antes%20de%20agendar%20mi%20llamada" target="_blank" rel="noopener" class="whatsapp-cta" aria-label="¿Tienes una pregunta rápida? Chatea por WhatsApp">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#fff" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path fill="#fff" d="M12.004 2C6.486 2 2.004 6.482 2.004 12c0 1.85.505 3.58 1.38 5.065L2 22l5.078-1.36A9.94 9.94 0 0 0 12.004 22C17.522 22 22 17.518 22 12S17.522 2 12.004 2zm0 18.181a8.15 8.15 0 0 1-4.38-1.271l-.314-.187-3.11.833.836-3.036-.204-.313a8.15 8.15 0 0 1-1.257-4.407c0-4.508 3.68-8.187 8.43-8.187 4.75 0 8.43 3.679 8.43 8.187 0 4.508-3.68 8.381-8.43 8.381z"/></svg>
+  </a>
 
-<!-- ═══════════ FLOATING CTA ═══════════ -->
-<a href="https://form.typeform.com/to/ykt2ayIi" class="float-cta js-tf-cta" id="floatCta">
-  Agenda tu llamada <span>→</span>
-</a>
+  <a href="https://form.typeform.com/to/ykt2ayIi" class="float-cta js-tf-cta" id="floatCta">
+    Agenda tu llamada <span>→</span>
+  </a>
+</aside>
 
 <!-- ═══════════ TYPEFORM OVERLAY ═══════════ -->
 <dialog class="tf-overlay" id="tfOverlay" aria-label="Formulario previo a tu llamada de orientación">
@@ -3417,14 +3417,17 @@ body{font-family:"IBM Plex Sans",sans-serif}
     });
     onScroll();
   }
-  const ctaObserver = new IntersectionObserver(recomputeSectionCtaVisible, { threshold: 0 });
-  ctaObserverTargets.forEach((el) => ctaObserver.observe(el));
+  const canObserveSections = typeof window.IntersectionObserver === 'function';
+  if (canObserveSections) {
+    const ctaObserver = new IntersectionObserver(recomputeSectionCtaVisible, { threshold: 0 });
+    ctaObserverTargets.forEach((el) => ctaObserver.observe(el));
+  }
 
   function onScroll() {
     const y = window.scrollY;
     nav.classList.toggle('scrolled', y > 12);
     let showCta = false;
-    if (hero) {
+    if (hero && canObserveSections) {
       const heroBottom = hero.offsetTop + hero.offsetHeight;
       showCta = y > heroBottom - 200;
     }
@@ -3460,59 +3463,6 @@ body{font-family:"IBM Plex Sans",sans-serif}
   document.querySelectorAll('.nav-links a').forEach(a => {
     a.addEventListener('click', () => setMenuOpen(false));
   });
-
-  // ── Reveal-on-scroll ──
-  // Default state: everything visible. We "arm" reveal by adding a body
-  // class — that's what makes elements start at opacity 0. This way if the
-  // observer never fires (some iframes / SSR), content still shows.
-  const revealSel = [
-    '.section-head',
-    '.who-text', '.stats > .stat',
-    '.puv-quote', '.puv',
-    '.svc',
-    '.phases > .phase', '.guarantee', '.forwhom',
-    '.why',
-    '.team-quote', '.member',
-    '.cta-final-grid > *',
-    '.footer-grid > *',
-  ].join(',');
-  document.querySelectorAll(revealSel).forEach((el) => el.classList.add('reveal'));
-  document.body.classList.add('reveal-arm');
-
-  function reveal(el, idx) {
-    el.style.setProperty('--reveal-delay', Math.min(idx, 5) * 80 + 'ms');
-    el.classList.add('in');
-  }
-
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        const el = entry.target;
-        const parent = el.parentElement;
-        const idx = parent ? Array.from(parent.children).filter(c => c.classList.contains('reveal')).indexOf(el) : 0;
-        reveal(el, idx);
-        io.unobserve(el);
-      }
-    });
-  }, { threshold: 0.05, rootMargin: '0px 0px -10% 0px' });
-
-  document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
-
-  // Safety fallback: if observer doesn't fire within 600ms for elements that
-  // are already in the viewport on first paint (some iframe / SSR contexts
-  // swallow the initial callback), force-reveal them so the page is never
-  // stuck invisible.
-  setTimeout(() => {
-    document.querySelectorAll('.reveal:not(.in)').forEach((el) => {
-      const r = el.getBoundingClientRect();
-      if (r.top < window.innerHeight && r.bottom > 0) {
-        const parent = el.parentElement;
-        const idx = parent ? Array.from(parent.children).filter(c => c.classList.contains('reveal')).indexOf(el) : 0;
-        reveal(el, idx);
-        io.unobserve(el);
-      }
-    });
-  }, 600);
 </script>
 
 <script>
@@ -3525,37 +3475,38 @@ body{font-family:"IBM Plex Sans",sans-serif}
   }
   window.addEventListener('scroll', updateProgress, { passive: true });
   updateProgress();
-
-  /* ── COUNT-UP ANIMATION ── */
-  function countUp(el, target, duration, suffix, inner) {
-    const start = performance.now();
-    function frame(now) {
-      const p = Math.min((now - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - p, 3);
-      const val = Math.round(eased * target);
-      el.innerHTML = val + suffix + (inner ? '<span class="sm">' + inner + '</span>' : '');
-      if (p < 1) requestAnimationFrame(frame);
-    }
-    requestAnimationFrame(frame);
-  }
-
-  const countObs = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      countObs.unobserve(entry.target);
-      const el = entry.target;
-      const target = parseInt(el.dataset.count);
-      const suffix = el.dataset.suffix || '';
-      const inner  = el.dataset.inner  || '';
-      countUp(el, target, 1600, suffix, inner);
-    });
-  }, { threshold: 0.6 });
-
-  document.querySelectorAll('[data-count]').forEach(el => countObs.observe(el));
-
 </script>
 <script>
-(function(){const tabs=[...document.querySelectorAll('.sample-tab')];const grid=document.querySelector('#ejemplos .samples-grid');if(!grid||tabs.length!==3)return;const cards=[...grid.querySelectorAll(':scope > .sample-card')];if(cards.length!==3)return;function activate(index){tabs.forEach((t,i)=>{t.classList.toggle('is-active',i===index);t.setAttribute('aria-pressed',String(i===index));t.setAttribute('aria-controls','finabiz-sample-'+i)});cards.forEach((card,i)=>{card.id='finabiz-sample-'+i;card.classList.toggle('is-active',i===index);card.hidden=i!==index;card.setAttribute('aria-hidden',String(i!==index))})}grid.classList.add('is-interactive');tabs.forEach((t,i)=>t.addEventListener('click',()=>activate(i)));activate(0)})();
+(function () {
+  const examples = document.getElementById('ejemplos');
+  const controls = examples.querySelector('.sample-tabs');
+  const instruction = examples.querySelector('.sample-instruction');
+  const grid = examples.querySelector('.samples-grid');
+  const tabs = [...controls.querySelectorAll('.sample-tab')];
+  const cards = [...grid.querySelectorAll(':scope > .sample-card')];
+  if (tabs.length !== 3 || cards.length !== tabs.length) return;
+
+  function activate(index) {
+    tabs.forEach((tab, i) => {
+      tab.classList.toggle('is-active', i === index);
+      tab.setAttribute('aria-pressed', String(i === index));
+    });
+    cards.forEach((card, i) => {
+      card.classList.toggle('is-active', i === index);
+      card.hidden = i !== index;
+    });
+  }
+
+  tabs.forEach((tab, i) => {
+    cards[i].id = 'finabiz-sample-' + i;
+    tab.setAttribute('aria-controls', cards[i].id);
+    tab.addEventListener('click', () => activate(i));
+  });
+  activate(0);
+  grid.classList.add('is-interactive');
+  controls.hidden = false;
+  instruction.hidden = false;
+})();
 </script><script>
 /* Contextual service navigation: reveal the destination before scrolling. */
 (function(){
