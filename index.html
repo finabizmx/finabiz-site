@@ -206,7 +206,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
-<!-- Preconnect to Typeform so the popup opens faster on click -->
 <style>
   :root {
     --blue: #3E56AC;
@@ -539,43 +538,6 @@
   .btn-secondary:hover { background: #fff; color: var(--blue-ink); border-color: #fff; transform: translateY(-2px); }
   .btn .arrow { font-size: 18px; line-height: 1; }
 
-  .hero-pillars {
-    margin-top: clamp(56px, 8vw, 96px);
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0;
-    border-top: 1px solid rgba(255,255,255,.22);
-  }
-  .hero-pillar {
-    padding: 28px 28px 0 0;
-    border-right: 1px solid rgba(255,255,255,.18);
-  }
-  .hero-pillar:last-child { border-right: none; padding-right: 0; }
-  .hero-pillar + .hero-pillar { padding-left: 28px; }
-  .hero-pillar .n {
-    font: 500 11px/1 "IBM Plex Mono", monospace;
-    letter-spacing: .22em;
-    color: var(--orange);
-    margin-bottom: 14px;
-  }
-  .hero-pillar .t {
-    font-family: "Archivo", sans-serif;
-    font-weight: 500;
-    font-size: 22px;
-    color: #fff;
-    margin-bottom: 10px;
-    letter-spacing: -.01em;
-    line-height: 1.1;
-  }
-  .hero-pillar p {
-    margin: 0;
-    font-size: 14px;
-    color: rgba(255,255,255,.72);
-    line-height: 1.5;
-    max-width: 280px;
-  }
-  .hero-pillar:hover .n { color: var(--orange); }
-  .hero-pillar:hover .t { color: var(--orange); }
 
   /* ─── SECTION HEAD ─── */
   section { padding: var(--section-y) 0; }
@@ -896,293 +858,6 @@
   }
   .route-d { margin: 0; font-size: 14.5px; color: var(--muted); max-width: 520px; }
   .svc-grid--pair { grid-template-columns: repeat(2, 1fr); }
-
-  /* ─── ARQUITECTURA DE CLARIDAD FISCAL (insignia) ─── */
-  .insignia {
-    background: var(--blue-ink);
-    color: #fff;
-    overflow: hidden;
-    position: relative;
-  }
-  .insignia::before {
-    content: "";
-    position: absolute;
-    right: -200px;
-    top: -100px;
-    width: 600px;
-    height: 600px;
-    background: var(--blue);
-    opacity: .35;
-    filter: blur(120px);
-    border-radius: 50%;
-    pointer-events: none;
-  }
-  .insignia .wrap { position: relative; z-index: 2; }
-  .insignia .section-head { border-color: rgba(255,255,255,.18); }
-  .insignia .section-head .eyebrow { color: var(--orange); }
-  .insignia .section-head h2.display { color: #fff; }
-  .insignia .section-head h2 sup {
-    font-family: "IBM Plex Mono", monospace;
-    font-size: .25em;
-    color: var(--orange);
-    font-weight: 500;
-    vertical-align: super;
-    margin-left: 8px;
-    letter-spacing: 0;
-  }
-  .insignia .section-head .lede { color: rgba(255,255,255,.78); }
-  .insignia .section-head .lede strong { color: #fff; font-weight: 600; }
-
-  .phases {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 14px;
-    margin-bottom: 24px;
-  }
-  .phase {
-    background: rgba(255,255,255,.04);
-    border: 1px solid rgba(255,255,255,.14);
-    padding: 28px 28px;
-    position: relative;
-    transition: background .2s, border-color .2s;
-  }
-  .phase:hover { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.28); }
-  .phase .ptag {
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 11px;
-    letter-spacing: .22em;
-    color: var(--orange);
-    text-transform: uppercase;
-  }
-  .phase .pname {
-    font-family: "Archivo", sans-serif;
-    font-weight: 500;
-    font-size: 28px;
-    color: #fff;
-    letter-spacing: -.02em;
-    margin: 10px 0 4px;
-    line-height: 1;
-  }
-  .phase .ptime {
-    display: block;
-    font-size: 12.5px;
-    color: rgba(255,255,255,.55);
-    margin-bottom: 20px;
-  }
-  .phase.highlight .ptime { color: var(--blue-ink); }
-  .phase ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  .phase li {
-    font-size: 14.5px;
-    line-height: 1.4;
-    color: rgba(255,255,255,.88);
-    padding-left: 18px;
-    position: relative;
-  }
-  .phase li::before {
-    content: "";
-    position: absolute;
-    left: 0; top: 8px;
-    width: 7px; height: 7px;
-    background: var(--orange);
-  }
-  .phase.highlight {
-    background: var(--orange);
-    border-color: var(--orange);
-  }
-  .phase.highlight .ptag { color: var(--blue-ink); }
-  .phase.highlight .pname { color: var(--blue-ink); }
-  .phase.highlight li { color: var(--blue-ink); }
-  .phase.highlight li::before { background: var(--blue-ink); }
-
-  .guarantee {
-    background: rgba(255,140,0,.12);
-    border-left: 3px solid var(--orange);
-    padding: 22px 28px;
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 28px;
-    align-items: center;
-    margin-bottom: 32px;
-  }
-  .guarantee .gtag {
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 11px;
-    letter-spacing: .22em;
-    color: var(--orange);
-    text-transform: uppercase;
-    font-weight: 600;
-    white-space: nowrap;
-  }
-  .guarantee p {
-    margin: 0;
-    font-family: "Archivo", sans-serif;
-    font-size: clamp(15px, 1.4vw, 17px);
-    line-height: 1.35;
-    color: #fff;
-    letter-spacing: -.01em;
-  }
-  .guarantee strong { color: var(--orange); font-weight: 600; }
-
-  .forwhom {
-    padding-top: 28px;
-    border-top: 1px solid rgba(255,255,255,.18);
-    display: grid;
-    grid-template-columns: 240px 1fr;
-    gap: 32px;
-    align-items: start;
-  }
-  .forwhom .label {
-    font-family: "Archivo", sans-serif;
-    font-size: 18px;
-    color: var(--orange);
-    font-weight: 500;
-    letter-spacing: -.01em;
-  }
-  .forwhom .items {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px 32px;
-  }
-  .forwhom .item {
-    font-size: 14.5px;
-    color: rgba(255,255,255,.88);
-    line-height: 1.45;
-    padding-left: 24px;
-    position: relative;
-  }
-  .forwhom .item::before {
-    content: "✓";
-    position: absolute;
-    left: 0; top: 0;
-    color: var(--orange);
-    font-weight: 700;
-    font-family: "Archivo", sans-serif;
-  }
-
-  /* ─── EJEMPLOS DE ENTREGABLES ─── */
-  .samples-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 24px;
-    margin-top: 8px;
-  }
-  .sample-card {
-    background: #fff;
-    border: 1px solid var(--line);
-    border-radius: 12px;
-    padding: 28px;
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-  }
-  .sample-badge {
-    display: inline-flex;
-    align-self: flex-start;
-    align-items: center;
-    gap: 6px;
-    font: 600 10px/1 "IBM Plex Mono", monospace;
-    letter-spacing: .08em;
-    text-transform: uppercase;
-    color: var(--muted);
-    background: var(--blue-50);
-    border-radius: 20px;
-    padding: 5px 10px 5px 8px;
-    margin-bottom: 16px;
-  }
-  .sample-badge::before { content: "●"; color: var(--orange); font-size: 8px; }
-  .sample-card h3 {
-    font-family: "Archivo", sans-serif;
-    font-weight: 500;
-    font-size: 19px;
-    color: var(--blue-ink);
-    margin: 0 0 16px;
-    letter-spacing: -.01em;
-  }
-  .sample-mock {
-    background: var(--paper);
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    padding: 16px;
-    margin-bottom: 16px;
-    flex: 1;
-  }
-  .sample-card p.caption {
-    font-size: 13px;
-    color: var(--muted);
-    margin: 0;
-    line-height: 1.5;
-  }
-  .mock-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 8px 0;
-    border-bottom: 1px solid var(--line);
-    font-size: 12.5px;
-  }
-  .mock-row:last-child { border-bottom: none; padding-bottom: 0; }
-  .mock-row:first-child { padding-top: 0; }
-  .mock-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-  .mock-dot.ok { background: #2E9B5C; }
-  .mock-dot.warn { background: var(--orange); }
-  .mock-row .label { flex: 1; color: var(--ink); }
-  .mock-row .val { font-family: "IBM Plex Mono", monospace; font-size: 10.5px; color: var(--muted); }
-  .mock-bar-row { margin-bottom: 10px; }
-  .mock-bar-row:last-child { margin-bottom: 0; }
-  .mock-bar-label { display: flex; justify-content: space-between; font-size: 11.5px; margin-bottom: 4px; gap: 8px; }
-  .mock-bar-label .n { color: var(--muted); }
-  .mock-bar-label .v { font-family: "IBM Plex Mono", monospace; color: var(--blue-ink); font-weight: 600; white-space: nowrap; }
-  .mock-bar-track { height: 7px; background: var(--line); border-radius: 4px; overflow: hidden; }
-  .mock-bar-fill { height: 100%; border-radius: 4px; }
-  .mock-table { width: 100%; table-layout: fixed; border-collapse: collapse; font-size: 11.5px; }
-  .mock-table th {
-    text-align: left;
-    font: 600 9px/1.3 "IBM Plex Mono", monospace;
-    letter-spacing: .02em;
-    text-transform: uppercase;
-    color: var(--muted);
-    padding-bottom: 8px;
-    border-bottom: 1px solid var(--line);
-    overflow-wrap: break-word;
-  }
-  .mock-table td { padding: 8px 0; border-bottom: 1px solid var(--line); color: var(--ink); overflow-wrap: break-word; }
-  .mock-table tr:last-child td { border-bottom: none; }
-  .mock-table td.num { font-family: "IBM Plex Mono", monospace; text-align: right; font-size: 11px; }
-  .mock-table th:first-child, .mock-table td:first-child { width: 22%; }
-  .samples-disclaimer {
-    margin-top: 28px;
-    font-size: 12.5px;
-    color: var(--muted);
-    text-align: center;
-  }
-  .samples-cta { display: flex; justify-content: center; align-items: flex-start; flex-wrap: wrap; gap: 16px; margin-top: 32px; }
-  /* .btn-secondary por defecto es texto blanco (pensado para fondos oscuros como el hero);
-     esta sección tiene fondo claro, así que necesita su propio contraste. */
-  .samples-cta .btn-secondary {
-    color: var(--blue-ink);
-    border: 1px solid var(--line);
-  }
-  .samples-cta .btn-secondary:hover {
-    background: var(--blue-ink);
-    color: #fff;
-    border-color: var(--blue-ink);
-  }
-  .samples-cta-pdf { display: flex; flex-direction: column; align-items: center; gap: 10px; }
-  .samples-cta-note {
-    text-align: center;
-    margin: 0;
-    font: 500 11px/1 "IBM Plex Mono", monospace;
-    letter-spacing: .06em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
 
   /* ─── POR QUÉ FINABIZ ─── */
   .why-grid {
@@ -1644,7 +1319,7 @@
     #scroll-progress { display: none; }
     .hero-orb-1, .hero-orb-2, .hero-orb-3,
     .btn-primary, .float-cta.show,
-    .word-shine, .cta-final, .insignia {
+    .cta-final {
       animation: none;
     }
   }
@@ -1719,13 +1394,7 @@
   .stat .num { transition: transform .3s cubic-bezier(.2,.7,.2,1), color .25s; transform-origin: left center; }
   .stat:hover .num { transform: scale(1.04); }
 
-  .phase { transition: background .25s, border-color .25s, transform .25s cubic-bezier(.2,.7,.2,1); }
-  .phase:hover:not(.highlight) { transform: translateY(-4px); }
 
-  /* hero pillars get a subtle slide-from-top on hover */
-  .hero-pillar { transition: transform .25s; }
-  .hero-pillar:hover { transform: translateY(-3px); }
-  .hero-pillar .n { transition: color .25s; }
 
   /* ─── RESPONSIVE ─── */
   @media (max-width: 920px) {
@@ -1747,9 +1416,6 @@
       gap: 16px;
     }
 
-    .hero-pillars { grid-template-columns: 1fr; }
-    .hero-pillar { border-right: none; padding: 28px 0 0 !important; border-top: 1px solid var(--line); }
-    .hero-pillar:first-child { border-top: none; padding-top: 28px !important; }
 
     .section-head { grid-template-columns: 1fr; gap: 20px; }
     .section-head .lede { text-align: left; }
@@ -1761,9 +1427,6 @@
     .svc-grid { grid-template-columns: 1fr 1fr; }
     .why-grid { grid-template-columns: 1fr 1fr; }
     .samples-grid { grid-template-columns: 1fr; }
-    .phases { grid-template-columns: 1fr; }
-    .forwhom { grid-template-columns: 1fr; gap: 18px; }
-    .forwhom .items { grid-template-columns: 1fr; }
     .team-grid { grid-template-columns: 1fr; }
 
     .cta-final-grid { grid-template-columns: 1fr; gap: 36px; }
@@ -1781,7 +1444,6 @@
     /* En móvil solo un botón flotante a la vez: el CTA principal.
        WhatsApp sigue disponible en el footer. */
     .whatsapp-cta { display: none; }
-    .guarantee { grid-template-columns: 1fr; gap: 8px; }
   }
   /* Mientras el modal de Typeform está abierto, ningún botón flotante debe
      competir por atención ni cubrir el formulario. */
@@ -1797,98 +1459,9 @@
     position: fixed; top: 0; left: 0; width: 100%; height: 3px;
     z-index: 200; pointer-events: none; transform-origin: left;
     transform: scaleX(0);
-    background: linear-gradient(90deg, var(--orange), #ffa133, var(--orange));
-    background-size: 200% 100%;
-    box-shadow: 0 0 10px var(--orange), 0 0 24px rgba(255,140,0,.35);
-    animation: progress-shimmer 2s linear infinite;
-  }
-  @keyframes progress-shimmer {
-    from { background-position: 100% 0; }
-    to   { background-position: -100% 0; }
+    background: var(--orange);
   }
 
-  /* Hero orbs */
-  .hero-orb {
-    position: absolute; border-radius: 50%;
-    filter: blur(110px); pointer-events: none; z-index: -1;
-  }
-  .hero-orb-1 {
-    width: 700px; height: 700px;
-    background: radial-gradient(circle, rgba(63,84,176,.22) 0%, transparent 70%);
-    top: -220px; left: -180px;
-    animation: orb1 26s ease-in-out infinite;
-  }
-  .hero-orb-2 {
-    width: 500px; height: 500px;
-    background: radial-gradient(circle, rgba(255,140,0,.12) 0%, transparent 70%);
-    bottom: -120px; right: -80px;
-    animation: orb2 20s ease-in-out infinite;
-  }
-  .hero-orb-3 {
-    width: 300px; height: 300px;
-    background: radial-gradient(circle, rgba(107,130,212,.16) 0%, transparent 70%);
-    top: 40%; left: 55%;
-    animation: orb3 24s ease-in-out infinite;
-  }
-  @keyframes orb1 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(100px,60px) scale(1.15)} }
-  @keyframes orb2 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(-70px,-50px) scale(1.1)} }
-  @keyframes orb3 { 0%,100%{transform:translate(0,0)} 33%{transform:translate(40px,-30px)} 66%{transform:translate(-40px,30px)} }
-
-  /* Button glow pulse */
-  .btn-primary {
-    animation: btn-glow 3s ease-in-out infinite;
-  }
-  @keyframes btn-glow {
-    0%,100% { box-shadow: 0 12px 28px -14px rgba(255,140,0,.55); }
-    50%      { box-shadow: 0 12px 28px -6px rgba(255,140,0,.85), 0 0 0 8px rgba(255,140,0,.1); }
-  }
-  .btn-primary:hover { animation: none; }
-
-  /* Floating CTA pulse */
-  @keyframes float-pulse {
-    0%,100% { box-shadow: 0 14px 36px -12px rgba(255,140,0,.55); }
-    50%      { box-shadow: 0 14px 36px -8px rgba(255,140,0,.85), 0 0 0 8px rgba(255,140,0,.1); }
-  }
-  .float-cta.show { animation: float-pulse 3s ease-in-out infinite; }
-
-  /* Gradient text for hero */
-  .word-shine {
-    background: linear-gradient(110deg, #fff 20%, oklch(0.82 0.18 55) 55%, #fff 80%);
-    background-size: 250% auto;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: txt-shine 5s linear infinite;
-  }
-  .word-shine::after { display: none !important; }
-  @keyframes txt-shine {
-    from { background-position: 250% center; }
-    to   { background-position: -250% center; }
-  }
-
-  /* Nav gradient */
-  .nav {
-    background: linear-gradient(90deg, rgba(21,24,43,.97) 0%, rgba(63,84,176,.92) 50%, rgba(21,24,43,.97) 100%) !important;
-  }
-
-  /* Glassmorphism on phase cards */
-  .phase {
-    background: rgba(255,255,255,.055) !important;
-    backdrop-filter: blur(14px) saturate(130%) !important;
-    -webkit-backdrop-filter: blur(14px) saturate(130%) !important;
-    border: 1px solid rgba(255,255,255,.13) !important;
-    transition: background .25s, border-color .25s, transform .25s cubic-bezier(.2,.7,.2,1) !important;
-  }
-  .phase:hover:not(.highlight) {
-    background: rgba(255,255,255,.1) !important;
-    border-color: rgba(255,255,255,.28) !important;
-  }
-  .phase.highlight {
-    background: var(--orange) !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    border-color: var(--orange) !important;
-  }
 
   /* Stat number gradient */
   .stat .num {
@@ -1939,29 +1512,10 @@
     50%      { background-position: 100% 50%; }
   }
 
-  /* Insignia section animated gradient */
-  .insignia {
-    background: linear-gradient(135deg, var(--blue-ink) 0%, #0c1535 50%, var(--blue-ink) 100%);
-    background-size: 300% 300%;
-    animation: cta-bg 18s ease infinite reverse;
-  }
-  .insignia::before { display: none; } /* remove old blur orb, handled by animation */
-
-  /* Marquee enhanced */
-
   /* Footer accent border */
   .footer { border-top: 1px solid rgba(255,140,0,.35) !important; }
   .footer a { transition: color .2s, transform .2s; display: inline-block; }
   .footer a:hover { transform: translateX(4px); }
-
-  /* Hero pillar label accent */
-  .hero-pillar .n {
-    padding: 3px 8px;
-    background: rgba(255,140,0,.15);
-    border-left: 2px solid var(--orange);
-    display: inline-block;
-    margin-bottom: 16px;
-  }
 
   /* PUV cards — subtle top line on hover */
   .puv { overflow: hidden; }
@@ -2013,18 +1567,6 @@
   .hero .wrap { position: relative; z-index: 1; }
   .hero h1.display { max-width: 1000px; letter-spacing: -.055em; text-wrap: balance; }
   .hero-subtitle { max-width: 650px; font-size: clamp(17px, 1.5vw, 20px); }
-  .hero-pillars { gap: 16px; border-top: 0; }
-  .hero-pillar, .hero-pillar + .hero-pillar {
-    padding: 26px 24px 28px;
-    border: 1px solid rgba(255,255,255,.16);
-    border-radius: 20px;
-    background: linear-gradient(145deg, rgba(255,255,255,.12), rgba(255,255,255,.035));
-    box-shadow: 0 14px 45px rgba(8,15,48,.12);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    transition: transform .25s ease, border-color .25s ease, background .25s ease;
-  }
-  .hero-pillar:hover { transform: translateY(-4px); border-color: rgba(255,255,255,.3); }
   .nav.scrolled { backdrop-filter: saturate(145%) blur(16px); -webkit-backdrop-filter: saturate(145%) blur(16px); }
 }
 .hero .eyebrow {
@@ -2046,81 +1588,16 @@
   .hero-subtitle { font-size: 16px; line-height: 1.65; }
   .hero-cta-row { gap: 12px; }
   .hero-cta-row .btn { min-height: 48px; }
-  .hero-pillars { border-top-color: rgba(255,255,255,.22); }
-  .hero-pillar { border-bottom: 1px solid rgba(255,255,255,.13); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .hero-pillar, .hero-cta-row .btn { transition: none; }
+  .hero-cta-row .btn { transition: none; }
 }
 
-
-/* Dos caminos de entrada sin eliminar el catálogo de tres frentes. */
-.service-entry { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; margin: 12px 0 52px; }
-.service-entry-card {
-  display:flex; flex-direction:column; align-items:flex-start; gap:15px;
-  min-width:0; padding:clamp(25px,3.2vw,44px);
-  border-radius:24px; border:1px solid rgba(62,86,172,.16);
-  background:linear-gradient(145deg,#fff 0%,#f1f4fc 100%);
-  box-shadow:0 16px 42px rgba(28,42,94,.075);
-  color:#1C2A5E; text-decoration:none;
-  transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease;
-}
-.service-entry-card--clarity { background:linear-gradient(145deg,#1C2A5E 0%,#3E56AC 100%); color:#fff; }
-.service-entry-card:hover { transform:translateY(-4px); box-shadow:0 24px 52px rgba(28,42,94,.15); border-color:rgba(62,86,172,.4); }
-.service-entry-card:focus-visible { outline:3px solid var(--blue-ink); outline-offset:4px; }
-.service-entry-kicker { font:600 11px/1.4 "IBM Plex Mono",monospace; letter-spacing:.07em; text-transform:uppercase; color:#3E56AC; }
-.service-entry-card--clarity .service-entry-kicker { color:#F7AD62; }
-.service-entry-title { font:600 clamp(25px,2.8vw,36px)/1.12 "Archivo",sans-serif; letter-spacing:-.035em; max-width:440px; }
-.service-entry-desc { font:400 16px/1.6 "IBM Plex Sans",sans-serif; max-width:430px; opacity:.86; }
-.service-entry-action { margin-top:auto; padding-top:10px; font:600 13px/1.3 "IBM Plex Sans",sans-serif; color:#3E56AC; }
-.service-entry-card--clarity .service-entry-action { color:#fff; }
-#ruta-cumplimiento,#ruta-claridad { scroll-margin-top:100px; }
-@media(max-width:767px) {
-  .service-entry { grid-template-columns:1fr; gap:14px; margin-bottom:36px; }
-  .service-entry-card { padding:26px 24px; border-radius:20px; }
-}
-@media(prefers-reduced-motion:reduce) { .service-entry-card { transition:none; } }
-
-
-/* Refinamiento de muestras de entregables — datos simulados claramente identificados. */
-.samples-grid { gap:20px; }
-.sample-card {
-  border-radius:22px; overflow:hidden; border:1px solid rgba(62,86,172,.14);
-  background:linear-gradient(165deg,#fff 0%,#f7f9fe 100%);
-  box-shadow:0 18px 48px rgba(28,42,94,.085);
-  transition:transform .22s ease,box-shadow .22s ease;
-}
-.sample-card:hover { transform:translateY(-4px); box-shadow:0 24px 55px rgba(28,42,94,.14); }
-.sample-mock { border-radius:14px; }
-.sample-badge { border-radius:999px; }
-.samples-disclaimer { max-width:820px; line-height:1.65; }
-@media(max-width:767px) {
-  .samples-grid { gap:16px; }
-  .sample-card { border-radius:18px; }
-  .sample-mock { max-width:100%; overflow-x:auto; }
-}
-@media(prefers-reduced-motion:reduce) { .sample-card { transition:none; } }
-
-
-.sample-tabs{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 12px}.sample-tab{font:600 14px "IBM Plex Sans",sans-serif;color:#1C2A5E;background:#fff;border:1px solid #ccd5ea;border-radius:999px;padding:12px 18px;min-height:46px;cursor:pointer}.sample-tab.is-active{color:#fff;background:#3E56AC;border-color:#3E56AC}.sample-tab:focus-visible{outline:3px solid var(--blue-ink);outline-offset:3px}.sample-instruction{font:400 14px "IBM Plex Sans",sans-serif;color:#5C627A;margin:0 0 22px}.samples-grid.is-interactive{grid-template-columns:minmax(0,1fr);max-width:800px;margin-inline:auto}.samples-grid.is-interactive>.sample-card{display:none}.samples-grid.is-interactive>.sample-card.is-active{display:block}@media(max-width:600px){.sample-tabs{display:grid;grid-template-columns:1fr 1fr}.sample-tab{padding:12px 10px}.sample-tab:last-child{grid-column:1/-1}}
 
 /* Finabiz homepage experience refresh: calm editorial rhythm and clear service journey */
 html{scroll-padding-top:90px}
 #servicios{background:#f7f9fd;position:relative}
 #servicios .wrap{max-width:1160px}
-#servicios .section-head{align-items:end;gap:28px;margin-bottom:34px}
-#servicios .section-head .display{font-size:clamp(36px,5.2vw,70px);line-height:1.02;letter-spacing:-.055em;max-width:780px}
-#servicios .section-head .lede{max-width:365px;line-height:1.7}
-.service-step-label{display:block;margin:0 0 18px;font:600 11px/1.5 "IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:#5267a6}
-#servicios .service-entry{gap:12px;margin:0 0 clamp(54px,7vw,100px)}
-#servicios .service-entry-card{position:relative;min-height:260px;padding:clamp(25px,3vw,38px);border-radius:16px;box-shadow:none;background:#fff;border:1px solid #dce3f0;gap:16px}
-#servicios .service-entry-card--clarity{background:#1c2a5e;color:#fff;border-color:#1c2a5e}
-#servicios .service-entry-title{font-size:clamp(25px,2.7vw,34px);line-height:1.13;max-width:350px}
-#servicios .service-entry-desc{font-size:15px;line-height:1.6}
-#servicios .service-entry-action{padding-top:18px;margin-top:auto}
-#servicios .service-entry-card:hover{transform:translateY(-2px);box-shadow:0 14px 32px rgba(28,42,94,.09)}
-.service-catalog-head{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:start;border-top:1px solid #d9e1ee;padding:27px 0 25px}
-.service-catalog-head p{font:400 15px/1.7 "IBM Plex Sans",sans-serif;color:#536079;margin:0;max-width:480px}
 #servicios .routes{gap:0}
 #servicios .route{padding:32px 0 44px;border-top:1px solid #d9e1ee;scroll-margin-top:100px}
 #servicios .route-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:30px;align-items:start;margin-bottom:24px}
@@ -2137,14 +1614,6 @@ html{scroll-padding-top:90px}
 #propuesta .puv-grid .puv{transition:transform .2s ease}
 #propuesta .puv-grid .puv:hover{transform:translateY(-2px)}
 @media(max-width:767px){
-#servicios .section-head{display:block;margin-bottom:28px}
-#servicios .section-head .display{font-size:clamp(36px,10vw,50px)}
-#servicios .section-head .lede{margin-top:18px}
-#servicios .service-entry{gap:10px;margin-bottom:58px}
-#servicios .service-entry-card{min-height:0;padding:26px 22px;border-radius:14px;gap:12px}
-#servicios .service-entry-title{font-size:27px}
-#servicios .service-entry-desc{font-size:14px}
-.service-catalog-head{grid-template-columns:1fr;gap:6px}
 #servicios .route{padding:26px 0 34px}
 #servicios .route-head{display:block}
 #servicios .route-t{margin:9px 0 10px}
@@ -2164,36 +1633,19 @@ body{background:#fff}
 .hero .hero-bg::before{opacity:.18;background-size:72px 72px}
 .hero h1.display{max-width:1000px;font-size:clamp(47px,7.2vw,102px);line-height:1.02;letter-spacing:-.058em}
 .hero .hero-subtitle{font-size:clamp(17px,1.8vw,20px);line-height:1.65;max-width:620px}
-.hero .hero-pillars{display:none}
 .hero .hero-trustline{opacity:.7}
 #servicios{padding-top:clamp(76px,9vw,128px)}
-#servicios .service-entry{margin-bottom:clamp(50px,6vw,84px)}
 #sistema .section-head .lede{max-width:490px}
-#ejemplos{background:#fff;padding-block:clamp(72px,8vw,120px)}
-#ejemplos .section-head{margin-bottom:30px}
-#ejemplos .section-head .display{font-size:clamp(36px,5vw,64px);letter-spacing:-.05em;line-height:1.05}
-#ejemplos .sample-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
-#ejemplos .sample-tab{border-radius:10px;background:#f4f6fb;border-color:transparent;min-height:48px;padding:12px 20px}
-#ejemplos .sample-tab.is-active{background:#1c2a5e;color:#fff}
-#ejemplos .samples-grid.is-interactive{max-width:950px}
-#ejemplos .sample-card{border-radius:16px;box-shadow:none;background:#fff;padding:clamp(20px,3vw,36px)}
-#ejemplos .sample-card:hover{transform:none;box-shadow:none}
-#ejemplos .sample-mock{background:#f7f9fd}
 #quienes,#propuesta{padding-block:clamp(64px,7vw,100px)}
 #quienes .section-head .display,#propuesta .section-head .display{font-size:clamp(33px,4.5vw,56px);letter-spacing:-.045em}
 #quienes .who-grid{align-items:start}
 #propuesta .puv-grid .puv:hover{transform:none}
-#por-que .why:hover,.phase:hover,.member:hover{transform:none}
+#por-que .why:hover,.member:hover{transform:none}
 @media(max-width:767px){
 .hero{padding:76px 0 70px}
 .hero h1.display{font-size:clamp(44px,11vw,64px);line-height:1.04}
 .hero .hero-subtitle{font-size:17px}
 .hero .hero-trustline{line-height:1.6}
-#ejemplos .sample-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
-#ejemplos .sample-tab{font-size:12px;padding:10px 5px;min-height:46px}
-#ejemplos .sample-tab:last-child{grid-column:auto}
-#ejemplos .sample-card{padding:20px 16px}
-#ejemplos .sample-mock{padding:12px}
 #quienes .who-grid{grid-template-columns:1fr}
 }
 
@@ -2203,27 +1655,17 @@ body{background:#fff}
 .hero .hero-bg{background:linear-gradient(135deg,#1c2a5e 0%,#273c83 100%)}
 .hero .hero-bg::before{opacity:.1}
 .hero .hero-grain,.hero .hero-orb{display:none!important}
-#servicios .service-entry-card:focus-visible,#servicios .svc:focus-visible{outline:3px solid var(--blue-ink);outline-offset:3px}
+#servicios .svc:focus-visible{outline:3px solid var(--blue-ink);outline-offset:3px}
 @media(max-width:767px){
 .nav-links a{min-height:44px;display:flex;align-items:center}
 .hero .hero-cta-row{gap:10px}
 .hero .hero-cta-row .btn{min-height:52px;padding:14px 18px;font-size:14px}
-#servicios .service-entry-card{min-height:0}
 }
 
 
 /* Homepage v4 — purposeful hierarchy, progressive disclosure, stronger mobile rhythm */
 html{scroll-behavior:smooth}
 body{font-family:"IBM Plex Sans",sans-serif}
-.home-proof{background:#fff;border-bottom:1px solid #e7ebf3}
-.home-proof-inner{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:24px 0}
-.home-proof-inner span{font:500 13px/1.4 "IBM Plex Sans",sans-serif;color:#1c2a5e;text-align:center;letter-spacing:.005em}
-.home-proof-inner span+span{border-left:1px solid #dce3ef}
-#servicios .section-head{margin-bottom:38px}
-#servicios .service-entry-card{overflow:hidden;min-height:230px}
-#servicios .service-entry-card:after{content:"↗";position:absolute;right:30px;top:24px;font-size:22px;opacity:.5}
-#servicios .service-entry-card--clarity:after{color:#fff}
-#servicios .service-entry-card .service-entry-action{font-size:14px;text-decoration:underline;text-underline-offset:5px}
 #servicios .service-catalog-head{margin-bottom:8px}
 #servicios .route-disclosure{border-top:1px solid #d8dfec;padding:0}
 #servicios .route-disclosure:last-child{border-bottom:1px solid #d8dfec}
@@ -2241,19 +1683,11 @@ body{font-family:"IBM Plex Sans",sans-serif}
 #servicios .route-disclosure .svc-grid{padding-bottom:36px}
 #servicios .svc{min-height:0}
 #servicios .svc p{font-size:13.5px}
-#ejemplos .sample-tabs{max-width:800px}
-#ejemplos .sample-card{border:1px solid #e0e6f1}
 #faq .faq-list{max-width:950px;margin-inline:auto}
 #faq .faq-item{border-bottom:1px solid #e2e6ef}
 #faq .faq-item summary{min-height:60px;display:flex;align-items:center;line-height:1.5}
 #contacto .btn{min-height:52px}
 @media(max-width:767px){
-.home-proof-inner{grid-template-columns:1fr;gap:0;padding:12px 0}
-.home-proof-inner span{text-align:left;padding:11px 0;font-size:12px}
-.home-proof-inner span+span{border-left:0;border-top:1px solid #edf0f5}
-#servicios .section-head{margin-bottom:28px}
-#servicios .service-entry-card{min-height:0}
-#servicios .service-entry-card:after{right:22px;top:18px}
 #servicios .route-disclosure .route-head{grid-template-columns:minmax(0,1fr) 40px;gap:10px 14px;padding:23px 0}
 #servicios .route-disclosure .route-n{grid-column:1/-1}
 #servicios .route-disclosure .route-t{grid-column:1;grid-row:2;font-size:26px}
@@ -2270,44 +1704,14 @@ body{font-family:"IBM Plex Sans",sans-serif}
 .hero>.wrap{max-width:1180px}
 .hero h1.display{max-width:940px;font-size:clamp(44px,6.6vw,94px);letter-spacing:-.065em;line-height:1.025}
 .hero .hero-subtitle{font-size:clamp(17px,1.7vw,20px);max-width:660px;line-height:1.65}
-#ejemplos{background:#f5f6fa}
-#ejemplos .section-head{margin-bottom:28px}
-.example-intro{display:flex;justify-content:space-between;align-items:start;gap:25px;border-top:1px solid #dce3ef;padding:22px 0 28px}
-.example-intro-index{font:600 11px/1.6 "IBM Plex Mono",monospace;letter-spacing:.07em;color:#3e56ac}
-.example-intro p{font:400 15px/1.6 "IBM Plex Sans",sans-serif;color:#56627b;max-width:430px;margin:0}
-#ejemplos .sample-tabs{max-width:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
-#ejemplos .sample-tab{font:600 13px/1.35 "IBM Plex Sans",sans-serif;text-align:left;border:1px solid #dce3ef;background:#fff;padding:16px 18px;border-radius:10px}
-#ejemplos .sample-tab.is-active{background:#1c2a5e;color:#fff;border-color:#1c2a5e}
-#ejemplos .samples-grid.is-interactive{max-width:none}
-#ejemplos .sample-card{border:1px solid #dce3ef;border-radius:14px;box-shadow:none}
-#ejemplos .sample-card h3{font-size:clamp(23px,2.8vw,32px);letter-spacing:-.035em}
-#ejemplos .sample-mock{background:#f9fbff;border:1px solid #e4e9f2;padding:clamp(16px,2.6vw,30px)}
-#ejemplos .samples-disclaimer{font-size:12px;line-height:1.7}
-#servicios .service-entry-card--clarity{background:#1c2a5e}
 #servicios .route-disclosure .route-t{letter-spacing:-.04em}
 @media(max-width:767px){
 .hero h1.display{font-size:clamp(41px,10.7vw,60px)}
-.example-intro{display:block;padding:18px 0 22px}
-.example-intro p{margin-top:9px;font-size:14px}
-#ejemplos .sample-tabs{grid-template-columns:1fr;gap:7px}
-#ejemplos .sample-tab{font-size:14px;min-height:48px;padding:13px 16px}
-#ejemplos .sample-tab:last-child{grid-column:auto}
 }
 
 
 /* Quality assurance: consistent accessible states and small-screen safeguards */
-#ejemplos .sample-card[hidden],
-#ejemplos .sample-tabs[hidden],
-#ejemplos .sample-instruction[hidden] { display: none; }
-#ejemplos .sample-tab[aria-pressed="true"]{box-shadow:inset 0 -3px 0 #f28c28}
-#ejemplos .sample-tab:focus-visible{outline:3px solid var(--blue-ink);outline-offset:3px}
 .nav-burger:focus-visible{outline:3px solid #fff;outline-offset:3px}
-@media(max-width:390px){
-#ejemplos .mock-table{font-size:11px}
-#ejemplos .sample-mock{overflow-x:auto}
-}
-
-
 /* Homepage hero: concise premium presentation without simulated dashboard */
 .hero{padding-bottom:clamp(84px,9vw,132px)}
 .hero>.wrap{max-width:1180px}
@@ -2319,6 +1723,7 @@ body{font-family:"IBM Plex Sans",sans-serif}
 @media(max-width:767px){.hero{padding-bottom:76px}.hero h1.display{font-size:clamp(39px,10vw,57px)}.hero .hero-subtitle{margin-top:20px}}
 
 </style>
+<link rel="stylesheet" href="assets/inicio-editorial.css" />
 <noscript>
   <style>
     @media (max-width: 920px) {
@@ -2367,39 +1772,22 @@ body{font-family:"IBM Plex Sans",sans-serif}
 
 <!-- ═══════════ HERO ═══════════ -->
 <main id="main-content" tabindex="-1">
-<section class="hero">
-  <div class="hero-bg"></div>
+<section class="hero hero-editorial">
+  <div class="hero-bg" aria-hidden="true"></div>
   <div class="wrap">
     <span class="eyebrow">FINABIZ · PARA NEGOCIOS DIGITALES</span>
-    <h1 class="display">La estructura fiscal y financiera<br/><span class="word-shine">que impulsa tu negocio.</span></h1>
+    <h1 class="display">La estructura fiscal y financiera<br/>
+      <span class="hero-emphasis">que impulsa tu negocio.</span></h1>
     <p class="hero-subtitle">Te ayudamos a cumplir tus obligaciones, anticipar impuestos y entender el desempeño de tu negocio con información confiable.</p>
     <div class="hero-cta-row">
       <a href="https://form.typeform.com/to/ykt2ayIi" class="btn btn-primary js-tf-cta">
         Agenda una orientación gratuita · 30 min
         <span class="arrow">→</span>
       </a>
-      <a href="#servicios" class="btn btn-secondary">Explora nuestros servicios</a>
+      <a href="#servicios" class="btn btn-secondary">Explora nuestros servicios <span aria-hidden="true">↓</span></a>
     </div>
     <p class="hero-microcopy">Conversemos sobre tu situación y si podemos ayudarte. Sin compromiso.</p>
-    <p class="hero-trustline">Atención directa de los fundadores · Enfocados en negocios digitales y eCommerce en México</p>
-
-    <div class="hero-pillars">
-      <div class="hero-pillar">
-        <div class="n">01 — Anticipación fiscal</div>
-        <div class="t">Anticipamos tus obligaciones fiscales.</div>
-        <p>Proyectamos y calculamos tus impuestos antes de que surjan, para reducir sorpresas.</p>
-      </div>
-      <div class="hero-pillar">
-        <div class="n">02 — Utilidad real</div>
-        <div class="t">Entiendes cuánto ganas de verdad.</div>
-        <p>Después de impuestos, gastos y provisiones — con datos, no a ciegas.</p>
-      </div>
-      <div class="hero-pillar">
-        <div class="n">03 — Un solo equipo, una sola vista</div>
-        <div class="t">Una sola columna vertebral financiera.</div>
-        <p>Contabilidad, fiscal y finanzas en una estructura coherente.</p>
-      </div>
-    </div>
+    <p class="hero-trustline">Atención directa de los fundadores <span aria-hidden="true">·</span> Negocios digitales y eCommerce en México</p>
   </div>
 </section>
 <div class="home-proof" role="group" aria-label="Nuestro enfoque"><div class="wrap home-proof-inner"><span>Impuestos con anticipación</span><span>Utilidad real</span><span>Decisiones con datos</span></div></div>
@@ -2407,36 +1795,56 @@ body{font-family:"IBM Plex Sans",sans-serif}
 <!-- ═══════════ SERVICIOS ═══════════ -->
 <section id="servicios" class="services">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head editorial-section-head">
       <div>
-        <span class="eyebrow">Cómo trabajamos contigo</span>
-        <h2 class="display">Empecemos por lo<br/>que necesitas hoy.</h2>
+        <span class="eyebrow">Servicios</span>
+        <h2 class="display">Elige el alcance que necesita tu negocio.</h2>
       </div>
-      <p class="lede">Elige tu punto de partida. Después encontrarás los servicios que podemos combinar según la etapa de tu negocio.</p>
+      <p class="lede">Desde poner tus obligaciones en orden hasta contar con información mensual para decidir.</p>
     </div>
 
-    <p class="service-step-label">01 / Elige tu situación</p>
-    <div class="service-entry" role="group" aria-label="Elige por dónde comenzar">
-      <a class="service-entry-card" href="#ruta-cumplimiento" data-open-area="ruta-cumplimiento">
-        <span class="service-entry-kicker">Tengo pendientes fiscales</span>
-        <span class="service-entry-title">Necesito ponerme al corriente</span>
-        <span class="service-entry-desc">Regularización, declaraciones, contabilidad y trámites ante el SAT.</span>
-        <span class="service-entry-action" aria-hidden="true">Ver servicios relacionados →</span>
-      </a>
-      <a class="service-entry-card service-entry-card--clarity" href="#ruta-claridad" data-open-area="ruta-claridad">
-        <span class="service-entry-kicker">Busco claridad financiera</span>
-        <span class="service-entry-title">Quiero entender y mejorar mi negocio</span>
-        <span class="service-entry-desc">Diagnóstico, utilidad real, proyección fiscal y decisiones con datos.</span>
-        <span class="service-entry-action" aria-hidden="true">Explorar soluciones →</span>
-      </a>
+    <div class="offer-grid">
+      <article class="offer-card">
+        <p class="offer-kind">Con o sin contabilidad a cargo de Finabiz</p>
+        <h3>Cumplimiento y Optimización Fiscal</h3>
+        <p>Para negocios que necesitan ordenar sus obligaciones y anticipar riesgos fiscales.</p>
+        <ul>
+          <li>Declaraciones y cumplimiento de obligaciones</li>
+          <li>Revisión preventiva de CFDI y conciliaciones</li>
+          <li>Evaluación de oportunidades de optimización fiscal</li>
+        </ul>
+        <div class="offer-actions">
+          <a class="editorial-link" href="cumplimiento-optimizacion-fiscal.html">Ver alcance fiscal <span aria-hidden="true">→</span></a>
+          <a href="#ruta-cumplimiento" data-open-area="ruta-cumplimiento">Ver servicios fiscales específicos</a>
+        </div>
+      </article>
+
+      <article class="offer-card offer-card--architecture">
+        <p class="offer-kind">Oferta insignia</p>
+        <h3>Arquitectura de Claridad Fiscal<sup>™</sup></h3>
+        <p>Para negocios que necesitan conocer su utilidad, anticipar impuestos y tomar decisiones con datos.</p>
+        <ul>
+          <li>Diagnóstico fiscal y financiero</li>
+          <li>Estructuración de tu sistema contable</li>
+          <li>Reportes de utilidad, proyección y seguimiento mensual</li>
+        </ul>
+        <div class="offer-actions">
+          <a class="editorial-link" href="arquitectura-de-claridad-fiscal.html">Conocer Arquitectura <span aria-hidden="true">→</span></a>
+          <a href="#ruta-claridad" data-open-area="ruta-claridad">Ver servicios de visibilidad financiera</a>
+        </div>
+      </article>
     </div>
-    <div class="service-catalog-head"><span class="service-step-label">02 / Explora las soluciones</span><p>Abre el área que te interesa para conocer sus servicios. Puedes combinar soluciones según lo que necesite tu negocio.</p></div>
+
+    <div class="service-catalog-head">
+      <h3 class="display">Servicios específicos</h3>
+      <p>Explora regularización, cálculo de impuestos, nómina y otros servicios por área.</p>
+    </div>
     <div class="routes" id="service-areas">
       <details class="route route-disclosure" id="ruta-cumplimiento">
         <summary class="route-head">
           <span class="route-n">Área 01 · Orden y cumplimiento</span>
-          <h3 class="route-t">Cumplimiento fiscal</h3>
-          <p class="route-d">Regularización de obligaciones pendientes, declaraciones y trámites ante el SAT.</p><span class="route-toggle" aria-hidden="true"></span></summary>
+          <span class="route-t">Cumplimiento fiscal</span>
+          <span class="route-d">Regularización de obligaciones pendientes, declaraciones y trámites ante el SAT.</span><span class="route-toggle" aria-hidden="true"></span></summary>
         <div class="svc-grid svc-grid--pair">
           <a class="svc" href="cumplimiento-optimizacion-fiscal.html">
             <div class="n">Cumplimiento recurrente</div>
@@ -2465,8 +1873,8 @@ body{font-family:"IBM Plex Sans",sans-serif}
       <details class="route route-disclosure" id="ruta-claridad">
         <summary class="route-head">
           <span class="route-n">Área 02 · Entender tus números</span>
-          <h3 class="route-t">Visibilidad financiera</h3>
-          <p class="route-d">Diagnóstico, cálculo de impuestos y visibilidad real de tus ventas por plataforma.</p><span class="route-toggle" aria-hidden="true"></span></summary>
+          <span class="route-t">Visibilidad financiera</span>
+          <span class="route-d">Diagnóstico, cálculo de impuestos y visibilidad real de tus ventas por plataforma.</span><span class="route-toggle" aria-hidden="true"></span></summary>
         <div class="svc-grid svc-grid--pair">
           <a class="svc" href="diagnostico-fiscal-financiero.html">
             <div class="n">Diagnóstico</div>
@@ -2494,8 +1902,8 @@ body{font-family:"IBM Plex Sans",sans-serif}
       <details class="route route-disclosure" id="ruta-crecimiento">
         <summary class="route-head">
           <span class="route-n">Área 03 · Acompañamiento</span>
-          <h3 class="route-t">Estructura y crecimiento</h3>
-          <p class="route-d">Arquitectura de Claridad Fiscal y acompañamiento mensual continuo.</p><span class="route-toggle" aria-hidden="true"></span></summary>
+          <span class="route-t">Estructura y crecimiento</span>
+          <span class="route-d">Arquitectura de Claridad Fiscal y acompañamiento mensual continuo.</span><span class="route-toggle" aria-hidden="true"></span></summary>
         <div class="svc-grid svc-grid--pair">
           <a class="svc" href="nomina-seguridad-social.html">
             <div class="n">Nómina</div>
@@ -2514,155 +1922,162 @@ body{font-family:"IBM Plex Sans",sans-serif}
 </section>
 
 <!-- ═══════════ INSIGNIA · ARQUITECTURA DE CLARIDAD FISCAL ═══════════ -->
-<section id="sistema" class="insignia">
+<section id="sistema" class="method-editorial">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head editorial-section-head">
       <div>
-        <span class="eyebrow">Oferta insignia</span>
+        <span class="eyebrow">Nuestro método</span>
         <h2 class="display">Arquitectura de Claridad Fiscal<sup>™</sup></h2>
       </div>
-      <p class="lede">No es un servicio — es una <strong>transformación completa</strong>. Llevamos a dueños de negocio del caos financiero a la claridad total: estructura, visibilidad y certeza, con nuestro equipo llevando el proceso de principio a fin.</p>
+      <p class="lede">Revisamos tu situación, organizamos tu sistema contable y damos seguimiento con información mensual.</p>
     </div>
 
-    <div class="phases">
-      <div class="phase">
-        <div class="ptag">Fase 01</div>
-        <div class="pname">Diagnóstico</div>
-        <span class="ptime">30 días</span>
-        <ul>
-          <li>Radiografía fiscal completa</li>
-          <li>Identificación de riesgos</li>
-          <li>Análisis de obligaciones</li>
-          <li>Mapa financiero real</li>
-        </ul>
+    <ol class="method-stages" role="list" aria-label="Etapas de Arquitectura de Claridad Fiscal">
+      <li>
+        <span class="method-step" aria-hidden="true">01</span>
+        <h3>Diagnóstico</h3>
+        <p>Revisamos tus obligaciones e identificamos riesgos. Con esa información trazamos un mapa de tu situación fiscal y financiera.</p>
+        <p class="method-time">30 días</p>
+      </li>
+      <li>
+        <span class="method-step" aria-hidden="true">02</span>
+        <h3>Estructuración</h3>
+        <p>Separamos cuentas, diseñamos tu sistema contable y evaluamos el régimen y las provisiones de impuestos aplicables.</p>
+        <p class="method-time">15 a 30 días</p>
+      </li>
+      <li>
+        <span class="method-step" aria-hidden="true">03</span>
+        <h3>Claridad continua</h3>
+        <p>Recibes un panel mensual de utilidad, una proyección anticipada y acompañamiento para tomar decisiones.</p>
+        <p class="method-time">A partir del día 60, cada mes</p>
+      </li>
+    </ol>
+
+    <div class="method-followup">
+      <div>
+        <h3>Implementación a tu medida</h3>
+        <p>Definimos un cronograma personalizado en cada propuesta, según el alcance contratado, la información disponible y las responsabilidades acordadas.</p>
       </div>
-      <div class="phase">
-        <div class="ptag">Fase 02</div>
-        <div class="pname">Estructuración</div>
-        <span class="ptime">15 a 30 días</span>
-        <ul>
-          <li>Separación de cuentas</li>
-          <li>Diseño del sistema contable</li>
-          <li>Optimización de régimen</li>
-          <li>Provisiones e impuestos</li>
-        </ul>
-      </div>
-      <div class="phase highlight">
-        <div class="ptag">Fase 03</div>
-        <div class="pname">Claridad continua</div>
-        <span class="ptime">A partir del día 60, cada mes</span>
-        <ul>
-          <li>Panel de utilidad mensual</li>
-          <li>Proyección anticipada</li>
-          <li>Asesoría en decisiones</li>
-          <li>Acompañamiento continuo</li>
-        </ul>
-      </div>
+      <a class="editorial-link" href="arquitectura-de-claridad-fiscal.html">Ver alcance y etapas <span aria-hidden="true">→</span></a>
     </div>
 
-    <div class="guarantee">
-      <span class="gtag">Implementación a tu medida</span>
-      <p>Definimos un <strong>cronograma de implementación personalizado</strong> en cada propuesta, según el alcance contratado, la información disponible y las responsabilidades acordadas.</p>
-    </div>
-
-    <div class="forwhom">
-      <div class="label">Este servicio es para ti si…</div>
-      <div class="items">
-        <div class="item">Tienes un negocio digital activo y facturas en México.</div>
-        <div class="item">Generas ingresos variables: servicios, agencia, freelance o eCommerce.</div>
-        <div class="item">Quieres escalar — pero primero necesitas estructura fiscal sólida.</div>
-        <div class="item">Estás harto de no saber cuánto ganas de verdad después de impuestos.</div>
-      </div>
+    <div class="method-fit">
+      <h3>Este servicio es para ti si…</h3>
+      <ul>
+        <li>Tienes un negocio digital activo y facturas en México.</li>
+        <li>Generas ingresos variables en servicios, agencia, trabajo independiente o eCommerce.</li>
+        <li>Quieres crecer con una estructura fiscal sólida.</li>
+        <li>Quieres conocer tu utilidad después de impuestos.</li>
+      </ul>
     </div>
   </div>
 </section>
 
 <!-- ═══════════ EJEMPLOS DE ENTREGABLES ═══════════ -->
-<section id="ejemplos" class="services">
+<section id="ejemplos" class="examples-editorial">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head editorial-section-head">
       <div>
-        <span class="eyebrow">Antes de contratar</span>
-        <h2 class="display">Así se ve la claridad<br/>en tus números.</h2>
+        <span class="eyebrow">Ejemplos de entregables</span>
+        <h2 class="display">Así se ve la claridad en tus números.</h2>
       </div>
-      <p class="lede">Explora tres vistas ilustrativas: obligaciones, utilidad y proyección. Datos simulados, no resultados de clientes.</p>
+      <p class="lede">Explora cómo se presenta la información y qué decisiones puedes tomar con ella.</p>
     </div>
 
-    <div class="example-intro"><span class="example-intro-index">DE LOS DATOS A LAS DECISIONES</span><p>Elige qué quieres entender. Cada vista muestra una pregunta distinta que tus números deberían responder.</p></div>
-    <div class="sample-tabs" hidden role="group" aria-label="Explorar ejemplos de entregables"><button type="button" class="sample-tab is-active" data-sample="0" aria-pressed="true">01 · ¿Estoy al día?</button><button type="button" class="sample-tab" data-sample="1" aria-pressed="false">02 · ¿Cuánto gano?</button><button type="button" class="sample-tab" data-sample="2" aria-pressed="false">03 · ¿Qué viene?</button></div>
-    <p class="sample-instruction" hidden>Selecciona una vista. Ejemplos ilustrativos con datos simulados.</p>
-    <div class="samples-grid">
-      <div class="sample-card">
-        <span class="sample-badge">Datos simulados</span>
-        <h3>Mapa fiscal</h3>
-        <div class="sample-mock">
-          <div class="mock-row"><span class="mock-dot ok"></span><span class="label">Régimen — RESICO Persona Física</span></div>
-          <div class="mock-row"><span class="mock-dot ok"></span><span class="label">Declaración mensual ISR</span><span class="val">Al día</span></div>
-          <div class="mock-row"><span class="mock-dot ok"></span><span class="label">Declaración mensual IVA</span><span class="val">Al día</span></div>
-          <div class="mock-row"><span class="mock-dot warn"></span><span class="label">Declaración anual — ejercicio actual</span><span class="val">Próximo vencimiento</span></div>
-          <div class="mock-row"><span class="mock-dot ok"></span><span class="label">e.firma</span><span class="val">Vigente</span></div>
-        </div>
-        <p class="caption">Panorama completo de tu régimen, obligaciones vigentes y próximas fechas — en una sola vista.</p>
+    <div class="examples-explorer">
+      <div class="sample-tabs" hidden role="group" aria-label="Explorar ejemplos de entregables">
+        <button type="button" class="sample-tab" aria-pressed="false">
+          <span class="sample-tab-title">Mapa fiscal</span>
+          <span class="sample-tab-question">¿Estoy al día?</span>
+          <span class="sample-tab-arrow" aria-hidden="true">→</span>
+        </button>
+        <button type="button" class="sample-tab" aria-pressed="false">
+          <span class="sample-tab-title">Panel de utilidad</span>
+          <span class="sample-tab-question">¿Cuánto gano?</span>
+          <span class="sample-tab-arrow" aria-hidden="true">→</span>
+        </button>
+        <button type="button" class="sample-tab" aria-pressed="false">
+          <span class="sample-tab-title">Proyección de impuestos</span>
+          <span class="sample-tab-question">¿Cuánto debo reservar?</span>
+          <span class="sample-tab-arrow" aria-hidden="true">→</span>
+        </button>
       </div>
 
-      <div class="sample-card">
-        <span class="sample-badge">Datos simulados</span>
-        <h3>Panel de utilidad</h3>
-        <div class="sample-mock">
-          <div class="mock-bar-row">
-            <div class="mock-bar-label"><span class="n">Ventas brutas</span><span class="v">$180,000</span></div>
-            <div class="mock-bar-track"><div class="mock-bar-fill" style="width:100%; background:var(--blue);"></div></div>
+      <div class="samples-grid">
+        <article class="sample-card">
+          <header class="report-header">
+            <h3>Mapa fiscal</h3>
+            <span class="sample-badge">Datos simulados</span>
+          </header>
+          <div class="report-layout">
+            <dl class="report-data report-status" aria-label="Obligaciones y situación fiscal">
+              <div><dt>Régimen</dt><dd>RESICO Persona Física</dd></div>
+              <div><dt>Declaración mensual ISR</dt><dd><span class="report-tag">Al día</span></dd></div>
+              <div><dt>Declaración mensual IVA</dt><dd><span class="report-tag">Al día</span></dd></div>
+              <div><dt>Declaración anual</dt><dd><span class="report-tag report-tag--due">Próximo vencimiento</span></dd></div>
+              <div><dt>e.firma</dt><dd><span class="report-tag">Vigente</span></dd></div>
+            </dl>
+            <div class="report-insight">
+              <h4>Qué te permite decidir</h4>
+              <p>Qué obligación atender primero según tu régimen, el estado de tus declaraciones y el próximo vencimiento.</p>
+            </div>
           </div>
-          <div class="mock-bar-row">
-            <div class="mock-bar-label"><span class="n">− Comisiones y retenciones</span><span class="v">$21,600</span></div>
-            <div class="mock-bar-track"><div class="mock-bar-fill" style="width:88%; background:#8C9BD6;"></div></div>
-          </div>
-          <div class="mock-bar-row">
-            <div class="mock-bar-label"><span class="n">− Impuestos provisionados</span><span class="v">$27,000</span></div>
-            <div class="mock-bar-track"><div class="mock-bar-fill" style="width:73%; background:#8C9BD6;"></div></div>
-          </div>
-          <div class="mock-bar-row">
-            <div class="mock-bar-label"><span class="n">− Gastos operativos</span><span class="v">$34,200</span></div>
-            <div class="mock-bar-track"><div class="mock-bar-fill" style="width:54%; background:#8C9BD6;"></div></div>
-          </div>
-          <div class="mock-bar-row">
-            <div class="mock-bar-label"><span class="n"><strong>Utilidad real</strong></span><span class="v"><strong>$97,200</strong></span></div>
-            <div class="mock-bar-track"><div class="mock-bar-fill" style="width:54%; background:var(--orange);"></div></div>
-          </div>
-        </div>
-        <p class="caption">Ventas por plataforma menos comisiones, impuestos y gastos — lo que de verdad puedes reinvertir.</p>
-      </div>
+        </article>
 
-      <div class="sample-card">
-        <span class="sample-badge">Datos simulados</span>
-        <h3>Proyección financiera y fiscal</h3>
-        <div class="sample-mock">
-          <table class="mock-table">
-            <thead><tr><th>Mes</th><th>Ventas</th><th>Utilidad</th><th>Impuestos</th></tr></thead>
-            <tbody>
-              <tr><td>Mes 1</td><td class="num">$820K</td><td class="num">$98K</td><td class="num">$27K</td></tr>
-              <tr><td>Mes 2</td><td class="num">$865K</td><td class="num">$104K</td><td class="num">$29K</td></tr>
-              <tr><td>Mes 3</td><td class="num">$910K</td><td class="num">$112K</td><td class="num">$31K</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <p class="caption">Hacia dónde va tu negocio y cuánto vas a provisionar — calculado con anticipación, no el día antes de declarar.</p>
+        <article class="sample-card">
+          <header class="report-header">
+            <h3>Panel de utilidad</h3>
+            <span class="sample-badge">Datos simulados</span>
+          </header>
+          <div class="report-layout">
+            <dl class="report-data report-utility" aria-label="Ventas, deducciones y utilidad">
+              <div><dt>Ventas brutas</dt><dd>$180,000</dd></div>
+              <div><dt>Comisiones y retenciones</dt><dd>−$21,600</dd></div>
+              <div><dt>Impuestos provisionados</dt><dd>−$27,000</dd></div>
+              <div><dt>Gastos operativos</dt><dd>−$34,200</dd></div>
+              <div class="report-total"><dt>Utilidad real</dt><dd>$97,200</dd></div>
+            </dl>
+            <div class="report-insight">
+              <h4>Qué te permite decidir</h4>
+              <p>Cuánto puedes reinvertir después de cubrir comisiones, gastos e impuestos.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="sample-card">
+          <header class="report-header">
+            <h3>Proyección financiera y fiscal</h3>
+            <span class="sample-badge">Datos simulados</span>
+          </header>
+          <div class="report-layout">
+            <div class="report-data report-forecast">
+              <table aria-label="Estimación para los próximos tres meses">
+                <thead>
+                  <tr><th scope="col">Mes</th><th scope="col">Ventas</th><th scope="col">Utilidad</th><th scope="col">Impuestos</th></tr>
+                </thead>
+                <tbody>
+                  <tr><th scope="row">Mes 1</th><td>$820K</td><td>$98K</td><td>$27K</td></tr>
+                  <tr><th scope="row">Mes 2</th><td>$865K</td><td>$104K</td><td>$29K</td></tr>
+                  <tr><th scope="row">Mes 3</th><td>$910K</td><td>$112K</td><td>$31K</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="report-insight">
+              <h4>Qué te permite decidir</h4>
+              <p>Cuánto reservar para impuestos cada mes y cuándo hacerlo, según las ventas y la utilidad proyectadas.</p>
+            </div>
+          </div>
+        </article>
       </div>
     </div>
-
-    <p class="samples-disclaimer">Ejemplos elaborados con datos simulados para mostrar la estructura de nuestros entregables. No corresponden a información de un cliente real.</p>
 
     <div class="samples-cta">
       <a href="https://form.typeform.com/to/ykt2ayIi" class="btn btn-primary js-tf-cta">
-        Agenda tu llamada de orientación
-        <span class="arrow">→</span>
+        Agenda tu llamada de orientación <span aria-hidden="true">→</span>
       </a>
-      <div class="samples-cta-pdf">
-        <a href="assets/ejemplo-entregables-finabiz.pdf" class="btn btn-secondary" target="_blank" rel="noopener">
-          Ver ejemplo completo en PDF
-        </a>
-        <p class="samples-cta-note">11 páginas · datos simulados</p>
-      </div>
+      <a class="editorial-link" href="assets/ejemplo-entregables-finabiz.pdf" target="_blank" rel="noopener">
+        Ver ejemplo completo en PDF <span class="pdf-detail">11 páginas · datos simulados</span>
+      </a>
     </div>
   </div>
 </section>
@@ -3086,7 +2501,7 @@ body{font-family:"IBM Plex Sans",sans-serif}
   // asi nunca se superpone con tarjetas, el enlace del PDF o el resto del
   // contenido de esa seccion mientras esta a la vista.
   let sectionCtaVisible = false;
-  const ctaObserverTargets = ['ejemplos', 'faq', 'contacto']
+  const ctaObserverTargets = ['servicios', 'sistema', 'ejemplos', 'faq', 'contacto']
     .map((id) => document.getElementById(id))
     .filter(Boolean);
   function recomputeSectionCtaVisible() {
@@ -3159,7 +2574,6 @@ body{font-family:"IBM Plex Sans",sans-serif}
 (function () {
   const examples = document.getElementById('ejemplos');
   const controls = examples.querySelector('.sample-tabs');
-  const instruction = examples.querySelector('.sample-instruction');
   const grid = examples.querySelector('.samples-grid');
   const tabs = [...controls.querySelectorAll('.sample-tab')];
   const cards = [...grid.querySelectorAll(':scope > .sample-card')];
@@ -3167,11 +2581,9 @@ body{font-family:"IBM Plex Sans",sans-serif}
 
   function activate(index) {
     tabs.forEach((tab, i) => {
-      tab.classList.toggle('is-active', i === index);
       tab.setAttribute('aria-pressed', String(i === index));
     });
     cards.forEach((card, i) => {
-      card.classList.toggle('is-active', i === index);
       card.hidden = i !== index;
     });
   }
@@ -3184,9 +2596,9 @@ body{font-family:"IBM Plex Sans",sans-serif}
   activate(0);
   grid.classList.add('is-interactive');
   controls.hidden = false;
-  instruction.hidden = false;
 })();
-</script><script>
+</script>
+<script>
 /* Contextual service navigation: reveal the destination before scrolling. */
 (function(){
   const areas=[...document.querySelectorAll('#service-areas details.route-disclosure')];

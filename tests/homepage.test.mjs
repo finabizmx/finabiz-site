@@ -67,7 +67,7 @@ function setup(typeform, supportsDialog = true) {
 test('the approved homepage retains its primary landmark and direct reservation links', () => {
   assert.match(html, /href="#main-content" class="skip-link"/);
   assert.match(html, /<main id="main-content" tabindex="-1">/);
-  assert.match(html, /La estructura fiscal y financiera<br\/><span[^>]+>que impulsa tu negocio\./);
+  assert.match(html, /La estructura fiscal y financiera<br\/>\s*<span[^>]+>que impulsa tu negocio\./);
   assert.equal((html.match(/href="https:\/\/form\.typeform\.com\/to\/ykt2ayIi"[^>]*js-tf-cta/g) || []).length, 6);
   assert.match(html, /<dialog[^>]+aria-label="Formulario previo a tu llamada de orientación"/);
   assert.match(html, /<a href="https:\/\/form\.typeform\.com\/to\/ykt2ayIi"[^>]*>Abrir formulario directamente/);
@@ -157,7 +157,8 @@ test('service deep links handle valid and malformed percent encoding', () => {
 
 test('the example selector only appears after setup and switches its visible card', () => {
   assert.match(html, /<div class="sample-tabs" hidden role="group"/);
-  assert.match(html, /<p class="sample-instruction" hidden>/);
+  assert.equal((html.match(/<article class="sample-card">/g) || []).length, 3);
+  assert.equal((html.match(/class="sample-badge">Datos simulados/g) || []).length, 3);
   const classList = { toggle() {}, add() {} };
   const cards = Array.from({ length: 3 }, () => ({ classList }));
   const tabs = Array.from({ length: 3 }, () => eventTarget({
@@ -166,15 +167,13 @@ test('the example selector only appears after setup and switches its visible car
     setAttribute(name, value) { this.attributes.set(name, value); },
   }));
   const controls = { hidden: true, querySelectorAll: () => tabs };
-  const instruction = { hidden: true };
   const grid = { classList, querySelectorAll: () => cards };
-  const selectors = { '.sample-tabs': controls, '.sample-instruction': instruction, '.samples-grid': grid };
+  const selectors = { '.sample-tabs': controls, '.samples-grid': grid };
   const document = { getElementById: () => ({ querySelector: selector => selectors[selector] }) };
 
   const script = scripts.find(source => source.includes("const examples = document.getElementById('ejemplos')"));
   runInNewContext(script, { document });
   assert.equal(controls.hidden, false);
-  assert.equal(instruction.hidden, false);
   assert.deepEqual(cards.map(card => card.hidden), [false, true, true]);
   tabs[2].emit('click');
   assert.deepEqual(cards.map(card => card.hidden), [true, true, false]);
