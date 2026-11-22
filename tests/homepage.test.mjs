@@ -24,15 +24,23 @@ function eventTarget(properties = {}) {
   };
 }
 
-function setup(typeform) {
+const booking = readFileSync(new URL('../assets/booking.js', import.meta.url), 'utf8');
+const nextTurn = () => new Promise(resolve => setImmediate(resolve));
+
+function setup(typeform, supportsDialog = true) {
   const overlay = eventTarget({
     open: false,
-    showModal() { this.open = true; },
+    showModal: supportsDialog ? function () { this.open = true; } : undefined,
     close() { this.open = false; },
   });
   const closeButton = eventTarget();
-  const link = eventTarget();
-  const host = { children: [], appendChild(widget) { this.children.push(widget); } };
+  const link = eventTarget({
+    href: 'https://form.typeform.com/to/ykt2ayIi',
+    className: 'js-tf-cta',
+    closest: () => null,
+  });
+  const host = { replaceChildren() {} };
+  const status = { hidden: true };
   const body = { classList: new Set(), style: { overflow: 'auto' } };
   body.classList.remove = body.classList.delete;
   const history = {
@@ -40,21 +48,20 @@ function setup(typeform) {
     pushState(state) { this.state = state; },
     back() { this.state = null; },
   };
-  const window = eventTarget({ tf: typeform });
-  const elements = { tfOverlay: overlay, tfOverlayClose: closeButton, tfOverlayWidget: host };
+  const hits = [];
+  const requests = [];
+  const window = eventTarget({ tf: typeform, gtag: (...args) => hits.push(args) });
+  const elements = { tfOverlay: overlay, tfOverlayClose: closeButton, tfOverlayWidget: host, tfOverlayStatus: status };
   const document = {
     body,
+    head: { append: element => requests.push(element) },
     getElementById: id => elements[id],
-    querySelectorAll: () => [link],
-    createElement: () => ({
-      style: {},
-      setAttribute() {},
-      remove() { host.children.pop(); },
-    }),
+    querySelectorAll: selector => selector.includes('typeform.com') ? [link] : [],
+    createElement: () => eventTarget({ remove() {} }),
   };
-  const script = scripts.find(source => source.includes("getElementById('tfOverlayWidget')"));
-  runInNewContext(script, { window, document, history, location: { href: 'https://finabiz.mx/' } });
-  return { overlay, closeButton, link, host, history, window, body };
+  const location = new URL('https://finabiz.mx/?utm_source=qa');
+  runInNewContext(booking, { window, document, history, location, URL, URLSearchParams, setTimeout: () => 1, clearTimeout() {} });
+  return { overlay, closeButton, link, status, history, window, body, hits, requests };
 }
 
 test('the approved homepage retains its primary landmark and direct reservation links', () => {
@@ -67,13 +74,22 @@ test('the approved homepage retains its primary landmark and direct reservation 
   scripts.forEach(source => new Script(source));
 });
 
-test('opening the widget cancels navigation and closing restores scroll and history', () => {
-  let loads = 0;
-  const { overlay, closeButton, link, host, history, window, body } = setup({ load() { loads++; } });
+test('opening the widget restores focus-related state and reuses the embed', async () => {
+  let mounts = 0;
+  const { overlay, closeButton, link, status, history, window, body } = setup({
+    createWidget(id, options) {
+      assert.equal(id, 'ykt2ayIi');
+      assert.equal(options.hidden.utm_source, 'qa');
+      options.onReady();
+      mounts++;
+    },
+  });
   assert.equal(link.emit('click').defaultPrevented, true);
   assert.equal(overlay.open, true);
   assert.equal(body.style.overflow, 'hidden');
   assert.equal(history.state.tfOverlay, true);
+  await nextTurn();
+  assert.equal(status.hidden, true);
   closeButton.emit('click');
   assert.equal(overlay.open, false);
   assert.equal(body.style.overflow, 'auto');
@@ -82,24 +98,48 @@ test('opening the widget cancels navigation and closing restores scroll and hist
   history.back();
   window.emit('popstate');
   assert.equal(overlay.open, false);
-  assert.equal(host.children.length, 1);
-  assert.equal(loads, 1);
+  assert.equal(mounts, 1);
   link.emit('click');
   assert.equal(overlay.emit('cancel').defaultPrevented, true);
   assert.equal(overlay.open, false);
 });
 
-test('provider failures and modified clicks retain native navigation', () => {
-  const missing = setup();
-  assert.equal(missing.link.emit('click').defaultPrevented, false);
-  let fail = true;
-  const delayed = setup({ load() { if (fail) throw new Error('SDK unavailable'); } });
-  assert.equal(delayed.link.emit('click').defaultPrevented, false);
-  assert.equal(delayed.host.children.length, 0);
-  assert.equal(delayed.overlay.open, false);
-  fail = false;
-  assert.equal(delayed.link.emit('click', { ctrlKey: true }).defaultPrevented, false);
-  assert.equal(delayed.link.emit('click').defaultPrevented, true);
+test('the SDK loads on first interaction and a network error leaves the direct link available', async () => {
+  const { link, status, overlay, requests, window, closeButton } = setup();
+  assert.equal(requests.length, 0);
+  assert.equal(link.emit('click', { ctrlKey: true }).defaultPrevented, false);
+  assert.equal(requests.length, 0);
+  assert.equal(link.emit('click').defaultPrevented, true);
+  assert.equal(requests.length, 1);
+  requests[0].emit('error');
+  await nextTurn();
+  assert.equal(overlay.open, true);
+  assert.match(status.textContent, /abrirlo directamente/);
+  assert.match(link.href, /^https:\/\/form\.typeform\.com\/to\/ykt2ayIi/);
+  closeButton.emit('click');
+  link.emit('click');
+  assert.equal(requests.length, 2);
+  window.tf = { createWidget(id, options) { options.onReady(); } };
+  requests[1].emit('load');
+  await nextTurn();
+  assert.equal(status.hidden, true);
+  assert.equal(setup(undefined, false).link.emit('click').defaultPrevented, false);
+});
+
+test('conversion is emitted once for the Typeform submit callback and excludes response data', async () => {
+  let options;
+  const { link, hits, window } = setup({ createWidget(id, config) { options = config; } });
+  link.emit('click');
+  await nextTurn();
+  assert.equal(hits[0][1], 'click_agendar_llamada');
+  window.emit('message', { data: { type: 'form-submit', formId: 'ykt2ayIi' } });
+  options.onSubmit({ formId: 'unrelated' });
+  assert.equal(hits.length, 1);
+  options.onSubmit({ formId: 'ykt2ayIi', responseId: 'private-response' });
+  options.onSubmit({ formId: 'ykt2ayIi', responseId: 'private-response' });
+  assert.equal(hits.length, 2);
+  assert.equal(hits[1][1], 'formulario_completado');
+  assert.doesNotMatch(JSON.stringify(hits[1]), /private-response/);
 });
 
 test('service deep links handle valid and malformed percent encoding', () => {

@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="es-MX">
 <head>
+<meta http-equiv="Content-Security-Policy" content="base-uri 'none'; object-src 'none'" />
+<meta name="referrer" content="strict-origin-when-cross-origin" />
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-VDZXBBNES7"></script>
 <script>
@@ -115,10 +117,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 
 <!-- Preconnect to Typeform so the popup opens faster on click -->
-<link rel="preconnect" href="https://embed.typeform.com" />
-<link rel="preconnect" href="https://form.typeform.com" crossorigin />
-<link rel="preconnect" href="https://api.typeform.com" />
 <link rel="stylesheet" href="assets/site.css" />
+<noscript><link rel="stylesheet" href="assets/menu-sin-js.css" /></noscript>
+<script defer src="assets/navigation.js"></script>
+<link rel="stylesheet" href="assets/booking.css" />
+<script defer src="assets/booking.js"></script>
 </head>
 <body>
 
@@ -130,13 +133,14 @@
 <!-- ═══════════ NAV ═══════════ -->
 <header class="nav" id="nav">
   <div class="nav-inner">
-    <a href="/" class="brand" aria-label="Finabiz">
+    <a href="/" class="brand" aria-label="Finabiz · Servicios contables y fiscales">
       <div class="rook"><img src="assets/F-blue.png" alt="" /></div>
       <div class="text">
         <img src="assets/Logo-H-T.png" alt="FINABIZ" class="brand-logo-img" />
         <div class="sub">Servicios contables y fiscales</div>
       </div>
     </a>
+    <button type="button" class="nav-burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks" id="burger"><span></span></button>
     <nav class="nav-links" id="navLinks" aria-label="Principal">
       <a href="/#servicios">Servicios</a>
       <a href="/#propuesta">Cómo ayudamos</a>
@@ -147,12 +151,12 @@
       <a href="/#contacto">Contacto</a>
     </nav>
     <a href="https://form.typeform.com/to/ykt2ayIi" class="nav-cta js-tf-cta">Agenda tu llamada</a>
-    <button class="nav-burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks" id="burger"><span></span></button>
   </div>
 </header>
 
 <!-- ═══════════ HERO ═══════════ -->
-<section class="hero hero--sub" id="main-content">
+<main id="main-content" tabindex="-1">
+<section class="hero hero--sub">
   <div class="hero-bg"></div>
   <div class="hero-grain"></div>
   <div class="hero-orb hero-orb-1"></div>
@@ -301,6 +305,8 @@
 </section>
 
 <!-- ═══════════ FOOTER ═══════════ -->
+</main>
+
 <footer class="footer">
   <div class="wrap">
     <div class="footer-grid">
@@ -322,7 +328,7 @@
         </div>
       </div>
       <div>
-        <h4>Empresa</h4>
+        <h2>Empresa</h2>
         <ul>
           <li><a href="/#quienes">Quiénes somos</a></li>
           <li><a href="/#equipo">Nuestro equipo</a></li>
@@ -332,9 +338,9 @@
         </ul>
       </div>
       <div>
-        <h4>Servicios</h4>
+        <h2>Servicios</h2>
         <ul>
-          <li><a href="/contabilidad-y-cumplimiento-fiscal.html">Contabilidad y cumplimiento fiscal</a></li>
+          <li><a href="/cumplimiento-optimizacion-fiscal.html">Cumplimiento y Optimización Fiscal</a></li>
           <li><a href="/tramites-ante-el-sat.html">Trámites ante el SAT</a></li>
           <li><a href="/contabilidad-para-ecommerce.html">Contabilidad para eCommerce</a></li>
           <li><a href="/contabilidad-para-agencias.html">Contabilidad para agencias</a></li>
@@ -349,7 +355,7 @@
         </ul>
       </div>
       <div>
-        <h4>Contacto</h4>
+        <h2>Contacto</h2>
         <ul>
           <li><a href="https://form.typeform.com/to/ykt2ayIi" class="js-tf-cta">Agenda tu llamada</a></li>
           <li><a href="https://wa.me/5218998808616?text=Hola%2C%20tengo%20una%20pregunta%20r%C3%A1pida%20antes%20de%20agendar%20mi%20llamada" target="_blank" rel="noopener">WhatsApp</a></li>
@@ -367,6 +373,7 @@
 </footer>
 
 <!-- ═══════════ WHATSAPP CTA ═══════════ -->
+<aside aria-label="Accesos rápidos de contacto">
 <a href="https://wa.me/5218998808616?text=Hola%2C%20tengo%20una%20pregunta%20r%C3%A1pida%20antes%20de%20agendar%20mi%20llamada" target="_blank" rel="noopener" class="whatsapp-cta" aria-label="¿Tienes una pregunta rápida? Chatea por WhatsApp">
   <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#fff" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path fill="#fff" d="M12.004 2C6.486 2 2.004 6.482 2.004 12c0 1.85.505 3.58 1.38 5.065L2 22l5.078-1.36A9.94 9.94 0 0 0 12.004 22C17.522 22 22 17.518 22 12S17.522 2 12.004 2zm0 18.181a8.15 8.15 0 0 1-4.38-1.271l-.314-.187-3.11.833.836-3.036-.204-.313a8.15 8.15 0 0 1-1.257-4.407c0-4.508 3.68-8.187 8.43-8.187 4.75 0 8.43 3.679 8.43 8.187 0 4.508-3.68 8.381-8.43 8.381z"/></svg>
 </a>
@@ -375,171 +382,21 @@
 <a href="https://form.typeform.com/to/ykt2ayIi" class="float-cta js-tf-cta" id="floatCta">
   Agenda tu llamada <span>→</span>
 </a>
+</aside>
 
-<!-- ═══════════ TYPEFORM OVERLAY (precargado en segundo plano) ═══════════ -->
-<div class="tf-overlay" id="tfOverlay">
-  <button type="button" class="tf-overlay-close" id="tfOverlayClose" aria-label="Cerrar">&times;</button>
+
+
+<!-- Diálogo de reserva -->
+<dialog class="tf-overlay" id="tfOverlay" aria-label="Formulario previo a tu llamada de orientación">
   <div class="tf-overlay-panel">
+    <div class="tf-overlay-toolbar">
+      <a href="https://form.typeform.com/to/ykt2ayIi">Abrir formulario directamente</a>
+      <button type="button" class="tf-overlay-close" id="tfOverlayClose" aria-label="Cerrar formulario" autofocus>&times;</button>
+    </div>
+    <p class="tf-overlay-status" id="tfOverlayStatus" role="status" hidden></p>
     <div class="tf-overlay-widget" id="tfOverlayWidget"></div>
   </div>
-</div>
-
-<script>
-/* Atribución no identificable: conserva UTMs de la primera entrada durante la sesión. */
-(function () {
-  var keys = ['utm_source', 'utm_medium', 'utm_campaign'];
-  var params = new URLSearchParams(window.location.search);
-  var saved = {};
-  try { saved = JSON.parse(sessionStorage.getItem('finabiz_attribution_v1') || '{}') || {}; } catch (_) {}
-  keys.forEach(function (key) {
-    var value = params.get(key);
-    if (value && !saved[key]) saved[key] = value.slice(0, 120);
-  });
-  // Referrer externo como respaldo cuando el visitante no trae UTMs.
-  // No almacenar URL de referencia completa ni datos personales.
-  if (!saved.utm_source) {
-    var sourceHost = '';
-    try { sourceHost = new URL(document.referrer).hostname.toLowerCase(); } catch (_) {}
-    var knownSources = [
-      [/^(chatgpt\.com|chat\.openai\.com)$/, 'chatgpt'],
-      [/^(www\.)?perplexity\.ai$/, 'perplexity'],
-      [/^(gemini\.google\.com)$/, 'gemini'],
-      [/^(www\.)?google\.[a-z.]+$/, 'google'],
-      [/^(www\.)?bing\.com$/, 'bing']
-    ];
-    knownSources.some(function (entry) {
-      if (entry[0].test(sourceHost)) {
-        saved.utm_source = entry[1];
-        if (!saved.utm_medium) saved.utm_medium = 'referral';
-        return true;
-      }
-      return false;
-    });
-  }
-  if (!saved.landing_page) saved.landing_page = window.location.pathname.slice(0, 200);
-  try { sessionStorage.setItem('finabiz_attribution_v1', JSON.stringify(saved)); } catch (_) {}
-  window.finabizAttribution = {
-    hidden: keys.concat(['landing_page']).map(function (key) {
-      return key + '=' + encodeURIComponent(saved[key] || '');
-    }).join(','),
-    query: function () {
-      var q = new URLSearchParams();
-      keys.concat(['landing_page']).forEach(function (key) { if (saved[key]) q.set(key, saved[key]); });
-      return q.toString();
-    }
-  };
-  document.addEventListener('DOMContentLoaded', function () {
-    document.querySelectorAll('a[href*="form.typeform.com/to/ykt2ayIi"]').forEach(function (link) {
-      var url = new URL(link.href);
-      var q = new URLSearchParams(window.finabizAttribution.query());
-      q.forEach(function (value, key) { url.searchParams.set(key, value); });
-      link.href = url.toString();
-    });
-  });
-})();
-</script>
-<!-- ═══════════ TYPEFORM EMBED ═══════════ -->
-<script src="//embed.typeform.com/next/embed.js"></script>
-<script>
-  /* Precarga el formulario oculto en segundo plano para que abra al instante */
-  (function () {
-    var overlay = document.getElementById('tfOverlay');
-    var widgetHost = document.getElementById('tfOverlayWidget');
-    var closeBtn = document.getElementById('tfOverlayClose');
-    var loaded = false;
-
-    function preload() {
-      if (loaded || !window.tf) return;
-      loaded = true;
-      var div = document.createElement('div');
-      div.setAttribute('data-tf-widget', 'ykt2ayIi');
-      div.setAttribute('data-tf-hidden', window.finabizAttribution ? window.finabizAttribution.hidden : '');
-      div.setAttribute('data-tf-opacity', '100');
-      div.setAttribute('data-tf-iframe-props', 'title=Formulario previo a tu llamada de orientación');
-      div.style.width = '100%';
-      div.style.height = '100%';
-      widgetHost.appendChild(div);
-      window.tf.load();
-    }
-
-    function open() {
-      preload();
-      overlay.classList.add('show');
-      document.body.classList.add('tf-open');
-      document.body.style.overflow = 'hidden';
-      history.pushState({ tfOverlay: true }, '', location.href);
-    }
-
-    function close() {
-      if (!overlay.classList.contains('show')) return;
-      overlay.classList.remove('show');
-      document.body.classList.remove('tf-open');
-      document.body.style.overflow = '';
-      if (history.state && history.state.tfOverlay) history.back();
-    }
-
-    document.querySelectorAll('.js-tf-cta').forEach(function (btn) {
-      btn.addEventListener('click', function (e) {
-        e.preventDefault();
-        open();
-      });
-    });
-    closeBtn.addEventListener('click', close);
-    overlay.addEventListener('click', function (e) { if (e.target === overlay) close(); });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
-    window.addEventListener('popstate', function () {
-      if (overlay.classList.contains('show')) {
-        overlay.classList.remove('show');
-        document.body.classList.remove('tf-open');
-        document.body.style.overflow = '';
-      }
-    });
-
-    function schedulePreload() {
-      if ('requestIdleCallback' in window) requestIdleCallback(preload, { timeout: 4000 });
-      else setTimeout(preload, 1500);
-    }
-    if (document.readyState === 'complete') schedulePreload();
-    else window.addEventListener('load', schedulePreload);
-  })();
-</script>
-
-<!-- ═══════════ SEGUIMIENTO DE CONVERSIÓN (GA4) ═══════════ -->
-<script>
-  (function () {
-    function track(name, params) {
-      if (typeof gtag === 'function') gtag('event', name, params || {});
-    }
-    document.querySelectorAll('.js-tf-cta').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        track('click_agendar_llamada', {
-          event_category: 'conversion',
-          event_label: btn.className,
-          page_path: location.pathname
-        });
-      });
-    });
-    document.querySelectorAll('a[href*="wa.me"]').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        track('click_whatsapp', {
-          event_category: 'engagement',
-          event_label: btn.className || 'whatsapp-link',
-          page_path: location.pathname
-        });
-      });
-    });
-    // La señal de envío de Typeform NO confirma una reserva de Calendly.
-    // Medimos formulario completado por separado; llamada_agendada se debe
-    // emitir exclusivamente tras confirmar la cita desde Calendly/CRM.
-    window.addEventListener('message', function (event) {
-      if (typeof event.origin !== 'string' || !/^https:\/\/([a-z0-9-]+\.)*typeform\.com$/i.test(event.origin)) return;
-      var data = event.data;
-      if (data && typeof data === 'object' && typeof data.type === 'string' && data.type.indexOf('submit') !== -1) {
-        track('formulario_completado', { event_category: 'lead', page_path: location.pathname });
-      }
-    });
-  })();
-</script>
+</dialog>
 
 <script>
   // Nav shadow on scroll + floating CTA appear after hero
@@ -559,8 +416,10 @@
     });
     onScroll();
   }
-  const ctaObserver = new IntersectionObserver(recomputeSectionCtaVisible, { threshold: 0 });
-  ctaObserverTargets.forEach((el) => ctaObserver.observe(el));
+  if (typeof window.IntersectionObserver === 'function') {
+    const ctaObserver = new IntersectionObserver(recomputeSectionCtaVisible, { threshold: 0 });
+    ctaObserverTargets.forEach((el) => ctaObserver.observe(el));
+  }
 
   function onScroll() {
     const y = window.scrollY;
@@ -580,19 +439,6 @@
   window.addEventListener('resize', onScroll, { passive: true });
   onScroll();
 
-  // Mobile menu toggle
-  const burgerBtn = document.getElementById('burger');
-  function setMenuOpen(open) {
-    nav.classList.toggle('menu-open', open);
-    burgerBtn.setAttribute('aria-expanded', String(open));
-    burgerBtn.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
-  }
-  burgerBtn.addEventListener('click', () => {
-    setMenuOpen(!nav.classList.contains('menu-open'));
-  });
-  document.querySelectorAll('.nav-links a').forEach(a => {
-    a.addEventListener('click', () => setMenuOpen(false));
-  });
 
   // ── Reveal-on-scroll ──
   const revealSel = [
@@ -603,7 +449,7 @@
     '.footer-grid > *',
   ].join(',');
   document.querySelectorAll(revealSel).forEach((el) => el.classList.add('reveal'));
-  document.body.classList.add('reveal-arm');
+  if (typeof window.IntersectionObserver === 'function') document.body.classList.add('reveal-arm');
 
   function reveal(el, idx) {
     el.style.setProperty('--reveal-delay', Math.min(idx, 5) * 80 + 'ms');

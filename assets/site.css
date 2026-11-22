@@ -59,8 +59,9 @@
   button:focus-visible,
   summary:focus-visible,
   [tabindex]:focus-visible {
-    outline: 2px solid var(--orange);
-    outline-offset: 3px;
+    outline: 2px solid var(--blue-ink);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 2px #fff;
   }
 
   .eyebrow {
@@ -913,7 +914,7 @@
   }
   .faq-item summary::-webkit-details-marker { display: none; }
   .faq-item summary:hover { color: var(--blue); }
-  .faq-item summary:focus-visible { outline: 2px solid var(--orange); outline-offset: 4px; }
+  .faq-item summary:focus-visible { outline: 2px solid var(--blue-ink); outline-offset: 4px; }
   .faq-item summary::after {
     content: "+";
     position: absolute;
@@ -960,7 +961,7 @@
   .faq-group:first-child .faq-group-title { padding-top: 0; }
   .faq-group-title::-webkit-details-marker { display: none; }
   .faq-group-title:hover { color: var(--blue); }
-  .faq-group-title:focus-visible { outline: 2px solid var(--orange); outline-offset: 4px; }
+  .faq-group-title:focus-visible { outline: 2px solid var(--blue-ink); outline-offset: 4px; }
   .faq-group-title::after {
     content: "+";
     width: 22px;
@@ -1160,7 +1161,7 @@
     gap: 48px;
     margin-bottom: 40px;
   }
-  .footer h4 {
+  .footer h2 {
     font: 500 11px/1 "IBM Plex Mono", monospace;
     letter-spacing: .22em;
     color: var(--orange);
@@ -1235,58 +1236,11 @@
     gap: 12px;
     font: 500 11px/1.4 "IBM Plex Mono", monospace;
     letter-spacing: .14em;
-    color: rgba(255,255,255,.45);
+    color: rgba(255,255,255,.65);
     text-transform: uppercase;
   }
 
-  /* ─── TYPEFORM OVERLAY ─── */
-  .tf-overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 500;
-    background: rgba(15, 17, 32, .78);
-    backdrop-filter: blur(2px);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: clamp(12px, 4vw, 40px);
-  }
-  .tf-overlay.show { display: flex; }
-  .tf-overlay-panel {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    max-width: 1100px;
-    background: #fff;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 40px 100px -20px rgba(0,0,0,.5);
-  }
-  .tf-overlay-widget { width: 100%; height: 100%; }
-  /* Fixed to the true viewport (not nested in the clipped panel) so it can
-     never end up hidden behind mobile browser chrome or the iframe's own
-     stacking context — this is the only way to close the overlay since the
-     widget embed (unlike a popup) has no built-in close button. */
-  .tf-overlay-close {
-    position: fixed;
-    top: calc(env(safe-area-inset-top, 0px) + 14px);
-    right: calc(env(safe-area-inset-right, 0px) + 14px);
-    z-index: 501;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    border: none;
-    background: #fff;
-    color: var(--blue-ink);
-    font-size: 22px;
-    line-height: 1;
-    cursor: pointer;
-    display: grid;
-    place-items: center;
-    box-shadow: 0 6px 20px -4px rgba(0,0,0,.4);
-    transition: background .15s, transform .15s;
-  }
-  .tf-overlay-close:hover { background: var(--orange-soft); transform: scale(1.06); }
+  .footer-bottom a { display: inline-block; padding-block: 5px; }
 
   /* ─── FLOATING CTA ─── */
   .float-cta {
@@ -1490,8 +1444,12 @@
       border-top: 1px solid rgba(255,255,255,.18);
       border-bottom: 1px solid rgba(255,255,255,.18);
       padding: 16px var(--pad-x);
-      gap: 16px;
+      max-height: calc(100dvh - 80px);
+      overflow-y: auto;
+      gap: 8px;
     }
+
+    .nav-links a { display: flex; min-height: 44px; align-items: center; }
 
     .hero-pillars { grid-template-columns: 1fr; }
     .hero-pillar { border-right: none; padding: 28px 0 0 !important; border-top: 1px solid var(--line); }
@@ -1778,7 +1736,7 @@
   }
   .breadcrumb a { color: rgba(255,255,255,.55); text-decoration: none; }
   .breadcrumb a:hover { color: var(--orange); }
-  .breadcrumb a:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
+  .breadcrumb a:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
 
   /* ═══════════ BLOG / ARTÍCULO ═══════════ */
   .article-meta {
@@ -1964,13 +1922,14 @@
 }
 
 
-/* Home proof strip — three designed value pillars (2026-11-22) */
-.home-proof{background:#fff;border-bottom:1px solid #e2e7f0;padding:24px 0;position:relative;overflow:hidden}
-.home-proof .home-proof-inner{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;align-items:stretch}
-.home-proof .home-proof-inner>span{display:flex;align-items:center;justify-content:center;min-width:0;min-height:74px;padding:16px 20px;border:1px solid #dce4f1;border-radius:14px;background:linear-gradient(135deg,#f5f6fa 0%,#fff 100%);font-family:"Archivo",sans-serif;font-size:clamp(15px,1.45vw,19px);font-weight:650;line-height:1.3;text-align:center;color:#1C2A5E;box-shadow:0 4px 14px rgba(28,42,94,.045)}
-.home-proof .home-proof-inner>span::before{content:"";width:8px;height:8px;border-radius:50%;background:#F28C28;flex:0 0 8px;margin-right:12px}
+/* Home proof: editorial brand strip, no detached cards */
+.home-proof{background:#fff;border-top:1px solid rgba(28,42,94,.09);border-bottom:1px solid rgba(28,42,94,.13);padding:26px 0;overflow:hidden}
+.home-proof .home-proof-inner{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;align-items:center}
+.home-proof .home-proof-inner>span{display:flex;align-items:center;justify-content:center;min-width:0;min-height:46px;padding:7px 22px;background:transparent;border:0;border-radius:0;box-shadow:none;font-family:"Archivo",sans-serif;font-size:clamp(15px,1.45vw,20px);font-weight:600;line-height:1.3;letter-spacing:-.025em;color:#1C2A5E;text-align:center}
+.home-proof .home-proof-inner>span+span{border-left:1px solid #d9dfeb}
+.home-proof .home-proof-inner>span::before{content:"";display:block;width:5px;height:22px;flex:0 0 5px;margin-right:15px;background:#F28C28;border-radius:2px}
 .home-proof .home-proof-inner>span:nth-child(2)::before{background:#76AB3E}
 .home-proof .home-proof-inner>span:nth-child(3)::before{background:#3E56AC}
-@media(max-width:767px){.home-proof{padding:14px 0}.home-proof .home-proof-inner{grid-template-columns:1fr;gap:8px}.home-proof .home-proof-inner>span{min-height:54px;padding:12px 16px;font-size:15px;justify-content:flex-start;text-align:left}}
+@media(max-width:767px){.home-proof{padding:14px 0}.home-proof .home-proof-inner{grid-template-columns:1fr}.home-proof .home-proof-inner>span{min-height:45px;padding:11px 6px;justify-content:flex-start;text-align:left;font-size:15px}.home-proof .home-proof-inner>span+span{border-left:0;border-top:1px solid #e8ebf1}.home-proof .home-proof-inner>span::before{height:18px;margin-right:13px}}
 /* Guard against long headings on compact screens */
 @media(max-width:767px){.services .section-head{grid-template-columns:minmax(0,1fr);gap:16px}.services .section-head .lede{text-align:left}.services .section-head .display{font-size:clamp(32px,8vw,52px);line-height:1.1;overflow-wrap:break-word}.services .wrap{min-width:0}}

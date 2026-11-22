@@ -29,3 +29,17 @@
 ## Fases siguientes · Estado
 
 Pendientes la validación de proveedores y métricas reales, los ajustes de presentación, la consolidación de CSS, el bloque SEO y la implementación por familias de páginas. Los hallazgos y criterios de aceptación se conservan en [la auditoría](AUDITORIA_INTEGRAL_WEB.md) y [el roadmap](ROADMAP_OPTIMIZACION_WEB.md).
+
+## Navegación interior y URLs canónicas
+
+- WEB-06. Se añadió una región principal a las plantillas corporativas, servicios, blog, artículos y calculadora. Los menús interiores comparten orden de foco, cierre por Escape, estados accesibles y una versión que funciona sin JavaScript. La tabla comparativa de la calculadora admite desplazamiento por teclado. El pie compartido tiene enlaces legales más amplios y mejor contraste. Se ajustó el contraste de los rótulos de agenda y páginas legales.
+- WEB-12. El sitemap y los enlaces internos apuntan directamente a Cumplimiento y Optimización Fiscal. Se conserva la redirección HTML de la URL anterior. La plantilla editorial con marcadores se conserva como archivo de texto en `docs/plantillas/`. La intención de indexación de Asesoría Fiscal Estratégica sigue pendiente de confirmación.
+- Se verificaron ocho pruebas de Node, incluida la coincidencia de los 29 destinos de sitemap con sus canónicas y directivas de indexación. Chromium comprobó navegación por teclado, salto a contenido y desbordamiento en seis páginas, desplazamiento de la tabla comparativa y navegación horizontal y sin JavaScript. Queda pendiente la evaluación manual de WCAG en dispositivos reales.
+
+## Formulario compartido, rendimiento y cabeceras declarables
+
+- WEB-04. El formulario embebido usa un diálogo compartido, un enlace directo y el callback oficial `onSubmit` de Typeform. Se emiten por separado el clic y el envío del formulario correcto, con deduplicación por instancia y sin transferir datos de respuesta a GA4. El evento de cita requiere confirmación del proveedor o el CRM. La landing fiscal conserva su configuración de analítica existente.
+- WEB-07 y WEB-08. Se centralizaron el CSS y el código de reserva repetidos en 27 páginas. Typeform y sus conexiones se aplazan hasta una interacción. Se consolidaron las variables de color y se retiró el CSS sin uso del panel antiguo de portada y su cinta oculta. Las tres fotos existentes del equipo ahora son WebP nativos con carga diferida. La portada dejó de descargar el componente de edición y su archivo de estado.
+- WEB-09. El foco usa un contorno oscuro y blanco según el fondo. Se corrigieron dos grupos con nombres accesibles y se ocultó el indicador decorativo de desplazamiento bajo movimiento reducido.
+- WEB-11. Se declaró por HTML una política CSP contra elementos de base y objetos embebidos, además de una política explícita de referrer. El diálogo de reserva deniega cámara y micrófono al iframe. La configuración de cookies y las cabeceras que requieren control HTTP siguen pendientes.
+- Validación de 9 pruebas de Node. Chromium a 390 px comprobó apertura del formulario publicado, ausencia de solicitudes Typeform antes del clic, tamaño del iframe y cierre en portada, Arquitectura y Cumplimiento. La prueba no envió respuestas. Lighthouse móvil local, tres ejecuciones con terceros bloqueados, mediana de rendimiento 96, accesibilidad 100, SEO 100, LCP de 2.40 s y CLS de 0. Falta medir datos de campo y probar el embudo hasta la cita.
