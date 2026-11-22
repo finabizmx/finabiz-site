@@ -2374,6 +2374,67 @@ body{font-family:"IBM Plex Sans",sans-serif}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 
+
+/* Finabiz visual system v5 — editorial financial storytelling */
+:root{--blue:#3E56AC;--orange:#F28C28;--green:#76AB3E;--blue-ink:#1C2A5E;--paper:#F5F6FA;--ink:#1A2138}
+.hero{background:#1c2a5e;padding-top:clamp(82px,8vw,120px);padding-bottom:clamp(54px,6vw,86px)}
+.hero>.wrap{max-width:1180px}
+.hero h1.display{max-width:940px;font-size:clamp(44px,6.6vw,94px);letter-spacing:-.065em;line-height:1.025}
+.hero .hero-subtitle{font-size:clamp(17px,1.7vw,20px);max-width:660px;line-height:1.65}
+.hero-preview{margin-top:clamp(55px,7vw,100px);background:#fff;border:1px solid rgba(255,255,255,.16);color:#1c2a5e;border-radius:18px;overflow:hidden;box-shadow:0 30px 70px rgba(6,16,49,.18)}
+.hero-preview-top{display:flex;justify-content:space-between;gap:16px;align-items:center;padding:17px clamp(20px,3vw,36px);border-bottom:1px solid #e6ebf3}
+.hero-preview-eyebrow,.hero-preview-dot{font:600 10px/1.5 "IBM Plex Mono",monospace;letter-spacing:.09em;color:#66728b}
+.hero-preview-dot{letter-spacing:0;color:#67748a}
+.hero-preview-body{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr)}
+.hero-preview-main{padding:clamp(25px,4vw,48px);display:flex;flex-direction:column;align-items:flex-start;justify-content:center;background:#f6f8fc}
+.hero-preview-label{font:600 11px/1.5 "IBM Plex Mono",monospace;letter-spacing:.07em;color:#3e56ac;text-transform:uppercase;margin-bottom:18px}
+.hero-preview-main strong{font:600 clamp(26px,3.2vw,42px)/1.12 "Archivo",sans-serif;letter-spacing:-.045em;max-width:440px}
+.hero-preview-main p{font:400 15px/1.7 "IBM Plex Sans",sans-serif;color:#53617b;max-width:390px;margin:18px 0 0}
+.hero-preview-metrics{padding:clamp(20px,3vw,36px);display:flex;flex-direction:column;justify-content:center}
+.hero-preview-metrics>div{display:flex;align-items:baseline;justify-content:space-between;gap:16px;border-bottom:1px solid #e6ebf3;padding:18px 0}
+.hero-preview-metrics>div:first-child{padding-top:0}
+.hero-preview-metrics>div:last-child{border-bottom:0;padding-bottom:0}
+.hero-preview-metrics span{font:600 10px/1.4 "IBM Plex Mono",monospace;color:#64718b;letter-spacing:.04em}
+.hero-preview-metrics strong{font:600 clamp(20px,2.3vw,29px)/1 "IBM Plex Mono",monospace;letter-spacing:-.06em;white-space:nowrap}
+.hero-preview-metrics .hero-preview-net{background:#eaf1df;border-radius:9px;padding:15px;margin-top:10px}
+.hero-preview-metrics .hero-preview-net strong{color:#426a19}
+.hero-preview-foot{margin:0;padding:14px clamp(20px,3vw,36px);font:400 11px/1.65 "IBM Plex Sans",sans-serif;color:#64718b;border-top:1px solid #e6ebf3}
+.hero-preview-foot a{color:#3e56ac;font-weight:600;text-decoration:underline;text-underline-offset:3px}
+#ejemplos{background:#f5f6fa}
+#ejemplos .section-head{margin-bottom:28px}
+.example-intro{display:flex;justify-content:space-between;align-items:start;gap:25px;border-top:1px solid #dce3ef;padding:22px 0 28px}
+.example-intro-index{font:600 11px/1.6 "IBM Plex Mono",monospace;letter-spacing:.07em;color:#3e56ac}
+.example-intro p{font:400 15px/1.6 "IBM Plex Sans",sans-serif;color:#56627b;max-width:430px;margin:0}
+#ejemplos .sample-tabs{max-width:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+#ejemplos .sample-tab{font:600 13px/1.35 "IBM Plex Sans",sans-serif;text-align:left;border:1px solid #dce3ef;background:#fff;padding:16px 18px;border-radius:10px}
+#ejemplos .sample-tab.is-active{background:#1c2a5e;color:#fff;border-color:#1c2a5e}
+#ejemplos .samples-grid.is-interactive{max-width:none}
+#ejemplos .sample-card{border:1px solid #dce3ef;border-radius:14px;box-shadow:none}
+#ejemplos .sample-card h3{font-size:clamp(23px,2.8vw,32px);letter-spacing:-.035em}
+#ejemplos .sample-mock{background:#f9fbff;border:1px solid #e4e9f2;padding:clamp(16px,2.6vw,30px)}
+#ejemplos .samples-disclaimer{font-size:12px;line-height:1.7}
+#servicios .service-entry-card--clarity{background:#1c2a5e}
+#servicios .route-disclosure .route-t{letter-spacing:-.04em}
+@media(max-width:767px){
+.hero h1.display{font-size:clamp(41px,10.7vw,60px)}
+.hero-preview{margin-top:48px;border-radius:12px}
+.hero-preview-top{padding:13px 16px}
+.hero-preview-body{grid-template-columns:1fr}
+.hero-preview-main{padding:24px 20px}
+.hero-preview-main strong{font-size:28px}
+.hero-preview-main p{font-size:14px;margin-top:12px}
+.hero-preview-metrics{padding:10px 20px 20px}
+.hero-preview-metrics>div{padding:13px 0}
+.hero-preview-metrics strong{font-size:20px}
+.hero-preview-metrics span{font-size:9px}
+.hero-preview-foot{padding:13px 18px}
+.example-intro{display:block;padding:18px 0 22px}
+.example-intro p{margin-top:9px;font-size:14px}
+#ejemplos .sample-tabs{grid-template-columns:1fr;gap:7px}
+#ejemplos .sample-tab{font-size:14px;min-height:48px;padding:13px 16px}
+#ejemplos .sample-tab:last-child{grid-column:auto}
+}
+
 </style>
 </head>
 <body>
@@ -2408,17 +2469,13 @@ body{font-family:"IBM Plex Sans",sans-serif}
 <section class="hero" id="main-content">
   <div class="hero-bg"></div>
   <div class="wrap">
-    <span class="eyebrow reveal">Contabilidad & fiscalidad · México</span>
+    <span class="eyebrow reveal">FINABIZ / CLARIDAD FISCAL Y FINANCIERA</span>
     <h1 class="display reveal">
       <span class="word">Estructura fiscal sólida</span><br/>
       <span class="word">para decisiones con</span>
       <span class="word word-shine">números claros</span><span class="dot">.</span>
     </h1>
-    <p class="hero-subtitle reveal">
-      Firma de contabilidad especializada en negocios digitales y eCommerce.
-      Anticipamos tus impuestos, calculamos tu utilidad real y ordenamos tu
-      información financiera con procesos y sistemas propios de conciliación y reporting.
-    </p>
+    <p class="hero-subtitle reveal">Deja de decidir solo con lo que vendes. Conecta impuestos, contabilidad y utilidad real para entender cuánto gana tu negocio y qué viene después.</p>
     <div class="hero-cta-row reveal">
       <a href="https://form.typeform.com/to/ykt2ayIi" class="btn btn-primary js-tf-cta">
         Agenda una orientación gratuita · 30 min
@@ -2445,6 +2502,18 @@ body{font-family:"IBM Plex Sans",sans-serif}
         <div class="t">Una sola columna vertebral financiera.</div>
         <p>Contabilidad, fiscal y finanzas en una estructura coherente.</p>
       </div>
+    </div>
+    <div class="hero-preview reveal" aria-label="Ejemplo ilustrativo de claridad financiera">
+      <div class="hero-preview-top"><span class="hero-preview-eyebrow">VISIÓN DEL NEGOCIO / EJEMPLO</span><span class="hero-preview-dot">Datos simulados</span></div>
+      <div class="hero-preview-body">
+        <div class="hero-preview-main"><span class="hero-preview-label">De vender a saber cuánto ganas</span><strong>La utilidad real cambia la conversación.</strong><p>Ventas, costos, impuestos y decisiones conectados en una sola vista.</p></div>
+        <div class="hero-preview-metrics">
+          <div><span>01 / VENTAS</span><strong>$180,000</strong></div>
+          <div><span>02 / IMPUESTOS Y COSTOS*</span><strong>$82,800</strong></div>
+          <div class="hero-preview-net"><span>03 / UTILIDAD ILUSTRATIVA*</span><strong>$97,200</strong></div>
+        </div>
+      </div>
+      <p class="hero-preview-foot">*Cifras ficticias para ilustrar el concepto; no son un cálculo fiscal ni resultados de clientes. <a href="#ejemplos">Explorar ejemplos →</a></p>
     </div>
   </div>
 </section>
@@ -2651,7 +2720,8 @@ body{font-family:"IBM Plex Sans",sans-serif}
       <p class="lede">Explora tres vistas ilustrativas: obligaciones, utilidad y proyección. Datos simulados, no resultados de clientes.</p>
     </div>
 
-    <div class="sample-tabs" role="group" aria-label="Explorar ejemplos de entregables"><button type="button" class="sample-tab is-active" data-sample="0" aria-pressed="true">Mapa fiscal</button><button type="button" class="sample-tab" data-sample="1" aria-pressed="false">Panel de utilidad</button><button type="button" class="sample-tab" data-sample="2" aria-pressed="false">Proyección</button></div>
+    <div class="example-intro"><span class="example-intro-index">DE LOS DATOS A LAS DECISIONES</span><p>Elige qué quieres entender. Cada vista muestra una pregunta distinta que tus números deberían responder.</p></div>
+    <div class="sample-tabs" role="group" aria-label="Explorar ejemplos de entregables"><button type="button" class="sample-tab is-active" data-sample="0" aria-pressed="true">01 · ¿Estoy al día?</button><button type="button" class="sample-tab" data-sample="1" aria-pressed="false">02 · ¿Cuánto gano?</button><button type="button" class="sample-tab" data-sample="2" aria-pressed="false">03 · ¿Qué viene?</button></div>
     <p class="sample-instruction">Selecciona una vista. Ejemplos ilustrativos con datos simulados.</p>
     <div class="samples-grid">
       <div class="sample-card">
