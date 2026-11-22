@@ -2455,6 +2455,17 @@ body{font-family:"IBM Plex Sans",sans-serif}
 .reveal,.reveal.in{opacity:1!important;transform:none!important;transition:none!important}
 }
 
+
+/* Homepage hero: concise premium presentation without simulated dashboard */
+.hero{padding-bottom:clamp(84px,9vw,132px)}
+.hero>.wrap{max-width:1180px}
+.hero h1.display{max-width:1050px;letter-spacing:-.06em;line-height:1.04;text-wrap:balance}
+.hero .hero-subtitle{max-width:620px;margin-top:28px;line-height:1.65}
+.hero .hero-cta-row{margin-top:30px}
+.hero .hero-microcopy{margin-top:15px}
+.hero .hero-trustline{margin-top:38px}
+@media(max-width:767px){.hero{padding-bottom:76px}.hero h1.display{font-size:clamp(39px,10vw,57px)}.hero .hero-subtitle{margin-top:20px}}
+
 </style>
 </head>
 <body>
@@ -2490,12 +2501,8 @@ body{font-family:"IBM Plex Sans",sans-serif}
   <div class="hero-bg"></div>
   <div class="wrap">
     <span class="eyebrow reveal">FINABIZ / CLARIDAD FISCAL Y FINANCIERA</span>
-    <h1 class="display reveal">
-      <span class="word">Estructura fiscal sólida</span><br/>
-      <span class="word">para decisiones con</span>
-      <span class="word word-shine">números claros</span><span class="dot">.</span>
-    </h1>
-    <p class="hero-subtitle reveal">Deja de decidir solo con lo que vendes. Conecta impuestos, contabilidad y utilidad real para entender cuánto gana tu negocio y qué viene después.</p>
+    <h1 class="display reveal">Tu negocio vende.<br/><span class="word-shine">¿Sabes cuánto gana realmente?</span></h1>
+    <p class="hero-subtitle reveal">Integramos contabilidad, impuestos y finanzas para que tomes decisiones con claridad y anticipación.</p>
     <div class="hero-cta-row reveal">
       <a href="https://form.typeform.com/to/ykt2ayIi" class="btn btn-primary js-tf-cta">
         Agenda una orientación gratuita · 30 min
@@ -2522,18 +2529,6 @@ body{font-family:"IBM Plex Sans",sans-serif}
         <div class="t">Una sola columna vertebral financiera.</div>
         <p>Contabilidad, fiscal y finanzas en una estructura coherente.</p>
       </div>
-    </div>
-    <div class="hero-preview reveal" aria-label="Ejemplo ilustrativo de claridad financiera">
-      <div class="hero-preview-top"><span class="hero-preview-eyebrow">VISIÓN DEL NEGOCIO / EJEMPLO</span><span class="hero-preview-dot">Datos simulados</span></div>
-      <div class="hero-preview-body">
-        <div class="hero-preview-main"><span class="hero-preview-label">De vender a saber cuánto ganas</span><strong>La utilidad real cambia la conversación.</strong><p>Ventas, costos, impuestos y decisiones conectados en una sola vista.</p></div>
-        <div class="hero-preview-metrics">
-          <div><span>01 / VENTAS</span><strong>$180,000</strong></div>
-          <div><span>02 / IMPUESTOS Y COSTOS*</span><strong>$82,800</strong></div>
-          <div class="hero-preview-net"><span>03 / UTILIDAD ILUSTRATIVA*</span><strong>$97,200</strong></div>
-        </div>
-      </div>
-      <p class="hero-preview-foot">*Cifras ficticias para ilustrar el concepto; no son un cálculo fiscal ni resultados de clientes. <a href="#ejemplos">Explorar ejemplos →</a></p>
     </div>
   </div>
 </section>
