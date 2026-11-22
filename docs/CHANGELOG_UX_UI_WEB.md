@@ -58,3 +58,8 @@ Pendientes la validación de proveedores y métricas reales, los ajustes de pres
 - La proyección incluye barras seleccionables por mes con el contexto de ventas y utilidad. El panel de utilidad alterna entre importes y porcentajes de ventas. Ambas interacciones calculan sus valores a partir de las muestras existentes. La tabla y los importes originales siguen disponibles sin scripts.
 - Pasaron 14 pruebas de Node y las pruebas de Chromium en siete tamaños. Se verificaron selección con flechas, preferencia de movimiento reducido, vista sin JavaScript, apertura del formulario real y respuesta al cursor con puntero fino emulado. Axe no reportó infracciones en la vista móvil probada y dejó contraste para revisión manual.
 - Lighthouse móvil local con terceros bloqueados, mediana de tres ejecuciones consecutivas por versión. Rendimiento 97 → 96, accesibilidad 100 → 100, LCP 2.25 → 2.48 s y CLS 0 → 0. La transferencia aumentó cerca de 6.4 kB.
+
+## Títulos del catálogo de servicios
+
+- La tarjeta de contabilidad mensual se distingue de Cumplimiento y Optimización Fiscal. La tarjeta de cálculo de impuestos y su página usan «Cálculo de ISR e IVA», también en sus metadatos y datos estructurados.
+- Se conservaron las URLs y los alcances. Pasaron las 14 pruebas de Node y se comprobó la correspondencia entre títulos, enlaces y metadatos.
