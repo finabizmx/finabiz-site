@@ -18,12 +18,13 @@
 
 - Verificación de producción el 22 de noviembre de 2026. El HTML público coincidió con el blob probado en `64af69c`. Chromium con viewport de 390 × 844 cargó el SDK real, mostró la pantalla de bienvenida de Typeform dentro del diálogo y restauró foco, scroll e historial al cerrar. La analítica estuvo bloqueada durante la prueba. El envío y la confirmación de cita siguen pendientes.
 
-## Fase 3 · Degradación progresiva y contraste de portada
+## Fase 3 · Degradación progresiva y contraste de portada ([PR #29](https://github.com/finabizmx/finabiz-site/pull/29))
 
 - WEB-05. El menú compacto ofrece sus cuatro enlaces sin JavaScript. El selector de ejemplos aparece tras inicializar sus controles. Sin scripts se conservan las tres muestras visibles y las reservas directas.
-- WEB-09. El texto de duración de la fase destacada usa el azul profundo de la marca. Se retiraron el reveal al desplazarse y los contadores animados. Las cifras y todo el contenido permanecen visibles.
+- WEB-09. El texto de duración y la etiqueta de la fase destacada usan el azul profundo de la marca sobre el fondo naranja. La etiqueta pasa de 4.11:1 a 5.55:1. Se retiraron el reveal al desplazarse y los contadores animados. Las cifras y todo el contenido permanecen visibles.
 - Las acciones rápidas de contacto tienen una región con nombre. En navegadores sin IntersectionObserver, el menú sigue operativo y se mantiene la reserva en la navegación y el contenido.
 - Validado con cinco pruebas de Node, Chromium en cinco tamaños y tres tamaños con JavaScript desactivado. Axe no devolvió infracciones en la vista local de 390 × 844 con movimiento reducido y terceros bloqueados; dejó contraste y algunos atributos ARIA para revisión manual.
+- Lighthouse móvil local, tres corridas con terceros bloqueados. Medianas de 93 en rendimiento, 100 en accesibilidad, 2.90 s de LCP y 0 de CLS. El LCP sigue por encima del objetivo de 2.5 s y queda pendiente medir INP y rendimiento de producción.
 
 ## Fases siguientes · Estado
 
