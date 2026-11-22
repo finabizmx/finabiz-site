@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="es-MX">
 <head>
+<meta http-equiv="Content-Security-Policy" content="base-uri 'none'; object-src 'none'" />
+<meta name="referrer" content="strict-origin-when-cross-origin" />
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-VDZXBBNES7"></script>
 <script>
@@ -77,12 +79,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 
-<link rel="preconnect" href="https://embed.typeform.com" />
-<link rel="preconnect" href="https://form.typeform.com" crossorigin />
-<link rel="preconnect" href="https://api.typeform.com" />
 <link rel="stylesheet" href="assets/site.css" />
 <noscript><link rel="stylesheet" href="assets/menu-sin-js.css" /></noscript>
 <script defer src="assets/navigation.js"></script>
+<link rel="stylesheet" href="assets/booking.css" />
+<script defer src="assets/booking.js"></script>
 </head>
 <body>
 
@@ -391,167 +392,16 @@
 
 
 
-<div class="tf-overlay" id="tfOverlay">
-  <button type="button" class="tf-overlay-close" id="tfOverlayClose" aria-label="Cerrar">&times;</button>
+<dialog class="tf-overlay" id="tfOverlay" aria-label="Formulario previo a tu llamada de orientación">
   <div class="tf-overlay-panel">
+    <div class="tf-overlay-toolbar">
+      <a href="https://form.typeform.com/to/ykt2ayIi">Abrir formulario directamente</a>
+      <button type="button" class="tf-overlay-close" id="tfOverlayClose" aria-label="Cerrar formulario" autofocus>&times;</button>
+    </div>
+    <p class="tf-overlay-status" id="tfOverlayStatus" role="status" hidden></p>
     <div class="tf-overlay-widget" id="tfOverlayWidget"></div>
   </div>
-</div>
-
-<script>
-/* Atribución no identificable: conserva UTMs de la primera entrada durante la sesión. */
-(function () {
-  var keys = ['utm_source', 'utm_medium', 'utm_campaign'];
-  var params = new URLSearchParams(window.location.search);
-  var saved = {};
-  try { saved = JSON.parse(sessionStorage.getItem('finabiz_attribution_v1') || '{}') || {}; } catch (_) {}
-  keys.forEach(function (key) {
-    var value = params.get(key);
-    if (value && !saved[key]) saved[key] = value.slice(0, 120);
-  });
-  // Referrer externo como respaldo cuando el visitante no trae UTMs.
-  // No almacenar URL de referencia completa ni datos personales.
-  if (!saved.utm_source) {
-    var sourceHost = '';
-    try { sourceHost = new URL(document.referrer).hostname.toLowerCase(); } catch (_) {}
-    var knownSources = [
-      [/^(chatgpt\.com|chat\.openai\.com)$/, 'chatgpt'],
-      [/^(www\.)?perplexity\.ai$/, 'perplexity'],
-      [/^(gemini\.google\.com)$/, 'gemini'],
-      [/^(www\.)?google\.[a-z.]+$/, 'google'],
-      [/^(www\.)?bing\.com$/, 'bing']
-    ];
-    knownSources.some(function (entry) {
-      if (entry[0].test(sourceHost)) {
-        saved.utm_source = entry[1];
-        if (!saved.utm_medium) saved.utm_medium = 'referral';
-        return true;
-      }
-      return false;
-    });
-  }
-  if (!saved.landing_page) saved.landing_page = window.location.pathname.slice(0, 200);
-  try { sessionStorage.setItem('finabiz_attribution_v1', JSON.stringify(saved)); } catch (_) {}
-  window.finabizAttribution = {
-    hidden: keys.concat(['landing_page']).map(function (key) {
-      return key + '=' + encodeURIComponent(saved[key] || '');
-    }).join(','),
-    query: function () {
-      var q = new URLSearchParams();
-      keys.concat(['landing_page']).forEach(function (key) { if (saved[key]) q.set(key, saved[key]); });
-      return q.toString();
-    }
-  };
-  document.addEventListener('DOMContentLoaded', function () {
-    document.querySelectorAll('a[href*="form.typeform.com/to/ykt2ayIi"]').forEach(function (link) {
-      var url = new URL(link.href);
-      var q = new URLSearchParams(window.finabizAttribution.query());
-      q.forEach(function (value, key) { url.searchParams.set(key, value); });
-      link.href = url.toString();
-    });
-  });
-})();
-</script>
-<script src="//embed.typeform.com/next/embed.js"></script>
-<script>
-  (function () {
-    var overlay = document.getElementById('tfOverlay');
-    var widgetHost = document.getElementById('tfOverlayWidget');
-    var closeBtn = document.getElementById('tfOverlayClose');
-    var loaded = false;
-
-    function preload() {
-      if (loaded || !window.tf) return;
-      loaded = true;
-      var div = document.createElement('div');
-      div.setAttribute('data-tf-widget', 'ykt2ayIi');
-      div.setAttribute('data-tf-hidden', window.finabizAttribution ? window.finabizAttribution.hidden : '');
-      div.setAttribute('data-tf-opacity', '100');
-      div.setAttribute('data-tf-iframe-props', 'title=Formulario previo a tu llamada de orientación');
-      div.style.width = '100%';
-      div.style.height = '100%';
-      widgetHost.appendChild(div);
-      window.tf.load();
-    }
-
-    function open() {
-      preload();
-      overlay.classList.add('show');
-      document.body.classList.add('tf-open');
-      document.body.style.overflow = 'hidden';
-      history.pushState({ tfOverlay: true }, '', location.href);
-    }
-
-    function close() {
-      if (!overlay.classList.contains('show')) return;
-      overlay.classList.remove('show');
-      document.body.classList.remove('tf-open');
-      document.body.style.overflow = '';
-      if (history.state && history.state.tfOverlay) history.back();
-    }
-
-    document.querySelectorAll('.js-tf-cta').forEach(function (btn) {
-      btn.addEventListener('click', function (e) {
-        e.preventDefault();
-        open();
-      });
-    });
-    closeBtn.addEventListener('click', close);
-    overlay.addEventListener('click', function (e) { if (e.target === overlay) close(); });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
-    window.addEventListener('popstate', function () {
-      if (overlay.classList.contains('show')) {
-        overlay.classList.remove('show');
-        document.body.classList.remove('tf-open');
-        document.body.style.overflow = '';
-      }
-    });
-
-    function schedulePreload() {
-      if ('requestIdleCallback' in window) requestIdleCallback(preload, { timeout: 4000 });
-      else setTimeout(preload, 1500);
-    }
-    if (document.readyState === 'complete') schedulePreload();
-    else window.addEventListener('load', schedulePreload);
-  })();
-</script>
-
-<!-- ═══════════ SEGUIMIENTO DE CONVERSIÓN (GA4) ═══════════ -->
-<script>
-  (function () {
-    function track(name, params) {
-      if (typeof gtag === 'function') gtag('event', name, params || {});
-    }
-    document.querySelectorAll('.js-tf-cta').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        track('click_agendar_llamada', {
-          event_category: 'conversion',
-          event_label: btn.className,
-          page_path: location.pathname
-        });
-      });
-    });
-    document.querySelectorAll('a[href*="wa.me"]').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        track('click_whatsapp', {
-          event_category: 'engagement',
-          event_label: btn.className || 'whatsapp-link',
-          page_path: location.pathname
-        });
-      });
-    });
-    // Typeform envía un postMessage con type que incluye "submit" cuando el
-    // visitante termina el formulario y elige horario — lo tratamos como la
-    // conversión real (no solo abrir el formulario).
-    window.addEventListener('message', function (event) {
-      if (typeof event.origin !== 'string' || !/^https:\/\/([a-z0-9-]+\.)*typeform\.com$/i.test(event.origin)) return;
-      var data = event.data;
-      if (data && typeof data === 'object' && typeof data.type === 'string' && data.type.indexOf('submit') !== -1) {
-        track('formulario_completado', { event_category: 'lead', page_path: location.pathname });
-      }
-    });
-  })();
-</script>
+</dialog>
 
 <script>
   const nav = document.getElementById('nav');

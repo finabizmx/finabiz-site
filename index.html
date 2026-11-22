@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="es-MX">
 <head>
+<meta http-equiv="Content-Security-Policy" content="base-uri 'none'; object-src 'none'" />
+<meta name="referrer" content="strict-origin-when-cross-origin" />
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-VDZXBBNES7"></script>
 <script>
@@ -205,28 +207,25 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
 <!-- Preconnect to Typeform so the popup opens faster on click -->
-<link rel="preconnect" href="https://embed.typeform.com" />
-<link rel="preconnect" href="https://form.typeform.com" crossorigin />
-<link rel="preconnect" href="https://api.typeform.com" />
-<script defer src="image-slot.js"></script>
 <style>
   :root {
-    --blue: #3F54B0;
+    --blue: #3E56AC;
     --blue-deep: #2A3B85;
-    --blue-ink: #1B2654;
+    --blue-ink: #1C2A5E;
     --blue-50: #F2F4FB;
     --blue-100: #E4E8F5;
-    --orange: #FF8C00;
+    --orange: #F28C28;
     --orange-soft: #FFE8CC;
     --orange-ink: #A85800; /* darker variant: passes WCAG AA on light backgrounds, --orange itself does not */
-    --ink: #15182B;
+    --ink: #1A2138;
     --muted: #5C627A;
     --line: #E6E5E0;
-    --paper: #FAFAF7;
+    --paper: #F5F6FA;
     --cream: #F4F1E9;
     --max: 1240px;
     --pad-x: clamp(20px, 4vw, 64px);
     --section-y: clamp(55px, 6.8vw, 96px);
+    --green: #76AB3E;
   }
 
   * { box-sizing: border-box; }
@@ -270,8 +269,9 @@
   button:focus-visible,
   summary:focus-visible,
   [tabindex]:focus-visible {
-    outline: 2px solid var(--orange);
-    outline-offset: 3px;
+    outline: 2px solid var(--blue-ink);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 2px #fff;
   }
 
   .eyebrow {
@@ -839,7 +839,7 @@
     color: inherit;
   }
   .svc:hover { background: var(--blue-50); }
-  .svc:focus-visible { outline: 2px solid var(--orange); outline-offset: -2px; }
+  .svc:focus-visible { outline: 2px solid var(--blue-ink); outline-offset: -2px; }
   .svc--static::after { display: none; }
   .svc .n {
     font-family: "IBM Plex Mono", monospace;
@@ -1255,7 +1255,7 @@
   }
   .faq-item summary::-webkit-details-marker { display: none; }
   .faq-item summary:hover { color: var(--blue); }
-  .faq-item summary:focus-visible { outline: 2px solid var(--orange); outline-offset: 4px; }
+  .faq-item summary:focus-visible { outline: 2px solid var(--blue-ink); outline-offset: 4px; }
   .faq-item summary::after {
     content: "+";
     position: absolute;
@@ -1311,7 +1311,7 @@
   .faq-group:first-child .faq-group-title { padding-top: 0; }
   .faq-group-title::-webkit-details-marker { display: none; }
   .faq-group-title:hover { color: var(--blue); }
-  .faq-group-title:focus-visible { outline: 2px solid var(--orange); outline-offset: 4px; }
+  .faq-group-title:focus-visible { outline: 2px solid var(--blue-ink); outline-offset: 4px; }
   .faq-group-title::after {
     content: "+";
     width: 22px;
@@ -1384,10 +1384,11 @@
     overflow: hidden;
   }
   .member.alt .avatar { background: var(--orange); }
-  .avatar image-slot {
+  .avatar img {
     width: 88px;
     height: 88px;
     display: block;
+    object-fit: cover;
   }
   .member .name {
     font-family: "Archivo", sans-serif;
@@ -1592,63 +1593,6 @@
 
   .footer-bottom a { display: inline-block; padding-block: 5px; }
 
-  /* ─── TYPEFORM OVERLAY ─── */
-  .tf-overlay {
-    position: fixed;
-    inset: 0;
-    margin: 0;
-    border: 0;
-    width: 100%;
-    height: 100%;
-    max-width: none;
-    max-height: none;
-    background: rgba(15, 17, 32, .78);
-    backdrop-filter: blur(2px);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: clamp(12px, 4vw, 40px);
-  }
-  .tf-overlay[open] { display: flex; }
-  .tf-overlay::backdrop { background: transparent; }
-  .tf-overlay-panel {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    max-width: 1100px;
-    background: #fff;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 40px 100px -20px rgba(0,0,0,.5);
-  }
-  .tf-overlay-panel { display: flex; flex-direction: column; }
-  .tf-overlay-toolbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 4px 12px;
-    gap: 12px;
-  }
-  .tf-overlay-toolbar a { color: var(--blue-ink); text-decoration: underline; }
-  .tf-overlay-widget { flex: 1; min-height: 0; }
-  .tf-overlay-close {
-    flex-shrink: 0;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    border: none;
-    background: #fff;
-    color: var(--blue-ink);
-    font-size: 22px;
-    line-height: 1;
-    cursor: pointer;
-    display: grid;
-    place-items: center;
-    box-shadow: 0 6px 20px -4px rgba(0,0,0,.4);
-    transition: background .15s, transform .15s;
-  }
-  .tf-overlay-close:hover { background: var(--orange-soft); transform: scale(1.06); }
-
   /* ─── FLOATING CTA ─── */
   .float-cta {
     position: fixed;
@@ -1695,48 +1639,9 @@
   .whatsapp-cta:hover { opacity: 1; transform: translateY(-2px) scale(1.05); box-shadow: 0 10px 22px -8px rgba(37,211,102,.6); }
   .whatsapp-cta svg { width: 20px; height: 20px; display: block; }
 
-  /* ─── MARQUEE / TICKER ─── */
-  .marquee {
-    background: var(--blue);
-    color: #fff;
-    overflow: hidden;
-    border-top: 1px solid rgba(255,255,255,.12);
-    border-bottom: 1px solid rgba(255,255,255,.12);
-  }
-  .marquee-track {
-    display: flex;
-    gap: 56px;
-    padding: 22px 0;
-    animation: marquee 36s linear infinite;
-    width: max-content;
-  }
-  .marquee:hover .marquee-track { animation-play-state: paused; }
-  .marquee-track span {
-    font-family: "Archivo", sans-serif;
-    font-weight: 500;
-    font-size: clamp(20px, 2.4vw, 32px);
-    letter-spacing: -.01em;
-    color: #fff;
-    white-space: nowrap;
-    display: inline-flex;
-    align-items: center;
-    gap: 56px;
-  }
-  .marquee-track span::after {
-    content: "●";
-    color: var(--orange);
-    font-size: .6em;
-    margin-left: 56px;
-  }
-  @keyframes marquee {
-    from { transform: translateX(0); }
-    to   { transform: translateX(-50%); }
-  }
-
   @media (prefers-reduced-motion: reduce) {
     .hero h1.display .word::after { animation: none; transform: scaleX(1); }
-    .marquee-track { animation: none; }
-    #scroll-progress,
+    #scroll-progress { display: none; }
     .hero-orb-1, .hero-orb-2, .hero-orb-3,
     .btn-primary, .float-cta.show,
     .word-shine, .cta-final, .insignia {
@@ -2043,16 +1948,6 @@
   .insignia::before { display: none; } /* remove old blur orb, handled by animation */
 
   /* Marquee enhanced */
-  .marquee {
-    background: linear-gradient(90deg, var(--blue-deep) 0%, var(--blue) 50%, var(--blue-deep) 100%);
-    border-top: 1px solid rgba(255,255,255,.14);
-    border-bottom: 1px solid rgba(255,255,255,.14);
-    overflow: hidden;
-  }
-  .marquee-track {
-    animation: marquee 36s linear infinite !important;
-    width: max-content !important;
-  }
 
   /* Footer accent border */
   .footer { border-top: 1px solid rgba(255,140,0,.35) !important; }
@@ -2172,7 +2067,7 @@
 }
 .service-entry-card--clarity { background:linear-gradient(145deg,#1C2A5E 0%,#3E56AC 100%); color:#fff; }
 .service-entry-card:hover { transform:translateY(-4px); box-shadow:0 24px 52px rgba(28,42,94,.15); border-color:rgba(62,86,172,.4); }
-.service-entry-card:focus-visible { outline:3px solid #F28C28; outline-offset:4px; }
+.service-entry-card:focus-visible { outline:3px solid var(--blue-ink); outline-offset:4px; }
 .service-entry-kicker { font:600 11px/1.4 "IBM Plex Mono",monospace; letter-spacing:.07em; text-transform:uppercase; color:#3E56AC; }
 .service-entry-card--clarity .service-entry-kicker { color:#F7AD62; }
 .service-entry-title { font:600 clamp(25px,2.8vw,36px)/1.12 "Archivo",sans-serif; letter-spacing:-.035em; max-width:440px; }
@@ -2207,7 +2102,7 @@
 @media(prefers-reduced-motion:reduce) { .sample-card { transition:none; } }
 
 
-.sample-tabs{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 12px}.sample-tab{font:600 14px "IBM Plex Sans",sans-serif;color:#1C2A5E;background:#fff;border:1px solid #ccd5ea;border-radius:999px;padding:12px 18px;min-height:46px;cursor:pointer}.sample-tab.is-active{color:#fff;background:#3E56AC;border-color:#3E56AC}.sample-tab:focus-visible{outline:3px solid #F28C28;outline-offset:3px}.sample-instruction{font:400 14px "IBM Plex Sans",sans-serif;color:#5C627A;margin:0 0 22px}.samples-grid.is-interactive{grid-template-columns:minmax(0,1fr);max-width:800px;margin-inline:auto}.samples-grid.is-interactive>.sample-card{display:none}.samples-grid.is-interactive>.sample-card.is-active{display:block}@media(max-width:600px){.sample-tabs{display:grid;grid-template-columns:1fr 1fr}.sample-tab{padding:12px 10px}.sample-tab:last-child{grid-column:1/-1}}
+.sample-tabs{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 12px}.sample-tab{font:600 14px "IBM Plex Sans",sans-serif;color:#1C2A5E;background:#fff;border:1px solid #ccd5ea;border-radius:999px;padding:12px 18px;min-height:46px;cursor:pointer}.sample-tab.is-active{color:#fff;background:#3E56AC;border-color:#3E56AC}.sample-tab:focus-visible{outline:3px solid var(--blue-ink);outline-offset:3px}.sample-instruction{font:400 14px "IBM Plex Sans",sans-serif;color:#5C627A;margin:0 0 22px}.samples-grid.is-interactive{grid-template-columns:minmax(0,1fr);max-width:800px;margin-inline:auto}.samples-grid.is-interactive>.sample-card{display:none}.samples-grid.is-interactive>.sample-card.is-active{display:block}@media(max-width:600px){.sample-tabs{display:grid;grid-template-columns:1fr 1fr}.sample-tab{padding:12px 10px}.sample-tab:last-child{grid-column:1/-1}}
 
 /* Finabiz homepage experience refresh: calm editorial rhythm and clear service journey */
 html{scroll-padding-top:90px}
@@ -2239,7 +2134,6 @@ html{scroll-padding-top:90px}
 #servicios .svc p{line-height:1.65}
 .hero .hero-subtitle{max-width:650px}
 .hero .hero-cta-row{flex-wrap:wrap}
-.marquee{display:none}
 #propuesta .puv-grid .puv{transition:transform .2s ease}
 #propuesta .puv-grid .puv:hover{transform:translateY(-2px)}
 @media(max-width:767px){
@@ -2309,8 +2203,7 @@ body{background:#fff}
 .hero .hero-bg{background:linear-gradient(135deg,#1c2a5e 0%,#273c83 100%)}
 .hero .hero-bg::before{opacity:.1}
 .hero .hero-grain,.hero .hero-orb{display:none!important}
-#servicios .service-entry-card:focus-visible,#servicios .svc:focus-visible{outline:3px solid #f28c28;outline-offset:3px}
-#ejemplos .sample-tab:focus-visible{outline:3px solid #f28c28;outline-offset:3px}
+#servicios .service-entry-card:focus-visible,#servicios .svc:focus-visible{outline:3px solid var(--blue-ink);outline-offset:3px}
 @media(max-width:767px){
 .nav-links a{min-height:44px;display:flex;align-items:center}
 .hero .hero-cta-row{gap:10px}
@@ -2320,7 +2213,6 @@ body{background:#fff}
 
 
 /* Homepage v4 — purposeful hierarchy, progressive disclosure, stronger mobile rhythm */
-:root{--blue:#3E56AC;--blue-ink:#1C2A5E;--orange:#F28C28;--paper:#F5F6FA}
 html{scroll-behavior:smooth}
 body{font-family:"IBM Plex Sans",sans-serif}
 .home-proof{background:#fff;border-bottom:1px solid #e7ebf3}
@@ -2345,7 +2237,7 @@ body{font-family:"IBM Plex Sans",sans-serif}
 #servicios details[open] .route-toggle:before{content:"−"}
 #servicios details[open] .route-toggle{background:#1c2a5e;color:#fff}
 #servicios .route-head:hover .route-t{color:#3e56ac}
-#servicios .route-head:focus-visible{outline:3px solid #f28c28;outline-offset:4px}
+#servicios .route-head:focus-visible{outline:3px solid var(--blue-ink);outline-offset:4px}
 #servicios .route-disclosure .svc-grid{padding-bottom:36px}
 #servicios .svc{min-height:0}
 #servicios .svc p{font-size:13.5px}
@@ -2374,30 +2266,10 @@ body{font-family:"IBM Plex Sans",sans-serif}
 
 
 /* Finabiz visual system v5 — editorial financial storytelling */
-:root{--blue:#3E56AC;--orange:#F28C28;--green:#76AB3E;--blue-ink:#1C2A5E;--paper:#F5F6FA;--ink:#1A2138}
 .hero{background:#1c2a5e;padding-top:clamp(82px,8vw,120px);padding-bottom:clamp(54px,6vw,86px)}
 .hero>.wrap{max-width:1180px}
 .hero h1.display{max-width:940px;font-size:clamp(44px,6.6vw,94px);letter-spacing:-.065em;line-height:1.025}
 .hero .hero-subtitle{font-size:clamp(17px,1.7vw,20px);max-width:660px;line-height:1.65}
-.hero-preview{margin-top:clamp(55px,7vw,100px);background:#fff;border:1px solid rgba(255,255,255,.16);color:#1c2a5e;border-radius:18px;overflow:hidden;box-shadow:0 30px 70px rgba(6,16,49,.18)}
-.hero-preview-top{display:flex;justify-content:space-between;gap:16px;align-items:center;padding:17px clamp(20px,3vw,36px);border-bottom:1px solid #e6ebf3}
-.hero-preview-eyebrow,.hero-preview-dot{font:600 10px/1.5 "IBM Plex Mono",monospace;letter-spacing:.09em;color:#66728b}
-.hero-preview-dot{letter-spacing:0;color:#67748a}
-.hero-preview-body{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr)}
-.hero-preview-main{padding:clamp(25px,4vw,48px);display:flex;flex-direction:column;align-items:flex-start;justify-content:center;background:#f6f8fc}
-.hero-preview-label{font:600 11px/1.5 "IBM Plex Mono",monospace;letter-spacing:.07em;color:#3e56ac;text-transform:uppercase;margin-bottom:18px}
-.hero-preview-main strong{font:600 clamp(26px,3.2vw,42px)/1.12 "Archivo",sans-serif;letter-spacing:-.045em;max-width:440px}
-.hero-preview-main p{font:400 15px/1.7 "IBM Plex Sans",sans-serif;color:#53617b;max-width:390px;margin:18px 0 0}
-.hero-preview-metrics{padding:clamp(20px,3vw,36px);display:flex;flex-direction:column;justify-content:center}
-.hero-preview-metrics>div{display:flex;align-items:baseline;justify-content:space-between;gap:16px;border-bottom:1px solid #e6ebf3;padding:18px 0}
-.hero-preview-metrics>div:first-child{padding-top:0}
-.hero-preview-metrics>div:last-child{border-bottom:0;padding-bottom:0}
-.hero-preview-metrics span{font:600 10px/1.4 "IBM Plex Mono",monospace;color:#64718b;letter-spacing:.04em}
-.hero-preview-metrics strong{font:600 clamp(20px,2.3vw,29px)/1 "IBM Plex Mono",monospace;letter-spacing:-.06em;white-space:nowrap}
-.hero-preview-metrics .hero-preview-net{background:#eaf1df;border-radius:9px;padding:15px;margin-top:10px}
-.hero-preview-metrics .hero-preview-net strong{color:#426a19}
-.hero-preview-foot{margin:0;padding:14px clamp(20px,3vw,36px);font:400 11px/1.65 "IBM Plex Sans",sans-serif;color:#64718b;border-top:1px solid #e6ebf3}
-.hero-preview-foot a{color:#3e56ac;font-weight:600;text-decoration:underline;text-underline-offset:3px}
 #ejemplos{background:#f5f6fa}
 #ejemplos .section-head{margin-bottom:28px}
 .example-intro{display:flex;justify-content:space-between;align-items:start;gap:25px;border-top:1px solid #dce3ef;padding:22px 0 28px}
@@ -2415,17 +2287,6 @@ body{font-family:"IBM Plex Sans",sans-serif}
 #servicios .route-disclosure .route-t{letter-spacing:-.04em}
 @media(max-width:767px){
 .hero h1.display{font-size:clamp(41px,10.7vw,60px)}
-.hero-preview{margin-top:48px;border-radius:12px}
-.hero-preview-top{padding:13px 16px}
-.hero-preview-body{grid-template-columns:1fr}
-.hero-preview-main{padding:24px 20px}
-.hero-preview-main strong{font-size:28px}
-.hero-preview-main p{font-size:14px;margin-top:12px}
-.hero-preview-metrics{padding:10px 20px 20px}
-.hero-preview-metrics>div{padding:13px 0}
-.hero-preview-metrics strong{font-size:20px}
-.hero-preview-metrics span{font-size:9px}
-.hero-preview-foot{padding:13px 18px}
 .example-intro{display:block;padding:18px 0 22px}
 .example-intro p{margin-top:9px;font-size:14px}
 #ejemplos .sample-tabs{grid-template-columns:1fr;gap:7px}
@@ -2439,15 +2300,9 @@ body{font-family:"IBM Plex Sans",sans-serif}
 #ejemplos .sample-tabs[hidden],
 #ejemplos .sample-instruction[hidden] { display: none; }
 #ejemplos .sample-tab[aria-pressed="true"]{box-shadow:inset 0 -3px 0 #f28c28}
-#ejemplos .sample-tab:focus-visible,.nav-burger:focus-visible,.js-tf-cta:focus-visible{outline:3px solid #f28c28;outline-offset:3px}
-.hero-preview-metrics>div{min-width:0}
-.hero-preview-metrics strong{font-variant-numeric:tabular-nums}
+#ejemplos .sample-tab:focus-visible{outline:3px solid var(--blue-ink);outline-offset:3px}
+.nav-burger:focus-visible{outline:3px solid #fff;outline-offset:3px}
 @media(max-width:390px){
-.hero-preview-metrics>div{gap:8px}
-.hero-preview-metrics strong{font-size:clamp(15px,5vw,20px)}
-.hero-preview-metrics span{max-width:47%;font-size:9px}
-.hero-preview-top{gap:8px}
-.hero-preview-eyebrow,.hero-preview-dot{font-size:9px}
 #ejemplos .mock-table{font-size:11px}
 #ejemplos .sample-mock{overflow-x:auto}
 }
@@ -2479,6 +2334,8 @@ body{font-family:"IBM Plex Sans",sans-serif}
     }
   </style>
 </noscript>
+<link rel="stylesheet" href="assets/booking.css" />
+<script defer src="assets/booking.js"></script>
 </head>
 <body>
 
@@ -2545,25 +2402,7 @@ body{font-family:"IBM Plex Sans",sans-serif}
     </div>
   </div>
 </section>
-<div class="home-proof" aria-label="Nuestro enfoque"><div class="wrap home-proof-inner"><span>Impuestos con anticipación</span><span>Utilidad real</span><span>Decisiones con datos</span></div></div>
-
-<!-- ═══════════ MARQUEE ═══════════ -->
-<div class="marquee" aria-hidden="true">
-  <div class="marquee-track">
-    <span>Claridad fiscal</span>
-    <span>Certeza financiera</span>
-    <span>Crecimiento real</span>
-    <span>Anticipación proactiva</span>
-    <span>Utilidad real</span>
-    <span>Equipo dedicado</span>
-    <span>Claridad fiscal</span>
-    <span>Certeza financiera</span>
-    <span>Crecimiento real</span>
-    <span>Anticipación proactiva</span>
-    <span>Utilidad real</span>
-    <span>Equipo dedicado</span>
-  </div>
-</div>
+<div class="home-proof" role="group" aria-label="Nuestro enfoque"><div class="wrap home-proof-inner"><span>Impuestos con anticipación</span><span>Utilidad real</span><span>Decisiones con datos</span></div></div>
 
 <!-- ═══════════ SERVICIOS ═══════════ -->
 <section id="servicios" class="services">
@@ -2577,7 +2416,7 @@ body{font-family:"IBM Plex Sans",sans-serif}
     </div>
 
     <p class="service-step-label">01 / Elige tu situación</p>
-    <div class="service-entry" aria-label="Elige por dónde comenzar">
+    <div class="service-entry" role="group" aria-label="Elige por dónde comenzar">
       <a class="service-entry-card" href="#ruta-cumplimiento" data-open-area="ruta-cumplimiento">
         <span class="service-entry-kicker">Tengo pendientes fiscales</span>
         <span class="service-entry-title">Necesito ponerme al corriente</span>
@@ -3009,7 +2848,7 @@ body{font-family:"IBM Plex Sans",sans-serif}
 
     <div class="team-grid">
       <article class="member">
-        <div class="avatar"><image-slot id="team-web-vp" shape="circle" placeholder="VP"></image-slot></div>
+        <div class="avatar"><img src="assets/victor-perez.webp" alt="" width="88" height="88" loading="lazy" decoding="async" /></div>
         <div class="name">Víctor Pérez</div>
         <div class="role">Director General <span>· Co-fundador</span></div>
         <div class="cred">Contador Público Auditor · Fiscal y financiera para eCommerce</div>
@@ -3021,7 +2860,7 @@ body{font-family:"IBM Plex Sans",sans-serif}
         </a>
       </article>
       <article class="member alt">
-        <div class="avatar"><image-slot id="team-web-pt" shape="circle" placeholder="PT"></image-slot></div>
+        <div class="avatar"><img src="assets/pedro-torres.webp" alt="" width="88" height="88" loading="lazy" decoding="async" /></div>
         <div class="name">Pedro Torres</div>
         <div class="role">Director de Operaciones <span>· Co-fundador</span></div>
         <div class="cred">Contador Público Auditor</div>
@@ -3029,7 +2868,7 @@ body{font-family:"IBM Plex Sans",sans-serif}
         <p>Responsable de la ejecución, la calidad del servicio y el cumplimiento fiscal de cada cliente. Vela por que cada declaración se presente a tiempo, con un historial de cumplimiento puntual.</p>
       </article>
       <article class="member">
-        <div class="avatar"><image-slot id="team-web-sp" shape="circle" placeholder="SP"></image-slot></div>
+        <div class="avatar"><img src="assets/samuel-perez.webp" alt="" width="88" height="88" loading="lazy" decoding="async" /></div>
         <div class="name">Samuel Pintos</div>
         <div class="role">Colaborador comercial</div>
         <div class="cred">Contador Público Auditor</div>
@@ -3228,171 +3067,10 @@ body{font-family:"IBM Plex Sans",sans-serif}
       <a href="https://form.typeform.com/to/ykt2ayIi">Abrir formulario directamente</a>
       <button type="button" class="tf-overlay-close" id="tfOverlayClose" aria-label="Cerrar formulario" autofocus>&times;</button>
     </div>
+    <p class="tf-overlay-status" id="tfOverlayStatus" role="status" hidden></p>
     <div class="tf-overlay-widget" id="tfOverlayWidget"></div>
   </div>
 </dialog>
-
-<script>
-/* Atribución no identificable: conserva UTMs de la primera entrada durante la sesión. */
-(function () {
-  var keys = ['utm_source', 'utm_medium', 'utm_campaign'];
-  var params = new URLSearchParams(window.location.search);
-  var saved = {};
-  try { saved = JSON.parse(sessionStorage.getItem('finabiz_attribution_v1') || '{}') || {}; } catch (_) {}
-  keys.forEach(function (key) {
-    var value = params.get(key);
-    if (value && !saved[key]) saved[key] = value.slice(0, 120);
-  });
-  // Referrer externo como respaldo cuando el visitante no trae UTMs.
-  // No almacenar URL de referencia completa ni datos personales.
-  if (!saved.utm_source) {
-    var sourceHost = '';
-    try { sourceHost = new URL(document.referrer).hostname.toLowerCase(); } catch (_) {}
-    var knownSources = [
-      [/^(chatgpt\.com|chat\.openai\.com)$/, 'chatgpt'],
-      [/^(www\.)?perplexity\.ai$/, 'perplexity'],
-      [/^(gemini\.google\.com)$/, 'gemini'],
-      [/^(www\.)?google\.[a-z.]+$/, 'google'],
-      [/^(www\.)?bing\.com$/, 'bing']
-    ];
-    knownSources.some(function (entry) {
-      if (entry[0].test(sourceHost)) {
-        saved.utm_source = entry[1];
-        if (!saved.utm_medium) saved.utm_medium = 'referral';
-        return true;
-      }
-      return false;
-    });
-  }
-  if (!saved.landing_page) saved.landing_page = window.location.pathname.slice(0, 200);
-  try { sessionStorage.setItem('finabiz_attribution_v1', JSON.stringify(saved)); } catch (_) {}
-  window.finabizAttribution = {
-    hidden: keys.concat(['landing_page']).map(function (key) {
-      return key + '=' + encodeURIComponent(saved[key] || '');
-    }).join(','),
-    query: function () {
-      var q = new URLSearchParams();
-      keys.concat(['landing_page']).forEach(function (key) { if (saved[key]) q.set(key, saved[key]); });
-      return q.toString();
-    }
-  };
-  document.addEventListener('DOMContentLoaded', function () {
-    document.querySelectorAll('a[href*="form.typeform.com/to/ykt2ayIi"]').forEach(function (link) {
-      var url = new URL(link.href);
-      var q = new URLSearchParams(window.finabizAttribution.query());
-      q.forEach(function (value, key) { url.searchParams.set(key, value); });
-      link.href = url.toString();
-    });
-  });
-})();
-</script>
-<!-- ═══════════ TYPEFORM EMBED ═══════════ -->
-<script defer src="https://embed.typeform.com/next/embed.js"></script>
-<script>
-  (function () {
-    var overlay = document.getElementById('tfOverlay');
-    var widgetHost = document.getElementById('tfOverlayWidget');
-    var closeBtn = document.getElementById('tfOverlayClose');
-    var loaded = false;
-    var previousOverflow = '';
-
-    function mount() {
-      if (loaded) return;
-      var widget = document.createElement('div');
-      widget.setAttribute('data-tf-widget', 'ykt2ayIi');
-      widget.setAttribute('data-tf-hidden', window.finabizAttribution ? window.finabizAttribution.hidden : '');
-      widget.setAttribute('data-tf-opacity', '100');
-      widget.setAttribute('data-tf-iframe-props', 'title=Formulario previo a tu llamada de orientación');
-      widget.style.width = '100%';
-      widget.style.height = '100%';
-      widgetHost.appendChild(widget);
-      try {
-        window.tf.load();
-        loaded = true;
-      } catch (error) {
-        widget.remove();
-        throw error;
-      }
-    }
-
-    document.querySelectorAll('.js-tf-cta').forEach(function (link) {
-      link.addEventListener('click', function (event) {
-        if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-        if (!window.tf || typeof window.tf.load !== 'function' || typeof overlay.showModal !== 'function') return;
-        try {
-          mount();
-          history.pushState({ tfOverlay: true }, '', location.href);
-        } catch {
-          return;
-        }
-        previousOverflow = document.body.style.overflow;
-        overlay.showModal();
-        document.body.classList.add('tf-open');
-        document.body.style.overflow = 'hidden';
-        event.preventDefault();
-      });
-    });
-
-    function close() {
-      if (!overlay.open) return;
-      overlay.close();
-      document.body.classList.remove('tf-open');
-      document.body.style.overflow = previousOverflow;
-    }
-
-    function dismiss() {
-      close();
-      if (history.state && history.state.tfOverlay) history.back();
-    }
-
-    closeBtn.addEventListener('click', dismiss);
-    overlay.addEventListener('click', function (event) { if (event.target === overlay) dismiss(); });
-    overlay.addEventListener('cancel', function (event) {
-      event.preventDefault();
-      dismiss();
-    });
-    window.addEventListener('popstate', close);
-  })();
-</script>
-
-<!-- ═══════════ SEGUIMIENTO DE CONVERSIÓN (GA4) ═══════════ -->
-<script>
-  (function () {
-    function track(name, params) {
-      if (typeof gtag === 'function') gtag('event', name, params || {});
-    }
-    document.querySelectorAll('.js-tf-cta').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        track('click_agendar_llamada', {
-          event_category: 'conversion',
-          event_label: btn.className,
-          page_path: location.pathname
-        });
-      });
-    });
-    document.querySelectorAll('a[href*="wa.me"]').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        track('click_whatsapp', {
-          event_category: 'engagement',
-          event_label: btn.className || 'whatsapp-link',
-          page_path: location.pathname
-        });
-      });
-    });
-    // La señal de envío de Typeform NO confirma una reserva de Calendly.
-    // Medimos formulario completado por separado; llamada_agendada se debe
-    // emitir exclusivamente tras confirmar la cita desde Calendly/CRM.
-    window.addEventListener('message', function (event) {
-      if (typeof event.origin !== 'string' || !/^https:\/\/([a-z0-9-]+\.)*typeform\.com$/i.test(event.origin)) return;
-      var data = event.data;
-      if (data && typeof data === 'object' && typeof data.type === 'string' && data.type.indexOf('submit') !== -1) {
-        track('formulario_completado', { event_category: 'lead', page_path: location.pathname });
-      }
-    });
-  })();
-</script>
-
-
 
 <script>
   // Nav shadow on scroll + floating CTA appear after hero
