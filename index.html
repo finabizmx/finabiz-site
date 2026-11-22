@@ -2263,6 +2263,48 @@ html{scroll-padding-top:90px}
 }
 @media(prefers-reduced-motion:reduce){#servicios .svc,#propuesta .puv-grid .puv{transition:none}}
 
+
+/* Homepage v2: clearer hierarchy, less visual noise, intentional pacing */
+body{background:#fff}
+.hero{padding:clamp(82px,10vw,150px) 0 clamp(70px,8vw,110px);background:#1c2a5e}
+.hero canvas,.hero .hero-bg canvas{display:none!important}
+.hero .hero-bg{background:radial-gradient(ellipse 65% 70% at 86% 15%,rgba(62,86,172,.42),transparent 75%),linear-gradient(145deg,#1c2a5e,#253873)}
+.hero .hero-bg::before{opacity:.18;background-size:72px 72px}
+.hero h1.display{max-width:1000px;font-size:clamp(47px,7.2vw,102px);line-height:1.02;letter-spacing:-.058em}
+.hero .hero-subtitle{font-size:clamp(17px,1.8vw,20px);line-height:1.65;max-width:620px}
+.hero .hero-pillars{display:none}
+.hero .hero-trustline{opacity:.7}
+#servicios{padding-top:clamp(76px,9vw,128px)}
+#servicios .service-entry{margin-bottom:clamp(50px,6vw,84px)}
+#sistema .section-head .lede{max-width:490px}
+#ejemplos{background:#fff;padding-block:clamp(72px,8vw,120px)}
+#ejemplos .section-head{margin-bottom:30px}
+#ejemplos .section-head .display{font-size:clamp(36px,5vw,64px);letter-spacing:-.05em;line-height:1.05}
+#ejemplos .sample-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+#ejemplos .sample-tab{border-radius:10px;background:#f4f6fb;border-color:transparent;min-height:48px;padding:12px 20px}
+#ejemplos .sample-tab.is-active{background:#1c2a5e;color:#fff}
+#ejemplos .samples-grid.is-interactive{max-width:950px}
+#ejemplos .sample-card{border-radius:16px;box-shadow:none;background:#fff;padding:clamp(20px,3vw,36px)}
+#ejemplos .sample-card:hover{transform:none;box-shadow:none}
+#ejemplos .sample-mock{background:#f7f9fd}
+#quienes,#propuesta{padding-block:clamp(64px,7vw,100px)}
+#quienes .section-head .display,#propuesta .section-head .display{font-size:clamp(33px,4.5vw,56px);letter-spacing:-.045em}
+#quienes .who-grid{align-items:start}
+#propuesta .puv-grid .puv:hover{transform:none}
+#por-que .why:hover,.phase:hover,.member:hover{transform:none}
+@media(max-width:767px){
+.hero{padding:76px 0 70px}
+.hero h1.display{font-size:clamp(44px,11vw,64px);line-height:1.04}
+.hero .hero-subtitle{font-size:17px}
+.hero .hero-trustline{line-height:1.6}
+#ejemplos .sample-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
+#ejemplos .sample-tab{font-size:12px;padding:10px 5px;min-height:46px}
+#ejemplos .sample-tab:last-child{grid-column:auto}
+#ejemplos .sample-card{padding:20px 16px}
+#ejemplos .sample-mock{padding:12px}
+#quienes .who-grid{grid-template-columns:1fr}
+}
+
 </style>
 </head>
 <body>
@@ -2318,12 +2360,12 @@ html{scroll-padding-top:90px}
     </p>
     <div class="hero-cta-row reveal">
       <a href="https://form.typeform.com/to/ykt2ayIi" class="btn btn-primary js-tf-cta">
-        Agenda una llamada de orientación gratuita de 30 min
+        Agenda una orientación gratuita · 30 min
         <span class="arrow">→</span>
       </a>
       <a href="#servicios" class="btn btn-secondary">Explora nuestros servicios</a>
     </div>
-    <p class="hero-microcopy reveal">Revisaremos tu situación actual, tus principales riesgos y si Finabiz es adecuado para tu negocio. Sin compromiso.</p>
+    <p class="hero-microcopy reveal">Conversemos sobre tu situación y si podemos ayudarte. Sin compromiso.</p>
     <p class="hero-trustline reveal">Atención directa de los fundadores · Enfocados en negocios digitales y eCommerce en México</p>
 
     <div class="hero-pillars">
@@ -2363,124 +2405,6 @@ html{scroll-padding-top:90px}
     <span>Equipo dedicado</span>
   </div>
 </div>
-
-<!-- ═══════════ QUIÉNES SOMOS ═══════════ -->
-<section id="quienes" class="who">
-  <div class="wrap">
-    <div class="section-head">
-      <div>
-        <span class="eyebrow">Nuestra firma</span>
-        <h2 class="display">¿Quiénes somos?</h2>
-      </div>
-      <p class="lede">Firma de claridad fiscal y financiera para dueños de negocio que generan ingresos pero carecen de visibilidad real sobre su dinero.</p>
-    </div>
-
-    <div class="who-grid">
-      <div class="who-text">
-        <h3 class="display">Finabiz es una firma contable — pero no como las que conoces.</h3>
-        <p>Somos un <span class="hl">equipo de contadores públicos</span> especializado en negocios digitales y de eCommerce, con un método y sistemas propios de conciliación, reporting y proyección financiera — diseñados para dueños de negocio que generan ingresos pero carecen de visibilidad real sobre su dinero.</p>
-        <p>Unificamos contabilidad, fiscalidad y decisiones financieras en una <span class="hl">estructura clara y coherente</span>, para que tomes decisiones con certeza y control — sin depender de varios proveedores que no se comunican entre sí.</p>
-        <div class="pull">
-          "No tienes un problema de impuestos — tienes un problema de <span>visibilidad del dinero.</span>"
-        </div>
-
-        <div class="compare">
-          <div class="compare-row compare-head">
-            <span>Despacho tradicional</span>
-            <span>Finabiz</span>
-          </div>
-          <div class="compare-row">
-            <span>Reporta lo que ya sucedió</span>
-            <span>Proyecta lo que viene</span>
-          </div>
-          <div class="compare-row">
-            <span>Presenta declaraciones</span>
-            <span>Explica el impacto de los números</span>
-          </div>
-          <div class="compare-row">
-            <span>Información separada</span>
-            <span>Vista fiscal y financiera integrada</span>
-          </div>
-          <div class="compare-row">
-            <span>Contacto reactivo</span>
-            <span>Seguimiento mensual definido</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="stats">
-        <div class="stat">
-          <div class="num" data-count="3" data-suffix="+" id="stat-years">3<sup>+</sup></div>
-          <div>
-            <strong>Años de Finabiz</strong>
-            <span>Construyendo estructura fiscal para negocios en crecimiento.</span>
-          </div>
-        </div>
-        <div class="stat">
-          <div class="num" data-count="20" data-suffix="+" id="stat-clients">20<sup>+</sup></div>
-          <div>
-            <strong>Negocios atendidos en distintos sectores</strong>
-            <span>Acompañamiento en contabilidad, cumplimiento y estructura fiscal.</span>
-          </div>
-        </div>
-        <div class="stat stat--stacked">
-          <div class="num text">Más de $350 mil MXN</div>
-          <div>
-            <strong>En posibles impactos fiscales y financieros identificados</strong>
-            <span>en revisiones realizadas entre 2023 y 2026.</span>
-          </div>
-        </div>
-        <div class="stat">
-          <div class="num orange" data-count="100" data-suffix="%" id="stat-ontime">100<span class="sm">%</span></div>
-          <div>
-            <strong>Historial de cumplimiento puntual</strong>
-            <span>Declaraciones presentadas en tiempo desde 2023, cuando recibimos la información completa dentro de los plazos acordados.</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════ PROPUESTA DE VALOR ═══════════ -->
-<section id="propuesta">
-  <div class="wrap">
-    <div class="section-head">
-      <div>
-        <span class="eyebrow">Propuesta única de valor</span>
-        <h2 class="display">Cuatro pilares para<br/>tomar decisiones con certeza.</h2>
-      </div>
-      <p class="lede">Lo que recibes con Finabiz no se reemplaza sumando contadores, abogados y asesores financieros sueltos.</p>
-    </div>
-
-    <div class="puv-grid">
-      <article class="puv">
-        <div class="corner"></div>
-        <div class="head"><span class="n">01</span><span class="t">Anticipación fiscal proactiva</span></div>
-        <p>Proyectamos y calculamos tus impuestos con anticipación, para reducir sorpresas fiscales. Planeación fiscal pensada para proteger tu patrimonio <strong>antes</strong> de que un problema crezca — no reaccionamos, anticipamos.</p>
-      </article>
-      <article class="puv">
-        <div class="corner"></div>
-        <div class="head"><span class="n">02</span><span class="t">Utilidad real — no solo ingresos</span></div>
-        <p>Te mostramos cuánto ganas después de impuestos, gastos y provisiones, para que sepas cuánto puedes reinvertir con más seguridad. Decisiones basadas en números reales.</p>
-      </article>
-      <article class="puv">
-        <div class="corner"></div>
-        <div class="head"><span class="n">03</span><span class="t">Un solo equipo para decidir</span></div>
-        <p>Contabilidad, fiscal y finanzas en una sola estructura coherente. Un punto de control único: lo que entra, lo que sale, lo que debes, lo que puedes gastar. Tu negocio tiene por fin una columna vertebral financiera.</p>
-      </article>
-      <article class="puv">
-        <div class="corner"></div>
-        <div class="head"><span class="n">04</span><span class="t">Automatización aplicada al control financiero</span></div>
-        <p>Reducimos tareas manuales, centralizamos tu información financiera y detectamos inconsistencias con mayor rapidez — para que dediques tu tiempo a decidir, no a organizar papeles.</p>
-      </article>
-    </div>
-
-    <p class="puv-foot">
-      Tú te enfocas en crecer. <span>Nosotros, en que no pagues más de lo que corresponde.</span>
-    </p>
-  </div>
-</section>
 
 <!-- ═══════════ SERVICIOS ═══════════ -->
 <section id="servicios" class="services">
@@ -2663,13 +2587,13 @@ html{scroll-padding-top:90px}
     <div class="section-head">
       <div>
         <span class="eyebrow">Antes de contratar</span>
-        <h2 class="display">Entregables que puedes<br/>ver antes de contratar.</h2>
+        <h2 class="display">Así se ve la claridad<br/>en tus números.</h2>
       </div>
-      <p class="lede">Conoce ejemplos de los entregables que utilizamos para ordenar la situación fiscal, proyectar impuestos y calcular la utilidad real de un negocio digital.</p>
+      <p class="lede">Explora tres vistas ilustrativas: obligaciones, utilidad y proyección. Datos simulados, no resultados de clientes.</p>
     </div>
 
     <div class="sample-tabs" role="group" aria-label="Explorar ejemplos de entregables"><button type="button" class="sample-tab is-active" data-sample="0" aria-pressed="true">Mapa fiscal</button><button type="button" class="sample-tab" data-sample="1" aria-pressed="false">Panel de utilidad</button><button type="button" class="sample-tab" data-sample="2" aria-pressed="false">Proyección</button></div>
-    <p class="sample-instruction">Selecciona un entregable para explorar su ejemplo. Todos los datos son simulados.</p>
+    <p class="sample-instruction">Selecciona una vista. Ejemplos ilustrativos con datos simulados.</p>
     <div class="samples-grid">
       <div class="sample-card">
         <span class="sample-badge">Datos simulados</span>
@@ -2743,6 +2667,124 @@ html{scroll-padding-top:90px}
         <p class="samples-cta-note">11 páginas · datos simulados</p>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ═══════════ QUIÉNES SOMOS ═══════════ -->
+<section id="quienes" class="who">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Nuestra firma</span>
+        <h2 class="display">¿Quiénes somos?</h2>
+      </div>
+      <p class="lede">Firma de claridad fiscal y financiera para dueños de negocio que generan ingresos pero carecen de visibilidad real sobre su dinero.</p>
+    </div>
+
+    <div class="who-grid">
+      <div class="who-text">
+        <h3 class="display">Finabiz es una firma contable — pero no como las que conoces.</h3>
+        <p>Somos un <span class="hl">equipo de contadores públicos</span> especializado en negocios digitales y de eCommerce, con un método y sistemas propios de conciliación, reporting y proyección financiera — diseñados para dueños de negocio que generan ingresos pero carecen de visibilidad real sobre su dinero.</p>
+        <p>Unificamos contabilidad, fiscalidad y decisiones financieras en una <span class="hl">estructura clara y coherente</span>, para que tomes decisiones con certeza y control — sin depender de varios proveedores que no se comunican entre sí.</p>
+        <div class="pull">
+          "No tienes un problema de impuestos — tienes un problema de <span>visibilidad del dinero.</span>"
+        </div>
+
+        <div class="compare">
+          <div class="compare-row compare-head">
+            <span>Despacho tradicional</span>
+            <span>Finabiz</span>
+          </div>
+          <div class="compare-row">
+            <span>Reporta lo que ya sucedió</span>
+            <span>Proyecta lo que viene</span>
+          </div>
+          <div class="compare-row">
+            <span>Presenta declaraciones</span>
+            <span>Explica el impacto de los números</span>
+          </div>
+          <div class="compare-row">
+            <span>Información separada</span>
+            <span>Vista fiscal y financiera integrada</span>
+          </div>
+          <div class="compare-row">
+            <span>Contacto reactivo</span>
+            <span>Seguimiento mensual definido</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <div class="num" data-count="3" data-suffix="+" id="stat-years">3<sup>+</sup></div>
+          <div>
+            <strong>Años de Finabiz</strong>
+            <span>Construyendo estructura fiscal para negocios en crecimiento.</span>
+          </div>
+        </div>
+        <div class="stat">
+          <div class="num" data-count="20" data-suffix="+" id="stat-clients">20<sup>+</sup></div>
+          <div>
+            <strong>Negocios atendidos en distintos sectores</strong>
+            <span>Acompañamiento en contabilidad, cumplimiento y estructura fiscal.</span>
+          </div>
+        </div>
+        <div class="stat stat--stacked">
+          <div class="num text">Más de $350 mil MXN</div>
+          <div>
+            <strong>En posibles impactos fiscales y financieros identificados</strong>
+            <span>en revisiones realizadas entre 2023 y 2026.</span>
+          </div>
+        </div>
+        <div class="stat">
+          <div class="num orange" data-count="100" data-suffix="%" id="stat-ontime">100<span class="sm">%</span></div>
+          <div>
+            <strong>Historial de cumplimiento puntual</strong>
+            <span>Declaraciones presentadas en tiempo desde 2023, cuando recibimos la información completa dentro de los plazos acordados.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PROPUESTA DE VALOR ═══════════ -->
+<section id="propuesta">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Propuesta única de valor</span>
+        <h2 class="display">Cuatro pilares para<br/>tomar decisiones con certeza.</h2>
+      </div>
+      <p class="lede">Lo que recibes con Finabiz no se reemplaza sumando contadores, abogados y asesores financieros sueltos.</p>
+    </div>
+
+    <div class="puv-grid">
+      <article class="puv">
+        <div class="corner"></div>
+        <div class="head"><span class="n">01</span><span class="t">Anticipación fiscal proactiva</span></div>
+        <p>Proyectamos y calculamos tus impuestos con anticipación, para reducir sorpresas fiscales. Planeación fiscal pensada para proteger tu patrimonio <strong>antes</strong> de que un problema crezca — no reaccionamos, anticipamos.</p>
+      </article>
+      <article class="puv">
+        <div class="corner"></div>
+        <div class="head"><span class="n">02</span><span class="t">Utilidad real — no solo ingresos</span></div>
+        <p>Te mostramos cuánto ganas después de impuestos, gastos y provisiones, para que sepas cuánto puedes reinvertir con más seguridad. Decisiones basadas en números reales.</p>
+      </article>
+      <article class="puv">
+        <div class="corner"></div>
+        <div class="head"><span class="n">03</span><span class="t">Un solo equipo para decidir</span></div>
+        <p>Contabilidad, fiscal y finanzas en una sola estructura coherente. Un punto de control único: lo que entra, lo que sale, lo que debes, lo que puedes gastar. Tu negocio tiene por fin una columna vertebral financiera.</p>
+      </article>
+      <article class="puv">
+        <div class="corner"></div>
+        <div class="head"><span class="n">04</span><span class="t">Automatización aplicada al control financiero</span></div>
+        <p>Reducimos tareas manuales, centralizamos tu información financiera y detectamos inconsistencias con mayor rapidez — para que dediques tu tiempo a decidir, no a organizar papeles.</p>
+      </article>
+    </div>
+
+    <p class="puv-foot">
+      Tú te enfocas en crecer. <span>Nosotros, en que no pagues más de lo que corresponde.</span>
+    </p>
   </div>
 </section>
 
@@ -3622,23 +3664,6 @@ html{scroll-padding-top:90px}
 
   document.querySelectorAll('[data-count]').forEach(el => countObs.observe(el));
 
-  /* ── CARD 3D TILT ── */
-  function addTilt(selector, maxDeg) {
-    document.querySelectorAll(selector).forEach(card => {
-      card.addEventListener('mousemove', e => {
-        const r = card.getBoundingClientRect();
-        const rx = ((e.clientY - r.top  - r.height/2) / r.height) * -maxDeg;
-        const ry = ((e.clientX - r.left - r.width /2) / r.width ) *  maxDeg;
-        card.style.transform = `perspective(700px) translateY(-6px) rotateX(${rx}deg) rotateY(${ry}deg)`;
-      });
-      card.addEventListener('mouseleave', () => { card.style.transform = ''; });
-    });
-  }
-  addTilt('.puv',    10);
-  addTilt('.member',  8);
-  addTilt('.svc',     6);
-  addTilt('.phase',   7);
-  addTilt('.why',     5);
 </script>
 <script>
 (function(){const tabs=[...document.querySelectorAll('.sample-tab')];const grid=document.querySelector('#ejemplos .samples-grid');if(!grid||tabs.length!==3)return;const cards=[...grid.querySelectorAll(':scope > .sample-card')];if(cards.length!==3)return;function activate(index){tabs.forEach((t,i)=>{t.classList.toggle('is-active',i===index);t.setAttribute('aria-pressed',String(i===index))});cards.forEach((card,i)=>card.classList.toggle('is-active',i===index))}grid.classList.add('is-interactive');tabs.forEach((t,i)=>t.addEventListener('click',()=>activate(i)));activate(0)})();
