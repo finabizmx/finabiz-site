@@ -2320,6 +2320,60 @@ body{background:#fff}
 #servicios .service-entry-card{min-height:0}
 }
 
+
+/* Homepage v4 — purposeful hierarchy, progressive disclosure, stronger mobile rhythm */
+:root{--blue:#3E56AC;--blue-ink:#1C2A5E;--orange:#F28C28;--paper:#F5F6FA}
+html{scroll-behavior:smooth}
+body{font-family:"IBM Plex Sans",sans-serif}
+.home-proof{background:#fff;border-bottom:1px solid #e7ebf3}
+.home-proof-inner{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:24px 0}
+.home-proof-inner span{font:500 13px/1.4 "IBM Plex Sans",sans-serif;color:#1c2a5e;text-align:center;letter-spacing:.005em}
+.home-proof-inner span+span{border-left:1px solid #dce3ef}
+#servicios .section-head{margin-bottom:38px}
+#servicios .service-entry-card{overflow:hidden;min-height:230px}
+#servicios .service-entry-card:after{content:"↗";position:absolute;right:30px;top:24px;font-size:22px;opacity:.5}
+#servicios .service-entry-card--clarity:after{color:#fff}
+#servicios .service-entry-card .service-entry-action{font-size:14px;text-decoration:underline;text-underline-offset:5px}
+#servicios .service-catalog-head{margin-bottom:8px}
+#servicios .route-disclosure{border-top:1px solid #d8dfec;padding:0}
+#servicios .route-disclosure:last-child{border-bottom:1px solid #d8dfec}
+#servicios .route-disclosure .route-head{cursor:pointer;position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) 44px;gap:12px 24px;padding:30px 0;margin:0;align-items:center;list-style:none}
+#servicios .route-disclosure .route-head::-webkit-details-marker{display:none}
+#servicios .route-disclosure .route-n{grid-column:1/-1;margin:0}
+#servicios .route-disclosure .route-t{grid-column:1;grid-row:2}
+#servicios .route-disclosure .route-d{grid-column:2;grid-row:2}
+#servicios .route-toggle{grid-column:3;grid-row:2;width:40px;height:40px;display:grid;place-items:center;border-radius:50%;background:#e8edfa;color:#1c2a5e}
+#servicios .route-toggle:before{content:"+";font:400 27px/1 "IBM Plex Sans",sans-serif}
+#servicios details[open] .route-toggle:before{content:"−"}
+#servicios details[open] .route-toggle{background:#1c2a5e;color:#fff}
+#servicios .route-head:hover .route-t{color:#3e56ac}
+#servicios .route-head:focus-visible{outline:3px solid #f28c28;outline-offset:4px}
+#servicios .route-disclosure .svc-grid{padding-bottom:36px}
+#servicios .svc{min-height:0}
+#servicios .svc p{font-size:13.5px}
+#ejemplos .sample-tabs{max-width:800px}
+#ejemplos .sample-card{border:1px solid #e0e6f1}
+#faq .faq-list{max-width:950px;margin-inline:auto}
+#faq .faq-item{border-bottom:1px solid #e2e6ef}
+#faq .faq-item summary{min-height:60px;display:flex;align-items:center;line-height:1.5}
+#contacto .btn{min-height:52px}
+@media(max-width:767px){
+.home-proof-inner{grid-template-columns:1fr;gap:0;padding:12px 0}
+.home-proof-inner span{text-align:left;padding:11px 0;font-size:12px}
+.home-proof-inner span+span{border-left:0;border-top:1px solid #edf0f5}
+#servicios .section-head{margin-bottom:28px}
+#servicios .service-entry-card{min-height:0}
+#servicios .service-entry-card:after{right:22px;top:18px}
+#servicios .route-disclosure .route-head{grid-template-columns:minmax(0,1fr) 40px;gap:10px 14px;padding:23px 0}
+#servicios .route-disclosure .route-n{grid-column:1/-1}
+#servicios .route-disclosure .route-t{grid-column:1;grid-row:2;font-size:26px}
+#servicios .route-disclosure .route-d{grid-column:1;grid-row:3;font-size:14px}
+#servicios .route-toggle{grid-column:2;grid-row:2}
+#servicios .route-disclosure .svc-grid{padding-bottom:26px}
+#servicios .svc p{font-size:14px}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
 </style>
 </head>
 <body>
@@ -2394,6 +2448,7 @@ body{background:#fff}
     </div>
   </div>
 </section>
+<div class="home-proof" aria-label="Nuestro enfoque"><div class="wrap home-proof-inner"><span>Impuestos con anticipación</span><span>Utilidad real</span><span>Decisiones con datos</span></div></div>
 
 <!-- ═══════════ MARQUEE ═══════════ -->
 <div class="marquee" aria-hidden="true">
@@ -2426,27 +2481,26 @@ body{background:#fff}
 
     <p class="service-step-label">01 / Elige tu situación</p>
     <div class="service-entry" aria-label="Elige por dónde comenzar">
-      <a class="service-entry-card" href="#ruta-cumplimiento">
+      <a class="service-entry-card" href="#ruta-cumplimiento" data-open-area="ruta-cumplimiento">
         <span class="service-entry-kicker">Tengo pendientes fiscales</span>
         <span class="service-entry-title">Necesito ponerme al corriente</span>
         <span class="service-entry-desc">Regularización, declaraciones, contabilidad y trámites ante el SAT.</span>
         <span class="service-entry-action" aria-hidden="true">Ver servicios relacionados →</span>
       </a>
-      <a class="service-entry-card service-entry-card--clarity" href="#ruta-claridad">
+      <a class="service-entry-card service-entry-card--clarity" href="#ruta-claridad" data-open-area="ruta-claridad">
         <span class="service-entry-kicker">Busco claridad financiera</span>
         <span class="service-entry-title">Quiero entender y mejorar mi negocio</span>
         <span class="service-entry-desc">Diagnóstico, utilidad real, proyección fiscal y decisiones con datos.</span>
         <span class="service-entry-action" aria-hidden="true">Explorar soluciones →</span>
       </a>
     </div>
-    <div class="service-catalog-head"><span class="service-step-label">02 / Explora las soluciones</span><p>Organizamos nuestros servicios en tres áreas complementarias. Puedes comenzar por una y sumar las demás cuando tu negocio lo necesite.</p></div>
-    <div class="routes">
-      <div class="route" id="ruta-cumplimiento">
-        <div class="route-head">
+    <div class="service-catalog-head"><span class="service-step-label">02 / Explora las soluciones</span><p>Abre el área que te interesa para conocer sus servicios. Puedes combinar soluciones según lo que necesite tu negocio.</p></div>
+    <div class="routes" id="service-areas">
+      <details class="route route-disclosure" id="ruta-cumplimiento">
+        <summary class="route-head">
           <span class="route-n">Área 01 · Orden y cumplimiento</span>
           <h3 class="route-t">Cumplimiento fiscal</h3>
-          <p class="route-d">Regularización de obligaciones pendientes, declaraciones y trámites ante el SAT.</p>
-        </div>
+          <p class="route-d">Regularización de obligaciones pendientes, declaraciones y trámites ante el SAT.</p><span class="route-toggle" aria-hidden="true"></span></summary>
         <div class="svc-grid svc-grid--pair">
           <a class="svc" href="regularizacion-ante-el-sat.html">
             <div class="n">Regularización</div>
@@ -2469,14 +2523,13 @@ body{background:#fff}
             <p>Identificamos si estás obligado a declarar, qué deducciones personales puedes aplicar y si tienes saldo a favor. Presentamos la declaración por ti.</p>
           </a>
         </div>
-      </div>
+      </details>
 
-      <div class="route" id="ruta-claridad">
-        <div class="route-head">
+      <details class="route route-disclosure" id="ruta-claridad">
+        <summary class="route-head">
           <span class="route-n">Área 02 · Entender tus números</span>
           <h3 class="route-t">Visibilidad financiera</h3>
-          <p class="route-d">Diagnóstico, cálculo de impuestos y visibilidad real de tus ventas por plataforma.</p>
-        </div>
+          <p class="route-d">Diagnóstico, cálculo de impuestos y visibilidad real de tus ventas por plataforma.</p><span class="route-toggle" aria-hidden="true"></span></summary>
         <div class="svc-grid svc-grid--pair">
           <a class="svc" href="diagnostico-fiscal-financiero.html">
             <div class="n">Diagnóstico</div>
@@ -2499,14 +2552,13 @@ body{background:#fff}
             <p>Calculamos si el SAT te debe dinero, presentamos la solicitud de devolución y damos seguimiento al trámite hasta que el depósito llega a tu cuenta.</p>
           </a>
         </div>
-      </div>
+      </details>
 
-      <div class="route" id="ruta-crecimiento">
-        <div class="route-head">
+      <details class="route route-disclosure" id="ruta-crecimiento">
+        <summary class="route-head">
           <span class="route-n">Área 03 · Acompañamiento</span>
           <h3 class="route-t">Estructura y crecimiento</h3>
-          <p class="route-d">Arquitectura de Claridad Fiscal y acompañamiento mensual continuo.</p>
-        </div>
+          <p class="route-d">Arquitectura de Claridad Fiscal y acompañamiento mensual continuo.</p><span class="route-toggle" aria-hidden="true"></span></summary>
         <div class="svc-grid svc-grid--pair">
           <a class="svc" href="nomina-seguridad-social.html">
             <div class="n">Nómina</div>
@@ -2519,7 +2571,7 @@ body{background:#fff}
             <p>Más allá de los números: contratar personal, invertir en equipo, cambiar de régimen o abrir una nueva línea de negocio. Decidimos juntos, con datos.</p>
           </a>
         </div>
-      </div>
+      </details>
     </div>
   </div>
 </section>
@@ -2683,7 +2735,7 @@ body{background:#fff}
     <div class="section-head">
       <div>
         <span class="eyebrow">Nuestra firma</span>
-        <h2 class="display">¿Quiénes somos?</h2>
+        <h2 class="display">Conoce a quienes cuidan tus números.</h2>
       </div>
       <p class="lede">Firma de claridad fiscal y financiera para dueños de negocio que generan ingresos pero carecen de visibilidad real sobre su dinero.</p>
     </div>
@@ -2761,7 +2813,7 @@ body{background:#fff}
     <div class="section-head">
       <div>
         <span class="eyebrow">Propuesta única de valor</span>
-        <h2 class="display">Cuatro pilares para<br/>tomar decisiones con certeza.</h2>
+        <h2 class="display">Una manera más clara<br/>de llevar tus finanzas.</h2>
       </div>
       <p class="lede">Lo que recibes con Finabiz no se reemplaza sumando contadores, abogados y asesores financieros sueltos.</p>
     </div>
@@ -3394,5 +3446,22 @@ body{background:#fff}
 </script>
 <script>
 (function(){const tabs=[...document.querySelectorAll('.sample-tab')];const grid=document.querySelector('#ejemplos .samples-grid');if(!grid||tabs.length!==3)return;const cards=[...grid.querySelectorAll(':scope > .sample-card')];if(cards.length!==3)return;function activate(index){tabs.forEach((t,i)=>{t.classList.toggle('is-active',i===index);t.setAttribute('aria-pressed',String(i===index))});cards.forEach((card,i)=>card.classList.toggle('is-active',i===index))}grid.classList.add('is-interactive');tabs.forEach((t,i)=>t.addEventListener('click',()=>activate(i)));activate(0)})();
-</script></body>
+</script><script>
+/* Contextual service navigation: reveal the destination before scrolling. */
+(function(){
+  const areas=[...document.querySelectorAll('#service-areas details.route-disclosure')];
+  document.querySelectorAll('[data-open-area]').forEach(link=>{
+    link.addEventListener('click',function(){
+      const target=document.getElementById(link.dataset.openArea);
+      if(!target)return;
+      areas.forEach(area=>{area.open=area===target});
+    });
+  });
+  if(location.hash){
+    const target=document.querySelector(location.hash);
+    if(target&&target.matches('details.route-disclosure'))target.open=true;
+  }
+})();
+</script>
+</body>
 </html>
