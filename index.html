@@ -1724,6 +1724,7 @@ body{font-family:"IBM Plex Sans",sans-serif}
 
 </style>
 <link rel="stylesheet" href="assets/inicio-editorial.css" />
+<script defer src="assets/inicio-interactivo.js"></script>
 <noscript>
   <style>
     @media (max-width: 920px) {
@@ -1774,6 +1775,13 @@ body{font-family:"IBM Plex Sans",sans-serif}
 <main id="main-content" tabindex="-1">
 <section class="hero hero-editorial">
   <div class="hero-bg" aria-hidden="true"></div>
+  <div class="hero-depth" aria-hidden="true">
+    <div class="hero-depth-stack">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
   <div class="wrap">
     <span class="eyebrow">FINABIZ · PARA NEGOCIOS DIGITALES</span>
     <h1 class="display">La estructura fiscal y financiera<br/>
@@ -2030,13 +2038,19 @@ body{font-family:"IBM Plex Sans",sans-serif}
             <span class="sample-badge">Datos simulados</span>
           </header>
           <div class="report-layout">
-            <dl class="report-data report-utility" aria-label="Ventas, deducciones y utilidad">
-              <div><dt>Ventas brutas</dt><dd>$180,000</dd></div>
-              <div><dt>Comisiones y retenciones</dt><dd>−$21,600</dd></div>
-              <div><dt>Impuestos provisionados</dt><dd>−$27,000</dd></div>
-              <div><dt>Gastos operativos</dt><dd>−$34,200</dd></div>
-              <div class="report-total"><dt>Utilidad real</dt><dd>$97,200</dd></div>
-            </dl>
+            <div class="report-main">
+              <div class="report-units" role="group" aria-label="Medida del panel de utilidad" hidden>
+                <button type="button" data-utility-unit="amount" aria-pressed="true">Importes</button>
+                <button type="button" data-utility-unit="share" aria-pressed="false">% de ventas</button>
+              </div>
+              <dl class="report-data report-utility" aria-label="Ventas, deducciones y utilidad">
+                <div><dt>Ventas brutas</dt><dd>$180,000</dd></div>
+                <div><dt>Comisiones y retenciones</dt><dd>−$21,600</dd></div>
+                <div><dt>Impuestos provisionados</dt><dd>−$27,000</dd></div>
+                <div><dt>Gastos operativos</dt><dd>−$34,200</dd></div>
+                <div class="report-total"><dt>Utilidad real</dt><dd>$97,200</dd></div>
+              </dl>
+            </div>
             <div class="report-insight">
               <h4>Qué te permite decidir</h4>
               <p>Cuánto puedes reinvertir después de cubrir comisiones, gastos e impuestos.</p>
@@ -2051,6 +2065,23 @@ body{font-family:"IBM Plex Sans",sans-serif}
           </header>
           <div class="report-layout">
             <div class="report-data report-forecast">
+              <div class="projection-explorer" hidden>
+                <fieldset>
+                  <legend>Reserva estimada por mes</legend>
+                  <div class="projection-bars"></div>
+                </fieldset>
+                <output class="projection-detail" aria-live="polite" aria-atomic="true"></output>
+              </div>
+              <template id="projection-option">
+                <label class="projection-option">
+                  <input type="radio" class="projection-input" name="projection-month" />
+                  <span class="projection-frame">
+                    <span class="projection-month"></span>
+                    <span class="projection-value"></span>
+                    <span class="projection-track" aria-hidden="true"><span class="projection-column"></span></span>
+                  </span>
+                </label>
+              </template>
               <table aria-label="Estimación para los próximos tres meses">
                 <thead>
                   <tr><th scope="col">Mes</th><th scope="col">Ventas</th><th scope="col">Utilidad</th><th scope="col">Impuestos</th></tr>
