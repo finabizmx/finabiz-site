@@ -59,8 +59,9 @@
   button:focus-visible,
   summary:focus-visible,
   [tabindex]:focus-visible {
-    outline: 2px solid var(--orange);
-    outline-offset: 3px;
+    outline: 2px solid var(--blue-ink);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 2px #fff;
   }
 
   .eyebrow {
@@ -913,7 +914,7 @@
   }
   .faq-item summary::-webkit-details-marker { display: none; }
   .faq-item summary:hover { color: var(--blue); }
-  .faq-item summary:focus-visible { outline: 2px solid var(--orange); outline-offset: 4px; }
+  .faq-item summary:focus-visible { outline: 2px solid var(--blue-ink); outline-offset: 4px; }
   .faq-item summary::after {
     content: "+";
     position: absolute;
@@ -960,7 +961,7 @@
   .faq-group:first-child .faq-group-title { padding-top: 0; }
   .faq-group-title::-webkit-details-marker { display: none; }
   .faq-group-title:hover { color: var(--blue); }
-  .faq-group-title:focus-visible { outline: 2px solid var(--orange); outline-offset: 4px; }
+  .faq-group-title:focus-visible { outline: 2px solid var(--blue-ink); outline-offset: 4px; }
   .faq-group-title::after {
     content: "+";
     width: 22px;
@@ -1240,55 +1241,6 @@
   }
 
   .footer-bottom a { display: inline-block; padding-block: 5px; }
-
-  /* ─── TYPEFORM OVERLAY ─── */
-  .tf-overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 500;
-    background: rgba(15, 17, 32, .78);
-    backdrop-filter: blur(2px);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: clamp(12px, 4vw, 40px);
-  }
-  .tf-overlay.show { display: flex; }
-  .tf-overlay-panel {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    max-width: 1100px;
-    background: #fff;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 40px 100px -20px rgba(0,0,0,.5);
-  }
-  .tf-overlay-widget { width: 100%; height: 100%; }
-  /* Fixed to the true viewport (not nested in the clipped panel) so it can
-     never end up hidden behind mobile browser chrome or the iframe's own
-     stacking context — this is the only way to close the overlay since the
-     widget embed (unlike a popup) has no built-in close button. */
-  .tf-overlay-close {
-    position: fixed;
-    top: calc(env(safe-area-inset-top, 0px) + 14px);
-    right: calc(env(safe-area-inset-right, 0px) + 14px);
-    z-index: 501;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    border: none;
-    background: #fff;
-    color: var(--blue-ink);
-    font-size: 22px;
-    line-height: 1;
-    cursor: pointer;
-    display: grid;
-    place-items: center;
-    box-shadow: 0 6px 20px -4px rgba(0,0,0,.4);
-    transition: background .15s, transform .15s;
-  }
-  .tf-overlay-close:hover { background: var(--orange-soft); transform: scale(1.06); }
 
   /* ─── FLOATING CTA ─── */
   .float-cta {
@@ -1784,7 +1736,7 @@
   }
   .breadcrumb a { color: rgba(255,255,255,.55); text-decoration: none; }
   .breadcrumb a:hover { color: var(--orange); }
-  .breadcrumb a:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
+  .breadcrumb a:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
 
   /* ═══════════ BLOG / ARTÍCULO ═══════════ */
   .article-meta {

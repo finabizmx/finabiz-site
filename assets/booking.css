@@ -1,0 +1,62 @@
+.tf-overlay {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  border: 0;
+  padding: clamp(12px, 4vw, 40px);
+  background: rgba(15, 17, 32, .78);
+  backdrop-filter: blur(2px);
+}
+
+.tf-overlay[open] { display: flex; }
+.tf-overlay::backdrop { background: transparent; }
+
+.tf-overlay-panel {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  max-width: 1100px;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.tf-overlay-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 4px 12px;
+}
+
+.tf-overlay-toolbar a {
+  color: var(--blue-ink, #1C2A5E);
+  text-decoration: underline;
+}
+
+.tf-overlay-close {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--blue-ink, #1C2A5E);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.tf-overlay-close:hover { background: #FFE8CC; }
+.tf-overlay-status { margin: 0; padding: 8px 12px; color: #1C2A5E; }
+.tf-overlay-status[hidden] { display: none; }
+.tf-overlay-widget { flex: 1; min-height: 0; }
+.tf-overlay-widget iframe { display: block; width: 100%; height: 100%; }

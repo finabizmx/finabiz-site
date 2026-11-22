@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="es-MX">
 <head>
+<meta http-equiv="Content-Security-Policy" content="base-uri 'none'; object-src 'none'" />
+<meta name="referrer" content="strict-origin-when-cross-origin" />
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-VDZXBBNES7"></script>
 <script>
@@ -144,12 +146,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 
 <!-- Preconnect to Typeform so the popup opens faster on click -->
-<link rel="preconnect" href="https://embed.typeform.com" />
-<link rel="preconnect" href="https://form.typeform.com" crossorigin />
-<link rel="preconnect" href="https://api.typeform.com" />
 <link rel="stylesheet" href="assets/site.css" />
 <noscript><link rel="stylesheet" href="assets/menu-sin-js.css" /></noscript>
 <script defer src="assets/navigation.js"></script>
+<link rel="stylesheet" href="assets/booking.css" />
+<script defer src="assets/booking.js"></script>
 </head>
 <body>
 
@@ -438,124 +439,19 @@
 </a>
 </aside>
 
-<!-- ═══════════ TYPEFORM OVERLAY (precargado en segundo plano) ═══════════ -->
-<div class="tf-overlay" id="tfOverlay">
-  <button type="button" class="tf-overlay-close" id="tfOverlayClose" aria-label="Cerrar">&times;</button>
+<!-- Diálogo de reserva -->
+<dialog class="tf-overlay" id="tfOverlay" aria-label="Formulario previo a tu llamada de orientación">
   <div class="tf-overlay-panel">
+    <div class="tf-overlay-toolbar">
+      <a href="https://form.typeform.com/to/ykt2ayIi">Abrir formulario directamente</a>
+      <button type="button" class="tf-overlay-close" id="tfOverlayClose" aria-label="Cerrar formulario" autofocus>&times;</button>
+    </div>
+    <p class="tf-overlay-status" id="tfOverlayStatus" role="status" hidden></p>
     <div class="tf-overlay-widget" id="tfOverlayWidget"></div>
   </div>
-</div>
+</dialog>
 
 <!-- ═══════════ TYPEFORM EMBED ═══════════ -->
-<script src="//embed.typeform.com/next/embed.js"></script>
-<script>
-  /* Precarga el formulario oculto en segundo plano para que abra al instante */
-  (function () {
-    var overlay = document.getElementById('tfOverlay');
-    var widgetHost = document.getElementById('tfOverlayWidget');
-    var closeBtn = document.getElementById('tfOverlayClose');
-    var loaded = false;
-
-    function preload() {
-      if (loaded || !window.tf) return;
-      loaded = true;
-      var div = document.createElement('div');
-      div.setAttribute('data-tf-widget', 'ykt2ayIi');
-      div.setAttribute('data-tf-opacity', '100');
-      div.setAttribute('data-tf-iframe-props', 'title=Formulario previo a tu llamada de orientación');
-      div.style.width = '100%';
-      div.style.height = '100%';
-      widgetHost.appendChild(div);
-      window.tf.load();
-    }
-
-    function open() {
-      preload();
-      overlay.classList.add('show');
-      document.body.classList.add('tf-open');
-      document.body.style.overflow = 'hidden';
-      history.pushState({ tfOverlay: true }, '', location.href);
-    }
-
-    function close() {
-      if (!overlay.classList.contains('show')) return;
-      overlay.classList.remove('show');
-      document.body.classList.remove('tf-open');
-      document.body.style.overflow = '';
-      if (history.state && history.state.tfOverlay) history.back();
-    }
-
-    document.querySelectorAll('.js-tf-cta').forEach(function (btn) {
-      btn.addEventListener('click', function (e) {
-        e.preventDefault();
-        open();
-      });
-    });
-    closeBtn.addEventListener('click', close);
-    overlay.addEventListener('click', function (e) { if (e.target === overlay) close(); });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
-    window.addEventListener('popstate', function () {
-      if (overlay.classList.contains('show')) {
-        overlay.classList.remove('show');
-        document.body.classList.remove('tf-open');
-        document.body.style.overflow = '';
-      }
-    });
-
-    function schedulePreload() {
-      if ('requestIdleCallback' in window) requestIdleCallback(preload, { timeout: 4000 });
-      else setTimeout(preload, 1500);
-    }
-    if (document.readyState === 'complete') schedulePreload();
-    else window.addEventListener('load', schedulePreload);
-  })();
-</script>
-
-<!-- ═══════════ SEGUIMIENTO DE CONVERSIÓN (GA4) ═══════════ -->
-<script>
-  (function () {
-    function track(name, params) {
-      if (typeof gtag === 'function') gtag('event', name, params || {});
-    }
-    document.querySelectorAll('.js-tf-cta').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        track('click_agendar_llamada', {
-          event_category: 'conversion',
-          event_label: btn.className,
-          page_path: location.pathname
-        });
-      });
-    });
-    document.querySelectorAll('a[href*="wa.me"]').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        track('click_whatsapp', {
-          event_category: 'engagement',
-          event_label: btn.className || 'whatsapp-link',
-          page_path: location.pathname
-        });
-      });
-    });
-    document.querySelectorAll('a[href*="buy.stripe.com"]').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        track('click_pagar_stripe', {
-          event_category: 'conversion',
-          event_label: btn.className || 'stripe-link',
-          page_path: location.pathname
-        });
-      });
-    });
-    // Typeform envía un postMessage con type que incluye "submit" cuando el
-    // visitante termina el formulario y elige horario — lo tratamos como la
-    // conversión real (no solo abrir el formulario).
-    window.addEventListener('message', function (event) {
-      if (typeof event.origin !== 'string' || event.origin.indexOf('typeform.com') === -1) return;
-      var data = event.data;
-      if (data && typeof data === 'object' && typeof data.type === 'string' && data.type.indexOf('submit') !== -1) {
-        track('llamada_agendada', { event_category: 'conversion', page_path: location.pathname });
-      }
-    });
-  })();
-</script>
 
 <script>
   // Nav shadow on scroll + floating CTA appear after hero

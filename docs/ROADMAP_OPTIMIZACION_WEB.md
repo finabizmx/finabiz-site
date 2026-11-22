@@ -18,3 +18,9 @@ Para reproducir la incidencia móvil, registrar fecha, URL, iOS, versión de Def
 La validación de reservas debe comprobar por separado apertura, consentimiento, finalización de Typeform, recepción del lead y confirmación Calendly. Usar un registro de prueba acordado para evitar confundir los datos comerciales. Consultar GA4 solo para verificar eventos existentes y su definición.
 
 Prioridad de aprobación: reenvío HTTPS de www, datos personales en URLs de agenda, duración y afirmaciones comerciales. Revisar servicios e interiores en PR separados por familia después de validar la portada.
+
+## Verificación de la corrección del dominio (WEB-02)
+
+Antes de cambiar el reenvío de `www`, confirmar en GitHub Pages que el dominio personalizado es `finabiz.mx`, revisar la validación TLS y guardar la configuración actual de DNS y reenvío. El destino previsto para un CNAME de Pages es `finabizmx.github.io` si coincide con la configuración vigente de la cuenta. Los registros del dominio raíz deben conservarse. El cambio requiere acceso a GoDaddy y aprobación.
+
+Aceptar la corrección cuando `https://www.finabiz.mx/` y una ruta interior con consulta redirijan a la URL HTTPS correspondiente. Comprobar tanto HTTP como HTTPS y al menos dos resolutores. Si la ruta deja de resolver o el certificado no cubre `www`, restaurar los registros y el reenvío guardados. La prueba de Telcel con Defender requiere un dispositivo o evidencia independiente.

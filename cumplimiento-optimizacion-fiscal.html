@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="es-MX">
 <head>
+<meta http-equiv="Content-Security-Policy" content="base-uri 'none'; object-src 'none'" />
+<meta name="referrer" content="strict-origin-when-cross-origin" />
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <meta name="robots" content="index, follow"/>
@@ -19,6 +21,8 @@
 </style>
 <noscript><link rel="stylesheet" href="assets/menu-sin-js.css" /></noscript>
 <script defer src="assets/navigation.js"></script>
+<link rel="stylesheet" href="assets/booking.css" />
+<script defer src="assets/booking.js"></script>
 </head>
 <body>
 <a href="#main-content" class="skip-link">Saltar al contenido</a>
@@ -36,4 +40,14 @@
 <section class="fiscal-section fiscal-alt"><div class="fiscal-wrap"><h2>Dos modalidades, según tu operación</h2><div class="fiscal-grid"><article class="fiscal-card"><h3>Con contabilidad a cargo de Finabiz</h3><p>Nos encargamos de los registros contables mensuales y, dentro del alcance contratado, de las conciliaciones, auditoría preventiva de CFDI, determinación y presentación de obligaciones fiscales. Definimos previamente plataformas, volumen documental y tiempos de entrega.</p></article><article class="fiscal-card"><h3>Con tu contador actual</h3><p>Tu contador conserva la preparación de pólizas, balanzas, auxiliares y soportes. Finabiz revisa la información recibida, realiza las verificaciones y conciliaciones pactadas y gestiona las obligaciones fiscales contratadas. Las diferencias se documentan para su corrección por el responsable correspondiente.</p></article></div><p class="fiscal-note">En ambas modalidades la responsabilidad y los entregables se documentan por escrito. No se incluye automáticamente panel de utilidad, reporte financiero ejecutivo ni asesoría financiera integral; para ello existe Arquitectura de Claridad Fiscal™.</p><p class="fiscal-note">Regularizaciones de ejercicios anteriores, declaraciones históricas, devoluciones, requerimientos y procedimientos extraordinarios se cotizan por separado. Los servicios se delimitan por RFC, régimen, volumen y documentación disponible. El pago de impuestos corresponde al contribuyente.</p></div></section>
 <section class="fiscal-section"><div class="fiscal-wrap"><h2>¿También necesitas claridad financiera?</h2><p>Si además de cumplir con el SAT quieres conocer la utilidad real, proyectar el flujo de tu negocio y tomar decisiones con reportes ejecutivos, conoce nuestra oferta insignia.</p><p><a href="/arquitectura-de-claridad-fiscal.html">Conocer Arquitectura de Claridad Fiscal™</a></p><a class="fiscal-cta" href="https://form.typeform.com/to/ykt2ayIi">Agenda una orientación de 30 minutos</a></div></section>
 </main><footer class="fiscal-footer"><div class="fiscal-wrap">© Finabiz · Servicios fiscales para negocios digitales en México · <a href="/">Inicio</a></div></footer>
+<dialog class="tf-overlay" id="tfOverlay" aria-label="Formulario previo a tu llamada de orientación">
+  <div class="tf-overlay-panel">
+    <div class="tf-overlay-toolbar">
+      <a href="https://form.typeform.com/to/ykt2ayIi">Abrir formulario directamente</a>
+      <button type="button" class="tf-overlay-close" id="tfOverlayClose" aria-label="Cerrar formulario" autofocus>&times;</button>
+    </div>
+    <p class="tf-overlay-status" id="tfOverlayStatus" role="status" hidden></p>
+    <div class="tf-overlay-widget" id="tfOverlayWidget"></div>
+  </div>
+</dialog>
 </body></html>
