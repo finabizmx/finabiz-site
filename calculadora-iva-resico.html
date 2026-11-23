@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="base-uri 'none'; object-src 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="theme-color" content="#1C2A5E">
+  <title>Calculadora IVA RESICO 2027: opción 7% y general | Finabiz</title>
+  <meta name="description" content="Compara el IVA mensual en RESICO con la mecánica general y la opción del 7% para 2027. Simula cobros, acreditamiento, retenciones e importaciones.">
+  <link rel="canonical" href="https://finabiz.mx/calculadora-iva-resico.html">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="stylesheet" href="assets/calculadora-iva.css">
+  <script type="module" src="assets/calculadora-iva.mjs"></script>
+</head>
+<body class="iva-page">
+  <a class="calc-skip" href="#main-content">Saltar al contenido</a>
+  <header class="band">
+    <div class="calc-container">
+      <a href="/" aria-label="Finabiz, inicio"><img src="assets/Logo-H-T.png" width="148" height="29" alt="Finabiz"></a>
+      <nav class="calc-links" aria-label="Calculadoras y servicios">
+        <a href="/#servicios">Servicios</a>
+        <a href="calculadora-regimenes-fiscales.html">Calculadora de ISR</a>
+        <a href="/#contacto">Contacto</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main-content" class="calc-container" tabindex="-1">
+    <h1>Calculadora de IVA RESICO 2027</h1>
+    <section class="sec calc-iva" id="iva" aria-labelledby="iva-title">
+  <h2 id="iva-title">Compara la mecánica general y la opción del 7%</h2>
+  <p>Simula un mes completo de 2027. El IVA que trasladas al cliente se calcula a la tasa aplicable. El 7% se usa para determinar el pago mensual si ejerces la opción como persona física o moral en RESICO.</p>
+  <form id="iva-form" novalidate>
+    <label class="f">Régimen del escenario
+      <select name="regime" required>
+        <option value="" selected>Selecciona tu régimen</option>
+        <option value="fisica">RESICO · Persona física</option>
+        <option value="moral">RESICO · Persona moral</option>
+        <option value="otro">Otro régimen</option>
+        <option value="sin-confirmar">Por confirmar</option>
+      </select>
+    </label>
+    <fieldset>
+      <legend>Cobros del mes · pesos sin IVA</legend>
+      <div class="iva-fields">
+        <label class="f">Cobros gravados al 16% <input type="number" name="at16" min="0" max="999999999" step="0.01" inputmode="decimal" placeholder="0"></label>
+        <label class="f">Cobros gravados al 0% <input type="number" name="at0" min="0" max="999999999" step="0.01" inputmode="decimal" placeholder="0"></label>
+        <label class="f">Cobros exentos <input type="number" name="exempt" min="0" max="999999999" step="0.01" inputmode="decimal" placeholder="0"></label>
+      </div>
+      <p class="hint">Captura lo efectivamente cobrado, antes de restar comisiones o retenciones. Las operaciones exentas quedan fuera de la base. Comprueba la proporción acreditable si también realizas actividades exentas.</p>
+    </fieldset>
+    <fieldset>
+      <legend>IVA del mes · pesos de impuesto</legend>
+      <div class="iva-fields">
+        <label class="f">IVA acreditable de compras, gastos e inversiones <input type="number" name="domesticCredit" min="0" max="999999999" step="0.01" inputmode="decimal" placeholder="0"></label>
+        <label class="f">IVA retenido por clientes o plataformas <input type="number" name="withheld" min="0" max="999999999" step="0.01" inputmode="decimal" placeholder="0"></label>
+        <label class="f">IVA pagado al importar bienes tangibles <input type="number" name="importPaid" min="0" max="999999999" step="0.01" inputmode="decimal" placeholder="0"></label>
+        <label class="f">Parte acreditable de ese IVA de importación <input type="number" name="importCredit" min="0" max="999999999" step="0.01" inputmode="decimal" placeholder="0"></label>
+        <label class="f">Monto de importaciones acumulado al cierre del mes anterior <input type="number" name="priorImports" min="0" max="999999999" step="0.01" inputmode="decimal" placeholder="0"></label>
+      </div>
+      <p class="hint">Registra únicamente el IVA que cumple los requisitos de acreditamiento en la mecánica general. Usa las retenciones de IVA del mismo mes documentadas en tus comprobantes. Deja vacíos los importes que no apliquen.</p>
+    </fieldset>
+    <label class="chk"><input type="checkbox" name="specialOperations"> Uso estímulo fronterizo, IVA definitivo por plataformas u otro tratamiento fuera del escenario general.</label>
+    <p><button class="calc-action" type="submit" disabled>Comparar IVA</button></p>
+    <noscript><p>Activa JavaScript para calcular los escenarios. La metodología y las fuentes siguen disponibles.</p></noscript>
+  </form>
+  <p id="iva-status" role="status" aria-live="polite"></p>
+  <div id="iva-result" hidden>
+    <table>
+      <caption>Estimación de IVA del mes en MXN</caption>
+      <thead><tr><th scope="col">Concepto</th><th scope="col">General</th><th scope="col">Opción 7%</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">IVA trasladado al cliente</th><td data-iva="transferred">—</td><td>La misma tasa aplicable</td></tr>
+        <tr><th scope="row">Cobros que integran la base del 7%</th><td>—</td><td data-iva="option-base">—</td></tr>
+        <tr><th scope="row">IVA determinado al 7%</th><td>—</td><td data-iva="option-tax">—</td></tr>
+        <tr><th scope="row">IVA acreditable</th><td data-iva="general-credit">—</td><td data-iva="option-credit">—</td></tr>
+        <tr><th scope="row">IVA retenido en el mes</th><td data-iva="general-retention">—</td><td data-iva="option-retention">—</td></tr>
+        <tr><th scope="row">Pago estimado en declaración</th><td data-iva="general-due">—</td><td data-iva="option-due">—</td></tr>
+        <tr><th scope="row">Saldo a favor del mes, mecánica general</th><td data-iva="general-balance">—</td><td>—</td></tr>
+        <tr><th scope="row">Retenciones que exceden el 7% calculado</th><td>—</td><td data-iva="option-excess">—</td></tr>
+        <tr><th scope="row">IVA pagado en importación, fuera de esta declaración</th><td data-iva="import-general">—</td><td data-iva="import-option">—</td></tr>
+      </tbody>
+    </table>
+    <p class="hint">La diferencia compara el pago en la declaración de este mes. La decisión anual requiere considerar la pérdida de acreditamiento, los meses con saldo a favor y las inversiones previstas.</p>
+  </div>
+  <details>
+    <summary>Cómo se calculan los dos escenarios</summary>
+    <ul>
+      <li><strong>General.</strong> IVA trasladado del mes menos IVA acreditable y retenciones del periodo. Un resultado negativo se muestra como saldo a favor del mes.</li>
+      <li><strong>Opción del 7%.</strong> Se multiplica la base de cobros gravados por 7% y se resta el IVA retenido en el mes. La opción excluye el acreditamiento de compras e importaciones.</li>
+      <li><strong>Importaciones.</strong> El IVA de bienes tangibles se paga por separado. Si las importaciones superan el límite aplicable a RESICO, $5 millones para persona física o $50 millones para persona moral, la opción cesa al mes siguiente.</li>
+      <li><strong>Aviso.</strong> El plazo legal es de 30 días siguientes al primer cobro del año por las actividades de la fracción. La opción se aplica por meses completos y se mantiene durante el ejercicio mientras se satisfagan sus condiciones.</li>
+    </ul>
+    <p>La simulación usa la lectura literal de la ley para cobros gravados a tasa 0%. El tratamiento de importaciones de servicios, saldos previos, ajustes, estímulo fronterizo y devoluciones requiere revisión individual.</p>
+    <p>
+      <a href="https://www.diputados.gob.mx/LeyesBiblio/pdf/LIF_2027.pdf#page=34">LIF 2027 · artículo 25, fracción XVIII</a> ·
+      <a href="https://www.diputados.gob.mx/LeyesBiblio/pdf/LIVA.pdf">Ley del IVA · artículos 1, 1-B, 2-A, 5 y 5-D</a> ·
+      <a href="https://sidof.segob.gob.mx/notas/5803758">Reforma a la LISR · límites 2027</a>
+    </p>
+  </details>
+</section>
+  </main>
+  <footer class="calc-footer"><div class="calc-container">
+    <a href="calculo-de-impuestos.html">Servicio de cálculo de ISR e IVA</a>
+    <a href="aviso-de-privacidad.html">Aviso de privacidad</a>
+    <a href="terminos-y-condiciones.html">Términos y condiciones</a>
+  </div></footer>
+</body>
+</html>
