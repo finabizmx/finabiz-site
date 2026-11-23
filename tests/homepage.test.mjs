@@ -142,6 +142,17 @@ test('conversion is emitted once for the Typeform submit callback and excludes r
   assert.doesNotMatch(JSON.stringify(hits[1]), /private-response/);
 });
 
+test('the fiscal catalog groups the ISR and IVA calculation with a single recurring service', () => {
+  const [, fiscal = ''] = html.match(/<details[^>]*id="ruta-cumplimiento">([\s\S]*?)<\/details>/) || [];
+  const [, financial = ''] = html.match(/<details[^>]*id="ruta-claridad">([\s\S]*?)<\/details>/) || [];
+  assert.ok(fiscal && financial);
+  const fiscalLinks = [...fiscal.matchAll(/<a class="svc" href="([^"]+)"/g)].map(match => match[1]);
+  assert.equal(fiscalLinks.filter(href => href === 'cumplimiento-optimizacion-fiscal.html').length, 1);
+  assert.equal(fiscalLinks.filter(href => href === 'calculo-de-impuestos.html').length, 1);
+  assert.match(fiscal, /llevar tu contabilidad mensual o trabajar con tu contador actual/);
+  assert.doesNotMatch(financial, /calculo-de-impuestos\.html|cálculo de impuestos/i);
+});
+
 test('service deep links handle valid and malformed percent encoding', () => {
   const script = scripts.find(source => source.includes('Contextual service navigation'));
   const area = { open: false, matches: () => true };

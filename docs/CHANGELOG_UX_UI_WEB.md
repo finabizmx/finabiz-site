@@ -63,3 +63,8 @@ Pendientes la validación de proveedores y métricas reales, los ajustes de pres
 
 - La tarjeta de contabilidad mensual se distingue de Cumplimiento y Optimización Fiscal. La tarjeta de cálculo de impuestos y su página usan «Cálculo de ISR e IVA», también en sus metadatos y datos estructurados.
 - Se conservaron las URLs y los alcances. Pasaron las 14 pruebas de Node y se comprobó la correspondencia entre títulos, enlaces y metadatos.
+
+## Organización del catálogo fiscal
+
+- Cálculo de ISR e IVA se encuentra en el área de Cumplimiento fiscal. Una sola tarjeta de Cumplimiento y Optimización Fiscal explica las dos modalidades de contabilidad y enlaza a la página del servicio.
+- Una prueba de regresión verifica la ubicación del cálculo y un único enlace a la oferta fiscal en el acordeón. Pasaron las 15 pruebas de Node.
