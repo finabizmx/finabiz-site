@@ -1287,11 +1287,16 @@
     box-shadow: 0 14px 36px -12px rgba(255, 140, 0, .55);
     transform: translateY(120%);
     opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
     transition: transform .35s, opacity .25s, background .15s;
   }
-  .float-cta.show {
+  .float-cta.show,
+  .float-cta:focus {
     transform: translateY(0);
     opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
   }
   .float-cta:hover { background: #ffa133; }
 
@@ -1741,6 +1746,7 @@ body{font-family:"IBM Plex Sans",sans-serif}
   </style>
 </noscript>
 <link rel="stylesheet" href="assets/booking.css" />
+<script defer src="assets/navigation.js"></script>
 <script defer src="assets/booking.js"></script>
 </head>
 <body>
@@ -2569,24 +2575,6 @@ body{font-family:"IBM Plex Sans",sans-serif}
   window.addEventListener('resize', onScroll, { passive: true });
   onScroll();
 
-  // Mobile menu toggle
-  const burgerBtn = document.getElementById('burger');
-  function setMenuOpen(open) {
-    nav.classList.toggle('menu-open', open);
-    burgerBtn.setAttribute('aria-expanded', String(open));
-    burgerBtn.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
-  }
-  burgerBtn.addEventListener('click', () => {
-    setMenuOpen(!nav.classList.contains('menu-open'));
-  });
-  nav.addEventListener('keydown', (event) => {
-    if (event.key !== 'Escape' || !nav.classList.contains('menu-open')) return;
-    setMenuOpen(false);
-    burgerBtn.focus();
-  });
-  document.querySelectorAll('.nav-links a').forEach(a => {
-    a.addEventListener('click', () => setMenuOpen(false));
-  });
 </script>
 
 <script>
