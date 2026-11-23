@@ -1143,3 +1143,12 @@
   .method-stages.is-in-view > li::before,
   .examples-explorer.is-in-view .samples-grid.is-interactive .sample-card:not([hidden]) { animation: none; }
 }
+
+.firm-note { max-width: 46rem; font-size: clamp(1rem, 2.2vw, 1.2rem); }
+.firm-note p { color: #46516d; margin-bottom: 12px; }
+#propuesta .puv-grid, #por-que .why-grid { grid-template-columns: repeat(3,minmax(0,1fr)); }
+#propuesta h3, #por-que h3 { font-size: 1.05rem; margin: 0 0 8px; }
+.contact-whatsapp { margin: 12px 0 0; }
+@media (max-width:767px) {
+  #propuesta .puv-grid, #por-que .why-grid { grid-template-columns: 1fr; }
+}

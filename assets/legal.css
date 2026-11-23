@@ -1,0 +1,82 @@
+:root {
+    --blue: #3F54B0;
+    --blue-ink: #1B2654;
+    --orange: #FF8C00;
+    --ink: #15182B;
+    --muted: #5C627A;
+    --line: #E6E5E0;
+    --paper: #FAFAF7;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+  }
+  a { color: var(--blue); text-decoration: underline; text-underline-offset: 2px; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+
+  header {
+    background: var(--blue-ink);
+    padding: 18px 0;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .brand .rook { width: 32px; height: 32px; background: #fff; border-radius: 4px; display: grid; place-items: center; }
+  .brand .rook img { width: 70%; }
+  .brand .word { font-family: "Archivo", sans-serif; font-weight: 600; font-size: 18px; color: #fff; letter-spacing: -.01em; }
+
+  main { padding: clamp(40px, 8vw, 80px) 0 100px; }
+  .eyebrow {
+    font: 600 11px/1 "IBM Plex Mono", monospace;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: #984B00;
+    display: block;
+    margin-bottom: 16px;
+  }
+  h1 {
+    font-family: "Archivo", sans-serif;
+    font-weight: 600;
+    font-size: clamp(28px, 4vw, 40px);
+    color: var(--blue-ink);
+    letter-spacing: -.01em;
+    margin: 0 0 8px;
+  }
+  .updated { color: var(--muted); font-size: 14px; margin: 0 0 48px; }
+  h2 {
+    font-family: "Archivo", sans-serif;
+    font-weight: 600;
+    font-size: 21px;
+    color: var(--blue-ink);
+    margin: 40px 0 12px;
+  }
+  p, li { color: var(--ink); }
+  ul { padding-left: 22px; }
+  li { margin-bottom: 8px; }
+  .callout {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--orange);
+    padding: 20px 24px;
+    margin: 32px 0;
+    font-size: 14.5px;
+    color: var(--muted);
+  }
+
+  footer {
+    background: var(--blue-ink);
+    padding: 32px 0;
+    text-align: center;
+  }
+  footer p { color: rgba(255,255,255,.6); font-size: 13px; margin: 0; }
+  footer a { color: rgba(255,255,255,.85); }
+
+.legal-skip { position:absolute; transform:translateY(-150%); padding:8px 14px; color:white; background:#1c2a5e; z-index:5; }
+.legal-skip:focus { transform:none; }
+@media (max-width:560px) { main .wrap { padding-inline:18px; } }
+.legal-toc { margin-block:20px; padding:10px 16px; border:1px solid #d3daeb; border-radius:8px; }
+.legal-toc summary { cursor:pointer; min-height:32px; font-weight:600; }
+.legal-toc a { display:inline-block; min-height:28px; text-underline-offset:3px; }

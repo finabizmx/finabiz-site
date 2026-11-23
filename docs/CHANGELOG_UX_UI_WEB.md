@@ -1,5 +1,7 @@
 # Registro de modificaciones web
 
+[Ver implementación y estado de los hallazgos de la reauditoría UX/UI](IMPLEMENTACION_REAUDITORIA_WEB_2026-11-23.md).
+
 ## Fases 0–1 · Reconocimiento y auditoría
 
 - Se registró la base `26be3a9`, la secuencia real del DOM y el inventario de rutas y dependencias.
