@@ -24,3 +24,19 @@ Prioridad de aprobación: reenvío HTTPS de www, datos personales en URLs de age
 Antes de cambiar el reenvío de `www`, confirmar en GitHub Pages que el dominio personalizado es `finabiz.mx`, revisar la validación TLS y guardar la configuración actual de DNS y reenvío. El destino previsto para un CNAME de Pages es `finabizmx.github.io` si coincide con la configuración vigente de la cuenta. Los registros del dominio raíz deben conservarse. El cambio requiere acceso a GoDaddy y aprobación.
 
 Aceptar la corrección cuando `https://www.finabiz.mx/` y una ruta interior con consulta redirijan a la URL HTTPS correspondiente. Comprobar tanto HTTP como HTTPS y al menos dos resolutores. Si la ruta deja de resolver o el certificado no cubre `www`, restaurar los registros y el reenvío guardados. La prueba de Telcel con Defender requiere un dispositivo o evidencia independiente.
+
+## Reauditoría UX/UI del 23 de noviembre de 2026
+
+Ver [diagnóstico y criterios de aceptación por hallazgo](REAUDITORIA_UX_UI_2026-11-23.md). La base actual es el merge del PR #42 en producción. La línea base anterior permanece como registro histórico.
+
+| Orden | Bloque para PR | Dependencia | Aceptación transversal |
+| --- | --- | --- | --- |
+| 1 · P1 | Foco y contraste compartidos (UX-01, UX-05) | Estados iniciales y de desplazamiento de cada familia | Ningún control invisible recibe foco. Contraste medido de al menos 4.5:1 para texto normal sobre cada fondo probado. |
+| 2 · P1 | Validación y estados de calculadora (UX-02) | Escenarios fiscales de referencia aprobados para cambios de motor | Entrada inválida bloquea el resultado. Error y resultado son visibles y accesibles. La versión de referencia mantiene sus escenarios válidos. |
+| 3 · P1 | Coherencia de oferta, agenda y dominio (UX-03, UX-04, WEB-02) | Validación comercial y del titular, inventario de URL externas y pruebas de proveedores. Para www, acceso y aprobación DNS | Cada página presenta únicamente el alcance aplicable. Duración concordante entre páginas y proveedor. Variante www conserva ruta y consulta y entrega HTTPS. |
+| 4 · P2 | Navegación compartida y contacto móvil (UX-06, UX-08) | Validación del foco anterior y selección de estructura por familia | Menús consistentes y accesibles, contacto alternativo localizable en móvil y acceso legal desde las entradas comerciales. |
+| 5 · P2 | Ritmo editorial de inicio, ofertas y fichas (UX-07, UX-09, UX-15) | Copy aprobado y capturas base por familia | Hero aprobado intacto, ejemplos separados, CTA y siguiente paso claros a 320–430 px. Cada área conserva los enlaces revisados en PR #39–42. |
+| 6 · P2 | Editorial, legal y herramientas (UX-10 a UX-13) | Plantillas estabilizadas y revisión de rutas heredadas. Aprobación para texto legal | Artículos con índice cuando corresponda, tablas operables con nombre e indicador de scroll, retorno desde herramientas y lectura legal coherente. |
+| 7 · P2 | Consolidación, rendimiento y validación de conversión (UX-14, UX-16) | Capturas y cobertura de estados, acceso de QA a proveedores | Refactor con pruebas visuales por estados, mediciones móvil y escritorio comparables, prueba autorizada hasta recepción de lead y confirmación de cita. |
+
+En cada PR probar los cinco tamaños auditados, teclado, foco, movimiento reducido y la salida sin JavaScript que corresponda. Priorizar Safari iOS y Chrome Android físicos, además de VoiceOver y TalkBack, para cerrar los hallazgos de accesibilidad. Mantener GitHub Pages y evitar dependencias nuevas para estos ajustes.
