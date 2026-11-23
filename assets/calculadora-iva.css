@@ -12,7 +12,6 @@
 .calc-iva select { width:100%; background:var(--surface); color:var(--fg); border:1px solid var(--line); border-radius:7px; }
 .calc-iva input[type=checkbox] { min-height:auto; }
 .iva-fields { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr)); gap:12px; margin-block:14px; }
-.iva-note { border-inline-start:3px solid var(--accent); padding-inline-start:12px; }
 .calc-iva table { width:100%; border-collapse:collapse; text-align:left; margin-block:8px; }
 .calc-iva td, .calc-iva th { padding:8px; border-block-end:1px solid var(--line); }
 .calc-iva td { font-family:var(--f-m); }

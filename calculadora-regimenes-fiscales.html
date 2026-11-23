@@ -162,7 +162,7 @@ svg text{font-family:var(--f-m);font-size:11px;fill:var(--muted)}
 <div class="grid" id="isr">
   <form class="panel" id="f">
     <h2>ISR 2026 · Tus supuestos</h2>
-    <p class="hint">Comparativo orientativo con parámetros 2026. El módulo de IVA simula 2027 por separado. Los honorarios de esta herramienta son supuestos editables.</p>
+    <p class="hint">Comparativo orientativo con parámetros 2026. El módulo de IVA simula 2027 por separado. Puedes incluir los costos de contabilidad de tus propias cotizaciones.</p>
     <noscript><p>Activa JavaScript para obtener el comparativo de ISR.</p></noscript>
     <fieldset><legend>Negocio</legend>
       <label class="f" for="ventas">Ventas cobradas al mes, con IVA
@@ -188,12 +188,12 @@ svg text{font-family:var(--f-m);font-size:11px;fill:var(--muted)}
     </fieldset>
     <fieldset><legend>Honorarios contables al mes</legend>
       <label class="f" for="h1">RESICO Persona Física
-        <span class="inp"><input type="number" id="h1" value="1200" min="0" max="999999999" step="0.01"><span class="unit">MXN</span></span></label>
+        <span class="inp"><input type="number" id="h1" inputmode="decimal" placeholder="Opcional" min="0" max="999999999" step="0.01"><span class="unit">MXN</span></span></label>
       <label class="f" for="h2">Actividad Empresarial (PFAE)
-        <span class="inp"><input type="number" id="h2" value="1800" min="0" max="999999999" step="0.01"><span class="unit">MXN</span></span></label>
+        <span class="inp"><input type="number" id="h2" inputmode="decimal" placeholder="Opcional" min="0" max="999999999" step="0.01"><span class="unit">MXN</span></span></label>
       <label class="f" for="h3">RESICO Persona Moral
-        <span class="inp"><input type="number" id="h3" value="2500" min="0" max="999999999" step="0.01"><span class="unit">MXN</span></span></label>
-      <p class="hint">$1,200 es el Plan mensual de Finabiz para RESICO PF. Los otros dos son estimados para comparar: una persona moral y la PFAE tienen más obligaciones.</p>
+        <span class="inp"><input type="number" id="h3" inputmode="decimal" placeholder="Opcional" min="0" max="999999999" step="0.01"><span class="unit">MXN</span></span></label>
+      <p class="hint">Captura tus importes mensuales. Si dejas un campo vacío, el comparativo calcula ese régimen sin costos contables.</p>
     </fieldset>
     <p id="isr-error" class="calc-validation" role="status"></p>
     <a class="calc-action" href="#resultado-isr">Ver resultado de ISR</a>
@@ -224,7 +224,7 @@ svg text{font-family:var(--f-m);font-size:11px;fill:var(--muted)}
 <tr><th scope="row">Obligaciones y contabilidad</th><td><i class="m g" role="img" aria-label="Ventaja"></i>Contabilidad simplificada. Declaración mensual (día 17) y anual</td><td><i class="m o" role="img" aria-label="Desventaja"></i>Contabilidad electrónica, DIOT, provisionales y anual con ajuste</td><td><i class="m o" role="img" aria-label="Desventaja"></i>Contabilidad electrónica, DIOT, informativas, libros y asambleas</td></tr>
 <tr><th scope="row">Responsabilidad</th><td><i class="m o" role="img" aria-label="Desventaja"></i>Ilimitada: respondes con tu patrimonio personal</td><td><i class="m o" role="img" aria-label="Desventaja"></i>Ilimitada: respondes con tu patrimonio personal</td><td><i class="m g" role="img" aria-label="Ventaja"></i>Limitada al capital aportado</td></tr>
 <tr><th scope="row">Cómo sacas el dinero</th><td><i class="m g" role="img" aria-label="Ventaja"></i>Cuando quieras, sin impuesto adicional</td><td><i class="m g" role="img" aria-label="Ventaja"></i>Cuando quieras, sin impuesto adicional</td><td><i class="m o" role="img" aria-label="Desventaja"></i>Solo por dividendo (10%) o préstamo documentado</td></tr>
-<tr><th scope="row">Honorarios contables</th><td><i class="m g" role="img" aria-label="Ventaja"></i>Ejemplo editable en Tus supuestos</td><td><i class="m n" role="img" aria-label="Neutro"></i>Medios</td><td><i class="m o" role="img" aria-label="Desventaja"></i>Los más altos</td></tr>
+<tr><th scope="row">Honorarios contables</th><td colspan="3">Se incorporan los importes que captures en Tus supuestos.</td></tr>
 <tr><th scope="row">Riesgo a vigilar</th><td><i class="m o" role="img" aria-label="Desventaja"></i>Omitir 3 pagos mensuales te saca del régimen</td><td><i class="m o" role="img" aria-label="Desventaja"></i>Tasa marginal alta con sueldo; más errores formales posibles</td><td><i class="m o" role="img" aria-label="Desventaja"></i>Mezclar dinero personal y de la sociedad; costo de constituirla</td></tr>
 <tr><th scope="row">Conviene cuando</th><td><i class="m g" role="img" aria-label="Ventaja"></i>Vendes menos de $3.5M y quieres el menor costo fiscal y operativo</td><td><i class="m n" role="img" aria-label="Neutro"></i>Tus márgenes son muy bajos o rebasas el tope de RESICO PF</td><td><i class="m n" role="img" aria-label="Neutro"></i>Hay socios o inversionistas y necesitas limitar responsabilidad</td></tr>
 </tbody></table></div>
@@ -269,18 +269,35 @@ var lastStatus='';
 function announce(text){
   if(text!==lastStatus){$('isr-status').textContent=text;lastStatus=text;}
 }
+var isrInvalidField;
+function showIsrError(field){
+  var help=$('isr-error');
+  if(isrInvalidField && isrInvalidField!==field){
+    isrInvalidField.removeAttribute('aria-invalid');
+    var ids=(isrInvalidField.getAttribute('aria-describedby')||'').split(/\s+/).filter(function(id){return id && id!==help.id;});
+    if(ids.length) isrInvalidField.setAttribute('aria-describedby',ids.join(' '));
+    else isrInvalidField.removeAttribute('aria-describedby');
+  }
+  isrInvalidField=field;
+  if(!field){help.textContent='';return;}
+  var label=field.labels[0];
+  if(label && label.nextElementSibling!==help) label.after(help);
+  field.setAttribute('aria-invalid','true');
+  var ids=(field.getAttribute('aria-describedby')||'').split(/\s+/).filter(Boolean);
+  if(!ids.includes(help.id)) field.setAttribute('aria-describedby',ids.concat(help.id).join(' '));
+  help.textContent=field.validationMessage;
+}
 function render(){
-  var field=Array.from($('f').elements).find(function(input){return input.willValidate&&!input.validity.valid;});
-  var missing=field&&field.validity.valueMissing;
+  var invalid=Array.from($('f').elements).filter(function(input){return input.willValidate&&!input.validity.valid;});
+  var field=invalid.find(function(input){return !input.validity.valueMissing;});
+  showIsrError(field);
   var p=read();
-  if(field || p.ventas<=0){
-    $('isr-error').textContent=field&&!missing ? field.labels[0].firstChild.textContent.trim()+'. '+field.validationMessage : '';
-    announce(field&&!missing?'Corrige los datos para calcular.':'');
+  if(invalid.length || p.ventas<=0){
+    announce(field?'Corrige los datos para calcular.':'');
     $('verdict').innerHTML='<div class="verdict"><span class="k">Empieza aquí</span><h2>Captura tus ventas y tu margen</h2><ul><li>Escribe tus ventas cobradas al mes (con IVA) y tu margen de utilidad.</li><li>Si también recibes sueldo, agrégalo: cambia por completo el resultado de Actividad Empresarial.</li></ul></div>';
     $('alerts').innerHTML='';$('cards').innerHTML='';$('chartsec').hidden=true;
     return;
   }
-  $('isr-error').textContent='';
   $('chartsec').hidden=false;
   var r=calc(p,p.margen), regs=[r.pf,r.pae,r.pm];
   var els=regs.filter(function(x){return x.elig});
