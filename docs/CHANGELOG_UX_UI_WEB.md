@@ -69,3 +69,4 @@ Pendientes la validación de proveedores y métricas reales, los ajustes de pres
 - Cálculo de ISR e IVA se encuentra en el área de Cumplimiento fiscal. Una sola tarjeta de Cumplimiento y Optimización Fiscal explica las dos modalidades de contabilidad y enlaza a la página del servicio.
 - Una prueba de regresión verifica la ubicación del cálculo y un único enlace a la oferta fiscal en el acordeón. Pasaron las 15 pruebas de Node.
 - Recuperación de saldos a favor de ISR se trasladó al área de Cumplimiento fiscal con su enlace existente. La prueba de regresión también comprueba su ubicación.
+- La tarjeta y la página se titulan «Recuperación de saldos a favor». La página explica el alcance en ISR e IVA y detalla qué se revisa para tramitar la devolución de IVA. Se verificaron el título y la correspondencia entre la respuesta visible y los datos estructurados.

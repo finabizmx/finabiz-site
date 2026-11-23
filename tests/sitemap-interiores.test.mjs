@@ -34,6 +34,19 @@ test('interiors link to the canonical service and expose navigation before conte
   }
 });
 
+test('the refund service uses the same title across the catalog and page and explains IVA refunds', () => {
+  const home = read('index.html');
+  const service = read('recuperacion-de-saldos-a-favor.html');
+  assert.match(home, /href="recuperacion-de-saldos-a-favor\.html">\s*<div class="n">[^<]+<\/div>\s*<div class="t">Recuperación de saldos a favor<\/div>/);
+  assert.match(service, /<h1[^>]*>Recuperación de saldos a favor<\/h1>/);
+  assert.match(service, /<title>Recuperación de saldos a favor \| Finabiz<\/title>/);
+  const [, faqAnswer] = service.match(/<summary>¿Cómo sé si tengo saldo a favor\?<\/summary>\s*<p>([^<]+)<\/p>/) || [];
+  assert.match(faqAnswer, /recuperación de saldos a favor de IVA/);
+  const structured = [...service.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map(match => JSON.parse(match[1]));
+  assert.equal(structured.find(item => item['@type'] === 'Service').name, 'Recuperación de saldos a favor');
+  assert.equal(structured.find(item => item['@type'] === 'FAQPage').mainEntity[0].acceptedAnswer.text, faqAnswer);
+});
+
 test('the calculator comparison region has a keyboard target and visible label', () => {
   const html = read('calculadora-regimenes-fiscales.html');
   assert.match(html, /<h2 id="titulo-comparacion">Ventajas y desventajas, lado a lado/);
