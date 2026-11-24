@@ -19,6 +19,7 @@ EXPECTED_UNINDEXED = {
     "404.html", "agenda.html", "asesoria-fiscal-estrategica.html",
     LEGACY_REDIRECT, "detective/index.html", "regimenes-0ac8028bfa17.html",
 }
+TAGGED_EXCLUSIONS = {"404.html", "agenda.html", "asesoria-fiscal-estrategica.html"}
 EXCLUDED_PRODUCTS = re.compile(r"(?:^|/)(?:detective(?:-ecommerce)?|ruta-?7d|finabiz-academy|academy)(?:[./-]|$)", re.I)
 SECRET_PATTERNS = {
     "private key": re.compile(r"-----BEGIN (?:ENCRYPTED |RSA |EC |OPENSSH )?PRIVATE KEY-----"),
@@ -111,7 +112,8 @@ def main():
     parser.add_argument("--markdown", action="store_true", help="print indexed and excluded pages")
     args = parser.parse_args()
     errors = []
-    files = sorted(ROOT.glob("*.html")) + sorted((ROOT / "detective").rglob("*.html"))
+    files = sorted(path for path in ROOT.rglob("*.html")
+                   if all(not part.startswith(".") and part != "node_modules" for part in path.relative_to(ROOT).parts))
     docs = {path.relative_to(ROOT).as_posix(): Document(path.relative_to(ROOT).as_posix()) for path in files}
     if f"Sitemap: {SITEMAP}" not in (ROOT / "robots.txt").read_text():
         errors.append("robots.txt does not reference the canonical sitemap")
@@ -150,8 +152,6 @@ def main():
         if path in entries:
             if canonical != route_of(path) or "noindex" in robots or not doc.meta.get("description"):
                 errors.append(f"{path} invalid canonical, robots or description")
-            if len(doc.tags) != 1:
-                errors.append(f"{path} missing or duplicate analytics bootstrap")
             if doc.title:
                 title = doc.title[0][0].casefold()
                 if title in indexed_titles:
@@ -159,6 +159,9 @@ def main():
                 indexed_titles.add(title)
         elif "noindex" not in robots:
             errors.append(f"{path} unexpected indexing directive")
+        should_measure = path in entries or path in TAGGED_EXCLUSIONS
+        if len(doc.tags) != int(should_measure):
+            errors.append(f"{path} incorrect analytics bootstrap count")
         if path == LEGACY_REDIRECT:
             target = SITE + "/cumplimiento-optimizacion-fiscal.html"
             if canonical != target or not doc.refresh or not re.search(r"0;\s*url=/cumplimiento-optimizacion-fiscal\.html$", doc.refresh[0], re.I):
@@ -217,7 +220,11 @@ def main():
             if parsed.scheme in ("https", "http") and parsed.hostname == "finabiz.mx" and not (ROOT / local_path(parsed)).is_file():
                 errors.append(f"{file.relative_to(ROOT)} missing CSS asset {parsed.path}")
 
-    for file in [*(ROOT / p for p in docs), *(ROOT / "assets").glob("*.js"), *(ROOT / "assets").glob("*.mjs"), ROOT / "image-slot.js"]:
+    published_text = {".css", ".html", ".js", ".json", ".mjs", ".svg", ".txt", ".xml"}
+    published_directories = (ROOT, ROOT / "assets", ROOT / "detective")
+    sources = {path for directory in published_directories for path in directory.iterdir()
+               if path.is_file() and path.suffix in published_text} | {ROOT / path for path in docs}
+    for file in sorted(sources):
         text = file.read_text(encoding="utf-8")
         for kind, pattern in SECRET_PATTERNS.items():
             match = pattern.search(text)

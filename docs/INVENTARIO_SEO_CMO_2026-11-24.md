@@ -31,6 +31,7 @@ El inventario se genera con `python3 scripts/audit_site.py --markdown`. Las lín
 | `contabilidad-y-cumplimiento-fiscal.html` | 4 | 4 / 4 | — | — | noindex |
 | `cumplimiento-optimizacion-fiscal.html` | 12 | 10 / 89 | Service, BreadcrumbList | 77 | 2026-11-24 |
 | `declaracion-anual-de-asalariados.html` | 13 | 8 / 156 | Service, BreadcrumbList, FAQPage | 6 | 2026-11-21 |
+| `detective/index.html` | — | 5 / — | — | — | noindex |
 | `diagnostico-fiscal-financiero.html` | 13 | 8 / 156 | Service, BreadcrumbList, FAQPage | 6 | 2026-11-21 |
 | `index.html` | 13 | 8 / 1785 | AccountingService, FAQPage | 6 | 2026-11-21 |
 | `nomina-seguridad-social.html` | 13 | 8 / 156 | Service, BreadcrumbList, FAQPage | 6 | 2026-11-21 |
@@ -39,4 +40,3 @@ El inventario se genera con `python3 scripts/audit_site.py --markdown`. Las lín
 | `regularizacion-ante-el-sat.html` | 13 | 8 / 156 | Service, BreadcrumbList, FAQPage | 6 | 2026-11-21 |
 | `terminos-y-condiciones.html` | 13 | 8 / 112 | — | 6 | 2026-07-17 |
 | `tramites-ante-el-sat.html` | 13 | 8 / 161 | Service, BreadcrumbList, FAQPage | 6 | 2026-11-21 |
-| `detective/index.html` | — | 5 / — | — | — | noindex |
