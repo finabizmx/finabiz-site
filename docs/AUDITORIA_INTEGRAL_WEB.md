@@ -2,6 +2,8 @@
 
 22 de noviembre de 2026 · Base de revisión: `main` en `26be3a9c6e11489389a7bb761a0afa3baca24f26`.
 
+La [reauditoría UX/UI del 23 de noviembre](REAUDITORIA_UX_UI_2026-11-23.md) revisa la producción posterior al PR #42, contrasta los hallazgos de esta línea base y registra las incidencias vigentes.
+
 ## Reconocimiento
 
 Sitio estático con HTML, CSS y JavaScript nativo. El árbol base contiene 35 documentos HTML, `assets/site.css` para interiores, `image-slot.js` y recursos locales en `assets/`. La portada concentra sus estilos, esquemas y scripts en `index.html`. No se encontraron manifiestos de aplicación, backend, suites de pruebas ni workflows versionados. `.nojekyll`, `CNAME` y las cabeceras públicas corroboran GitHub Pages. La fuente exacta de Pages en Settings queda por confirmar.

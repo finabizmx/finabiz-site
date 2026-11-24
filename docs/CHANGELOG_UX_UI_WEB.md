@@ -72,3 +72,8 @@ Pendientes la validación de proveedores y métricas reales, los ajustes de pres
 - Una prueba de regresión verifica la ubicación del cálculo y un único enlace a la oferta fiscal en el acordeón. Pasaron las 15 pruebas de Node.
 - Recuperación de saldos a favor de ISR se trasladó al área de Cumplimiento fiscal con su enlace existente. La prueba de regresión también comprueba su ubicación.
 - La tarjeta y la página se titulan «Recuperación de saldos a favor». La página explica el alcance en ISR e IVA y detalla qué se revisa para tramitar la devolución de IVA. Se verificaron el título y la correspondencia entre la respuesta visible y los datos estructurados.
+
+## Reauditoría UX/UI · 23 de noviembre de 2026
+
+- Se registró la [revisión de la versión publicada tras el PR #42](REAUDITORIA_UX_UI_2026-11-23.md) con evidencia por ruta, matriz de prioridades y criterios de aceptación. Se actualizó el roadmap por familias y se preservó la línea base histórica.
+- Validación de 35 documentos en producción, 33 vistas en cinco tamaños, Axe, seis perfiles Lighthouse móvil local, pruebas de teclado y flujo inicial de Typeform. Pasaron las 16 pruebas de Node. En esta fase se documentaron hallazgos y resultados.
