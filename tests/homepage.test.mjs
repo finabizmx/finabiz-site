@@ -10,7 +10,11 @@ function eventTarget(properties = {}) {
   const listeners = new Map();
   return {
     ...properties,
-    addEventListener(type, listener) { listeners.set(type, listener); },
+    addEventListener(type, listener) {
+      const handlers = listeners.get(type) || [];
+      handlers.push(listener);
+      listeners.set(type, handlers);
+    },
     emit(type, properties = {}) {
       const event = {
         button: 0,
@@ -18,7 +22,7 @@ function eventTarget(properties = {}) {
         preventDefault() { this.defaultPrevented = true; },
         ...properties,
       };
-      listeners.get(type)?.(event);
+      for (const handler of listeners.get(type) || []) handler(event);
       return event;
     },
   };
@@ -145,6 +149,26 @@ test('booking separates click, start and submit without forwarding response iden
   options.onSubmit(response);
   assert.deepEqual(hits.map(([name]) => name), ['click_agendar_llamada', 'formulario_iniciado', 'formulario_completado']);
   assert.doesNotMatch(JSON.stringify(hits), /private-response|llamada_agendada/);
+});
+
+test('withdrawing analytics strips optional attribution from both contact paths', async () => {
+  const embeds = [];
+  let unmounted = 0;
+  const { link, closeButton, window } = setup({ createWidget(id, options) {
+    embeds.push(options.hidden);
+    options.onReady();
+    return { unmount() { unmounted++; } };
+  } });
+  link.emit('click');
+  await nextTurn();
+  closeButton.emit('click');
+  window.finabizAnalytics.attribution = {};
+  window.emit('finabiz-analytics-preference');
+  assert.equal(link.href, 'https://form.typeform.com/to/ykt2ayIi');
+  assert.equal(unmounted, 1);
+  link.emit('click');
+  await nextTurn();
+  assert.deepEqual(embeds, [{ utm_source: 'qa' }, {}]);
 });
 
 test('the fiscal catalog groups tax calculation and refunds with a single recurring service', () => {

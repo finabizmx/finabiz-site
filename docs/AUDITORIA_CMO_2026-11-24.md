@@ -2,6 +2,8 @@
 
 **Corte del 24 de noviembre de 2026.** Comparación de producción con `main` en `d20145d531b470bbc166dc4c6346223e6b6fb1a3`. El candidato está aislado en una rama. Sus resultados corresponden a pruebas locales salvo donde se indica producción.
 
+El seguimiento posterior identificó el origen del evento histórico y registra el consentimiento implementado y la prueba visual. [Seguimiento de conversión y consentimiento](SEGUIMIENTO_CMO_2026-11-24.md)
+
 ## Diagnóstico
 
 Finabiz.mx sirve HTML estático con GitHub Pages. La API de Pages confirma `main`, raíz del repositorio, HTTPS obligatorio y estado `built`. `CNAME:1` declara el dominio raíz y `.nojekyll` permite publicar los archivos directamente. El sitio comparte hojas CSS, navegación, gestión de reservas y scripts de portada. Las dos calculadoras operan en el navegador. Typeform y Calendly gestionan el formulario y la agenda. GA4 y Google Fonts aportan medición y tipografía. El repositorio carece de un servidor de aplicación o un proceso de compilación necesario para publicar. Las pruebas de Node usan las API integradas.

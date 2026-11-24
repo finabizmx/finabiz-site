@@ -4,6 +4,19 @@ import { test } from 'node:test';
 import { runInNewContext } from 'node:vm';
 
 const script = readFileSync(new URL('../assets/analytics.js', import.meta.url), 'utf8');
+const consentKey = 'finabiz_analytics_consent_v1';
+
+function element(properties = {}) {
+  const listeners = new Map();
+  return {
+    ...properties,
+    addEventListener: (name, fn) => listeners.set(name, fn),
+    click: () => listeners.get('click')(),
+    setAttribute() {},
+    append() {},
+    focus() {},
+  };
+}
 
 function load({
   url = 'https://finabiz.mx/',
@@ -12,17 +25,27 @@ function load({
   data = {},
   gpc = false,
   storage = new Map(),
+  consent = 'granted',
 } = {}) {
-  const window = {};
+  const window = { dispatchEvent() {} };
   const requests = [];
+  const cookies = [];
+  const choices = ['denied', 'granted'].map(consent => element({ dataset: { consent } }));
+  const panel = element({ querySelectorAll: () => choices, querySelector: () => element() });
+  const preferences = element();
   const document = {
     referrer, currentScript: { dataset: data }, documentElement: { dataset: {} },
-    querySelector: () => canonical ? { href: canonical } : null,
-    createElement: () => ({}), head: { append: element => requests.push(element.src) },
+    body: element(),
+    querySelector: selector => selector.startsWith('link') && canonical ? { href: canonical } : null,
+    createElement: tag => tag === 'section' ? panel : tag === 'button' ? preferences : {},
+    head: { append: item => { if (item.src) requests.push(item.src); } },
+    set cookie(value) { cookies.push(value); },
   };
-  const sessionStorage = { getItem: key => storage.get(key), setItem: (key, value) => storage.set(key, value) };
-  runInNewContext(script, { window, document, sessionStorage, location: new URL(url), URL, URLSearchParams, navigator: { globalPrivacyControl: gpc } });
-  return { window, requests, storage, attribution: { ...window.finabizAnalytics.attribution } };
+  const sessionStorage = { getItem: key => storage.get(key), setItem: (key, value) => storage.set(key, value), removeItem: key => storage.delete(key) };
+  const persistent = new Map(consent ? [[consentKey, consent]] : []);
+  const localStorage = { getItem: key => persistent.get(key), setItem: (key, value) => persistent.set(key, value) };
+  runInNewContext(script, { window, document, sessionStorage, localStorage, location: new URL(url), URL, URLSearchParams, Event, navigator: { globalPrivacyControl: gpc } });
+  return { window, requests, storage, persistent, cookies, panel, preferences, choices, attribution: { ...window.finabizAnalytics.attribution } };
 }
 
 test('analytics uses the existing property and sanitizes locations, referrers and event payloads', () => {
@@ -33,13 +56,13 @@ test('analytics uses the existing property and sanitizes locations, referrers an
   });
   assert.equal(requests.length, 1);
   assert.match(requests[0], /G-VDZXBBNES7$/);
-  assert.equal(window.dataLayer[1][2].page_location, 'https://finabiz.mx/calculadora-iva-resico.html?utm_source=correo&utm_campaign=demo');
-  assert.equal(window.dataLayer[1][2].page_referrer, 'https://www.google.com.mx');
+  const config = window.dataLayer.find(([command]) => command === 'config')[2];
+  assert.equal(config.page_location, 'https://finabiz.mx/calculadora-iva-resico.html?utm_source=correo&utm_campaign=demo');
+  assert.equal(config.page_referrer, 'https://www.google.com.mx');
   assert.deepEqual(attribution, { utm_source: 'correo', utm_campaign: 'demo', landing_page: '/calculadora-iva-resico.html' });
   window.finabizAnalytics.track('formulario_iniciado', 'lead');
   window.finabizAnalytics.track('llamada_agendada', 'lead');
-  assert.equal(window.dataLayer[2][1], 'formulario_iniciado');
-  assert.equal(window.dataLayer.length, 3);
+  assert.deepEqual(Array.from(window.dataLayer).filter(([command]) => command === 'event').map(([, name]) => name), ['formulario_iniciado']);
   assert.doesNotMatch(JSON.stringify(window.dataLayer), /example.invalid|XAXX|XEXX|12349999|#datos/);
 });
 
@@ -69,12 +92,42 @@ test('privacy opt-out and previews avoid a tag request or a session-storage writ
     const { requests, window, attribution } = load(options);
     assert.equal(requests.length, 0);
     assert.equal(window.dataLayer, undefined);
-    assert.deepEqual(attribution, { landing_page: '/' });
+    assert.deepEqual(attribution, {});
     window.finabizAnalytics.track('click_whatsapp', 'engagement');
   }
 });
 
 test('unknown paths in the 404 template are not exposed', () => {
   const { window } = load({ canonical: null, url: 'https://finabiz.mx/persona-qa@example.invalid', data: { page: '/404.html' } });
-  assert.equal(window.dataLayer[1][2].page_location, 'https://finabiz.mx/404.html');
+  assert.equal(window.dataLayer.find(([command]) => command === 'config')[2].page_location, 'https://finabiz.mx/404.html');
+});
+
+test('analytics and attribution remain off until an affirmative choice and stop on withdrawal', () => {
+  const { window, storage, requests, cookies, persistent, panel, preferences, choices } = load({ consent: null });
+  assert.equal(requests.length, 0);
+  assert.equal(storage.size, 0);
+  assert.equal(panel.hidden, false);
+  window.finabizAnalytics.track('click_whatsapp', 'engagement');
+  assert.equal(window.dataLayer, undefined);
+  choices[1].click();
+  assert.equal(persistent.get(consentKey), 'granted');
+  assert.equal(requests.length, 1);
+  assert.equal(storage.size, 1);
+  assert.equal(panel.hidden, true);
+  assert.equal(window.dataLayer[0][2].analytics_storage, 'denied');
+  assert.equal(window.dataLayer[1][2].analytics_storage, 'granted');
+  assert.equal(window.dataLayer[1][2].ad_storage, 'denied');
+  window.finabizAnalytics.track('click_whatsapp', 'engagement');
+  assert.equal(window.dataLayer.at(-1)[1], 'click_whatsapp');
+  preferences.click();
+  choices[0].click();
+  assert.equal(persistent.get(consentKey), 'denied');
+  assert.equal(window['ga-disable-G-VDZXBBNES7'], true);
+  assert.equal(storage.size, 0);
+  assert.equal(Object.keys(window.finabizAnalytics.attribution).length, 0);
+  assert.ok(cookies.every(value => value.includes('finabiz_web_ga') && value.includes('Max-Age=0')));
+  assert.equal(window.dataLayer.at(-1)[2].analytics_storage, 'denied');
+  window.finabizAnalytics.track('click_whatsapp', 'engagement');
+  assert.equal(window.dataLayer.at(-1)[1], 'update');
+  assert.equal(load({ consent: 'denied' }).requests.length, 0);
 });
