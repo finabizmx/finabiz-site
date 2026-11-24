@@ -66,19 +66,19 @@
   </form>
   <p id="iva-status" role="status" aria-live="polite"></p>
   <div id="iva-result" hidden>
-    <table>
+    <table role="table">
       <caption>Estimación de IVA del mes en MXN</caption>
-      <thead><tr><th scope="col">Concepto</th><th scope="col">General</th><th scope="col">Opción 7%</th></tr></thead>
-      <tbody>
-        <tr><th scope="row">IVA trasladado al cliente</th><td data-iva="transferred">—</td><td>La misma tasa aplicable</td></tr>
-        <tr><th scope="row">Cobros que integran la base del 7%</th><td>—</td><td data-iva="option-base">—</td></tr>
-        <tr><th scope="row">IVA determinado al 7%</th><td>—</td><td data-iva="option-tax">—</td></tr>
-        <tr><th scope="row">IVA acreditable</th><td data-iva="general-credit">—</td><td data-iva="option-credit">—</td></tr>
-        <tr><th scope="row">IVA retenido en el mes</th><td data-iva="general-retention">—</td><td data-iva="option-retention">—</td></tr>
-        <tr><th scope="row">Pago estimado en declaración</th><td data-iva="general-due">—</td><td data-iva="option-due">—</td></tr>
-        <tr><th scope="row">Saldo a favor del mes, mecánica general</th><td data-iva="general-balance">—</td><td>—</td></tr>
-        <tr><th scope="row">Retenciones que exceden el 7% calculado</th><td>—</td><td data-iva="option-excess">—</td></tr>
-        <tr><th scope="row">IVA pagado en importación, fuera de esta declaración</th><td data-iva="import-general">—</td><td data-iva="import-option">—</td></tr>
+      <thead role="rowgroup"><tr role="row"><th scope="col" role="columnheader">Concepto</th><th scope="col" role="columnheader">General</th><th scope="col" role="columnheader">Opción 7%</th></tr></thead>
+      <tbody role="rowgroup">
+        <tr role="row"><th scope="row" role="rowheader">IVA trasladado al cliente</th><td role="cell"><span class="iva-cell-label" aria-hidden="true">General</span><strong data-iva="transferred">—</strong></td><td role="cell"><span class="iva-cell-label" aria-hidden="true">Opción 7%</span>La misma tasa aplicable</td></tr>
+        <tr role="row"><th scope="row" role="rowheader">Cobros que integran la base del 7%</th><td role="cell"><span class="iva-cell-label" aria-hidden="true">General</span>—</td><td role="cell"><span class="iva-cell-label" aria-hidden="true">Opción 7%</span><strong data-iva="option-base">—</strong></td></tr>
+        <tr role="row"><th scope="row" role="rowheader">IVA determinado al 7%</th><td role="cell"><span class="iva-cell-label" aria-hidden="true">General</span>—</td><td role="cell"><span class="iva-cell-label" aria-hidden="true">Opción 7%</span><strong data-iva="option-tax">—</strong></td></tr>
+        <tr role="row"><th scope="row" role="rowheader">IVA acreditable</th><td role="cell"><span class="iva-cell-label" aria-hidden="true">General</span><strong data-iva="general-credit">—</strong></td><td role="cell"><span class="iva-cell-label" aria-hidden="true">Opción 7%</span><strong data-iva="option-credit">—</strong></td></tr>
+        <tr role="row"><th scope="row" role="rowheader">IVA retenido en el mes</th><td role="cell"><span class="iva-cell-label" aria-hidden="true">General</span><strong data-iva="general-retention">—</strong></td><td role="cell"><span class="iva-cell-label" aria-hidden="true">Opción 7%</span><strong data-iva="option-retention">—</strong></td></tr>
+        <tr role="row"><th scope="row" role="rowheader">Pago estimado en declaración</th><td role="cell"><span class="iva-cell-label" aria-hidden="true">General</span><strong data-iva="general-due">—</strong></td><td role="cell"><span class="iva-cell-label" aria-hidden="true">Opción 7%</span><strong data-iva="option-due">—</strong></td></tr>
+        <tr role="row"><th scope="row" role="rowheader">Saldo a favor del mes, mecánica general</th><td role="cell"><span class="iva-cell-label" aria-hidden="true">General</span><strong data-iva="general-balance">—</strong></td><td role="cell"><span class="iva-cell-label" aria-hidden="true">Opción 7%</span>—</td></tr>
+        <tr role="row"><th scope="row" role="rowheader">Retenciones que exceden el 7% calculado</th><td role="cell"><span class="iva-cell-label" aria-hidden="true">General</span>—</td><td role="cell"><span class="iva-cell-label" aria-hidden="true">Opción 7%</span><strong data-iva="option-excess">—</strong></td></tr>
+        <tr role="row"><th scope="row" role="rowheader">IVA pagado en importación, fuera de esta declaración</th><td role="cell"><span class="iva-cell-label" aria-hidden="true">General</span><strong data-iva="import-general">—</strong></td><td role="cell"><span class="iva-cell-label" aria-hidden="true">Opción 7%</span><strong data-iva="import-option">—</strong></td></tr>
       </tbody>
     </table>
     <p class="hint">La diferencia compara el pago en la declaración de este mes. La decisión anual requiere considerar la pérdida de acreditamiento, los meses con saldo a favor y las inversiones previstas.</p>
