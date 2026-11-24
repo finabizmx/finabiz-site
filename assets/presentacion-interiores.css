@@ -1,0 +1,99 @@
+/* Scope each reading layout to its own pages. */
+.presentacion-servicio .hero--sub .breadcrumb {
+  color: #dce5ff;
+  line-height: 1.4;
+}
+
+.presentacion-servicio .hero--sub .breadcrumb a {
+  color: #f4f6ff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.presentacion-servicio .hero--sub .eyebrow,
+.presentacion-servicio .hero--sub .hero-trustline,
+.presentacion-servicio .hero--sub .breadcrumb a:hover {
+  color: #ffe2b8;
+}
+
+.presentacion-servicio .hero--sub .hero-trustline {
+  line-height: 1.45;
+}
+
+@media (max-width: 560px) {
+  .presentacion-servicio .hero--sub { padding-block: 28px 40px; }
+  .presentacion-servicio .hero--sub h1.display { font-size: clamp(29px, 8.3vw, 42px); }
+  .presentacion-servicio .hero--sub .eyebrow,
+  .presentacion-servicio .hero--sub .breadcrumb { margin-bottom: 12px; }
+}
+
+.presentacion-legal {
+  background: #f5f6fa;
+  color: #1a2138;
+  font-family: "IBM Plex Sans", system-ui, sans-serif;
+  line-height: 1.7;
+}
+
+.presentacion-legal header,
+.presentacion-legal footer {
+  background: #1c2a5e;
+}
+
+.presentacion-legal :is(h1, h2, .brand .word) {
+  font-family: Archivo, system-ui, sans-serif;
+}
+
+.presentacion-legal :is(h1, h2) {
+  color: #1c2a5e;
+  line-height: 1.24;
+  overflow-wrap: break-word;
+}
+
+.presentacion-legal h1 { margin-block-end: .3em; }
+.presentacion-legal h2 { margin-block-start: clamp(28px, 5vw, 42px); }
+.presentacion-legal .eyebrow { font-family: "IBM Plex Mono", monospace; }
+.presentacion-legal .updated { margin-block-end: clamp(24px, 4vw, 40px); }
+.presentacion-legal .wrap { padding-inline: clamp(18px, 4vw, 32px); }
+.presentacion-legal main { padding-block: clamp(28px, 5vw, 68px); }
+
+.presentacion-legal main .wrap {
+  padding-block: clamp(22px, 5vw, 56px);
+  width: min(760px, calc(100% - clamp(24px, 6vw, 56px)));
+  background: #fff;
+  border: 1px solid #dce2ee;
+  border-radius: 12px;
+}
+
+.presentacion-legal main :is(p, li) { color: #1a2138; }
+.presentacion-legal main a { color: #344b9b; overflow-wrap: anywhere; }
+.presentacion-legal a { text-underline-offset: 3px; }
+
+.presentacion-legal .callout {
+  border-inline-start: 3px solid #f28c28;
+  background: #f5f6fa;
+  padding: clamp(14px, 4vw, 24px);
+}
+
+.presentacion-legal footer p { color: #dce5ff; }
+.presentacion-legal a:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+
+.presentacion-comparador input[type="number"] {
+  min-height: 44px;
+  font-size: 16px;
+}
+
+.presentacion-comparador .cmp {
+  scrollbar-color: var(--accent) var(--surface2);
+  overscroll-behavior-inline: contain;
+}
+
+.presentacion-comparador .cmp:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+@media (max-width: 480px) {
+  .presentacion-comparador .wrap { gap: 14px; }
+  .presentacion-comparador :is(.panel, .sec, .card) { padding: 14px; }
+  .presentacion-comparador .band h1 { font-size: clamp(1.65rem, 7vw, 2.3rem); }
+}
