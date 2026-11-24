@@ -35,10 +35,20 @@
 
     document.addEventListener('DOMContentLoaded', () => {
       const calendar = new URL('https://calendly.com/finabiz-mx/sesion-estrategica-gratuita');
-      calendar.searchParams.set('hide_gdpr_banner', '1');
       if (name) calendar.searchParams.set('name', name);
       if (email) calendar.searchParams.set('email', email);
-      document.getElementById('calendlyWidget').setAttribute('data-url', calendar.href);
+      const widget = document.getElementById('calendlyWidget');
+      const status = document.getElementById('calendlyStatus');
+      const frame = document.getElementById('calendlyFrame');
+      widget.setAttribute('data-url', calendar.href);
+      try {
+        if (typeof window.Calendly?.initInlineWidget !== 'function') throw new Error('Calendly no disponible');
+        window.Calendly.initInlineWidget({ url: calendar.href, parentElement: widget });
+        frame.hidden = false;
+        status.textContent = '';
+      } catch {
+        status.textContent = 'El calendario integrado no está disponible. Usa el enlace directo para ver horarios.';
+      }
       if (name) {
         document.getElementById('greeting').textContent = 'Listo, ' + name + '. Agenda tu llamada de orientación';
       }
@@ -54,7 +64,7 @@
 <link rel="icon" type="image/png" href="assets/F-blue.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet" />
 
 <!--
   Página intencionalmente sin enlaces de entrada desde el resto del sitio
@@ -84,7 +94,7 @@
     margin: 0;
     background: var(--paper);
     color: var(--ink);
-    font-family: "DM Sans", system-ui, sans-serif;
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
     font-size: 16px;
     line-height: 1.65;
   }
@@ -98,11 +108,11 @@
   .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
   .brand .rook { width: 32px; height: 32px; background: #fff; border-radius: 4px; display: grid; place-items: center; }
   .brand .rook img { width: 70%; }
-  .brand .word { font-family: "Space Grotesk", sans-serif; font-weight: 600; font-size: 18px; color: #fff; letter-spacing: -.01em; }
+  .brand .word { font-family: "Archivo", sans-serif; font-weight: 600; font-size: 18px; color: #fff; letter-spacing: -.01em; }
 
   main { padding: clamp(32px, 6vw, 64px) 0 100px; }
   .eyebrow {
-    font: 600 11px/1 "JetBrains Mono", monospace;
+    font: 600 11px/1 "IBM Plex Mono", monospace;
     letter-spacing: .18em;
     text-transform: uppercase;
     color: #984B00;
@@ -110,7 +120,7 @@
     margin-bottom: 16px;
   }
   h1 {
-    font-family: "Space Grotesk", sans-serif;
+    font-family: "Archivo", sans-serif;
     font-weight: 600;
     font-size: clamp(26px, 3.6vw, 36px);
     color: var(--blue-ink);
@@ -126,13 +136,15 @@
     overflow: hidden;
     min-height: 700px;
   }
-  .calendly-inline-widget { min-width: 320px; height: 700px; }
+  .calendly-inline-widget { width: 100%; min-width: 0; height: 700px; }
 
   .fallback-link {
     margin-top: 16px;
     font-size: 13.5px;
     color: var(--muted);
   }
+  .fallback-link a { display:inline-flex; align-items:center; min-height:44px; text-underline-offset:3px; }
+  #calendlyStatus:empty { display:none; }
 
   footer {
     background: var(--blue-ink);
@@ -158,12 +170,13 @@
   <div class="wrap">
     <span class="eyebrow">Sesión estratégica gratuita</span>
     <h1 id="greeting">Agenda tu llamada de orientación</h1>
-    <p class="lede">Elige el día y la hora que mejor te acomoden. La sesión dura 45 minutos y los detalles de la conferencia web se te confirmarán junto con tu cita.</p>
+    <p class="lede">Elige el día y la hora que mejor te acomoden. La sesión dura 30 minutos y los detalles de la conferencia web se te confirmarán junto con tu cita.</p>
 
-    <div class="calendly-frame">
-      <div class="calendly-inline-widget" data-url="" id="calendlyWidget"></div>
+    <p class="fallback-link"><a id="calendlyFallback" href="https://calendly.com/finabiz-mx/sesion-estrategica-gratuita" target="_blank" rel="noopener">Abrir calendario directamente</a></p>
+    <p id="calendlyStatus" role="status"></p>
+    <div class="calendly-frame" id="calendlyFrame" hidden>
+      <div id="calendlyWidget" class="calendly-inline-widget" data-auto-load="false"></div>
     </div>
-    <p class="fallback-link">¿No carga el calendario? <a id="calendlyFallback" href="https://calendly.com/finabiz-mx/sesion-estrategica-gratuita" target="_blank" rel="noopener">Ábrelo en una pestaña nueva</a>.</p>
   </div>
 </main>
 

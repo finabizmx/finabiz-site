@@ -80,7 +80,6 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 
 <link rel="stylesheet" href="assets/site.css" />
 <noscript><link rel="stylesheet" href="assets/menu-sin-js.css" /></noscript>
@@ -106,11 +105,8 @@
     <button type="button" class="nav-burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks" id="burger"><span></span></button>
     <nav class="nav-links" id="navLinks" aria-label="Principal">
       <a href="/#servicios">Servicios</a>
-      <a href="/#propuesta">Cómo ayudamos</a>
       <a href="/#sistema">Nuestro método</a>
-      <a href="/#equipo">Equipo</a>
-      <a href="/blog.html">Blog</a>
-      <a href="/#faq">Preguntas frecuentes</a>
+      <a href="/blog.html" aria-current="page">Blog</a>
       <a href="/#contacto">Contacto</a>
     </nav>
     <a href="https://form.typeform.com/to/ykt2ayIi" class="nav-cta js-tf-cta">Agenda tu llamada</a>
@@ -142,74 +138,92 @@
       <p class="lede">Actualizamos estos artículos cuando cambian las reglas del SAT. Si tienes una duda específica, agenda una llamada de orientación gratuita.</p>
     </div>
 
-    <div class="blog-grid">
-      <a href="blog-retenciones-mercado-libre-mercado-pago.html" class="blog-card">
-        <span class="tag">Retenciones</span>
-        <h3>Cómo te retienen ISR e IVA en Mercado Libre y Amazon</h3>
-        <p>Las tasas exactas que te retienen, la diferencia entre pago definitivo y provisional, y qué pasa si no tienes tu RFC bien dado de alta.</p>
-        <span class="read-more">Leer artículo →</span>
-      </a>
-      <a href="blog-plataformas-tecnologicas-vs-actividad-empresarial.html" class="blog-card">
-        <span class="tag">Régimen fiscal</span>
-        <h3>Régimen de plataformas tecnológicas vs. régimen de actividad empresarial</h3>
-        <p>Si vendes por plataforma, RESICO no es la comparación correcta. La decisión real es entre el esquema simple y el régimen de actividad empresarial.</p>
-        <span class="read-more">Leer artículo →</span>
-      </a>
+    <nav class="blog-topics" aria-label="Temas del blog">
+      <a href="#operacion">Operación y rentabilidad</a>
+      <a href="#declaraciones">Declaraciones y deducciones</a>
+      <a href="#regimenes">Regímenes y retenciones</a>
+    </nav>
+    <section class="blog-group" id="operacion" aria-labelledby="operacion-titulo">
+      <h3 id="operacion-titulo">Operación y rentabilidad</h3>
+      <div class="blog-grid">
       <a href="blog-utilidad-real-multiples-plataformas.html" class="blog-card">
         <span class="tag">Utilidad real</span>
-        <h3>Cómo calcular tu utilidad real vendiendo en varias plataformas</h3>
+        <h4>Cómo calcular tu utilidad real vendiendo en varias plataformas</h4>
         <p>Por qué lo que depositan los bancos no es lo que ganaste, y el método para consolidar comisiones, retenciones y devoluciones.</p>
         <span class="read-more">Leer artículo →</span>
       </a>
       <a href="blog-facturacion-electronica-ecommerce-cfdi.html" class="blog-card">
         <span class="tag">Facturación</span>
-        <h3>Facturación electrónica para eCommerce: CFDI y errores comunes</h3>
+        <h4>Facturación electrónica para eCommerce: CFDI y errores comunes</h4>
         <p>Qué CFDI emitir cuando vendes por marketplace, cómo facturar globalmente al público general, y los errores que más multas generan.</p>
-        <span class="read-more">Leer artículo →</span>
-      </a>
-      <a href="blog-migrar-plataformas-tecnologicas-actividad-empresarial.html" class="blog-card">
-        <span class="tag">Régimen fiscal</span>
-        <h3>Cuándo migrar de plataformas tecnológicas a actividad empresarial</h3>
-        <p>El umbral de $300,000 que activa el cambio obligatorio, qué pasa si no migras a tiempo, y cuándo te conviene hacerlo antes.</p>
-        <span class="read-more">Leer artículo →</span>
-      </a>
-      <a href="blog-declaracion-anual-vendedores-plataformas.html" class="blog-card">
-        <span class="tag">Declaración anual</span>
-        <h3>Declaración anual para vendedores de plataformas: guía paso a paso</h3>
-        <p>Qué información reunir, cómo se acumulan las retenciones ya pagadas, y los errores más comunes al declarar ingresos de varias plataformas.</p>
-        <span class="read-more">Leer artículo →</span>
-      </a>
-      <a href="blog-persona-moral-resico-vs-regimen-general.html" class="blog-card">
-        <span class="tag">Persona moral</span>
-        <h3>Cuándo constituir una persona moral para tu negocio digital</h3>
-        <p>Forma jurídica (S.A.S., S. de R.L., S.A., S.A.P.I.) y régimen fiscal (RESICO PM o Régimen General) son dos decisiones distintas — no una elección entre "figuras".</p>
         <span class="read-more">Leer artículo →</span>
       </a>
       <a href="blog-facturacion-agencias-marketing.html" class="blog-card">
         <span class="tag">Contabilidad para agencias</span>
-        <h3>Contabilidad para agencias de marketing: honorarios y pauta publicitaria</h3>
+        <h4>Contabilidad para agencias de marketing: honorarios y pauta publicitaria</h4>
         <p>Tu fee de agencia y el presupuesto de medios que administras por cuenta de tus clientes son dos ingresos de naturaleza fiscal distinta. Tratarlos igual es el error más caro del negocio.</p>
         <span class="read-more">Leer artículo →</span>
       </a>
       <a href="blog-alta-primer-empleado-nomina-imss.html" class="blog-card">
         <span class="tag">Nóminas y seguridad social</span>
-        <h3>Cuándo dar de alta a tu primer empleado: nómina e IMSS</h3>
+        <h4>Cuándo dar de alta a tu primer empleado: nómina e IMSS</h4>
         <p>El criterio real no es el contrato, es la subordinación. El plazo de 5 días que no puedes perder, y qué pasa si te tardas.</p>
+        <span class="read-more">Leer artículo →</span>
+      </a>
+      </div>
+    </section>
+    <section class="blog-group" id="declaraciones" aria-labelledby="declaraciones-titulo">
+      <h3 id="declaraciones-titulo">Declaraciones y deducciones</h3>
+      <div class="blog-grid">
+      <a href="blog-declaracion-anual-vendedores-plataformas.html" class="blog-card">
+        <span class="tag">Declaración anual</span>
+        <h4>Declaración anual para vendedores de plataformas: guía paso a paso</h4>
+        <p>Qué información reunir, cómo se acumulan las retenciones ya pagadas, y los errores más comunes al declarar ingresos de varias plataformas.</p>
         <span class="read-more">Leer artículo →</span>
       </a>
       <a href="blog-gastos-deducibles-infoproductores.html" class="blog-card">
         <span class="tag">Contabilidad para infoproductores</span>
-        <h3>Qué gastos puede deducir un infoproductor</h3>
+        <h4>Qué gastos puede deducir un infoproductor</h4>
         <p>Plataformas como Hotmart y Kajabi, publicidad y colaboradores en el extranjero: qué sí puedes deducir, y cuándo debes retener 25% a un colaborador extranjero.</p>
         <span class="read-more">Leer artículo →</span>
       </a>
       <a href="blog-cierre-de-ano-fiscal.html" class="blog-card">
         <span class="tag">Planeación fiscal</span>
-        <h3>Cierre de año fiscal: qué hacer antes del 31 de diciembre</h3>
+        <h4>Cierre de año fiscal: qué hacer antes del 31 de diciembre</h4>
         <p>Lo que sí reduce tu ISR si lo haces antes del cierre, según tu régimen, y lo que no: inventario, inversiones, deducciones personales y retiro.</p>
         <span class="read-more">Leer artículo →</span>
       </a>
-    </div>
+      </div>
+    </section>
+    <section class="blog-group" id="regimenes" aria-labelledby="regimenes-titulo">
+      <h3 id="regimenes-titulo">Regímenes y retenciones</h3>
+      <div class="blog-grid">
+      <a href="blog-retenciones-mercado-libre-mercado-pago.html" class="blog-card">
+        <span class="tag">Retenciones</span>
+        <h4>Cómo te retienen ISR e IVA en Mercado Libre y Amazon</h4>
+        <p>Las tasas exactas que te retienen, la diferencia entre pago definitivo y provisional, y qué pasa si no tienes tu RFC bien dado de alta.</p>
+        <span class="read-more">Leer artículo →</span>
+      </a>
+      <a href="blog-plataformas-tecnologicas-vs-actividad-empresarial.html" class="blog-card">
+        <span class="tag">Régimen fiscal</span>
+        <h4>Régimen de plataformas tecnológicas vs. régimen de actividad empresarial</h4>
+        <p>Si vendes por plataforma, RESICO no es la comparación correcta. La decisión real es entre el esquema simple y el régimen de actividad empresarial.</p>
+        <span class="read-more">Leer artículo →</span>
+      </a>
+      <a href="blog-migrar-plataformas-tecnologicas-actividad-empresarial.html" class="blog-card">
+        <span class="tag">Régimen fiscal</span>
+        <h4>Cuándo migrar de plataformas tecnológicas a actividad empresarial</h4>
+        <p>El umbral de $300,000 que activa el cambio obligatorio, qué pasa si no migras a tiempo, y cuándo te conviene hacerlo antes.</p>
+        <span class="read-more">Leer artículo →</span>
+      </a>
+      <a href="blog-persona-moral-resico-vs-regimen-general.html" class="blog-card">
+        <span class="tag">Persona moral</span>
+        <h4>Cuándo constituir una persona moral para tu negocio digital</h4>
+        <p>Forma jurídica (S.A.S., S. de R.L., S.A., S.A.P.I.) y régimen fiscal (RESICO PM o Régimen General) son dos decisiones distintas — no una elección entre "figuras".</p>
+        <span class="read-more">Leer artículo →</span>
+      </a>
+      </div>
+    </section>
   </div>
 </section>
 
@@ -233,8 +247,8 @@
         <p class="cta-final-microcopy">Con Víctor o Pedro, cofundadores de Finabiz. Revisaremos tu situación, tus principales bloqueos y el siguiente paso recomendado.</p>
       </div>
       <div class="promise">
-        <div class="ptag">Nuestro compromiso</div>
-        <p>Si al finalizar el plazo de implementación acordado no cuentas con tu <strong>mapa fiscal, proyección financiera y fiscal, cálculo de utilidad y plan de acción</strong>, continuamos trabajando en esos entregables <strong>sin honorarios adicionales</strong> — siempre que hayamos recibido la información solicitada a tiempo. El plazo puede pausarse por retrasos del cliente, indisponibilidad de plataformas gubernamentales, cambios de alcance o causas de fuerza mayor, y no garantiza resultados específicos ante autoridades.</p>
+        <div class="ptag">Qué sigue</div>
+        <p>Durante la llamada revisamos cómo se aplica este tema a tu caso y, si corresponde, te orientamos hacia el servicio adecuado.</p>
       </div>
     </div>
   </div>
