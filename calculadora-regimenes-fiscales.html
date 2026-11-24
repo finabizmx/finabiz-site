@@ -145,31 +145,39 @@ svg text{font-family:var(--f-m);font-size:11px;fill:var(--muted)}
 .cmp tr.sum td{background:var(--good-bg)}
 
 </style>
+<link rel="stylesheet" href="assets/calculadora-iva.css">
 
-<main>
+<main id="main-content">
 <div class="band"><div class="band-in">
   <img alt="Finabiz" src="data:image/png;base64,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">
-  <h1>¿Qué régimen te conviene?</h1>
+  <h1>Calculadora fiscal</h1>
+  <nav class="calc-links" aria-label="Calculadora">
+    <a href="/#servicios">Volver a servicios</a>
+    <a href="#isr">Comparar ISR 2026</a>
+    <a href="calculadora-iva-resico.html">Comparar IVA 2027</a>
+  </nav>
   <p>Mueve tus ventas, tu margen y tu sueldo. La calculadora compara RESICO Persona Física, Actividad Empresarial (PFAE) y RESICO Persona Moral, y te dice cuál cuesta menos y por qué. Captura tus cifras y el resultado se actualiza al instante.</p>
 </div></div>
 <div class="wrap">
-<div class="grid">
-  <form class="panel" id="f" onsubmit="return false">
-    <h2>Tus supuestos</h2>
+<div class="grid" id="isr">
+  <form class="panel" id="f">
+    <h2>ISR 2026 · Tus supuestos</h2>
+    <p class="hint">Comparativo orientativo con parámetros 2026. El módulo de IVA simula 2027 por separado. Puedes incluir los costos de contabilidad de tus propias cotizaciones.</p>
+    <noscript><p>Activa JavaScript para obtener el comparativo de ISR.</p></noscript>
     <fieldset><legend>Negocio</legend>
       <label class="f" for="ventas">Ventas cobradas al mes, con IVA
-        <span class="inp"><input type="number" id="ventas" value="" placeholder="Ej. 60000" min="0" step="1000"><span class="unit">MXN</span></span></label>
+        <span class="inp"><input type="number" id="ventas" value="" placeholder="Ej. 60000" min="0" max="999999999" step="0.01" required><span class="unit">MXN</span></span></label>
       <label class="f" for="meses">Meses que operas en el año
-        <span class="inp"><input type="number" id="meses" value="12" min="1" max="12" step="1"><span class="unit">meses</span></span></label>
+        <span class="inp"><input type="number" id="meses" value="12" min="1" max="12" step="1" required><span class="unit">meses</span></span></label>
       <label class="f" for="margen">Margen de utilidad antes de ISR (sobre ventas sin IVA)
-        <span class="inp"><input type="number" id="margen" value="" placeholder="Ej. 20" min="-50" max="90" step="1"><span class="unit">%</span></span></label>
+        <span class="inp"><input type="number" id="margen" value="" placeholder="Ej. 20" min="-50" max="90" step="0.01" required><span class="unit">%</span></span></label>
       <p class="hint">Utilidad = ventas sin IVA menos costo de mercancía, publicidad, comisiones y gastos. En e-commerce suele estar entre 10% y 30%.</p>
     </fieldset>
     <fieldset><legend>Tus otros ingresos (año)</legend>
       <label class="f" for="sueldo">Sueldo anual bruto
-        <span class="inp"><input type="number" id="sueldo" value="" placeholder="0" min="0" step="10000"><span class="unit">MXN</span></span></label>
+        <span class="inp"><input type="number" id="sueldo" value="" placeholder="0" min="0" max="999999999" step="0.01"><span class="unit">MXN</span></span></label>
       <label class="f" for="otros">Intereses y otros ingresos acumulables
-        <span class="inp"><input type="number" id="otros" value="" placeholder="0" min="0" step="1000"><span class="unit">MXN</span></span></label>
+        <span class="inp"><input type="number" id="otros" value="" placeholder="0" min="0" max="999999999" step="0.01"><span class="unit">MXN</span></span></label>
       <label class="chk" for="socio"><input type="checkbox" id="socio"><span>Soy socio o accionista de una sociedad (acciones directas de una empresa). Esto bloquea RESICO Persona Física.</span></label>
     </fieldset>
     <fieldset><legend>Persona moral (SAS)</legend>
@@ -180,20 +188,22 @@ svg text{font-family:var(--f-m);font-size:11px;fill:var(--muted)}
     </fieldset>
     <fieldset><legend>Honorarios contables al mes</legend>
       <label class="f" for="h1">RESICO Persona Física
-        <span class="inp"><input type="number" id="h1" value="1200" min="0" step="100"><span class="unit">MXN</span></span></label>
+        <span class="inp"><input type="number" id="h1" inputmode="decimal" placeholder="Opcional" min="0" max="999999999" step="0.01"><span class="unit">MXN</span></span></label>
       <label class="f" for="h2">Actividad Empresarial (PFAE)
-        <span class="inp"><input type="number" id="h2" value="1800" min="0" step="100"><span class="unit">MXN</span></span></label>
+        <span class="inp"><input type="number" id="h2" inputmode="decimal" placeholder="Opcional" min="0" max="999999999" step="0.01"><span class="unit">MXN</span></span></label>
       <label class="f" for="h3">RESICO Persona Moral
-        <span class="inp"><input type="number" id="h3" value="2500" min="0" step="100"><span class="unit">MXN</span></span></label>
-      <p class="hint">$1,200 es el Plan mensual de Finabiz para RESICO PF. Los otros dos son estimados para comparar: una persona moral y la PFAE tienen más obligaciones.</p>
+        <span class="inp"><input type="number" id="h3" inputmode="decimal" placeholder="Opcional" min="0" max="999999999" step="0.01"><span class="unit">MXN</span></span></label>
+      <p class="hint">Captura tus importes mensuales. Si dejas un campo vacío, el comparativo calcula ese régimen sin costos contables.</p>
     </fieldset>
+    <p id="isr-error" class="calc-validation" role="status"></p>
+    <a class="calc-action" href="#resultado-isr">Ver resultado de ISR</a>
   </form>
 
   <div style="display:flex;flex-direction:column;gap:16px;min-width:0">
-    <div id="verdict"></div>
+    <div id="resultado-isr" tabindex="-1"><p id="isr-status" class="hint" role="status"></p><div id="verdict"></div></div>
     <div id="alerts"></div>
     <div class="cards" id="cards"></div>
-    <div class="sec" id="chartsec">
+    <div class="sec" id="chartsec" hidden>
       <h2>¿Cómo cambia el costo si cambia tu margen?</h2>
       <div class="legend" id="legend"></div>
       <div class="chartbox"><svg id="chart" viewBox="0 0 640 280" width="100%" role="img" aria-label="Costo fiscal anual por régimen según el margen de utilidad"></svg></div>
@@ -214,13 +224,15 @@ svg text{font-family:var(--f-m);font-size:11px;fill:var(--muted)}
 <tr><th scope="row">Obligaciones y contabilidad</th><td><i class="m g" role="img" aria-label="Ventaja"></i>Contabilidad simplificada. Declaración mensual (día 17) y anual</td><td><i class="m o" role="img" aria-label="Desventaja"></i>Contabilidad electrónica, DIOT, provisionales y anual con ajuste</td><td><i class="m o" role="img" aria-label="Desventaja"></i>Contabilidad electrónica, DIOT, informativas, libros y asambleas</td></tr>
 <tr><th scope="row">Responsabilidad</th><td><i class="m o" role="img" aria-label="Desventaja"></i>Ilimitada: respondes con tu patrimonio personal</td><td><i class="m o" role="img" aria-label="Desventaja"></i>Ilimitada: respondes con tu patrimonio personal</td><td><i class="m g" role="img" aria-label="Ventaja"></i>Limitada al capital aportado</td></tr>
 <tr><th scope="row">Cómo sacas el dinero</th><td><i class="m g" role="img" aria-label="Ventaja"></i>Cuando quieras, sin impuesto adicional</td><td><i class="m g" role="img" aria-label="Ventaja"></i>Cuando quieras, sin impuesto adicional</td><td><i class="m o" role="img" aria-label="Desventaja"></i>Solo por dividendo (10%) o préstamo documentado</td></tr>
-<tr><th scope="row">Honorarios contables</th><td><i class="m g" role="img" aria-label="Ventaja"></i>Los más bajos (Plan mensual Finabiz: $1,200)</td><td><i class="m n" role="img" aria-label="Neutro"></i>Medios</td><td><i class="m o" role="img" aria-label="Desventaja"></i>Los más altos</td></tr>
+<tr><th scope="row">Honorarios contables</th><td colspan="3">Se incorporan los importes que captures en Tus supuestos.</td></tr>
 <tr><th scope="row">Riesgo a vigilar</th><td><i class="m o" role="img" aria-label="Desventaja"></i>Omitir 3 pagos mensuales te saca del régimen</td><td><i class="m o" role="img" aria-label="Desventaja"></i>Tasa marginal alta con sueldo; más errores formales posibles</td><td><i class="m o" role="img" aria-label="Desventaja"></i>Mezclar dinero personal y de la sociedad; costo de constituirla</td></tr>
 <tr><th scope="row">Conviene cuando</th><td><i class="m g" role="img" aria-label="Ventaja"></i>Vendes menos de $3.5M y quieres el menor costo fiscal y operativo</td><td><i class="m n" role="img" aria-label="Neutro"></i>Tus márgenes son muy bajos o rebasas el tope de RESICO PF</td><td><i class="m n" role="img" aria-label="Neutro"></i>Hay socios o inversionistas y necesitas limitar responsabilidad</td></tr>
 </tbody></table></div>
 </div>
 
-<p class="foot">Cálculo aproximado con la tarifa del ISR 2026 (arts. 96/152 y 113-E de la Ley del ISR). No incluye IVA, que es igual en los tres regímenes, ni PTU, deducciones personales, subsidio al empleo, pérdidas de años anteriores ni gastos de constitución de una sociedad. En RESICO PM se asume tasa de 30% sobre la utilidad por flujo de efectivo y retención de 10% sobre dividendos; confirma ambas contra el texto vigente. Los topes y tasas de 2027 son propuestas pendientes de aprobación. Es una herramienta informativa: no sustituye la opinión de un contador ni de un abogado. Finabiz · Servicios contables y fiscales · finabiz.mx · 899 498 9710.</p>
+
+
+<p class="foot">Cálculo de ISR aproximado con la tarifa del ISR 2026 (arts. 96/152 y 113-E de la Ley del ISR). No incluye IVA, que es igual en los tres regímenes, ni PTU, deducciones personales, subsidio al empleo, pérdidas de años anteriores ni gastos de constitución de una sociedad. En RESICO PM se asume tasa de 30% sobre la utilidad por flujo de efectivo y retención de 10% sobre dividendos; confirma ambas contra el texto vigente. El cálculo de ISR corresponde al ejercicio 2026. Es una herramienta informativa: no sustituye la opinión de un contador ni de un abogado. Finabiz · <a href="/#contacto">Contacto</a>.</p>
 </div>
 
 </main>
@@ -253,9 +265,35 @@ function calc(p,margen){
   o.pm={nombre:'RESICO Persona Moral (SAS)',elig:el3,why:el3?'':'Tus ingresos superan $35 millones al año',base:util,baseTxt:'Utilidad por flujo de efectivo',tasa:0.30,isr:isr3,div:dt,hon:h3,total:isr3+dt+h3,resta:util-isr3-dt-h3,disp:'Solo por dividendo o préstamo documentado',divs:divs};
   return o;
 }
+var lastStatus='';
+function announce(text){
+  if(text!==lastStatus){$('isr-status').textContent=text;lastStatus=text;}
+}
+var isrInvalidField;
+function showIsrError(field){
+  var help=$('isr-error');
+  if(isrInvalidField && isrInvalidField!==field){
+    isrInvalidField.removeAttribute('aria-invalid');
+    var ids=(isrInvalidField.getAttribute('aria-describedby')||'').split(/\s+/).filter(function(id){return id && id!==help.id;});
+    if(ids.length) isrInvalidField.setAttribute('aria-describedby',ids.join(' '));
+    else isrInvalidField.removeAttribute('aria-describedby');
+  }
+  isrInvalidField=field;
+  if(!field){help.textContent='';return;}
+  var label=field.labels[0];
+  if(label && label.nextElementSibling!==help) label.after(help);
+  field.setAttribute('aria-invalid','true');
+  var ids=(field.getAttribute('aria-describedby')||'').split(/\s+/).filter(Boolean);
+  if(!ids.includes(help.id)) field.setAttribute('aria-describedby',ids.concat(help.id).join(' '));
+  help.textContent=field.validationMessage;
+}
 function render(){
+  var invalid=Array.from($('f').elements).filter(function(input){return input.willValidate&&!input.validity.valid;});
+  var field=invalid.find(function(input){return !input.validity.valueMissing;});
+  showIsrError(field);
   var p=read();
-  if(p.ventas<=0){
+  if(invalid.length || p.ventas<=0){
+    announce(field?'Corrige los datos para calcular.':'');
     $('verdict').innerHTML='<div class="verdict"><span class="k">Empieza aquí</span><h2>Captura tus ventas y tu margen</h2><ul><li>Escribe tus ventas cobradas al mes (con IVA) y tu margen de utilidad.</li><li>Si también recibes sueldo, agrégalo: cambia por completo el resultado de Actividad Empresarial.</li></ul></div>';
     $('alerts').innerHTML='';$('cards').innerHTML='';$('chartsec').hidden=true;
     return;
@@ -264,6 +302,7 @@ function render(){
   var r=calc(p,p.margen), regs=[r.pf,r.pae,r.pm];
   var els=regs.filter(function(x){return x.elig});
   var best=els.reduce(function(a,b){return !a||b.total<a.total?b:a},null);
+  announce(best?'Resultado actualizado. Menor costo estimado: '+best.nombre+'.':'');
   var sorted=els.slice().sort(function(a,b){return a.total-b.total});
   var second=sorted[1];
   // veredicto
@@ -324,7 +363,8 @@ function chart(p){
   else if(cross===null) txt+=' RESICO PF es el más barato con cualquier margen entre 0% y 60%.';
   $('cross').textContent=txt;
 }
-Array.prototype.forEach.call(document.querySelectorAll('input'),function(e){e.addEventListener('input',render);e.addEventListener('change',render);});
+$('f').addEventListener('submit',function(event){event.preventDefault();});
+Array.prototype.forEach.call($('f').querySelectorAll('input'),function(e){e.addEventListener('input',render);e.addEventListener('change',render);});
 render();
 })();
 </script>
