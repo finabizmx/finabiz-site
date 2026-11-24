@@ -1261,11 +1261,16 @@
     box-shadow: 0 14px 36px -12px rgba(255, 140, 0, .55);
     transform: translateY(120%);
     opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
     transition: transform .35s, opacity .25s, background .15s;
   }
-  .float-cta.show {
+  .float-cta.show,
+  .float-cta:focus {
     transform: translateY(0);
     opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
   }
   .float-cta:hover { background: #ffa133; }
 
@@ -1728,14 +1733,15 @@
     padding: clamp(42px, 6vw, 75px) 0 clamp(48px, 6vw, 75px);
     background: linear-gradient(200deg, #0c1035 0%, #101a4a 55%, #080d22 100%);
   }
+  .hero--sub .eyebrow, .hero--sub .hero-trustline { color: #ffe2b8; line-height: 1.45; }
   .breadcrumb {
     margin: 0 0 18px;
     font: 500 12px/1 "IBM Plex Mono", monospace;
     letter-spacing: .04em;
-    color: rgba(255,255,255,.55);
+    color: #dce5ff;
   }
-  .breadcrumb a { color: rgba(255,255,255,.55); text-decoration: none; }
-  .breadcrumb a:hover { color: var(--orange); }
+  .breadcrumb a { color: #f4f6ff; text-decoration: underline; text-underline-offset: 2px; }
+  .breadcrumb a:hover { color: #ffe2b8; }
   .breadcrumb a:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
 
   /* ═══════════ BLOG / ARTÍCULO ═══════════ */
@@ -1746,7 +1752,7 @@
     font: 500 12px/1 "IBM Plex Mono", monospace;
     letter-spacing: .04em;
     text-transform: uppercase;
-    color: rgba(255,255,255,.6);
+    color: #e4ebff;
     margin-top: 18px;
   }
   .article-body {
@@ -1778,6 +1784,9 @@
   .article-lede { font-size: 15.5px; color: var(--muted); margin: 0 0 8px; }
 
   .article-table-wrap { overflow-x: auto; margin: 8px 0 28px; border: 1px solid var(--line); border-radius: 8px; }
+  .article-table-wrap:focus-visible { outline: 2px solid #1c2a5e; outline-offset: 3px; }
+  .article-scroll-hint { display: block; margin-top: 6px; color: #46516d; font-size: .875rem; }
+  .article-scroll-hint[hidden] { display: none; }
   .article-table { width: 100%; border-collapse: collapse; font-size: 14px; }
   .article-table th { background: var(--blue-ink); color: #fff; text-align: left; padding: 10px 14px; font: 600 10.5px/1 "IBM Plex Mono", monospace; letter-spacing: .04em; text-transform: uppercase; white-space: nowrap; }
   .article-table td { padding: 10px 14px; border-bottom: 1px solid var(--line); color: var(--ink); }
