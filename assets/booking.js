@@ -7,13 +7,13 @@
   const status = document.getElementById('tfOverlayStatus');
 
   const analytics = window.finabizAnalytics;
-  const attribution = analytics?.attribution || {};
   function track(name, category) {
     analytics?.track(name, category);
   }
 
   let sdkRequest;
   let mounted = false;
+  let widget;
   const started = new Set();
   const submitted = new Set();
   let restoreOverflow = '';
@@ -70,12 +70,12 @@
       readyTimer = setTimeout(() => {
         setStatus('El formulario está tardando. Puedes abrirlo directamente.');
       }, 10000);
-      sdk.createWidget(formId, {
+      widget = sdk.createWidget(formId, {
         container: host,
         width: '100%',
         height: '100%',
         inlineOnMobile: true,
-        hidden: attribution,
+        hidden: analytics?.attribution || {},
         iframeProps: {
           title: 'Formulario previo a tu llamada de orientación',
           allow: "camera 'none'; microphone 'none'",
@@ -96,11 +96,16 @@
   }
 
   document.querySelectorAll('a[href^="' + formUrl + '"]').forEach(link => {
-    const target = new URL(link.href);
-    const hidden = new URLSearchParams(target.hash.slice(1));
-    Object.entries(attribution).forEach(([key, value]) => hidden.set(key, value));
-    target.hash = hidden.toString();
-    link.href = target.href;
+    const original = link.href;
+    function updateLink() {
+      const target = new URL(original);
+      const hidden = new URLSearchParams(target.hash.slice(1));
+      Object.entries(analytics?.attribution || {}).forEach(([key, value]) => hidden.set(key, value));
+      target.hash = hidden.toString();
+      link.href = target.href;
+    }
+    updateLink();
+    window.addEventListener('finabiz-analytics-preference', updateLink);
     link.addEventListener('click', event => {
       track('click_agendar_llamada', 'engagement');
       if (link.closest('dialog')) return;
@@ -126,6 +131,15 @@
   });
 
   if (!overlay || !closeButton || !host || !status) return;
+
+  window.addEventListener('finabiz-analytics-preference', () => {
+    if (!mounted) return;
+    clearTimeout(readyTimer);
+    if (typeof widget?.unmount === 'function') widget.unmount();
+    else host.replaceChildren();
+    mounted = false;
+    if (overlay.open) mount();
+  });
 
   function close() {
     if (!overlay.open) return;
