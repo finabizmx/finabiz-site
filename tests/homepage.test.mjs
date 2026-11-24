@@ -50,7 +50,7 @@ function setup(typeform, supportsDialog = true) {
   };
   const hits = [];
   const requests = [];
-  const window = eventTarget({ tf: typeform, gtag: (...args) => hits.push(args) });
+  const window = eventTarget({ tf: typeform, finabizAnalytics: { attribution: { utm_source: 'qa' }, track: (...args) => hits.push(args) } });
   const elements = { tfOverlay: overlay, tfOverlayClose: closeButton, tfOverlayWidget: host, tfOverlayStatus: status };
   const document = {
     body,
@@ -90,6 +90,8 @@ test('opening the widget restores focus-related state and reuses the embed', asy
   assert.equal(history.state.tfOverlay, true);
   await nextTurn();
   assert.equal(status.hidden, true);
+  assert.equal(new URL(link.href).hash, '#utm_source=qa');
+  assert.equal(new URL(link.href).search, '');
   closeButton.emit('click');
   assert.equal(overlay.open, false);
   assert.equal(body.style.overflow, 'auto');
@@ -126,20 +128,23 @@ test('the SDK loads on first interaction and a network error leaves the direct l
   assert.equal(setup(undefined, false).link.emit('click').defaultPrevented, false);
 });
 
-test('conversion is emitted once for the Typeform submit callback and excludes response data', async () => {
+test('booking separates click, start and submit without forwarding response identifiers', async () => {
   let options;
   const { link, hits, window } = setup({ createWidget(id, config) { options = config; } });
   link.emit('click');
   await nextTurn();
-  assert.equal(hits[0][1], 'click_agendar_llamada');
+  options.onReady();
   window.emit('message', { data: { type: 'form-submit', formId: 'ykt2ayIi' } });
+  options.onStarted({ formId: 'unrelated' });
   options.onSubmit({ formId: 'unrelated' });
-  assert.equal(hits.length, 1);
-  options.onSubmit({ formId: 'ykt2ayIi', responseId: 'private-response' });
-  options.onSubmit({ formId: 'ykt2ayIi', responseId: 'private-response' });
-  assert.equal(hits.length, 2);
-  assert.equal(hits[1][1], 'formulario_completado');
-  assert.doesNotMatch(JSON.stringify(hits[1]), /private-response/);
+  assert.deepEqual(hits, [['click_agendar_llamada', 'engagement']]);
+  const response = { formId: 'ykt2ayIi', responseId: 'private-response' };
+  options.onStarted(response);
+  options.onStarted(response);
+  options.onSubmit(response);
+  options.onSubmit(response);
+  assert.deepEqual(hits.map(([name]) => name), ['click_agendar_llamada', 'formulario_iniciado', 'formulario_completado']);
+  assert.doesNotMatch(JSON.stringify(hits), /private-response|llamada_agendada/);
 });
 
 test('the fiscal catalog groups tax calculation and refunds with a single recurring service', () => {

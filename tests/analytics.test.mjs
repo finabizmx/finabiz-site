@@ -1,0 +1,80 @@
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import { test } from 'node:test';
+import { runInNewContext } from 'node:vm';
+
+const script = readFileSync(new URL('../assets/analytics.js', import.meta.url), 'utf8');
+
+function load({
+  url = 'https://finabiz.mx/',
+  canonical = 'https://finabiz.mx/',
+  referrer = '',
+  data = {},
+  gpc = false,
+  storage = new Map(),
+} = {}) {
+  const window = {};
+  const requests = [];
+  const document = {
+    referrer, currentScript: { dataset: data }, documentElement: { dataset: {} },
+    querySelector: () => canonical ? { href: canonical } : null,
+    createElement: () => ({}), head: { append: element => requests.push(element.src) },
+  };
+  const sessionStorage = { getItem: key => storage.get(key), setItem: (key, value) => storage.set(key, value) };
+  runInNewContext(script, { window, document, sessionStorage, location: new URL(url), URL, URLSearchParams, navigator: { globalPrivacyControl: gpc } });
+  return { window, requests, storage, attribution: { ...window.finabizAnalytics.attribution } };
+}
+
+test('analytics uses the existing property and sanitizes locations, referrers and event payloads', () => {
+  const { window, requests, attribution } = load({
+    url: 'https://finabiz.mx/calculadora-iva-resico.html?utm_source=correo&utm_campaign=demo&email=qa%40example.invalid&rfc=XAXX010101000&at16=12349999&utm_medium=XEXX010101000#datos',
+    canonical: 'https://finabiz.mx/calculadora-iva-resico.html',
+    referrer: 'https://www.google.com.mx/search?correo=qa%40example.invalid',
+  });
+  assert.equal(requests.length, 1);
+  assert.match(requests[0], /G-VDZXBBNES7$/);
+  assert.equal(window.dataLayer[1][2].page_location, 'https://finabiz.mx/calculadora-iva-resico.html?utm_source=correo&utm_campaign=demo');
+  assert.equal(window.dataLayer[1][2].page_referrer, 'https://www.google.com.mx');
+  assert.deepEqual(attribution, { utm_source: 'correo', utm_campaign: 'demo', landing_page: '/calculadora-iva-resico.html' });
+  window.finabizAnalytics.track('formulario_iniciado', 'lead');
+  window.finabizAnalytics.track('llamada_agendada', 'lead');
+  assert.equal(window.dataLayer[2][1], 'formulario_iniciado');
+  assert.equal(window.dataLayer.length, 3);
+  assert.doesNotMatch(JSON.stringify(window.dataLayer), /example.invalid|XAXX|XEXX|12349999|#datos/);
+});
+
+test('referring host classification separates search, social, AI and referral', () => {
+  for (const [host, source, medium] of [
+    ['www.google.com.mx', 'google', 'organic'], ['www.bing.com', 'bing', 'organic'],
+    ['mx.search.yahoo.com', 'yahoo', 'organic'], ['m.facebook.com', 'facebook.com', 'social'],
+    ['chatgpt.com', 'chatgpt', 'ai-assistant'], ['example.invalid', 'example.invalid', 'referral'],
+  ]) {
+    const { attribution } = load({ referrer: 'https://' + host + '/path?private=discarded' });
+    assert.equal(attribution.utm_source, source, host);
+    assert.equal(attribution.utm_medium, medium, host);
+  }
+  assert.deepEqual(load({ referrer: 'https://finabiz.mx/contabilidad-para-ecommerce.html' }).attribution, { landing_page: '/' });
+});
+
+test('first landing survives navigation and unavailable session storage degrades safely', () => {
+  const first = load({ referrer: 'https://www.bing.com/search?q=qa' });
+  const later = load({ url: 'https://finabiz.mx/calculo-de-impuestos.html?utm_source=other', canonical: 'https://finabiz.mx/calculo-de-impuestos.html', storage: first.storage });
+  assert.deepEqual(later.attribution, first.attribution);
+  const unavailable = { get() { throw new Error('Unavailable'); }, set() { throw new Error('Unavailable'); } };
+  assert.equal(load({ referrer: 'https://chatgpt.com/', storage: unavailable }).attribution.utm_medium, 'ai-assistant');
+});
+
+test('privacy opt-out and previews avoid a tag request or a session-storage write', () => {
+  for (const options of [{ gpc: true }, { url: 'http://127.0.0.1:8831/' }]) {
+    const { requests, window, attribution } = load(options);
+    assert.equal(requests.length, 0);
+    assert.equal(window.dataLayer, undefined);
+    assert.deepEqual(attribution, { landing_page: '/' });
+    window.finabizAnalytics.track('click_whatsapp', 'engagement');
+  }
+});
+
+test('unknown paths in the 404 template are not exposed', () => {
+  const { window } = load({ canonical: null, url: 'https://finabiz.mx/persona-qa@example.invalid', data: { page: '/404.html' } });
+  assert.equal(window.dataLayer[1][2].page_location, 'https://finabiz.mx/404.html');
+});

@@ -6,58 +6,16 @@
   const closeButton = document.getElementById('tfOverlayClose');
   const status = document.getElementById('tfOverlayStatus');
 
-  const campaignKeys = ['utm_source', 'utm_medium', 'utm_campaign'];
-  const storageKey = 'finabiz_attribution_v1';
-  let saved = {};
-  try {
-    saved = JSON.parse(sessionStorage.getItem(storageKey) || '{}') || {};
-  } catch {
-    // Private browsing can restrict session storage.
-  }
-  const query = new URLSearchParams(location.search);
-  const attribution = {};
-  campaignKeys.forEach(key => {
-    const value = saved[key] || query.get(key);
-    if (typeof value === 'string' && value) attribution[key] = value.slice(0, 120);
-  });
-
-  if (!attribution.utm_source && document.referrer) {
-    const sourceHost = new URL(document.referrer).hostname.toLowerCase();
-    const sources = [
-      [/^(chatgpt\.com|chat\.openai\.com)$/, 'chatgpt'],
-      [/^(www\.)?perplexity\.ai$/, 'perplexity'],
-      [/^gemini\.google\.com$/, 'gemini'],
-      [/^(www\.)?google\.[a-z.]+$/, 'google'],
-      [/^(www\.)?bing\.com$/, 'bing'],
-    ];
-    const source = sources.find(([pattern]) => pattern.test(sourceHost));
-    if (source) {
-      attribution.utm_source = source[1];
-      attribution.utm_medium ||= 'referral';
-    }
-  }
-  attribution.landing_page = typeof saved.landing_page === 'string'
-    ? saved.landing_page.slice(0, 200)
-    : location.pathname.slice(0, 200);
-  try {
-    sessionStorage.setItem(storageKey, JSON.stringify(attribution));
-  } catch {
-    // The current page can still forward attribution to the form.
-  }
-
-  function track(name, category, label) {
-    if (typeof window.gtag === 'function') {
-      window.gtag('event', name, {
-        event_category: category,
-        ...(label && { event_label: label }),
-        page_path: location.pathname,
-      });
-    }
+  const analytics = window.finabizAnalytics;
+  const attribution = analytics?.attribution || {};
+  function track(name, category) {
+    analytics?.track(name, category);
   }
 
   let sdkRequest;
   let mounted = false;
-  let submitted = false;
+  const started = new Set();
+  const submitted = new Set();
   let restoreOverflow = '';
   let readyTimer;
 
@@ -95,6 +53,14 @@
     status.hidden = !message;
   }
 
+  function recordFormEvent(event, seen, name) {
+    if (event?.formId !== formId) return;
+    const response = typeof event.responseId === 'string' ? event.responseId : '';
+    if (seen.has(response)) return;
+    seen.add(response);
+    track(name, 'lead');
+  }
+
   async function mount() {
     if (mounted) return;
     setStatus('Cargando formulario de orientación…');
@@ -118,11 +84,8 @@
           clearTimeout(readyTimer);
           setStatus('');
         },
-        onSubmit(event) {
-          if (event?.formId !== formId || submitted) return;
-          submitted = true;
-          track('formulario_completado', 'lead');
-        },
+        onStarted(event) { recordFormEvent(event, started, 'formulario_iniciado'); },
+        onSubmit(event) { recordFormEvent(event, submitted, 'formulario_completado'); },
       });
       mounted = true;
     } catch {
@@ -134,12 +97,13 @@
 
   document.querySelectorAll('a[href^="' + formUrl + '"]').forEach(link => {
     const target = new URL(link.href);
-    Object.entries(attribution).forEach(([key, value]) => target.searchParams.set(key, value));
+    const hidden = new URLSearchParams(target.hash.slice(1));
+    Object.entries(attribution).forEach(([key, value]) => hidden.set(key, value));
+    target.hash = hidden.toString();
     link.href = target.href;
-    if (link.closest('dialog')) return;
-
     link.addEventListener('click', event => {
-      track('click_agendar_llamada', 'conversion', link.className);
+      track('click_agendar_llamada', 'engagement');
+      if (link.closest('dialog')) return;
       if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
       if (typeof overlay?.showModal !== 'function' || !host || !status || !closeButton) return;
 
@@ -158,7 +122,7 @@
   });
 
   document.querySelectorAll('a[href^="https://wa.me/"]').forEach(link => {
-    link.addEventListener('click', () => track('click_whatsapp', 'engagement', link.className || 'whatsapp-link'));
+    link.addEventListener('click', () => track('click_whatsapp', 'engagement'));
   });
 
   if (!overlay || !closeButton || !host || !status) return;
