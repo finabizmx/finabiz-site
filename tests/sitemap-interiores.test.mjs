@@ -52,3 +52,31 @@ test('the calculator comparison region has a keyboard target and visible label',
   assert.match(html, /<h2 id="titulo-comparacion">Ventajas y desventajas, lado a lado/);
   assert.match(html, /<div class="cmp" tabindex="0" role="region" aria-labelledby="titulo-comparacion">/);
 });
+
+test('priority pages keep titles and descriptions consistent across sharing metadata', () => {
+  const pages = ['index.html', 'contabilidad-para-ecommerce.html', 'arquitectura-de-claridad-fiscal.html',
+    'cumplimiento-optimizacion-fiscal.html', 'diagnostico-fiscal-financiero.html', 'blog-alta-primer-empleado-nomina-imss.html'];
+  for (const path of pages) {
+    const html = read(path);
+    const title = html.match(/<title>([^<]+)<\/title>/)?.[1];
+    const description = html.match(/<meta name="description" content="([^"]+)"/)?.[1];
+    assert.ok(title && description, path);
+    for (const provider of ['og', 'twitter']) {
+      assert.ok(html.includes(`"${provider}:title" content="${title}"`), path);
+      assert.ok(html.includes(`"${provider}:description" content="${description}"`), path);
+    }
+  }
+});
+
+test('the public methodology defers deadlines and ecommerce distinguishes guidance from diagnosis', () => {
+  const home = read('index.html');
+  const architecture = read('arquitectura-de-claridad-fiscal.html');
+  const ecommerce = read('contabilidad-para-ecommerce.html');
+  assert.doesNotMatch(home, /method-time|A partir del día 60/);
+  assert.doesNotMatch(architecture, /Diagnóstico \(30 días\)|15 a 30 días|desde el día 60/);
+  const faqAnswer = ecommerce.match(/<summary>¿Qué tan rápido pueden poner al día mi contabilidad de eCommerce\?<\/summary>\s*<p>([^<]+)<\/p>/)?.[1];
+  assert.match(faqAnswer, /orientación gratuita de 30 minutos.*diagnóstico fiscal y financiero completo.*plazo se define en la propuesta/);
+  const structured = [...ecommerce.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map(match => JSON.parse(match[1]));
+  const faqItem = structured.find(item => item['@type'] === 'FAQPage').mainEntity.find(item => item.name.startsWith('¿Qué tan rápido'));
+  assert.equal(faqItem.acceptedAnswer.text, faqAnswer);
+});
