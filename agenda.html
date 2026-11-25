@@ -31,6 +31,8 @@
       const calendar = new URL('https://calendly.com/finabiz-mx/sesion-estrategica-gratuita');
       if (name) calendar.searchParams.set('name', name);
       if (email) calendar.searchParams.set('email', email);
+      // Calendly's embed decodes query values with decodeURIComponent, which leaves "+" literal.
+      calendar.search = calendar.searchParams.toString().replaceAll('+', '%20');
       document.getElementById('calendlyFallback').href = calendar.href;
       const widget = document.getElementById('calendlyWidget');
       const status = document.getElementById('calendlyStatus');
