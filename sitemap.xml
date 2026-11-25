@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://finabiz.mx/</loc>
-    <lastmod>2026-11-21</lastmod>
+    <lastmod>2026-11-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -26,7 +26,7 @@
   </url>
   <url>
     <loc>https://finabiz.mx/cumplimiento-optimizacion-fiscal.html</loc>
-    <lastmod>2026-11-22</lastmod>
+    <lastmod>2026-11-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -44,7 +44,7 @@
   </url>
   <url>
     <loc>https://finabiz.mx/contabilidad-para-ecommerce.html</loc>
-    <lastmod>2026-11-21</lastmod>
+    <lastmod>2026-11-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -62,7 +62,7 @@
   </url>
   <url>
     <loc>https://finabiz.mx/diagnostico-fiscal-financiero.html</loc>
-    <lastmod>2026-11-21</lastmod>
+    <lastmod>2026-11-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -80,7 +80,7 @@
   </url>
   <url>
     <loc>https://finabiz.mx/arquitectura-de-claridad-fiscal.html</loc>
-    <lastmod>2026-11-21</lastmod>
+    <lastmod>2026-11-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -152,7 +152,7 @@
   </url>
   <url>
     <loc>https://finabiz.mx/blog-alta-primer-empleado-nomina-imss.html</loc>
-    <lastmod>2026-11-21</lastmod>
+    <lastmod>2026-11-24</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -176,5 +176,6 @@
   </url>
   <url>
     <loc>https://finabiz.mx/calculadora-iva-resico.html</loc>
+    <lastmod>2026-11-24</lastmod>
   </url>
 </urlset>

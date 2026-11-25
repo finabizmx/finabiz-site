@@ -4,6 +4,7 @@ import { test } from 'node:test';
 import { runInNewContext } from 'node:vm';
 
 const html = readFileSync(new URL('../agenda.html', import.meta.url), 'utf8');
+const analytics = readFileSync(new URL('../assets/analytics.js', import.meta.url), 'utf8');
 const script = html.match(/<script>([\s\S]*?)<\/script>/)[1];
 
 function visit(search, rejectHistory = false, withSdk = false) {
@@ -22,8 +23,12 @@ function visit(search, rejectHistory = false, withSdk = false) {
     },
   };
   const document = {
-    createElement: () => ({}),
-    head: { append: () => order.push('analytics') },
+    currentScript: { dataset: { page: '/agenda.html', referrer: 'omit' } },
+    documentElement: { dataset: {} },
+    querySelector: () => null,
+    body: { append() {} },
+    createElement: () => ({ setAttribute() {}, addEventListener() {}, querySelectorAll: () => [] }),
+    head: { append: element => { if (element.src) order.push('analytics'); } },
     addEventListener(type, handler) { config.ready = handler; },
     getElementById(id) {
       if (id === 'greeting') return {};
@@ -32,7 +37,11 @@ function visit(search, rejectHistory = false, withSdk = false) {
       return { setAttribute(name, value) { config.calendar = new URL(value); } };
     },
   };
-  runInNewContext(script, { window, location, history, document, URL });
+  const globals = { window, location, history, document, URL, URLSearchParams, navigator: {},
+    localStorage: { getItem: () => 'granted' },
+    sessionStorage: { getItem: () => null, setItem() {} } };
+  runInNewContext(script, globals);
+  runInNewContext(analytics, globals);
   config.ready();
   return { window, location, order, calendar: config.calendar, mount: config.mount, frame, status };
 }
@@ -41,8 +50,9 @@ test('agenda removes legacy personal parameters before GA and keeps the calendar
   const r = visit('?nombre=Persona+QA&correo=qa%40example.invalid&utm_source=demo');
   assert.deepEqual(r.order, ['clean', 'analytics']);
   assert.equal(r.location.search, '?utm_source=demo');
-  assert.equal(r.window.dataLayer[1][2].page_location, 'https://finabiz.mx/agenda.html');
-  assert.equal(r.window.dataLayer[1][2].page_referrer, '');
+  const config = r.window.dataLayer.find(([command]) => command === 'config')[2];
+  assert.equal(config.page_location, 'https://finabiz.mx/agenda.html?utm_source=demo');
+  assert.equal(config.page_referrer, '');
   assert.equal(r.calendar.searchParams.get('name'), 'Persona QA');
   assert.equal(r.calendar.searchParams.get('email'), 'qa@example.invalid');
   assert.equal(r.calendar.searchParams.has('hide_gdpr_banner'), false);

@@ -22,16 +22,7 @@
       }
     }
 
-    if (canTrack) {
-      window.dataLayer = window.dataLayer || [];
-      window.gtag = function () { window.dataLayer.push(arguments); };
-      window.gtag('js', new Date());
-      window.gtag('config', 'G-VDZXBBNES7', { page_location: page.origin + page.pathname, page_referrer: '' });
-      const analytics = document.createElement('script');
-      analytics.async = true;
-      analytics.src = 'https://www.googletagmanager.com/gtag/js?id=G-VDZXBBNES7';
-      document.head.append(analytics);
-    }
+    if (!canTrack) document.documentElement.dataset.analyticsDisabled = 'true';
 
     document.addEventListener('DOMContentLoaded', () => {
       const calendar = new URL('https://calendly.com/finabiz-mx/sesion-estrategica-gratuita');
@@ -55,6 +46,7 @@
     }, { once: true });
   })();
 </script>
+<script defer src="assets/analytics.js" data-page="/agenda.html" data-referrer="omit"></script>
 <title>Agenda tu llamada — Finabiz</title>
 <meta name="description" content="Agenda tu sesión estratégica gratuita con Finabiz." />
 <meta name="viewport" content="width=device-width, initial-scale=1" />

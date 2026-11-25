@@ -52,3 +52,39 @@ test('the calculator comparison region has a keyboard target and visible label',
   assert.match(html, /<h2 id="titulo-comparacion">Ventajas y desventajas, lado a lado/);
   assert.match(html, /<div class="cmp" tabindex="0" role="region" aria-labelledby="titulo-comparacion">/);
 });
+
+test('priority pages keep titles and descriptions consistent across sharing metadata', () => {
+  const pages = ['index.html', 'contabilidad-para-ecommerce.html', 'arquitectura-de-claridad-fiscal.html',
+    'cumplimiento-optimizacion-fiscal.html', 'diagnostico-fiscal-financiero.html', 'blog-alta-primer-empleado-nomina-imss.html'];
+  for (const path of pages) {
+    const html = read(path);
+    const title = html.match(/<title>([^<]+)<\/title>/)?.[1];
+    const description = html.match(/<meta name="description" content="([^"]+)"/)?.[1];
+    assert.ok(title && description, path);
+    for (const provider of ['og', 'twitter']) {
+      assert.ok(html.includes(`"${provider}:title" content="${title}"`), path);
+      assert.ok(html.includes(`"${provider}:description" content="${description}"`), path);
+    }
+  }
+});
+
+test('the public methodology defers deadlines and ecommerce distinguishes guidance from diagnosis', () => {
+  const home = read('index.html');
+  const architecture = read('arquitectura-de-claridad-fiscal.html');
+  const ecommerce = read('contabilidad-para-ecommerce.html');
+  const methodLabels = [...home.matchAll(/<p class="method-time">([^<]+)<\/p>/g)].map(match => match[1]);
+  assert.deepEqual(methodLabels, ['Al inicio', 'Según el cronograma acordado', 'Seguimiento mensual']);
+  assert.match(home, /Implementación a tu medida<\/h3>\s*<p>Definimos un cronograma personalizado en cada propuesta/);
+  assert.doesNotMatch(home, /A partir del día 60/);
+  assert.doesNotMatch(architecture, /Diagnóstico \(30 días\)|15 a 30 días|desde el día 60/);
+  const phases = [...architecture.matchAll(/<strong>Fase [123] · ([^<]+)<\/strong>/g)].map(match => match[1]);
+  assert.deepEqual(phases, ['Diagnóstico fiscal y financiero', 'Estructuración contable y de información', 'Cumplimiento y seguimiento continuo']);
+  assert.match(architecture, /el plazo de implementación en cada propuesta, según el alcance/);
+  const faqAnswer = ecommerce.match(/<summary>¿Qué tan rápido pueden poner al día mi contabilidad de eCommerce\?<\/summary>\s*<p>([^<]+)<\/p>/)?.[1];
+  assert.match(faqAnswer, /orientación gratuita de 30 minutos.*diagnóstico fiscal y financiero completo/);
+  assert.match(faqAnswer, /El plazo de la regularización depende de los periodos pendientes, el volumen de operaciones y la documentación disponible/);
+  assert.doesNotMatch(ecommerce, /2 a 6 semanas/);
+  const structured = [...ecommerce.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map(match => JSON.parse(match[1]));
+  const faqItem = structured.find(item => item['@type'] === 'FAQPage').mainEntity.find(item => item.name.startsWith('¿Qué tan rápido'));
+  assert.equal(faqItem.acceptedAnswer.text, faqAnswer);
+});

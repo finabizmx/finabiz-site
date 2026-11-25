@@ -10,7 +10,11 @@ function eventTarget(properties = {}) {
   const listeners = new Map();
   return {
     ...properties,
-    addEventListener(type, listener) { listeners.set(type, listener); },
+    addEventListener(type, listener) {
+      const handlers = listeners.get(type) || [];
+      handlers.push(listener);
+      listeners.set(type, handlers);
+    },
     emit(type, properties = {}) {
       const event = {
         button: 0,
@@ -18,7 +22,7 @@ function eventTarget(properties = {}) {
         preventDefault() { this.defaultPrevented = true; },
         ...properties,
       };
-      listeners.get(type)?.(event);
+      for (const handler of listeners.get(type) || []) handler(event);
       return event;
     },
   };
@@ -50,7 +54,7 @@ function setup(typeform, supportsDialog = true) {
   };
   const hits = [];
   const requests = [];
-  const window = eventTarget({ tf: typeform, gtag: (...args) => hits.push(args) });
+  const window = eventTarget({ tf: typeform, finabizAnalytics: { attribution: { utm_source: 'qa' }, track: (...args) => hits.push(args) } });
   const elements = { tfOverlay: overlay, tfOverlayClose: closeButton, tfOverlayWidget: host, tfOverlayStatus: status };
   const document = {
     body,
@@ -90,6 +94,8 @@ test('opening the widget restores focus-related state and reuses the embed', asy
   assert.equal(history.state.tfOverlay, true);
   await nextTurn();
   assert.equal(status.hidden, true);
+  assert.equal(new URL(link.href).hash, '#utm_source=qa');
+  assert.equal(new URL(link.href).search, '');
   closeButton.emit('click');
   assert.equal(overlay.open, false);
   assert.equal(body.style.overflow, 'auto');
@@ -126,20 +132,43 @@ test('the SDK loads on first interaction and a network error leaves the direct l
   assert.equal(setup(undefined, false).link.emit('click').defaultPrevented, false);
 });
 
-test('conversion is emitted once for the Typeform submit callback and excludes response data', async () => {
+test('booking separates click, start and submit without forwarding response identifiers', async () => {
   let options;
   const { link, hits, window } = setup({ createWidget(id, config) { options = config; } });
   link.emit('click');
   await nextTurn();
-  assert.equal(hits[0][1], 'click_agendar_llamada');
+  options.onReady();
   window.emit('message', { data: { type: 'form-submit', formId: 'ykt2ayIi' } });
+  options.onStarted({ formId: 'unrelated' });
   options.onSubmit({ formId: 'unrelated' });
-  assert.equal(hits.length, 1);
-  options.onSubmit({ formId: 'ykt2ayIi', responseId: 'private-response' });
-  options.onSubmit({ formId: 'ykt2ayIi', responseId: 'private-response' });
-  assert.equal(hits.length, 2);
-  assert.equal(hits[1][1], 'formulario_completado');
-  assert.doesNotMatch(JSON.stringify(hits[1]), /private-response/);
+  assert.deepEqual(hits, [['click_agendar_llamada', 'engagement']]);
+  const response = { formId: 'ykt2ayIi', responseId: 'private-response' };
+  options.onStarted(response);
+  options.onStarted(response);
+  options.onSubmit(response);
+  options.onSubmit(response);
+  assert.deepEqual(hits.map(([name]) => name), ['click_agendar_llamada', 'formulario_iniciado', 'formulario_completado']);
+  assert.doesNotMatch(JSON.stringify(hits), /private-response|llamada_agendada/);
+});
+
+test('withdrawing analytics strips optional attribution from both contact paths', async () => {
+  const embeds = [];
+  let unmounted = 0;
+  const { link, closeButton, window } = setup({ createWidget(id, options) {
+    embeds.push(options.hidden);
+    options.onReady();
+    return { unmount() { unmounted++; } };
+  } });
+  link.emit('click');
+  await nextTurn();
+  closeButton.emit('click');
+  window.finabizAnalytics.attribution = {};
+  window.emit('finabiz-analytics-preference');
+  assert.equal(link.href, 'https://form.typeform.com/to/ykt2ayIi');
+  assert.equal(unmounted, 1);
+  link.emit('click');
+  await nextTurn();
+  assert.deepEqual(embeds, [{ utm_source: 'qa' }, {}]);
 });
 
 test('the fiscal catalog groups tax calculation and refunds with a single recurring service', () => {
