@@ -73,6 +73,7 @@ test('agenda preloads contact data from the fragment into both calendar paths be
   assert.equal(r.location.href, 'https://finabiz.mx/agenda.html?utm_source=demo');
   assert.equal(r.calendar.searchParams.get('name'), 'Ana Pérez');
   assert.equal(r.calendar.searchParams.get('email'), 'qa+demo@example.invalid');
+  assert.match(r.mount.url, /name=Ana%20P%C3%A9rez&email=qa%2Bdemo%40example\.invalid$/);
   assert.equal(r.mount.url, r.fallback.href);
   assert.doesNotMatch(JSON.stringify(r.window.dataLayer), /Pérez|example\.invalid|nombre|correo/);
 });
