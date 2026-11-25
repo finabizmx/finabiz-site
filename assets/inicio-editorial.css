@@ -438,6 +438,13 @@
   line-height: 1.55;
 }
 
+.method-stages .method-time {
+  margin-top: auto;
+  padding-top: 7px;
+  color: var(--blue-ink);
+  font: 600 13px/1.4 "IBM Plex Mono", monospace;
+}
+
 .method-followup {
   display: flex;
   flex-wrap: wrap;
