@@ -12,6 +12,7 @@ function visit(search, { rejectHistory = false, withSdk = false, consent = 'gran
   const config = {};
   const frame = { hidden: true };
   const status = {};
+  const fallback = {};
   const calendarWindow = {};
   const window = { addEventListener(type, handler) { if (type === 'message') config.message = handler; } };
   if (withSdk) window.Calendly = { initInlineWidget(options) { config.mount = options; } };
@@ -36,6 +37,7 @@ function visit(search, { rejectHistory = false, withSdk = false, consent = 'gran
       if (id === 'greeting') return {};
       if (id === 'calendlyFrame') return frame;
       if (id === 'calendlyStatus') return status;
+      if (id === 'calendlyFallback') return fallback;
       return {
         setAttribute(name, value) { config.calendar = new URL(value); },
         querySelector: selector => selector === 'iframe' ? { contentWindow: calendarWindow } : null,
@@ -48,7 +50,7 @@ function visit(search, { rejectHistory = false, withSdk = false, consent = 'gran
   runInNewContext(script, globals);
   runInNewContext(analytics, globals);
   config.ready();
-  return { window, location, order, calendar: config.calendar, mount: config.mount, frame, status, message: config.message, calendarWindow };
+  return { window, location, order, calendar: config.calendar, mount: config.mount, frame, status, fallback, message: config.message, calendarWindow };
 }
 
 test('agenda removes legacy personal parameters before GA and keeps the calendar prefill', () => {
@@ -65,11 +67,23 @@ test('agenda removes legacy personal parameters before GA and keeps the calendar
   assert.match(html, /id="calendlyFallback" href="https:\/\/calendly\.com\/finabiz-mx\/sesion-estrategica-gratuita"/);
 });
 
+test('agenda preloads contact data from the fragment into both calendar paths before starting analytics', () => {
+  const r = visit('?utm_source=demo&email=legacy%40example.invalid#nombre=Ana+P%C3%A9rez&correo=qa%2Bdemo%40example.invalid', { withSdk: true });
+  assert.deepEqual(r.order, ['clean', 'analytics']);
+  assert.equal(r.location.href, 'https://finabiz.mx/agenda.html?utm_source=demo');
+  assert.equal(r.calendar.searchParams.get('name'), 'Ana Pérez');
+  assert.equal(r.calendar.searchParams.get('email'), 'qa+demo@example.invalid');
+  assert.equal(r.mount.url, r.fallback.href);
+  assert.doesNotMatch(JSON.stringify(r.window.dataLayer), /Pérez|example\.invalid|nombre|correo/);
+});
+
 test('agenda with personal parameters skips GA when history cleanup fails', () => {
-  const r = visit('?name=QA&email=qa%40example.invalid', { rejectHistory: true });
-  assert.deepEqual(r.order, []);
-  assert.equal(r.window.dataLayer, undefined);
-  assert.equal(r.calendar.searchParams.get('email'), 'qa@example.invalid');
+  for (const params of ['?name=QA&email=qa%40example.invalid', '#nombre=QA&correo=qa%40example.invalid']) {
+    const r = visit(params, { rejectHistory: true });
+    assert.deepEqual(r.order, []);
+    assert.equal(r.window.dataLayer, undefined);
+    assert.equal(new URL(r.fallback.href).searchParams.get('email'), 'qa@example.invalid');
+  }
 });
 
 

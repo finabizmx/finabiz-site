@@ -7,27 +7,31 @@
 <script>
   (() => {
     const page = new URL(location.href);
-    const params = page.searchParams;
-    const name = params.get('name') || params.get('nombre');
-    const email = params.get('email') || params.get('correo');
+    const query = page.searchParams;
+    const fragment = new URLSearchParams(page.hash.slice(1));
+    const name = fragment.get('nombre') || fragment.get('name') || query.get('name') || query.get('nombre');
+    const email = fragment.get('correo') || fragment.get('email') || query.get('email') || query.get('correo');
     const prefillKeys = ['name', 'nombre', 'email', 'correo'];
-    let canTrack = true;
-
-    if (prefillKeys.some(key => params.has(key))) {
-      prefillKeys.forEach(key => params.delete(key));
+    const hasQueryPrefill = prefillKeys.some(key => query.has(key));
+    const hasFragmentPrefill = prefillKeys.some(key => fragment.has(key));
+    if (hasQueryPrefill || hasFragmentPrefill) {
+      prefillKeys.forEach(key => {
+        query.delete(key);
+        fragment.delete(key);
+      });
+      if (hasFragmentPrefill) page.hash = fragment.toString();
       try {
         history.replaceState(history.state, '', page.href);
       } catch {
-        canTrack = false;
+        document.documentElement.dataset.analyticsDisabled = 'true';
       }
     }
-
-    if (!canTrack) document.documentElement.dataset.analyticsDisabled = 'true';
 
     document.addEventListener('DOMContentLoaded', () => {
       const calendar = new URL('https://calendly.com/finabiz-mx/sesion-estrategica-gratuita');
       if (name) calendar.searchParams.set('name', name);
       if (email) calendar.searchParams.set('email', email);
+      document.getElementById('calendlyFallback').href = calendar.href;
       const widget = document.getElementById('calendlyWidget');
       const status = document.getElementById('calendlyStatus');
       const frame = document.getElementById('calendlyFrame');
@@ -55,7 +59,8 @@
         if (typeof reservation !== 'string'
             || !/^https:\/\/api\.calendly\.com\/scheduled_events\/[a-z0-9-]+\/invitees\/[a-z0-9-]+$/i.test(reservation)
             || recorded.has(reservation)) return;
-        if (window.finabizAnalytics?.track('llamada_agendada', 'conversion')) recorded.add(reservation);
+        recorded.add(reservation);
+        window.finabizAnalytics?.track('llamada_agendada', 'conversion');
       });
     }, { once: true });
   })();
@@ -80,9 +85,9 @@
   el plan gratuito no hay redirect/botón personalizado al finalizar,
   según lo confirmado por el usuario el 2026-07-23).
 
-  Acepta ?name= y ?email= (o ?nombre= y ?correo=) en la URL para
-  prellenar el widget de Calendly. Los parámetros se eliminan de la
-  URL visible antes de cargar analítica.
+  Acepta #nombre= y &correo= para prellenar Calendly y conserva el
+  soporte de los enlaces antiguos con parámetros de consulta.
+  Los valores se eliminan de la URL visible antes de cargar analítica.
 -->
 
 <style>
