@@ -21,7 +21,11 @@ El candidato del PR #48 usa el modo básico. Espera una elección afirmativa ant
 
 La preferencia del sitio gobierna GA4 y la atribución que el sitio añade a Typeform. Typeform y Calendly administran sus propias cookies. Antes de publicar, hay que alinear el aviso y la configuración del proveedor y comprobar ambos resultados en una sesión real. El cambio del sitio está en una rama de GitHub. [Modo básico de Google](https://developers.google.com/tag-platform/security/guides/consent?consentmode=basic) · [Control de cookies de Typeform](https://help.typeform.com/hc/en-us/articles/6389226218132-Activate-cookie-consent)
 
-En navegador se verificó la bienvenida del Typeform publicado tanto por enlace directo como dentro de la portada. El iframe mostró «Comenzar formulario» y recibió `utm_campaign=prueba_no_prospecto`. La prueba visual terminó antes de iniciar el formulario. El envío controlado requiere un correo y un teléfono de prueba de Finabiz, que el formulario solicita antes de Calendly. El nombre debe indicar «PRUEBA — NO PROSPECTO». Mantener desmarcado el marketing y verificar la respuesta y la reserva por separado. Documentar el intervalo y retirar la reserva si se autorizó hacerlo, sin borrar registros de terceros. Las pruebas automatizadas ejercitan el consentimiento, la revocación, el enlace alternativo y la atribución sin notificar a nadie.
+Se verificó la bienvenida del Typeform publicado tanto por enlace directo como dentro de la portada. Después se completó la prueba autorizada «PRUEBA — NO PROSPECTO» en el iframe de producción con `utm_campaign=prueba_no_prospecto`. Se confirmó la lectura del aviso simplificado, se dejó desmarcado el marketing y se rechazaron las cookies opcionales de Calendly.
+
+- **Calendly.** La API confirmó una reserva activa de 30 minutos con el nombre de prueba. Se creó el 24 de noviembre de 2026 a las 17:51:14, hora de Matamoros.
+- **Typeform.** Se mostró la página de cita confirmada. La API devolvió una respuesta completada con el campo de Calendly a las 17:51:18 del mismo día. La consulta filtró por la campaña de prueba.
+- **GA4.** En la consulta inmediata todavía no se devolvieron eventos para la campaña. La confirmación de ambos proveedores es la evidencia de esta prueba. La implementación de consentimiento de este PR sigue en revisión y se comprobó con pruebas automatizadas de aceptación, revocación, enlace alternativo y atribución.
 
 ## Dominio y cambios editoriales
 
