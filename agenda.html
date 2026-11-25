@@ -43,6 +43,20 @@
       if (name) {
         document.getElementById('greeting').textContent = 'Listo, ' + name + '. Agenda tu llamada de orientación';
       }
+      if (frame.hidden) return;
+
+      const recorded = new Set();
+      window.addEventListener('message', ({ origin, source, data }) => {
+        if (origin !== calendar.origin || !source || source !== widget.querySelector('iframe')?.contentWindow
+            || data?.event !== 'calendly.event_scheduled') return;
+
+        // The invitee URI only deduplicates messages in this page and is never sent to Analytics.
+        const reservation = data.payload?.invitee?.uri;
+        if (typeof reservation !== 'string'
+            || !/^https:\/\/api\.calendly\.com\/scheduled_events\/[a-z0-9-]+\/invitees\/[a-z0-9-]+$/i.test(reservation)
+            || recorded.has(reservation)) return;
+        if (window.finabizAnalytics?.track('llamada_agendada', 'conversion')) recorded.add(reservation);
+      });
     }, { once: true });
   })();
 </script>

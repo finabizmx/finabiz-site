@@ -7,12 +7,14 @@ const html = readFileSync(new URL('../agenda.html', import.meta.url), 'utf8');
 const analytics = readFileSync(new URL('../assets/analytics.js', import.meta.url), 'utf8');
 const script = html.match(/<script>([\s\S]*?)<\/script>/)[1];
 
-function visit(search, rejectHistory = false, withSdk = false) {
+function visit(search, { rejectHistory = false, withSdk = false, consent = 'granted' } = {}) {
   const order = [];
   const config = {};
   const frame = { hidden: true };
   const status = {};
-  const window = withSdk ? { Calendly: { initInlineWidget(options) { config.mount = options; } } } : {};
+  const calendarWindow = {};
+  const window = { addEventListener(type, handler) { if (type === 'message') config.message = handler; } };
+  if (withSdk) window.Calendly = { initInlineWidget(options) { config.mount = options; } };
   const location = new URL('https://finabiz.mx/agenda.html' + search);
   const history = {
     state: null,
@@ -34,16 +36,19 @@ function visit(search, rejectHistory = false, withSdk = false) {
       if (id === 'greeting') return {};
       if (id === 'calendlyFrame') return frame;
       if (id === 'calendlyStatus') return status;
-      return { setAttribute(name, value) { config.calendar = new URL(value); } };
+      return {
+        setAttribute(name, value) { config.calendar = new URL(value); },
+        querySelector: selector => selector === 'iframe' ? { contentWindow: calendarWindow } : null,
+      };
     },
   };
   const globals = { window, location, history, document, URL, URLSearchParams, navigator: {},
-    localStorage: { getItem: () => 'granted' },
+    localStorage: { getItem: () => consent },
     sessionStorage: { getItem: () => null, setItem() {} } };
   runInNewContext(script, globals);
   runInNewContext(analytics, globals);
   config.ready();
-  return { window, location, order, calendar: config.calendar, mount: config.mount, frame, status };
+  return { window, location, order, calendar: config.calendar, mount: config.mount, frame, status, message: config.message, calendarWindow };
 }
 
 test('agenda removes legacy personal parameters before GA and keeps the calendar prefill', () => {
@@ -61,7 +66,7 @@ test('agenda removes legacy personal parameters before GA and keeps the calendar
 });
 
 test('agenda with personal parameters skips GA when history cleanup fails', () => {
-  const r = visit('?name=QA&email=qa%40example.invalid', true);
+  const r = visit('?name=QA&email=qa%40example.invalid', { rejectHistory: true });
   assert.deepEqual(r.order, []);
   assert.equal(r.window.dataLayer, undefined);
   assert.equal(r.calendar.searchParams.get('email'), 'qa@example.invalid');
@@ -69,11 +74,46 @@ test('agenda with personal parameters skips GA when history cleanup fails', () =
 
 
 test('agenda uses manual initialization after receiving its URL and keeps a fallback on SDK error', () => {
-  const working = visit('', false, true);
+  const working = visit('', { withSdk: true });
   assert.equal(working.mount.url, working.calendar.href);
   assert.equal(working.frame.hidden, false);
   const blocked = visit('');
   assert.equal(blocked.frame.hidden, true);
   assert.match(blocked.status.textContent, /enlace directo/);
   assert.match(html, /La sesión dura 30 minutos/);
+});
+
+const bookingMessage = source => ({
+  source,
+  origin: 'https://calendly.com',
+  data: {
+    event: 'calendly.event_scheduled',
+    payload: { invitee: { uri: 'https://api.calendly.com/scheduled_events/test-event/invitees/test-invitee' } },
+  },
+});
+
+test('agenda records one Calendly confirmation from its own widget without sending reservation details', () => {
+  const page = visit('?email=qa%40example.invalid', { withSdk: true });
+  const confirmation = bookingMessage(page.calendarWindow);
+  const hits = () => Array.from(page.window.dataLayer).filter(([command]) => command === 'event');
+  page.message({ ...confirmation, source: {} });
+  page.message({ ...confirmation, origin: 'https://form.typeform.com' });
+  page.message({ ...confirmation, data: { event: 'calendly.date_and_time_selected' } });
+  page.message({ ...confirmation, data: { event: 'calendly.event_scheduled' } });
+  assert.equal(hits().length, 0);
+
+  page.message(confirmation);
+  page.message(confirmation);
+  assert.equal(hits().length, 1);
+  const [, name, params] = hits()[0];
+  assert.equal(name, 'llamada_agendada');
+  assert.equal(params.page_location, 'https://finabiz.mx/agenda.html');
+  assert.equal(params.event_category, 'conversion');
+  assert.doesNotMatch(JSON.stringify(params), /qa@example|test-invitee|test-event|api\.calendly\.com/);
+});
+
+test('agenda leaves Google Analytics disabled for a confirmed booking when consent is denied', () => {
+  const page = visit('', { withSdk: true, consent: 'denied' });
+  page.message(bookingMessage(page.calendarWindow));
+  assert.equal(page.window.dataLayer, undefined);
 });

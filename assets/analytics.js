@@ -79,6 +79,7 @@
 
   const payload = { page_location: pageLocation.href, page_referrer: referrerOrigin };
   const trackedEvents = new Set(['click_agendar_llamada', 'formulario_iniciado', 'formulario_completado', 'click_whatsapp']);
+  if (pagePath === '/agenda.html') trackedEvents.add('llamada_agendada');
   const adsDenied = { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' };
   const gaDisabled = 'ga-disable-' + property;
   let attribution = {};
@@ -87,9 +88,9 @@
   window.finabizAnalytics = {
     get attribution() { return attribution; },
     track(name, category) {
-      if (consent === 'granted' && trackedEvents.has(name) && typeof window.gtag === 'function') {
-        window.gtag('event', name, { ...payload, event_category: category, page_path: pagePath });
-      }
+      if (consent !== 'granted' || !trackedEvents.has(name) || typeof window.gtag !== 'function') return false;
+      window.gtag('event', name, { ...payload, event_category: category, page_path: pagePath });
+      return true;
     },
   };
   if (exclude) return;
