@@ -1,0 +1,31 @@
+{
+  "ref": "finabiz_security_headers",
+  "description": "Cabeceras HTTP del sitio público de Finabiz",
+  "expression": "http.host in {\"finabiz.mx\" \"www.finabiz.mx\"}",
+  "action": "rewrite",
+  "enabled": false,
+  "action_parameters": {
+    "headers": {
+      "Content-Security-Policy": {
+        "operation": "set",
+        "value": "base-uri 'none'; object-src 'none'; form-action 'self'; frame-ancestors 'self'"
+      },
+      "X-Frame-Options": {
+        "operation": "set",
+        "value": "SAMEORIGIN"
+      },
+      "X-Content-Type-Options": {
+        "operation": "set",
+        "value": "nosniff"
+      },
+      "Referrer-Policy": {
+        "operation": "set",
+        "value": "strict-origin-when-cross-origin"
+      },
+      "Permissions-Policy": {
+        "operation": "set",
+        "value": "camera=(), microphone=(), geolocation=()"
+      }
+    }
+  }
+}
