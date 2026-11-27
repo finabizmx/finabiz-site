@@ -41,6 +41,14 @@ El 25 de noviembre se verificó que la portada muestra la primera pregunta oblig
 
 Calendly confirmó una reserva de prueba desde `/agenda.html` el 26 de noviembre de 2026 a las 13:26:50, hora de Matamoros. La consulta del 27 de noviembre en la propiedad Finabiz de GA4 devolvió un evento `llamada_agendada` a las 13:26 para `/agenda.html?utm_campaign=prueba_no_prospecto`. Queda verificada la medición de la agenda directa con consentimiento de analítica. [PR #50](https://github.com/finabizmx/finabiz-site/pull/50)
 
+### Prueba de conciliación desde la portada
+
+El 27 de noviembre se canceló la reserva de prueba de la agenda directa. Se realizó una nueva prueba desde la portada con la campaña `prueba_no_prospecto_webhook` y consentimiento de analítica. El formulario mostró las preguntas de precualificación y la confirmación de lectura del aviso antes de mostrar el calendario. Las comunicaciones comerciales siguieron desmarcadas.
+
+Calendly confirmó la reserva de 30 minutos a las 16:11:14, hora de Matamoros. Typeform registró el envío de la campaña a las 16:11:18. El campo de Calendly de esa respuesta contiene el mismo identificador de invitado devuelto por Calendly. Los parámetros UTM de la campaña se conservaron en Typeform y los campos UTM de Calendly quedaron vacíos.
+
+La coincidencia permite diseñar una integración limitada al Typeform de portada. Al recibir el envío, un servicio validaría la reserva con Calendly y enviaría `llamada_agendada` una sola vez para una sesión de portada con consentimiento comprobado. GA4 recibiría el evento y los datos de sesión necesarios para atribuirlo. El nombre, correo y referencias de reserva se limitarían a los sistemas que procesan el registro. Falta aprobar el servicio y verificar la entrega real del evento y los casos de reintento y rechazo de analítica. [Webhooks de Typeform](https://help.typeform.com/hc/en-us/articles/360029573471-Webhooks) · [Measurement Protocol de GA4](https://developers.google.com/analytics/devguides/collection/protocol/ga4)
+
 ## Dominio y cambios editoriales
 
 El 26 de noviembre se volvió a agregar `finabiz.mx` como dominio personalizado en GitHub Pages. El CNAME de `www` apunta a `finabizmx.github.io` y GitHub Pages reporta HTTPS obligatorio con un certificado válido para ambos nombres. Las pruebas externas por IPv4 e IPv6 confirmaron el redireccionamiento 301 de `www` a `finabiz.mx`. La ruta `/arquitectura-de-claridad-fiscal.html?origen=qa` conservó ruta y consulta y devolvió HTTP 200 al seguir la redirección. [Prueba IPv4](https://api.globalping.io/v1/measurements/2Rg5Vo1ZbU1MyzRzf00021ZsD) · [Prueba IPv6](https://api.globalping.io/v1/measurements/2dqxAU6UrhEOpp4FU00021ZsD)
@@ -54,7 +62,7 @@ El PR #49 está publicado con los metadatos de seis páginas y los cambios aprob
 | Prioridad | Pendiente | Criterio de cierre |
 |---|---|---|
 | Alta | Acceso desde Telcel | Contrastar con otra línea Telcel y obtener un diagnóstico del operador. Confirmar carga repetida del dominio raíz con los datos móviles afectados. |
-| Alta | Medición de reservas desde la portada | Validar un flujo que mantenga la precualificación obligatoria antes de agendar y conciliar una reserva controlada con su evento `llamada_agendada` en GA4. La redirección automática de Typeform requiere Plus o superior. |
+| Alta | Medición de reservas desde la portada | La prueba confirmó la relación por identificador entre Typeform y Calendly. Falta usarla para atribuir `llamada_agendada` a la sesión de portada con consentimiento y verificar la entrega en GA4. |
 | Media | Privacidad y términos | Alinear el aviso integral con los controles efectivos de Typeform y Calendly. Revisar la cláusula contractual de 60 días con autorización para cualquier cambio de texto legal. |
 | Media | Accesibilidad móvil | Ejecutar pruebas manuales en Safari iOS y Chrome Android con VoiceOver y TalkBack. Verificar foco, zoom, contraste y formularios. |
 | Media | Indexación y rendimiento | Inspeccionar en Search Console el comparador IVA RESICO y la página de Cumplimiento y Optimización Fiscal. Medir producción con terceros activos y revisar métricas de campo cuando haya muestra suficiente. El laboratorio móvil local registró LCP de 2.73 s en Ecommerce y 2.58 s en Diagnóstico y Primer empleado, frente al objetivo de 2.5 s. |
