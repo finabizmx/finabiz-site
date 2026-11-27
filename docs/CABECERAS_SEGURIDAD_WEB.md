@@ -23,4 +23,12 @@ Los resolutores públicos de Google y Cloudflare devolvieron los servidores de G
 
 GitHub Pages reportó HTTPS obligatorio y certificado aprobado para `finabiz.mx` y `www.finabiz.mx`, con vigencia hasta el 24 de febrero de 2027. La portada devolvió `200`. La ruta de Arquitectura con `www` y `?origen=qa` redirigió en un paso al dominio raíz, conservó la consulta y devolvió `200`. También se comprobó `http://www.finabiz.mx/robots.txt`, que redirigió a HTTPS en el dominio raíz y devolvió `200`.
 
-La delegación queda pendiente de comparar la exportación completa de GoDaddy con una zona de Cloudflare preparada y revisar registros de correo y validación que el escaneo público podría omitir.
+### Conciliación de la exportación de GoDaddy
+
+Se comparó el archivo de zona proporcionado con los resolutores públicos de Google y Cloudflare. Ambos coincidieron en los 29 pares nombre y tipo consultados. La copia para importación conserva los 41 registros de servicio, sus TTL y las prioridades MX. Los NS y el SOA de la zona raíz los gestiona el proveedor de DNS que recibe la delegación.
+
+- **Correo y verificaciones.** La exportación incluye los MX de Google y los registros de `mail`, `send`, `bounce` y los selectores DKIM de Google, Resend, Stripe y Systeme.io. Mantener los CNAME asociados en **Solo DNS** y conservar sus respuestas CNAME. Un aplanamiento global podría interferir con la verificación de esos servicios. [Verificación CNAME](https://developers.cloudflare.com/dns/manage-dns-records/troubleshooting/cname-domain-verification/) · [Correo y proxy](https://developers.cloudflare.com/dns/troubleshooting/email-issues/)
+- **Aplicaciones.** `app`, `portal` y `detective` devolvieron `200` por HTTPS. `ventas` devolvió `307` hacia su pantalla de acceso. Conservar sus destinos y cotejar el resultado después de la activación de la zona.
+- **Reenvío de `demo`.** El dominio `demo.finabiz.mx` usa un reenvío de GoDaddy que depende de sus servidores de nombres. La ruta raíz devolvió `302` hacia una dirección fija de `claude.ai` y descartó la consulta. Una ruta inexistente devolvió `404`. El archivo DNS contiene las direcciones de GoDaddy. Antes de delegar la zona hay que preparar y validar un reemplazo del reenvío que conserve HTTPS y los resultados observados. [Reenvío y servidores de nombres de GoDaddy](https://www.godaddy.com/help/whats-the-difference-between-domain-forwarding-and-masking-32147)
+
+La delegación queda pendiente de cotejar los registros importados en Cloudflare y validar el reemplazo para `demo`. El expediente de importación permanece fuera del repositorio.
