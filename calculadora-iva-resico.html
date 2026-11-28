@@ -67,106 +67,162 @@
 <body class="iva-page">
   <a class="calc-skip" href="#main-content">Saltar al contenido</a>
   <header class="band">
-    <div class="calc-container">
+    <div class="calc-container band-row">
       <a href="/" aria-label="Finabiz, inicio"><img src="assets/Logo-H-T.png" width="148" height="29" alt="Finabiz"></a>
       <nav class="calc-links" aria-label="Calculadoras y servicios">
-        <a href="/#servicios">Servicios</a>
         <a href="calculadora-regimenes-fiscales.html">Calculadora de ISR</a>
-        <a href="/#contacto">Contacto</a>
+        <a href="/#servicios">Servicios</a>
+        <a class="band-cta" href="https://form.typeform.com/to/ykt2ayIi">Agenda tu llamada</a>
       </nav>
     </div>
   </header>
-  <main id="main-content" class="calc-container" tabindex="-1">
-    <h1>Calculadora de IVA RESICO 2027</h1>
-    <section class="sec calc-iva" id="iva" aria-labelledby="iva-title">
-  <h2 id="iva-title">Compara la mecánica general y la opción del 7%</h2>
-  <p>Simula un mes completo de 2027. El IVA que trasladas al cliente se calcula a la tasa aplicable. El 7% se usa para determinar el pago mensual si ejerces la opción como persona física o moral en RESICO.</p>
-  <form id="iva-form" novalidate>
-    <label class="f">Régimen del escenario
-      <select name="regime" required>
-        <option value="" selected>Selecciona tu régimen</option>
-        <option value="fisica">RESICO · Persona física</option>
-        <option value="moral">RESICO · Persona moral</option>
-        <option value="otro">Otro régimen</option>
-        <option value="sin-confirmar">Por confirmar</option>
-      </select>
-    </label>
-    <fieldset>
-      <legend>Cobros del mes · pesos sin IVA</legend>
-      <div class="iva-fields">
-        <label class="f">Cobros gravados al 16% <input type="number" name="at16" min="0" max="999999999" step="0.01" inputmode="decimal" placeholder="0"></label>
-        <label class="f">Cobros gravados al 0% <input type="number" name="at0" min="0" max="999999999" step="0.01" inputmode="decimal" placeholder="0"></label>
-        <label class="f">Cobros exentos <input type="number" name="exempt" min="0" max="999999999" step="0.01" inputmode="decimal" placeholder="0"></label>
+
+  <main id="main-content" tabindex="-1">
+    <section class="iva-hero">
+      <div class="calc-container">
+        <p class="eyebrow">Calculadora · RESICO 2027</p>
+        <h1>¿Te conviene pagar el IVA al 7%?</h1>
+        <p class="lead">Compara la opción del 7% con la mecánica general usando un mes típico de tu negocio.</p>
       </div>
-      <p class="hint">Captura lo efectivamente cobrado, antes de restar comisiones o retenciones. Las operaciones exentas quedan fuera de la base. Comprueba la proporción acreditable si también realizas actividades exentas.</p>
-    </fieldset>
-    <fieldset>
-      <legend>IVA del mes · pesos de impuesto</legend>
-      <div class="iva-fields">
-        <label class="f">IVA acreditable de compras, gastos e inversiones <input type="number" name="domesticCredit" min="0" max="999999999" step="0.01" inputmode="decimal" placeholder="0"></label>
-        <label class="f">IVA retenido por clientes o plataformas <input type="number" name="withheld" min="0" max="999999999" step="0.01" inputmode="decimal" placeholder="0"></label>
-        <label class="f">IVA pagado al importar bienes tangibles <input type="number" name="importPaid" min="0" max="999999999" step="0.01" inputmode="decimal" placeholder="0"></label>
-        <label class="f">Parte acreditable de ese IVA de importación <input type="number" name="importCredit" min="0" max="999999999" step="0.01" inputmode="decimal" placeholder="0"></label>
-        <label class="f">Monto de importaciones acumulado al cierre del mes anterior <input type="number" name="priorImports" min="0" max="999999999" step="0.01" inputmode="decimal" placeholder="0"></label>
-      </div>
-      <p class="hint">Registra únicamente el IVA que cumple los requisitos de acreditamiento en la mecánica general. Si no tienes la cifra a la mano, multiplica tus gastos con factura del mes, sin IVA, por 0.16. Las retenciones más comunes: una persona moral que te paga servicios profesionales te retiene dos terceras partes del IVA (10.67% de lo cobrado sin IVA), y Mercado Libre o Amazon, la mitad (8%). Deja vacíos los importes que no apliquen.</p>
-    </fieldset>
-    <label class="chk"><input type="checkbox" name="specialOperations"> Uso estímulo fronterizo, IVA definitivo por plataformas u otro tratamiento fuera del escenario general.</label>
-    <p><button class="calc-action" type="submit" disabled>Comparar IVA</button></p>
-    <noscript><p>Activa JavaScript para calcular los escenarios. La metodología y las fuentes siguen disponibles.</p></noscript>
-  </form>
-  <p id="iva-status" role="status" aria-live="polite"></p>
-  <div id="iva-result" hidden>
-    <div id="iva-verdict" class="iva-verdict" data-tone="neutral">
-      <p class="iva-verdict-k">Resultado del mes</p>
-      <p class="iva-verdict-v" data-verdict="value"></p>
-      <p class="iva-verdict-n" data-verdict="note"></p>
+    </section>
+
+    <div class="calc-container iva-grid calc-iva" id="iva">
+      <form id="iva-form" class="iva-card iva-form" novalidate aria-label="Datos de tu mes">
+        <fieldset class="iva-step">
+          <legend><span class="num">1</span> Tu régimen</legend>
+          <div class="seg" role="radiogroup">
+            <label><input type="radio" name="regime" value="fisica" checked><span>RESICO persona física</span></label>
+            <label><input type="radio" name="regime" value="moral"><span>RESICO persona moral</span></label>
+            <label><input type="radio" name="regime" value="otro"><span>Otro régimen</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="iva-step">
+          <legend><span class="num">2</span> Lo que cobras en el mes</legend>
+          <label class="money big">
+            <span class="lbl">Cobros gravados al 16%, sin IVA</span>
+            <span class="field"><span class="cur" aria-hidden="true">$</span><input type="number" name="at16" min="0" max="999999999" step="0.01" inputmode="decimal" placeholder="100,000"></span>
+          </label>
+        </fieldset>
+
+        <fieldset class="iva-step">
+          <legend><span class="num">3</span> El IVA de tus gastos</legend>
+          <label class="money">
+            <span class="lbl">IVA acreditable del mes</span>
+            <span class="field"><span class="cur" aria-hidden="true">$</span><input type="number" name="domesticCredit" min="0" max="999999999" step="0.01" inputmode="decimal" placeholder="0"></span>
+          </label>
+          <details class="mini">
+            <summary>¿Solo sabes cuánto gastas?</summary>
+            <label class="money">
+              <span class="lbl">Gastos con factura del mes, sin IVA</span>
+              <span class="field"><span class="cur" aria-hidden="true">$</span><input type="number" id="gastos" min="0" max="999999999" step="0.01" inputmode="decimal" placeholder="0" data-helper></span>
+            </label>
+            <p class="tiny">Calculamos el 16% por ti.</p>
+          </details>
+        </fieldset>
+
+        <fieldset class="iva-step">
+          <legend><span class="num">4</span> El IVA que te retienen</legend>
+          <div class="chips" role="group" aria-label="Retención típica">
+            <button type="button" class="chip" data-ret="0" aria-pressed="true">Nadie</button>
+            <button type="button" class="chip" data-ret="0.106667" aria-pressed="false">Empresas · 10.67%</button>
+            <button type="button" class="chip" data-ret="0.08" aria-pressed="false">Plataformas · 8%</button>
+          </div>
+          <label class="money">
+            <span class="lbl">IVA retenido en el mes</span>
+            <span class="field"><span class="cur" aria-hidden="true">$</span><input type="number" name="withheld" min="0" max="999999999" step="0.01" inputmode="decimal" placeholder="0"></span>
+          </label>
+        </fieldset>
+
+        <details class="more">
+          <summary>Más opciones <span>tasa 0%, exentos e importaciones</span></summary>
+          <div class="more-grid">
+            <label class="money"><span class="lbl">Cobros a tasa 0%</span><span class="field"><span class="cur" aria-hidden="true">$</span><input type="number" name="at0" min="0" max="999999999" step="0.01" inputmode="decimal" placeholder="0"></span></label>
+            <label class="money"><span class="lbl">Cobros exentos</span><span class="field"><span class="cur" aria-hidden="true">$</span><input type="number" name="exempt" min="0" max="999999999" step="0.01" inputmode="decimal" placeholder="0"></span></label>
+            <label class="money"><span class="lbl">IVA pagado al importar</span><span class="field"><span class="cur" aria-hidden="true">$</span><input type="number" name="importPaid" min="0" max="999999999" step="0.01" inputmode="decimal" placeholder="0"></span></label>
+            <label class="money"><span class="lbl">De ese IVA, la parte acreditable</span><span class="field"><span class="cur" aria-hidden="true">$</span><input type="number" name="importCredit" min="0" max="999999999" step="0.01" inputmode="decimal" placeholder="0"></span></label>
+            <label class="money"><span class="lbl">Importaciones del año hasta el mes anterior</span><span class="field"><span class="cur" aria-hidden="true">$</span><input type="number" name="priorImports" min="0" max="999999999" step="0.01" inputmode="decimal" placeholder="0"></span></label>
+          </div>
+          <label class="chk"><input type="checkbox" name="specialOperations"> Tengo estímulo fronterizo, IVA definitivo de plataformas u otro tratamiento especial</label>
+        </details>
+        <button class="sr-submit" type="submit">Calcular</button>
+        <noscript><p class="tiny">Activa JavaScript para usar la calculadora.</p></noscript>
+      </form>
+
+      <aside class="iva-card iva-result" aria-labelledby="res-title">
+        <p class="eyebrow" id="res-title">Tu resultado del mes</p>
+        <div id="iva-empty" class="empty">
+          <p class="empty-v">Captura lo que cobras en el mes</p>
+          <p class="tiny">El resultado aparece al momento.</p>
+        </div>
+        <div id="iva-result" hidden>
+          <div id="iva-verdict" class="verdict" data-tone="neutral">
+            <p class="verdict-v" data-verdict="value"></p>
+            <p class="verdict-y" data-verdict="year"></p>
+          </div>
+          <div class="bars" aria-hidden="true">
+            <div class="bar-row"><span class="bar-l">General</span><span class="bar"><i data-bar="general"></i></span><b data-bar-v="general"></b></div>
+            <div class="bar-row opt"><span class="bar-l">Opción 7%</span><span class="bar"><i data-bar="option"></i></span><b data-bar-v="option"></b></div>
+          </div>
+          <p class="pill" data-verdict="note"></p>
+          <p id="iva-status" class="tiny notes" role="status" aria-live="polite"></p>
+          <details class="breakdown">
+            <summary>Ver desglose</summary>
+            <table>
+              <thead><tr><th scope="col">Concepto</th><th scope="col">General</th><th scope="col">7%</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">IVA que cobras al cliente</th><td data-iva="transferred">—</td><td>Igual</td></tr>
+                <tr><th scope="row">Base del 7%</th><td>—</td><td data-iva="option-base">—</td></tr>
+                <tr><th scope="row">IVA al 7%</th><td>—</td><td data-iva="option-tax">—</td></tr>
+                <tr><th scope="row">IVA acreditable</th><td data-iva="general-credit">—</td><td data-iva="option-credit">—</td></tr>
+                <tr><th scope="row">IVA retenido</th><td data-iva="general-retention">—</td><td data-iva="option-retention">—</td></tr>
+                <tr><th scope="row">Pago en la declaración</th><td data-iva="general-due">—</td><td data-iva="option-due">—</td></tr>
+                <tr><th scope="row">Saldo a favor</th><td data-iva="general-balance">—</td><td>No aplica</td></tr>
+                <tr><th scope="row">Retención no recuperable</th><td>—</td><td data-iva="option-excess">—</td></tr>
+                <tr><th scope="row">IVA de importación (aparte)</th><td data-iva="import-general">—</td><td data-iva="import-option">—</td></tr>
+              </tbody>
+            </table>
+          </details>
+        </div>
+        <a class="cta" href="https://form.typeform.com/to/ykt2ayIi">Revisarlo con un contador <span aria-hidden="true">→</span></a>
+        <p class="tiny center">Orientación gratuita de 30 minutos</p>
+      </aside>
     </div>
-    <table role="table">
-      <caption>Estimación de IVA del mes en MXN</caption>
-      <thead role="rowgroup"><tr role="row"><th scope="col" role="columnheader">Concepto</th><th scope="col" role="columnheader">General</th><th scope="col" role="columnheader">Opción 7%</th></tr></thead>
-      <tbody role="rowgroup">
-        <tr role="row"><th scope="row" role="rowheader">IVA trasladado al cliente</th><td role="cell"><span class="iva-cell-label" aria-hidden="true">General</span><strong data-iva="transferred">—</strong></td><td role="cell"><span class="iva-cell-label" aria-hidden="true">Opción 7%</span>La misma tasa aplicable</td></tr>
-        <tr role="row"><th scope="row" role="rowheader">Cobros que integran la base del 7%</th><td role="cell"><span class="iva-cell-label" aria-hidden="true">General</span>—</td><td role="cell"><span class="iva-cell-label" aria-hidden="true">Opción 7%</span><strong data-iva="option-base">—</strong></td></tr>
-        <tr role="row"><th scope="row" role="rowheader">IVA determinado al 7%</th><td role="cell"><span class="iva-cell-label" aria-hidden="true">General</span>—</td><td role="cell"><span class="iva-cell-label" aria-hidden="true">Opción 7%</span><strong data-iva="option-tax">—</strong></td></tr>
-        <tr role="row"><th scope="row" role="rowheader">IVA acreditable</th><td role="cell"><span class="iva-cell-label" aria-hidden="true">General</span><strong data-iva="general-credit">—</strong></td><td role="cell"><span class="iva-cell-label" aria-hidden="true">Opción 7%</span><strong data-iva="option-credit">—</strong></td></tr>
-        <tr role="row"><th scope="row" role="rowheader">IVA retenido en el mes</th><td role="cell"><span class="iva-cell-label" aria-hidden="true">General</span><strong data-iva="general-retention">—</strong></td><td role="cell"><span class="iva-cell-label" aria-hidden="true">Opción 7%</span><strong data-iva="option-retention">—</strong></td></tr>
-        <tr role="row"><th scope="row" role="rowheader">Pago estimado en declaración</th><td role="cell"><span class="iva-cell-label" aria-hidden="true">General</span><strong data-iva="general-due">—</strong></td><td role="cell"><span class="iva-cell-label" aria-hidden="true">Opción 7%</span><strong data-iva="option-due">—</strong></td></tr>
-        <tr role="row"><th scope="row" role="rowheader">Saldo a favor del mes, mecánica general</th><td role="cell"><span class="iva-cell-label" aria-hidden="true">General</span><strong data-iva="general-balance">—</strong></td><td role="cell"><span class="iva-cell-label" aria-hidden="true">Opción 7%</span>—</td></tr>
-        <tr role="row"><th scope="row" role="rowheader">Retenciones que exceden el 7% calculado</th><td role="cell"><span class="iva-cell-label" aria-hidden="true">General</span>—</td><td role="cell"><span class="iva-cell-label" aria-hidden="true">Opción 7%</span><strong data-iva="option-excess">—</strong></td></tr>
-        <tr role="row"><th scope="row" role="rowheader">IVA pagado en importación, fuera de esta declaración</th><td role="cell"><span class="iva-cell-label" aria-hidden="true">General</span><strong data-iva="import-general">—</strong></td><td role="cell"><span class="iva-cell-label" aria-hidden="true">Opción 7%</span><strong data-iva="import-option">—</strong></td></tr>
-      </tbody>
-    </table>
-    <p class="hint">El resultado compara lo que te cuesta el IVA en cada escenario, incluidas las retenciones y el saldo a favor que perderías con la opción. La opción se elige para todo el año: antes de decidir, simula también tus meses con más compras o inversiones.</p>
-  </div>
-  <details>
-    <summary>Cómo se calculan los dos escenarios</summary>
-    <ul>
-      <li><strong>General.</strong> IVA trasladado del mes menos IVA acreditable y retenciones del periodo. Un resultado negativo se muestra como saldo a favor del mes.</li>
-      <li><strong>Opción del 7%.</strong> Se multiplica la base de cobros gravados por 7% y se resta el IVA retenido en el mes. La opción excluye el acreditamiento de compras e importaciones. Si la retención supera el 7%, el excedente no se recupera.</li>
-      <li><strong>Comparativo.</strong> Se compara el costo de IVA de cada escenario: en la mecánica general, el IVA trasladado menos el acreditable (un resultado negativo es saldo a favor); con la opción, el 7% calculado o la retención, lo que sea mayor. El punto de equilibrio es el IVA acreditable a partir del cual la mecánica general sale más barata.</li>
-      <li><strong>Importaciones.</strong> El IVA de bienes tangibles se paga por separado. Si las importaciones superan el límite aplicable a RESICO, $5 millones para persona física o $50 millones para persona moral, la opción cesa al mes siguiente.</li>
-      <li><strong>Aviso.</strong> El plazo legal es de 30 días siguientes al primer cobro del año por las actividades de la fracción. La opción se aplica por meses completos y se mantiene durante el ejercicio mientras se satisfagan sus condiciones.</li>
-    </ul>
-    <p>La simulación usa la lectura literal de la ley para cobros gravados a tasa 0%. El tratamiento de importaciones de servicios, saldos previos, ajustes, estímulo fronterizo y devoluciones requiere revisión individual.</p>
-    <p>
-      <a href="https://www.diputados.gob.mx/LeyesBiblio/pdf/LIF_2027.pdf#page=34">LIF 2027 · artículo 25, fracción XVIII</a> ·
-      <a href="https://www.diputados.gob.mx/LeyesBiblio/pdf/LIVA.pdf">Ley del IVA · artículos 1, 1-B, 2-A, 5 y 5-D</a> ·
-      <a href="https://sidof.segob.gob.mx/notas/5803758">Reforma a la LISR · límites 2027</a>
-    </p>
-  </details>
-</section>
-    <section class="sec iva-next" aria-labelledby="iva-next-title">
-      <h2 id="iva-next-title">¿Te conviene la opción del 7%?</h2>
-      <p>La opción se elige para todo 2027 y se avisa dentro de los 30 días siguientes a tu primer cobro del año. Un mes no basta para decidir: lo correcto es proyectar el año con tus compras, inversiones y retenciones reales. Lo revisamos contigo en una orientación gratuita de 30 minutos.</p>
-      <p><a class="calc-action" href="https://form.typeform.com/to/ykt2ayIi">Agenda tu orientación gratuita</a></p>
-      <p class="hint">También te puede servir: la <a href="calculadora-regimenes-fiscales.html">calculadora de ISR por régimen</a> y nuestra guía de <a href="blog-cierre-de-ano-fiscal.html#resico">qué decidir sobre RESICO antes de que termine el año</a>.</p>
+
+    <a class="peek" id="iva-peek" href="#res-title" hidden data-tone="neutral"><b data-peek></b><span>Ver resultado ↓</span></a>
+
+    <section class="calc-container facts" aria-label="Antes de decidir">
+      <div class="fact"><b>Todo el año</b><span>La opción no se puede cambiar durante 2027.</span></div>
+      <div class="fact"><b>30 días</b><span>Para avisar al SAT, desde tu primer cobro del año.</span></div>
+      <div class="fact"><b>Sin acreditamiento</b><span>Renuncias al IVA de tus compras e importaciones.</span></div>
+    </section>
+
+    <section class="calc-container method">
+      <details>
+        <summary>Cómo calculamos y fuentes</summary>
+        <ul>
+          <li><strong>General:</strong> IVA trasladado menos IVA acreditable. Si sale negativo, es saldo a favor.</li>
+          <li><strong>Opción 7%:</strong> 7% sobre lo cobrado gravado, menos el IVA retenido; sin acreditamiento. Si la retención supera el 7%, el excedente no se recupera.</li>
+          <li><strong>Comparativo:</strong> costo de IVA de cada escenario, incluidas retenciones y el saldo a favor que perderías.</li>
+          <li><strong>Importaciones:</strong> si en el año superan $5 millones (persona física) o $50 millones (persona moral), la opción termina al mes siguiente.</li>
+          <li><strong>Tasa 0%:</strong> por lectura literal de la ley, entra en la base del 7%. Confírmalo antes de optar.</li>
+        </ul>
+        <p class="tiny">
+          <a href="https://www.diputados.gob.mx/LeyesBiblio/pdf/LIF_2027.pdf#page=34">LIF 2027 · art. 25, fr. XVIII</a> ·
+          <a href="https://www.diputados.gob.mx/LeyesBiblio/pdf/LIVA.pdf">Ley del IVA · arts. 1, 1-B, 2-A, 5 y 5-D</a> ·
+          <a href="https://sidof.segob.gob.mx/notas/5803758">Reforma a la LISR · límites 2027</a>
+        </p>
+        <p class="tiny">Simulación orientativa; no sustituye una revisión de tu caso. Te puede servir también la <a href="calculadora-regimenes-fiscales.html">calculadora de ISR por régimen</a> y nuestra guía de <a href="blog-cierre-de-ano-fiscal.html#resico">qué decidir sobre RESICO antes de fin de año</a>.</p>
+      </details>
     </section>
   </main>
-  <footer class="calc-footer"><div class="calc-container">
+
+  <footer class="calc-footer"><div class="calc-container band-row">
     <a href="calculo-de-impuestos.html">Servicio de cálculo de ISR e IVA</a>
-    <a href="aviso-de-privacidad.html">Aviso de privacidad</a>
-    <a href="terminos-y-condiciones.html">Términos y condiciones</a>
+    <span>
+      <a href="aviso-de-privacidad.html">Aviso de privacidad</a>
+      <a href="terminos-y-condiciones.html">Términos y condiciones</a>
+    </span>
   </div></footer>
 </body>
 </html>

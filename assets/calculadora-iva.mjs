@@ -71,31 +71,62 @@ export function compareIva({
 }
 
 function mount(form) {
-  const result = document.getElementById('iva-result');
-  const status = document.getElementById('iva-status');
-  const values = result.querySelectorAll('[data-iva]');
-  const render = (field, cents) => {
-    result.querySelector(`[data-iva="${field}"]`).textContent = cents === null ? '—' : money.format(cents / 100);
+  const $ = selector => document.querySelector(selector);
+  const result = $('#iva-result');
+  const empty = $('#iva-empty');
+  const status = $('#iva-status');
+  const verdict = $('#iva-verdict');
+  const set = (selector, text) => { const el = $(selector); if (el) el.textContent = text; };
+  const fmt = cents => money.format(cents / 100);
+  const render = (field, cents) => set(`[data-iva="${field}"]`, cents === null || cents === undefined ? '—' : fmt(cents));
+  const at16 = form.elements.at16;
+  const credit = form.elements.domesticCredit;
+  const withheld = form.elements.withheld;
+  const gastos = $('#gastos');
+  const chips = [...form.querySelectorAll('.chip')];
+  let retentionRate = 0;
+
+  const peek = $('#iva-peek');
+  const card = $('.iva-result');
+  let cardVisible = false;
+  if ('IntersectionObserver' in window && peek) {
+    new IntersectionObserver(entries => {
+      cardVisible = entries[0].isIntersecting;
+      updatePeek();
+    }, { threshold: 0.25 }).observe(card);
+  }
+  let peekText = '';
+  const updatePeek = () => {
+    if (!peek) return;
+    peek.hidden = cardVisible || !peekText;
+    peek.querySelector('[data-peek]').textContent = peekText;
   };
 
-  const verdict = document.getElementById('iva-verdict');
-  const verdictValue = verdict.querySelector('[data-verdict="value"]');
-  const verdictNote = verdict.querySelector('[data-verdict="note"]');
+  const showEmpty = (title, note = 'El resultado aparece al momento.') => {
+    peekText = '';
+    updatePeek();
+    result.hidden = true;
+    empty.hidden = false;
+    empty.querySelector('.empty-v').textContent = title;
+    empty.querySelector('.tiny').textContent = note;
+  };
 
-  const calculate = moveFocus => {
+  const syncRetention = () => {
+    if (!retentionRate) return;
+    const base = Number(at16.value) || 0;
+    withheld.value = base ? (Math.round(base * retentionRate * 100) / 100).toString() : '';
+  };
+
+  const calculate = () => {
     const data = new FormData(form);
-    const numeric = name => data.get(name) === '' ? 0 : Number(data.get(name));
+    const numeric = name => data.get(name) === '' || data.get(name) === null ? 0 : Number(data.get(name));
+    if (!numeric('at16') && !numeric('at0')) return showEmpty('Captura lo que cobras en el mes');
     const invalid = [...form.elements].find(field => field.willValidate && !field.validity.valid);
-    if (invalid) {
-      result.hidden = true;
-      status.textContent = `${invalid.labels[0].textContent.trim()}. ${invalid.validationMessage}`;
-      if (moveFocus) invalid.focus();
-      return;
-    }
+    if (invalid) return showEmpty('Revisa este dato', `${invalid.closest('label')?.querySelector('.lbl')?.textContent || 'Un importe'}: ${invalid.validationMessage}`);
 
-    let calculation;
+    let calc;
     try {
-      calculation = compareIva({
+      calc = compareIva({
         regime: data.get('regime'),
         at16: numeric('at16'), at0: numeric('at0'), exempt: numeric('exempt'),
         domesticCredit: numeric('domesticCredit'), importCredit: numeric('importCredit'),
@@ -103,80 +134,98 @@ function mount(form) {
         withheld: numeric('withheld'), specialOperations: data.has('specialOperations'),
       });
     } catch (error) {
-      result.hidden = true;
-      status.textContent = error.message;
-      return;
+      return showEmpty('Revisa este dato', error.message);
     }
+    if (calc.generalDue === null) return showEmpty('Este caso requiere un cálculo a la medida', calc.reason);
 
-    for (const value of values) value.textContent = '—';
-    const { option } = calculation;
-    if (calculation.generalDue === null) {
-      result.hidden = true;
-      status.textContent = calculation.reason;
-      return;
-    }
-
-    render('transferred', calculation.transferred);
-    render('general-retention', calculation.retention);
-    render('general-credit', calculation.credits);
-    render('general-due', calculation.generalDue);
-    render('general-balance', calculation.generalBalance);
-    render('import-general', calculation.importTax);
-    if (option) {
-      render('option-base', option.eligibleBase);
-      render('option-tax', option.optionTax);
-      render('option-retention', calculation.retention);
-      render('option-credit', 0);
-      render('option-due', option.optionDue);
-      render('option-excess', option.excessWithholding);
-      render('import-option', calculation.importTax);
-    }
-
-    renderVerdict(calculation);
-    const details = [calculation.reason || 'Comparativo mensual actualizado.'];
-    if (option?.includesZeroRate) details.push('La simulación incluye la tasa 0% en la base del 7% por lectura literal. Confirma este tratamiento antes de optar.');
-    if (option?.excessWithholding) details.push('El excedente retenido se muestra por separado. La simulación omite cualquier devolución o aplicación posterior de ese importe.');
-    if (option && calculation.generalBalance > 0) details.push('En la mecánica general este mes tendrías saldo a favor; con la opción lo pierdes, y el comparativo lo considera.');
-    status.textContent = details.join(' ');
+    const { option } = calc;
+    empty.hidden = true;
     result.hidden = false;
-  };
 
-  const renderVerdict = calculation => {
-    const { option } = calculation;
-    verdict.dataset.tone = !option ? 'neutral' : option.netSavings > 0 ? 'good' : option.netSavings < 0 ? 'bad' : 'neutral';
+    for (const cell of result.querySelectorAll('[data-iva]')) cell.textContent = '—';
+    render('transferred', calc.transferred);
+    render('general-credit', calc.credits);
+    render('general-retention', calc.retention);
+    render('general-due', calc.generalDue);
+    render('general-balance', calc.generalBalance);
+    render('import-general', calc.importTax);
+
+    const generalCost = calc.generalNet;
     if (!option) {
-      verdictValue.textContent = 'La opción del 7% no aplica en este escenario';
-      verdictNote.textContent = calculation.reason;
+      verdict.dataset.tone = 'neutral';
+      set('[data-verdict="value"]', 'La opción del 7% no aplica');
+      set('[data-verdict="year"]', calc.reason);
+      set('[data-verdict="note"]', '');
+      setBars(generalCost, null);
+      status.textContent = '';
+      peek.dataset.tone = 'neutral';
+      peekText = 'El 7% no aplica';
+      updatePeek();
       return;
     }
-    const monthly = money.format(Math.abs(option.netSavings) / 100);
-    const yearly = money.format(Math.abs(option.netSavings) * 12 / 100);
-    if (option.netSavings > 0) {
-      verdictValue.textContent = `Ahorrarías ${monthly} este mes con la opción del 7%`;
-      verdictNote.textContent = `Si todos tus meses se parecieran a este, serían unos ${yearly} al año. La opción te conviene mientras tu IVA acreditable del mes sea menor a ${money.format(option.breakEvenCredit / 100)}.`;
-    } else if (option.netSavings < 0) {
-      verdictValue.textContent = `Pagarías ${monthly} más este mes con la opción del 7%`;
-      verdictNote.textContent = `Si todos tus meses se parecieran a este, serían unos ${yearly} al año. Con tu nivel de IVA acreditable te conviene la mecánica general: la opción solo convendría si tu IVA acreditable del mes fuera menor a ${money.format(option.breakEvenCredit / 100)}.`;
-    } else {
-      verdictValue.textContent = 'Este mes pagarías lo mismo en los dos escenarios';
-      verdictNote.textContent = 'Revisa cómo se comportan tus meses con más compras o inversiones antes de decidir: la opción no se puede cambiar durante el año.';
-    }
+
+    render('option-base', option.eligibleBase);
+    render('option-tax', option.optionTax);
+    render('option-credit', 0);
+    render('option-retention', calc.retention);
+    render('option-due', option.optionDue);
+    render('option-excess', option.excessWithholding);
+    render('import-option', calc.importTax);
+
+    const savings = option.netSavings;
+    verdict.dataset.tone = savings > 0 ? 'good' : savings < 0 ? 'bad' : 'neutral';
+    set('[data-verdict="value"]', savings > 0 ? `Ahorras ${fmt(savings)}` : savings < 0 ? `Pagas ${fmt(-savings)} más` : 'Pagas lo mismo');
+    set('[data-verdict="year"]', savings ? `con la opción del 7% · ≈ ${fmt(Math.abs(savings) * 12)} al año` : 'en los dos escenarios');
+    set('[data-verdict="note"]', savings >= 0
+      ? `Te conviene mientras el IVA de tus gastos sea menor a ${fmt(option.breakEvenCredit)} al mes.`
+      : `Solo te convendría si el IVA de tus gastos bajara de ${fmt(option.breakEvenCredit)} al mes.`);
+    setBars(generalCost, option.optionNet);
+    peek.dataset.tone = verdict.dataset.tone;
+    peekText = $('[data-verdict="value"]').textContent + (savings ? ' con el 7%' : '');
+    updatePeek();
+
+    const notes = [];
+    if (calc.generalBalance > 0) notes.push(`En la mecánica general tendrías ${fmt(calc.generalBalance)} a favor; con la opción se pierde.`);
+    if (option.excessWithholding) notes.push(`Te retienen ${fmt(option.excessWithholding)} más que el 7%, y ese excedente no se recupera.`);
+    if (option.includesZeroRate) notes.push('Incluimos tus cobros a tasa 0% en la base del 7% (lectura literal de la ley).');
+    status.textContent = notes.join(' ');
   };
 
-  form.addEventListener('submit', event => {
-    event.preventDefault();
-    calculate(true);
-  });
+  const setBars = (generalCost, optionCost) => {
+    const max = Math.max(Math.abs(generalCost), Math.abs(optionCost ?? 0), 1);
+    const width = value => `${Math.max(2, Math.round(Math.abs(value) / max * 100))}%`;
+    $('[data-bar="general"]').style.width = width(generalCost);
+    set('[data-bar-v="general"]', generalCost < 0 ? `${fmt(-generalCost)} a favor` : fmt(generalCost));
+    const optionRow = $('.bar-row.opt');
+    optionRow.hidden = optionCost === null;
+    if (optionCost !== null) {
+      $('[data-bar="option"]').style.width = width(optionCost);
+      set('[data-bar-v="option"]', fmt(optionCost));
+    }
+  };
 
   let timer;
-  form.addEventListener('input', () => {
-    clearTimeout(timer);
-    timer = setTimeout(() => {
-      if (!form.elements.regime.value) return;
-      calculate(false);
-    }, 250);
+  const schedule = () => { clearTimeout(timer); timer = setTimeout(calculate, 150); };
+
+  gastos?.addEventListener('input', () => {
+    const value = Number(gastos.value) || 0;
+    credit.value = value ? (Math.round(value * 16) / 100).toString() : '';
   });
-  form.querySelector('button').disabled = false;
+  at16.addEventListener('input', syncRetention);
+  withheld.addEventListener('input', () => {
+    retentionRate = 0;
+    chips.forEach(chip => chip.setAttribute('aria-pressed', String(chip.dataset.ret === '0' && !withheld.value)));
+  });
+  chips.forEach(chip => chip.addEventListener('click', () => {
+    retentionRate = Number(chip.dataset.ret);
+    chips.forEach(other => other.setAttribute('aria-pressed', String(other === chip)));
+    if (retentionRate) syncRetention(); else withheld.value = '';
+    schedule();
+  }));
+  form.addEventListener('input', schedule);
+  form.addEventListener('change', schedule);
+  form.addEventListener('submit', event => { event.preventDefault(); calculate(); });
+  calculate();
 }
 
 const form = typeof document === 'undefined' ? null : document.getElementById('iva-form');
