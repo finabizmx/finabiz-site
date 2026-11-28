@@ -51,3 +51,16 @@ test('rejects incompatible or invalid amounts and rounds in cents', () => {
   assert.equal(compare({ at16: 0.19 }).transferred, 3);
   assert.equal(compare({ at16: 0.19 }).option.optionDue, 1);
 });
+
+test('compares the real IVA cost, including the general balance lost under the option', () => {
+  const lowCredits = compare({ domesticCredit: 5_000 });
+  assert.equal(lowCredits.option.netSavings, 400_000);
+  assert.equal(lowCredits.option.breakEvenCredit, 900_000);
+  const withBalance = compare({ domesticCredit: 20_000 });
+  assert.equal(withBalance.generalBalance, 400_000);
+  assert.equal(withBalance.option.paymentDifference, -700_000);
+  assert.equal(withBalance.option.netSavings, -1_100_000);
+  const platformRetention = compare({ withheld: 8_000 });
+  assert.equal(platformRetention.option.optionNet, 800_000);
+  assert.equal(platformRetention.option.netSavings, 800_000);
+});

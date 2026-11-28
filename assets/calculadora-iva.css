@@ -76,3 +76,10 @@
 .calc-footer a { color:#fff; min-height:32px; display:inline-flex; align-items:center; }
 .calc-skip { position:absolute; transform:translateY(-150%); padding:8px 14px; color:#fff; background:#1c2a5e; }
 .calc-skip:focus { transform:none; z-index:1; }
+.iva-verdict { border:1px solid var(--line); border-left:6px solid #79839b; border-radius:8px; padding:14px 16px; margin:8px 0 16px; background:#f6f7fb; }
+.iva-verdict[data-tone=good] { border-left-color:#1f7a4d; background:#eef8f2; }
+.iva-verdict[data-tone=bad] { border-left-color:#b4541a; background:#fdf3ec; }
+.iva-verdict p { margin:0; }
+.iva-verdict-k { font:600 .78rem var(--f-b); letter-spacing:.06em; text-transform:uppercase; color:#43506d; }
+.iva-verdict-v { font-size:clamp(1.2rem,3vw,1.6rem); font-weight:700; color:#1c2a5e; margin-block:6px !important; line-height:1.25; }
+.iva-verdict-n { color:#43506d; }

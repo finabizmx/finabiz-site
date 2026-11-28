@@ -109,7 +109,7 @@
         <label class="f">Parte acreditable de ese IVA de importación <input type="number" name="importCredit" min="0" max="999999999" step="0.01" inputmode="decimal" placeholder="0"></label>
         <label class="f">Monto de importaciones acumulado al cierre del mes anterior <input type="number" name="priorImports" min="0" max="999999999" step="0.01" inputmode="decimal" placeholder="0"></label>
       </div>
-      <p class="hint">Registra únicamente el IVA que cumple los requisitos de acreditamiento en la mecánica general. Usa las retenciones de IVA del mismo mes documentadas en tus comprobantes. Deja vacíos los importes que no apliquen.</p>
+      <p class="hint">Registra únicamente el IVA que cumple los requisitos de acreditamiento en la mecánica general. Si no tienes la cifra a la mano, multiplica tus gastos con factura del mes, sin IVA, por 0.16. Las retenciones más comunes: una persona moral que te paga servicios profesionales te retiene dos terceras partes del IVA (10.67% de lo cobrado sin IVA), y Mercado Libre o Amazon, la mitad (8%). Deja vacíos los importes que no apliquen.</p>
     </fieldset>
     <label class="chk"><input type="checkbox" name="specialOperations"> Uso estímulo fronterizo, IVA definitivo por plataformas u otro tratamiento fuera del escenario general.</label>
     <p><button class="calc-action" type="submit" disabled>Comparar IVA</button></p>
@@ -117,6 +117,11 @@
   </form>
   <p id="iva-status" role="status" aria-live="polite"></p>
   <div id="iva-result" hidden>
+    <div id="iva-verdict" class="iva-verdict" data-tone="neutral">
+      <p class="iva-verdict-k">Resultado del mes</p>
+      <p class="iva-verdict-v" data-verdict="value"></p>
+      <p class="iva-verdict-n" data-verdict="note"></p>
+    </div>
     <table role="table">
       <caption>Estimación de IVA del mes en MXN</caption>
       <thead role="rowgroup"><tr role="row"><th scope="col" role="columnheader">Concepto</th><th scope="col" role="columnheader">General</th><th scope="col" role="columnheader">Opción 7%</th></tr></thead>
@@ -132,13 +137,14 @@
         <tr role="row"><th scope="row" role="rowheader">IVA pagado en importación, fuera de esta declaración</th><td role="cell"><span class="iva-cell-label" aria-hidden="true">General</span><strong data-iva="import-general">—</strong></td><td role="cell"><span class="iva-cell-label" aria-hidden="true">Opción 7%</span><strong data-iva="import-option">—</strong></td></tr>
       </tbody>
     </table>
-    <p class="hint">La diferencia compara el pago en la declaración de este mes. La decisión anual requiere considerar la pérdida de acreditamiento, los meses con saldo a favor y las inversiones previstas.</p>
+    <p class="hint">El resultado compara lo que te cuesta el IVA en cada escenario, incluidas las retenciones y el saldo a favor que perderías con la opción. La opción se elige para todo el año: antes de decidir, simula también tus meses con más compras o inversiones.</p>
   </div>
   <details>
     <summary>Cómo se calculan los dos escenarios</summary>
     <ul>
       <li><strong>General.</strong> IVA trasladado del mes menos IVA acreditable y retenciones del periodo. Un resultado negativo se muestra como saldo a favor del mes.</li>
-      <li><strong>Opción del 7%.</strong> Se multiplica la base de cobros gravados por 7% y se resta el IVA retenido en el mes. La opción excluye el acreditamiento de compras e importaciones.</li>
+      <li><strong>Opción del 7%.</strong> Se multiplica la base de cobros gravados por 7% y se resta el IVA retenido en el mes. La opción excluye el acreditamiento de compras e importaciones. Si la retención supera el 7%, el excedente no se recupera.</li>
+      <li><strong>Comparativo.</strong> Se compara el costo de IVA de cada escenario: en la mecánica general, el IVA trasladado menos el acreditable (un resultado negativo es saldo a favor); con la opción, el 7% calculado o la retención, lo que sea mayor. El punto de equilibrio es el IVA acreditable a partir del cual la mecánica general sale más barata.</li>
       <li><strong>Importaciones.</strong> El IVA de bienes tangibles se paga por separado. Si las importaciones superan el límite aplicable a RESICO, $5 millones para persona física o $50 millones para persona moral, la opción cesa al mes siguiente.</li>
       <li><strong>Aviso.</strong> El plazo legal es de 30 días siguientes al primer cobro del año por las actividades de la fracción. La opción se aplica por meses completos y se mantiene durante el ejercicio mientras se satisfagan sus condiciones.</li>
     </ul>
@@ -150,6 +156,12 @@
     </p>
   </details>
 </section>
+    <section class="sec iva-next" aria-labelledby="iva-next-title">
+      <h2 id="iva-next-title">¿Te conviene la opción del 7%?</h2>
+      <p>La opción se elige para todo 2027 y se avisa dentro de los 30 días siguientes a tu primer cobro del año. Un mes no basta para decidir: lo correcto es proyectar el año con tus compras, inversiones y retenciones reales. Lo revisamos contigo en una orientación gratuita de 30 minutos.</p>
+      <p><a class="calc-action" href="https://form.typeform.com/to/ykt2ayIi">Agenda tu orientación gratuita</a></p>
+      <p class="hint">También te puede servir: la <a href="calculadora-regimenes-fiscales.html">calculadora de ISR por régimen</a> y nuestra guía de <a href="blog-cierre-de-ano-fiscal.html#resico">qué decidir sobre RESICO antes de que termine el año</a>.</p>
+    </section>
   </main>
   <footer class="calc-footer"><div class="calc-container">
     <a href="calculo-de-impuestos.html">Servicio de cálculo de ISR e IVA</a>
